@@ -258,7 +258,6 @@ def NPC():
                     Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
     else:
         print_with_space('未到活动时间，不执行该功能')
-
 # 野兽
 def Brush_XG():
     now = datetime.now().time()
