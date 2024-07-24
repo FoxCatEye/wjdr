@@ -91,14 +91,14 @@ def train():
     touch([786, 1221])  # 点击训练按钮
     time.sleep(1)  # 等待1秒
     print_with_space('检查是否有可晋升士兵')
-    if exists(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920))):
+    if exists(Template(r"icon\tpl1721784527077.png", record_pos=(-0.439, 0.078), resolution=(1080, 1920))):
+        print_with_space('点击前往可晋升士兵')
+        touch(Template(r"icon\tpl1721784527077.png", record_pos=(-0.439, 0.078), resolution=(1080, 1920)))
         print_with_space('点击晋升图标')
         touch(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920)))
         print_with_space('点击开始晋升士兵')
         touch(Template(r"icon\tpl1721784579063.png", rgb=True, record_pos=(0.22, 0.338), resolution=(1080, 1920)))
-    elif exists(Template(r"icon\tpl1721784527077.png", record_pos=(-0.439, 0.078), resolution=(1080, 1920))):
-        print_with_space('点击前往可晋升士兵')
-        touch(Template(r"icon\tpl1721784527077.png", record_pos=(-0.439, 0.078), resolution=(1080, 1920)))
+    elif exists(Template(r"icon\tpl1721784547262.png",rgb=True, record_pos=(0.399, 0.019), resolution=(1080, 1920))):
         print_with_space('点击晋升图标')
         touch(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920)))
         print_with_space('点击开始晋升士兵')
@@ -125,7 +125,7 @@ def Production_soldiers():
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.9, rgb=True, record_pos=(-0.186, -0.058),
+    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.9, record_pos=(-0.186, -0.058),
                        resolution=(414, 780))):
         print_with_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
@@ -506,7 +506,7 @@ def re_connet():
             print('点击重新连接')
             while True:
                 touch(
-                    Template(r"icon\tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088),
+                    Template(r"icon\tpl1720766916047.png", record_pos=(-0.168, -0.088),
                              resolution=(1080, 1920)))
                 time.sleep(10)
                 if exists(Template(r"icon\tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088),
