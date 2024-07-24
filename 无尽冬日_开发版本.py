@@ -344,8 +344,6 @@ def gather():
         time.sleep(1)
     else:  # 判断是否有多余兵力
         print_with_space('不满足条件，无兵力出征')
-
-
 # 打怪出兵
 def energy():
     touch(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(414, 780)))  # 点击出征
