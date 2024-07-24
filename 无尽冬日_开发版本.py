@@ -626,7 +626,7 @@ def Subject():
                 Help()  # 互助模块
                 bear()  # 巨熊模块
                 treatment() #治疗模块
-                donate() #捐赠模块
+                donate()  #捐赠模块
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
             i += 1
