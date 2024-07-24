@@ -218,7 +218,7 @@ def search_main():
     if not exists(Template(r"icon\tpl1720145326019.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
         print_with_space('不在世界，点击去往世界')
         touch([950, 1850])  # 点击野外
-        time.sleep(2)
+        time.sleep(5)
     print_with_space('点击搜索图标')
     touch([63, 1314])  # 点击搜索图标
     time.sleep(1)  # 等待1s
@@ -259,8 +259,8 @@ def NPC():
 # 野兽
 def Brush_XG():
     now = datetime.now().time()
-    if 1 <= now.hour <= 12:
-        print_with_space('打野怪时间，开始出征出征')
+    if 17 <= now.hour <= 22:
+        print_with_space('打野怪时间，开始出征')
         search_main()
         print_with_space('点击选择普通野兽')
         touch([120, 1373])  # 点击普通野兽
@@ -307,7 +307,7 @@ def bear():
 # 冰原巨兽
 def Brush_WM():
     now = datetime.now().time()
-    if now.hour == 10 or now.hour == 16:
+    if now.hour == 10 or now.hour == 18:
         search_main()
         print_with_space('点击选择冰原巨兽')
         touch([365, 1373])  # 点击冰原巨兽
@@ -523,7 +523,7 @@ def re_connet():
 
 
 def Subject():  # 主体代码
-    i = 10
+    i = 19
     while True:
         if i % 10 == 0:
             print('%d.开始执行训练任务' % i)
@@ -578,6 +578,4 @@ def print_with_space(variable, spaces=4):
 def main():
     Cnnect()
     Subject()
-
-
 main()
