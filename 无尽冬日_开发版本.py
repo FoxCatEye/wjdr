@@ -222,8 +222,6 @@ def search_main():
     print_with_space('点击搜索图标')
     touch([63, 1314])  # 点击搜索图标
     time.sleep(1)  # 等待1s
-
-
 # 打雪怪功能
 def NPC():
     now = datetime.now().date()
