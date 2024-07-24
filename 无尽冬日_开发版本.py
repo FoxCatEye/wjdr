@@ -503,7 +503,12 @@ def Collection():
     else:
         print_with_space('当前时间：\033[31m%s\033[0m,未到采集时间' % now.strftime("%H:%M"))
 
-
+#联盟捐赠
+def lmjz():
+    now = datetime.now().time()
+    if now.hour % 4 ==0:
+        touch([500,100])
+#设备顶号重连
 def re_connet():
     if exists(Template(r"icon\tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
         print_with_space('\033[31m在其他设备登录，等待5分钟后重新连接\033[0m')
@@ -527,8 +532,8 @@ def re_connet():
     else:
         print('连接正常')
 
-
-def Subject():  # 主体代码
+# 主体代码
+def Subject():
     i = 19
     while True:
         if i % 10 == 0:
