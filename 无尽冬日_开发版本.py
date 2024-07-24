@@ -103,6 +103,13 @@ def train():
         touch(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920)))
         print_with_space('点击开始晋升士兵')
         touch(Template(r"icon\tpl1721784579063.png", rgb=True, record_pos=(0.22, 0.338), resolution=(1080, 1920)))
+    elif exists(Template(r"icon\tpl1721784547262.png",rgb=True, record_pos=(0.399, 0.019), resolution=(1080, 1920))):
+        print_with_space('点击兵种')
+        touch(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920)))
+        print_with_space('点击晋升图标')
+        touch(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920)))
+        print_with_space('点击开始晋升士兵')
+        touch(Template(r"icon\tpl1721784579063.png", rgb=True, record_pos=(0.22, 0.338), resolution=(1080, 1920)))
     else:
         print_with_space("没有可晋升士兵，点击训练士兵")
         touch([800, 1800])  # 点击开始训练士兵
@@ -125,7 +132,7 @@ def Production_soldiers():
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.9, record_pos=(-0.186, -0.058),
+    if exists(Template(r"icon\tpl1719478488282.png",rgb=True, threshold=0.9, record_pos=(-0.186, -0.058),
                        resolution=(414, 780))):
         print_with_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
@@ -302,9 +309,19 @@ def bear():
         if exists(Template(r"icon\tpl1721191349777.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):
             print_with_space('点击活动按钮')
             touch(Template(r"icon\tpl1721191349777.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))
+            time.sleep(2)
             print_with_space('点击集结按钮')
-            touch(Template(r'icon\tpl1719376765868.png', record_pos=(0.26, 0.795), resolution=(1080, 1920)))
-            energy()
+            touch(Template(r'icon\tpl1721784579065.png', record_pos=(0.26, 0.795), resolution=(1080, 1920)))
+            if exists(Template(r"icon\tpl1721784579066.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):
+                print_with_space('发起集结')
+                touch(Template(r"icon\tpl1721784579066.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))
+                print_with_space('点击出征')
+                touch(Template(r"icon\tpl1721784579067.png", record_pos=(0.002, 0.705), resolution=(414, 780)))
+                print_with_space('出征成功')
+            else:
+                print_with_space('集结中')
+        else:
+            print_with_space('未找到活动图标')
     else:
         # 输出当前时间
         print_with_space('当前时间：\033[31m%s\033[0m,未到巨兽活动时间' % now.strftime("%H:%M"))
@@ -502,6 +519,21 @@ def Collection():
             Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
     else:
         print_with_space('当前时间：\033[31m%s\033[0m,未到采集时间' % now.strftime("%H:%M"))
+#治疗
+def treatment():
+    now = datetime.now().time()
+    if now.minute == 00:
+        if exists(Template(r"icon\tpl1721191349778.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+            print_with_space("点击治疗图标")
+            touch(Template(r"icon\tpl1721191349778.png", threshold=0.8, record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+            print_with_space('点击治疗按钮')
+            touch(Template(r"icon\tpl1721191349779.png", threshold=0.8, record_pos=(0.142, -0.126),
+                           resolution=(1080, 1920)))
+            print_with_space('点击联盟互助')
+            touch(Template(r"icon\tpl1721191349780.png", threshold=0.8, record_pos=(0.142, -0.126),
+                           resolution=(1080, 1920)))
+        else:
+            print_with_space('没有需要治疗的士兵')
 
 #联盟捐赠
 def lmjz():
@@ -534,7 +566,7 @@ def re_connet():
 
 # 主体代码
 def Subject():
-    i = 19
+    i = 10
     while True:
         if i % 10 == 0:
             print('%d.开始执行训练任务' % i)
@@ -577,6 +609,7 @@ def Subject():
             try:
                 Help()  # 互助模块
                 bear()  # 巨熊模块
+                treatment() #治疗模块
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
             i += 1
