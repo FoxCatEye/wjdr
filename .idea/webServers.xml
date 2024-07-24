@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d1bcd9e7-7c1e-4e89-b9e3-c16d3ddc8ddc" name="版本" url="http://localhost">
+        <fileTransfer mountedRoot="E:\测试文件\测试工具\版本控制" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>
