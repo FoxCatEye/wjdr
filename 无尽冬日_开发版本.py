@@ -227,21 +227,27 @@ def NPC():
     now = datetime.now().date()
     if now.day == 24 or now.day == 25 or now.day == 26:
         print_with_space('打雪怪时间，开始集结雪怪')
+        print_with_space('打开背包')
         touch([460, 1836])  # 点击打开背包
         time.sleep(1)
         if exists(
                 Template(r"icon\tpl1719376487523.png", record_pos=(0.449, -0.78), resolution=(414, 780))):  # 判断背包是否打开成功
             touch([949, 171])  # 点击其他跳转至该页
+            print_with_space('查看活动道具')
             if exists(Template(r"icon\tpl1719376586643.png", record_pos=(0.106, -0.476),
                                resolution=(414, 780))):  # 判断是否有该道具
+                print_with_space('使用活动道具')
                 touch(Template(r"icon\tpl1719376586643.png", record_pos=(0.106, -0.476), resolution=(414, 780)))  # 点击道具
                 touch(Template(r"icon\tpl1719376629723.png", record_pos=(0.0, 0.092), resolution=(414, 780)))  # 点击使用
                 time.sleep(1)
+                print_with_space('集结打怪')
                 touch(Template(r"icon\tpl1719376765868.png", record_pos=(0.002, 0.705),
                                resolution=(414, 780)))  # 寻找到怪物点击集结
                 touch(Template(r"icon\tpl1719376776844.png", record_pos=(0.0, 0.326), resolution=(414, 780)))  # 点击发起集结
+                print_with_space('兵力检查')
                 if exists(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):
                     touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
+                    print_with_space('体力检查')
                     if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824),
                                        resolution=(414, 780))):  # 判断体力是否充足
                         energy()
