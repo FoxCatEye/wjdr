@@ -272,7 +272,7 @@ def NPC():
 # 野兽
 def Brush_XG():
     now = datetime.now().time()
-    if 17 <= now.hour <= 22:
+    if 17 <= now.hour <= 21:
         print_with_space('打野怪时间，开始出征')
         search_main()
         print_with_space('点击选择普通野兽')
@@ -536,10 +536,26 @@ def treatment():
             print_with_space('没有需要治疗的士兵')
 
 #联盟捐赠
-def lmjz():
+def donate():
     now = datetime.now().time()
-    if now.hour % 4 ==0:
-        touch([500,100])
+    if 29 < now.minute <31:
+        print_with_space('点击联盟图案')
+        touch(Template(r"icon\tpl1721784579070.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+        print_with_space('点击联盟科技')
+        touch(Template(r"icon\tpl1721784579071.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+        if exists(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+            print_with_space('点击大拇指科技')
+            touch(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+            while True:
+                if exists(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+                    touch(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+                elif exists(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+                    print_with_space('无捐献次数，结束任务')
+                    break
+        else:
+            print_with_space('无大拇指指引，返回主页')
+            touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
+                             resolution=(414, 780)))
 #设备顶号重连
 def re_connet():
     if exists(Template(r"icon\tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
@@ -610,6 +626,7 @@ def Subject():
                 Help()  # 互助模块
                 bear()  # 巨熊模块
                 treatment() #治疗模块
+                donate() #捐赠模块
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
             i += 1
