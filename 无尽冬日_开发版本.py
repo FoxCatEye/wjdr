@@ -3,7 +3,6 @@ __author__ = "猫耳小刻晴"
 
 import logging
 from datetime import datetime
-
 from airtest.core.api import *
 
 auto_setup(__file__)
@@ -538,7 +537,7 @@ def treatment():
 #联盟捐赠
 def donate():
     now = datetime.now().time()
-    if 10 < now.minute <30:
+    if 29 < now.minute <31:
         print_with_space('点击联盟图案')
         touch(Template(r"icon\tpl1721784579070.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
         print_with_space('点击联盟科技')
