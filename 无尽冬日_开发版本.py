@@ -40,7 +40,7 @@ def start():
 # 主页判断
 def Homepage():
     a = 1
-    while a < 3:
+    while a < 4:
         if exists(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
                            resolution=(414, 780))):
             print_with_space("在主页，准备执行任务")  # 在主界面，执行任务
@@ -136,11 +136,11 @@ def Production_soldiers():
         print_with_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
-    if exists(Template(r"icon\tpl1719480722195.png", threshold=0.9, record_pos=(-0.437, 0.046), resolution=(414, 780))):
+    if exists(Template(r"icon\tpl1719480722195.png",rgb=True, threshold=0.9, record_pos=(-0.437, 0.046), resolution=(414, 780))):
         print_with_space("跳转到矛兵兵营...")
         touch([600, 942])  # 点击索引到对应兵营
         train()
-    if exists(Template(r"icon\tpl1719480732965.png", threshold=0.9, record_pos=(-0.437, 0.145), resolution=(414, 780))):
+    if exists(Template(r"icon\tpl1719480732965.png",rgb=True, threshold=0.9, record_pos=(-0.437, 0.145), resolution=(414, 780))):
         print_with_space("跳转到射手兵营...")
         touch([600, 1060])  # 点击索引到对应兵营
         train()
@@ -537,7 +537,7 @@ def treatment():
 #联盟捐赠
 def donate():
     now = datetime.now().time()
-    if 29 < now.minute <31:
+    if 0 < now.minute <40:
         print_with_space('点击联盟图案')
         touch(Template(r"icon\tpl1721784579070.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
         print_with_space('点击联盟科技')
@@ -546,7 +546,7 @@ def donate():
             print_with_space('点击大拇指科技')
             touch(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
             while True:
-                if exists(Template(r"icon\tpl1721784579073.png", rgb=True,threshold=0.9, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+                if exists(Template(r"icon\tpl1721784579073.png", rgb=True,threshold=0.8, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
                     print_with_space('点击捐献')
                     touch(Template(r"icon\tpl1721784579073.png", rgb=True, record_pos=(-0.44, -0.783),
                              resolution=(414, 780)))
@@ -583,7 +583,7 @@ def re_connet():
 
 # 主体代码
 def Subject():
-    i = 1
+    i = 10
     while True:
         if i % 10 == 0:
             print('%d.开始执行训练任务' % i)
