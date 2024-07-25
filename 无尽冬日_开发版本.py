@@ -304,7 +304,7 @@ def Brush_XG():
 # 巨兽活动
 def bear():
     now = datetime.now().time()
-    if 20 < now.hour < 23:
+    if 20 < now.hour < 22:
         print_with_space('当前时间：\033[31m%s\033[0m,巨兽活动进行中' % now.strftime("%H:%M:%S"))
         if exists(Template(r"icon\tpl1721191349777.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):
             print_with_space('点击活动按钮')
@@ -479,7 +479,7 @@ def Iron():
 # 自动采集
 def Collection():
     now = datetime.now().time()
-    if now.hour == 8:
+    if now.hour == 3:
         if not exists(Template(r"icon\tpl1720145326019.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
             print_with_space('不在世界，点击去往世界')
             touch([950, 1850])  # 点击野外
@@ -538,7 +538,7 @@ def treatment():
 #联盟捐赠
 def donate():
     now = datetime.now().time()
-    if 29 < now.minute <31:
+    if 10 < now.minute <30:
         print_with_space('点击联盟图案')
         touch(Template(r"icon\tpl1721784579070.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
         print_with_space('点击联盟科技')
@@ -547,9 +547,11 @@ def donate():
             print_with_space('点击大拇指科技')
             touch(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
             while True:
-                if exists(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
-                    touch(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
-                elif exists(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+                if exists(Template(r"icon\tpl1721784579073.png", rgb=True,threshold=0.9, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+                    print_with_space('点击捐献')
+                    touch(Template(r"icon\tpl1721784579073.png", rgb=True, record_pos=(-0.44, -0.783),
+                             resolution=(414, 780)))
+                else:
                     print_with_space('无捐献次数，结束任务')
                     break
         else:
@@ -582,7 +584,7 @@ def re_connet():
 
 # 主体代码
 def Subject():
-    i = 10
+    i = 1
     while True:
         if i % 10 == 0:
             print('%d.开始执行训练任务' % i)
