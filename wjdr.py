@@ -5,21 +5,30 @@ import logging
 from datetime import datetime
 from airtest.core.api import *
 from airtest.core.android.android import *
-
+import requests
 auto_setup(__file__)
 logging.getLogger('airtest').setLevel(logging.ERROR)
 
 # 连接模拟器
-def Cnnect():
+def cnnect():
     a = 1
-    while True:  # 连接模拟器
+    while a > 0:  # 连接模拟器
         try:
-            print('%d.开始连接模拟器' % a)
-            #ADB.connect=["127.0.0.1:5037/emulator-5570"]
+            print_with_space('%d.开始连接模拟器' % a)
             connect_device("android://127.0.0.1:5037/emulator-5570")
+            time.sleep(10)
             print_with_space('连接模拟器成功，准备启动游戏')
-            start()  # 首次运行
-            break
+            a = 0
+              # 首次运行
+            if exists(Template(r"icon\tpl1719196072757.png", threshold=0.8, record_pos=(0.112, -0.519),
+                               resolution=(414, 780))):
+                print_with_space('游戏未启动，点击启动')
+                touch(Template(r"icon\tpl1719196072757.png", record_pos=(0.112, -0.519), resolution=(414, 780)))
+                print_with_space("等待25秒启动时间...")
+                time.sleep(25)
+                Homepage()
+            else:
+                print_with_space('游戏已启动，开始执行游戏任务')
         except:
             a += 1
             print_with_space('未连接到模拟器，10s后重新执行')
@@ -27,7 +36,8 @@ def Cnnect():
 
 # 启动APP
 def start():
-    if exists(Template(r"icon\tpl1719196072757.png", threshold=0.8, record_pos=(0.112, -0.519), resolution=(414, 780))):
+    if exists(Template(r"icon\tpl1719196072757.png", threshold=0.8, record_pos=(0.112, -0.519),
+                       resolution=(414, 780))):
         print_with_space('游戏未启动，点击启动')
         touch(Template(r"icon\tpl1719196072757.png", record_pos=(0.112, -0.519), resolution=(414, 780)))
         print_with_space("等待25秒启动时间...")
@@ -36,7 +46,6 @@ def start():
     else:
         print_with_space('游戏已启动，开始执行游戏任务')
 
-
 # 主页判断
 def Homepage():
     a = 1
@@ -44,7 +53,7 @@ def Homepage():
         if exists(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
                            resolution=(414, 780))):
             print_with_space("在主页，准备执行任务")  # 在主界面，执行任务
-            break
+            return
         else:
             a += 1
             print_with_space("不在主页，返回上一级")
@@ -542,7 +551,8 @@ def donate():
         if exists(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
             print_with_space('点击大拇指科技')
             touch(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
-            while True:
+            x=1
+            while x>0:
                 if exists(Template(r"icon\tpl1721784579073.png", rgb=True, record_pos=(-0.44, -0.783),
                              resolution=(414, 780))):
                     print_with_space('点击捐献')
@@ -550,7 +560,7 @@ def donate():
                              resolution=(414, 780)))
                 else:
                     print_with_space('无捐献次数，结束任务')
-                    break
+                    x=0
         else:
             print_with_space('无大拇指指引，返回主页')
             touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
@@ -562,7 +572,8 @@ def re_connet():
         time.sleep(300)
         try:
             print('点击重新连接')
-            while True:
+            re = 1
+            while re >0:
                 touch(
                     Template(r"icon\tpl1720766916047.png", record_pos=(-0.168, -0.088),
                              resolution=(1080, 1920)))
@@ -573,7 +584,7 @@ def re_connet():
                     time.sleep(60)
                 else:
                     print('重新连接成功')
-                    break
+                    re = 0
         except:
             print('\033[31m重新连接失败，稍后尝试\033[0m')
     else:
@@ -581,35 +592,35 @@ def re_connet():
 
 # 主体代码
 def Subject():
-    i = 10
-    while True:
-        if i % 10 == 0:
-            print('%d.开始执行训练任务' % i)
+    run_i = 1
+    while run_i < 30:
+        if run_i % 10 == 0:
+            print('%d.开始执行训练任务' % run_i)
             Homepage()  # 主页检查
             try:
                 Production_soldiers()  # 训练模块
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
-            i += 1
-        elif i % 14 == 0:
-            print('%d.开始执行建造任务' % i)
+            run_i += 1
+        elif run_i % 14 == 0:
+            print('%d.开始执行建造任务' % run_i)
             Homepage()  # 主页检查
             try:
                 Build()  # 建造模块
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
-            i += 1
-        elif i % 19 == 0:
-            print('%d.开始执行打怪任务' % i)
+            run_i += 1
+        elif run_i % 19 == 0:
+            print('%d.开始执行打怪任务' % run_i)
             Homepage()  # 主页检查
             try:
-                Brush_XG()  # 打普通野怪
-                Brush_WM()  # 打巨兽模块
+                #Brush_XG()  # 打普通野怪
+                #Brush_WM()  # 打巨兽模块
                 NPC()  # 打雪怪模块
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
-            i += 1
-        elif i % 29 == 0:
+            run_i += 1
+        elif run_i % 29 == 0:
             print('开始执行采集任务')
             Homepage()  # 主页检查
             try:
@@ -617,9 +628,9 @@ def Subject():
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
             print('\033[31m执行完成，结束该周期，开始新的周期\033[0m')
-            i = 1
+            run_i = 1
         else:
-            print('%d.开始执行互助任务' % i)
+            print('%d.开始执行互助任务' % run_i)
             Homepage()  # 主页检查
             try:
                 Help()  # 互助模块
@@ -628,7 +639,7 @@ def Subject():
                 donate()  #捐赠模块
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
-            i += 1
+            run_i += 1
 
 
 def print_with_space(variable, spaces=4):
@@ -636,7 +647,10 @@ def print_with_space(variable, spaces=4):
 
 
 def main():
-    Cnnect()
+    cnnect()
     Subject()
-main()
-#pyinstaller --onefile --name "无尽冬日" --icon "E:\测试文件\测试工具\版本控制\Wjdr\icon\tpl1719196072757.png" --add-data "E:\测试文件\测试工具\AirtestIDE\airtest:airtest" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\icon:icon" E:\测试文件\测试工具\版本控制\Wjdr\wjdr.py
+#自定义文件夹
+#--distpath
+
+#pyinstaller --i --onefile --name "无尽冬日" --icon "E:\测试文件\测试工具\版本控制\Wjdr\icon\tpl1719196072757.png" --add-data "E:\测试文件\测试工具\AirtestIDE\airtest:airtest" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\icon:icon" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\wjdr.py:." E:\测试文件\测试工具\版本控制\Wjdr\windows.py
+#main()
