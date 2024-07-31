@@ -697,6 +697,7 @@ def center_window(root,width,height):
     # 设置窗口在屏幕上的位置
     root.geometry(f"{width}x{height}+{x}+{y}")
 
+
 # 创建主窗口
 window = tk.Tk()
 window.title("无尽冬日")  # 设置窗口标题
