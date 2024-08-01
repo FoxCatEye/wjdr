@@ -1,6 +1,5 @@
 # -*- encoding=utf8 -*-
 __author__ = "猫耳小刻晴"
-run_i = 1
 import logging
 import threading
 import tkinter as tk
@@ -9,7 +8,6 @@ from datetime import datetime
 from tkinter import font as tkFont
 from airtest.core.api import *
 from airtest.core.android.android import *
-
 auto_setup(__file__)
 logging.getLogger('airtest').setLevel(logging.ERROR)
 
@@ -585,14 +583,16 @@ def re_connet():
 
 # 主体代码
 def Subject():
-    global run_i
-    while run_i < 30:
+    run_i = 1
+    while True:
         if run_i % 10 == 0:
             print('\n'+'%d.开始执行训练任务' % run_i)
             run_i += 1
             Homepage()  # 主页检查
             try:
                 Production_soldiers()  # 训练模块
+                if stop_event.is_set():
+                    break
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
         elif run_i % 14 == 0:
@@ -601,6 +601,8 @@ def Subject():
             Homepage()  # 主页检查
             try:
                 Build()  # 建造模块
+                if stop_event.is_set():
+                    break
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
         elif run_i % 19 == 0:
@@ -611,10 +613,16 @@ def Subject():
                 now = datetime.now().time()
                 if 17 <= now.hour <= 23:
                     Brush_XG()  # 打普通野怪
+                    if stop_event.is_set():
+                        break
                 else:
                     print_space('未到时间，暂停打野怪')
                 Brush_WM()  # 打巨兽模块
+                if stop_event.is_set():
+                    break
                 NPC()  # 打雪怪模块
+                if stop_event.is_set():
+                    break
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
         elif run_i % 29 == 0:
@@ -623,6 +631,8 @@ def Subject():
             Homepage()  # 主页检查
             try:
                 Collection()  # 采集资源模块
+                if stop_event.is_set():
+                    break
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
             print('\033[31m执行完成，结束该周期，开始新的周期\033[0m')
@@ -632,9 +642,17 @@ def Subject():
             Homepage()  # 主页检查
             try:
                 Help()  # 互助模块
+                if stop_event.is_set():
+                    break
                 bear()  # 巨熊模块
+                if stop_event.is_set():
+                    break
                 treatment() #治疗模块
+                if stop_event.is_set():
+                    break
                 donate()  #捐赠模块
+                if stop_event.is_set():
+                    break
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
     print('结束任务')
@@ -656,8 +674,8 @@ running = True
 def main():
     cnnect()
     Subject()
-#主线程
-thread_main = threading.Thread(target=main)
+    print('结束')
+
 #单线程主代码
 def simle(button_id):
     if button_id == 1:
@@ -694,8 +712,6 @@ def help_simple():
         except:
             print('错误')
     print('结束任务')
-
-
 #打野怪单程序
 def XG_simple():
     cnnect()
@@ -708,7 +724,6 @@ def XG_simple():
         except:
             print('错误')
     print('结束任务')
-
 def Production_simple():
     cnnect()
     while True:
@@ -730,13 +745,15 @@ def build_simple():
         except:
             print('错误')
     print('结束任务')
+# 主线程
 def start_function():
     print("程序开始执行...")
     # 这里放置程序开始时需要执行的代码
+    stop_event.clear()
+    thread_main = threading.Thread(target=main)
     thread_main.start()
+
 def stop_function():
-    global run_i
-    run_i = 30
     # 这里放置程序停止时需要执行的代码
     global stop_event
     stop_event.set()  # 设置事件，通知线程结束运行
