@@ -1,6 +1,6 @@
 # -*- encoding=utf8 -*-
 __author__ = "猫耳小刻晴"
-
+run_i = 1
 import logging
 import threading
 import tkinter as tk
@@ -136,7 +136,7 @@ def Production_soldiers():
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    if exists(Template(r"icon\tpl1719478488282.png",rgb= True, threshold=0.9, record_pos=(-0.186, -0.058),
+    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.85, record_pos=(-0.186, -0.058),
                        resolution=(414, 780))):
         print_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
@@ -275,36 +275,33 @@ def NPC():
         print_space('未到活动时间，不执行该功能')
 # 野兽
 def Brush_XG():
-    now = datetime.now().time()
-    if 17 <= now.hour <= 23:
-        print_space('打野怪时间，开始出征')
-        search_main()
-        print_space('点击选择普通野兽')
-        touch([120, 1373])  # 点击普通野兽
-        time.sleep(1)  # 等待1s
-        print_space('点击等级')
-        touch([651, 1573])  # 点击等级3
-        time.sleep(1)  # 等待1s
-        print_space('点击搜索按钮')
-        touch([534, 1821])  # 点击搜索
-        time.sleep(1)  # 等待1s
-        print_space('点击出征按钮')
-        touch(Template(r"icon\tpl1721191349775.png", rgb=False, record_pos=(0.002, 0.705),
-                       resolution=(414, 780)))  # 点击出征怪物
-        time.sleep(1)  # 等待1s
-        if exists(
-                Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):  # 判断是否有兵力
-            touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
-            if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824),
-                               resolution=(414, 780))):  # 判断体力是否充足
-                energy()
-            else:
-                print_space("体力不足，暂停打野怪")
+    print_space('打野怪时间，开始出征')
+    search_main()
+    print_space('点击选择普通野兽')
+    touch([120, 1373])  # 点击普通野兽
+    time.sleep(1)  # 等待1s
+    print_space('点击等级')
+    touch([651, 1573])  # 点击等级3
+    time.sleep(1)  # 等待1s
+    print_space('点击搜索按钮')
+    touch([534, 1821])  # 点击搜索
+    time.sleep(1)  # 等待1s
+    print_space('点击出征按钮')
+    touch(Template(r"icon\tpl1721191349775.png", rgb=False, record_pos=(0.002, 0.705),
+                   resolution=(414, 780)))  # 点击出征怪物
+    time.sleep(1)  # 等待1s
+    if exists(
+            Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):  # 判断是否有兵力
+        touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
+        if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824),
+                           resolution=(414, 780))):  # 判断体力是否充足
+            energy()
         else:
-            print_space('兵力不足，暂停打野怪')
-            print_space('点击出征按钮')
+            print_space("体力不足，暂停打野怪")
     else:
-        print_space('未到时间，暂停打野怪')
+        print_space('兵力不足，暂停打野怪')
+        print_space('点击出征按钮')
+
 # 巨兽活动
 def bear():
     now = datetime.now().time()
@@ -588,45 +585,50 @@ def re_connet():
 
 # 主体代码
 def Subject():
-    run_i = 1
+    global run_i
     while run_i < 30:
         if run_i % 10 == 0:
             print('\n'+'%d.开始执行训练任务' % run_i)
+            run_i += 1
             Homepage()  # 主页检查
             try:
                 Production_soldiers()  # 训练模块
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
-            run_i += 1
         elif run_i % 14 == 0:
             print('\n'+'%d.开始执行建造任务' % run_i)
+            run_i += 1
             Homepage()  # 主页检查
             try:
                 Build()  # 建造模块
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
-            run_i += 1
         elif run_i % 19 == 0:
             print('\n'+'%d.开始执行打怪任务' % run_i)
+            run_i += 1
             Homepage()  # 主页检查
             try:
-                #Brush_XG()  # 打普通野怪
+                now = datetime.now().time()
+                if 17 <= now.hour <= 23:
+                    Brush_XG()  # 打普通野怪
+                else:
+                    print_space('未到时间，暂停打野怪')
                 Brush_WM()  # 打巨兽模块
                 NPC()  # 打雪怪模块
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
-            run_i += 1
         elif run_i % 29 == 0:
             print('\n'+'%d.开始执行采集任务' % run_i)
+            run_i = 1
             Homepage()  # 主页检查
             try:
                 Collection()  # 采集资源模块
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
             print('\033[31m执行完成，结束该周期，开始新的周期\033[0m')
-            run_i = 1
         else:
             print('\n'+'%d.开始执行互助任务' % run_i)
+            run_i += 1
             Homepage()  # 主页检查
             try:
                 Help()  # 互助模块
@@ -635,15 +637,11 @@ def Subject():
                 donate()  #捐赠模块
             except:
                 print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
-            run_i += 1
-
-
+    print('结束任务')
 def print_space(variable, spaces=4):
     print(' ' * spaces + str(variable))
 
-def main():
-    cnnect()
-    Subject()
+
 
 
 
@@ -652,30 +650,98 @@ def main():
 #pyinstaller  -w  --onefile --name "无尽冬日" --icon "E:\测试文件\测试工具\版本控制\Wjdr\icon\tpl1719196072757.png" --add-data "E:\测试文件\测试工具\AirtestIDE\airtest:airtest" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\icon:icon" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\wjdr.py:." E:\测试文件\测试工具\版本控制\Wjdr\wijd_release.py
 #pip install numpy==1.21.1
 
-
+running = True
 """可视化界面代码"""
-def simle(button_id):
-    if button_id == 1:
-        thread_Help.start()
-
+#主线程代码
+def main():
+    cnnect()
+    Subject()
 #主线程
 thread_main = threading.Thread(target=main)
-def start_function():
-    print("程序开始执行...")
-    # 这里放置程序开始时需要执行的代码
-    thread_main.start()
+#单线程主代码
+def simle(button_id):
+    if button_id == 1:
+        stop_event.clear()
+        thread_Help = threading.Thread(target=help_simple)
+        thread_Help.start()
+    elif button_id == 2:
+        stop_event.clear()
+        thread_XG = threading.Thread(target=XG_simple)
+        thread_XG.start()
+    elif button_id==3:
+        stop_event.clear()
+        thread_bear = threading.Thread(target=bear)
+        thread_bear.start()
+    elif button_id==4:
+        stop_event.clear()
+        thread_Production = threading.Thread(target=Production_simple)
+        thread_Production.start()
+    elif button_id == 5:
+        stop_event.clear()
+        thread_build = threading.Thread(target=build_simple)
+        thread_build.start()
 
-def stop_function():
-    print("程序停止执行...")
-    # 这里放置程序停止时需要执行的代码
 
+#帮助单线程
 def help_simple():
     cnnect()
     while True:
         try:
+            Homepage()
             Help()
+            if stop_event.is_set():
+                break
         except:
             print('错误')
+    print('结束任务')
+
+
+#打野怪单程序
+def XG_simple():
+    cnnect()
+    while True:
+        try:
+            Homepage()
+            Brush_XG()
+            if stop_event.is_set():
+                break
+        except:
+            print('错误')
+    print('结束任务')
+
+def Production_simple():
+    cnnect()
+    while True:
+        try:
+            Production_soldiers()
+            if stop_event.is_set():
+                break
+        except:
+            print('错误')
+    print('结束任务')
+def build_simple():
+    cnnect()
+    while True:
+        try:
+            Homepage()
+            Build()
+            if stop_event.is_set():
+                break
+        except:
+            print('错误')
+    print('结束任务')
+def start_function():
+    print("程序开始执行...")
+    # 这里放置程序开始时需要执行的代码
+    thread_main.start()
+def stop_function():
+    global run_i
+    run_i = 30
+    # 这里放置程序停止时需要执行的代码
+    global stop_event
+    stop_event.set()  # 设置事件，通知线程结束运行
+    print("当前任务结束后停止执行...")
+stop_event = threading.Event()
 #输出框输出内容
 def print(text):
 #    str_args = " ".join(str(arg) for arg in args)
@@ -709,54 +775,80 @@ bt = tkFont.Font(family="Helvetica", size=14, weight=tkFont.BOLD)
 tk.Label(window,text='无尽冬日',anchor='center',font=bt).pack()
 
 # 创建一个单选项并添加选项
-tk.Label(window,text='开启互助功能').place(x=100,y=100)
+tk.Label(window,text='开启互助功能').place(x=40,y=50)
 option = tk.IntVar()
 option.set(1)
 option1 = tk.Radiobutton(window,text='是',variable=option,value=1)
 option2 = tk.Radiobutton(window,text='否',variable=option,value=2)
 option_button = ttk.Button(window, text="执行",command=lambda:simle(1))
-option1.place(x=200,y=100)
-option2.place(x=300,y=100)
-option_button.place(x=350, y=100)
+option1.place(x=150,y=50)
+option2.place(x=200,y=50)
+option_button.place(x=350, y=50)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='开启2功能').place(x=100, y=130)
-checkbutton = tk.IntVar()
-checkbutton.set(1)
-checkbutton2 = tk.Radiobutton(window, text='是', variable=checkbutton, value=1)
-checkbutton3 = tk.Radiobutton(window, text='否', variable=checkbutton, value=2)
-checkbutton_button = ttk.Button(window, text="执行", command=lambda: simle(2))
-checkbutton2.place(x=200, y=130)
-checkbutton3.place(x=300, y=130)
-checkbutton_button.place(x=350, y=130)
+tk.Label(window, text='开启打野怪功能').place(x=40, y=80)
+option_XG= tk.IntVar()
+option_XG_1 = tk.Radiobutton(window, text='是', variable=option_XG, value=0)
+option_XG_2 = tk.Radiobutton(window, text='否', variable=option_XG, value=1)
+option_XG_button = ttk.Button(window, text="执行", command=lambda: simle(2))
+option_XG_1.place(x=150, y=80)
+option_XG_2.place(x=200, y=80)
+option_XG_button.place(x=350, y=80)
 
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='开启3功能').place(x=100, y=160)
-opti = tk.IntVar()
-opti1 = tk.Radiobutton(window, text='是', variable=opti, value=0)
-opti2 = tk.Radiobutton(window, text='否', variable=opti, value=1)
-opti1.place(x=200, y=160)
-opti2.place(x=250, y=160)
+tk.Label(window, text='开启集结巨兽功能').place(x=40, y=110)
+bear_active = tk.IntVar()
+bear_active_1 = tk.Radiobutton(window, text='是', variable=bear_active, value=0)
+bear_active_2 = tk.Radiobutton(window, text='否', variable=bear_active, value=1)
+bear_active_button = ttk.Button(window, text="执行", command=lambda: simle(3))
+bear_active_1.place(x=150, y=110)
+bear_active_2.place(x=200, y=110)
+bear_active_button.place(x=350,y=110)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='开启训练功能').place(x=40, y=140)
+option_Production = tk.IntVar()
+option_Production_1 = tk.Radiobutton(window, text='是', variable=option_Production, value=0)
+option_Production_2 = tk.Radiobutton(window, text='否', variable=option_Production, value=1)
+option_Production_button = ttk.Button(window, text="执行", command=lambda: simle(4))
+option_Production_1.place(x=150, y=140)
+option_Production_2.place(x=200, y=140)
+option_Production_button.place(x=350,y=140)
+
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='开启建筑功能').place(x=40, y=170)
+option_build = tk.IntVar()
+option_build_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_build_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_build_button = ttk.Button(window, text="执行", command=lambda: simle(5))
+option_build_1.place(x=150, y=170)
+option_build_2.place(x=200, y=170)
+option_build_button.place(x=350,y=170)
+
+
+
+
 # 创建标签和输入框
-entry_arg1 = ttk.Entry(window,width=5)
+"""entry_arg1 = ttk.Entry(window,width=5)
 entry_arg1.place(x=300, y=160)
 label_arg2 = ttk.Label(window, text="<小时数<")
 label_arg2.place(x=350, y=160)
 entry_arg2 = ttk.Entry(window,width=5)
-entry_arg2.place(x=410, y=160)
+entry_arg2.place(x=410, y=160)"""
 
 
 # 创建开始按钮
 start_button = ttk.Button(window, text="开始" ,command=start_function)
 start_button.place(x=150,y=380)
 # 创建停止按钮
-stop_button = ttk.Button(window, text="停止(待开发）", command=stop_function)
+stop_button = ttk.Button(window, text="停止", command=stop_function)
 stop_button.place(x=250,y=380)
 
 # 创建一个ScrolledText控件作为输出框
 tk.Label(window, text='输出:').place(x=10, y=400)
-output_box = tk.Text(window, width=65, height=10)
+output_box = tk.Text(window, width=68, height=13)
 output_box.place(x=10,y=420)
 #sys.stdout.write = print(output_box)#写入输出框
 
@@ -766,8 +858,7 @@ tk.mainloop()
 #窗口线程
 thread_window = threading.Thread(target=window.mainloop)
 
-#帮助单线程
-thread_Help = threading.Thread(target=help_simple)
+
 #xx单线程
 
 thread_window.start()
