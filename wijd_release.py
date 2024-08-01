@@ -678,26 +678,30 @@ def main():
 
 #单线程主代码
 def simle(button_id):
+    # 互助功能
     if button_id == 1:
         stop_event.clear()
-        thread_Help = threading.Thread(target=help_simple)
-        thread_Help.start()
+        thread_Help = threading.Thread(target=help_simple).start()
+    # 世界野怪
     elif button_id == 2:
         stop_event.clear()
-        thread_XG = threading.Thread(target=XG_simple)
-        thread_XG.start()
+        thread_XG = threading.Thread(target=XG_simple).start()
+    # 巨兽
     elif button_id==3:
         stop_event.clear()
-        thread_bear = threading.Thread(target=bear)
-        thread_bear.start()
+        threading.Thread(target=WM_simple).start()
+    #雪怪
     elif button_id==4:
         stop_event.clear()
-        thread_Production = threading.Thread(target=Production_simple)
-        thread_Production.start()
-    elif button_id == 5:
+        threading.Thread(target=NPC_simple).start()
+    # 训练士兵
+    elif button_id==5:
         stop_event.clear()
-        thread_build = threading.Thread(target=build_simple)
-        thread_build.start()
+        threading.Thread(target=Production_simple).start()
+    #建筑升级
+    elif button_id == 6:
+        stop_event.clear()
+        threading.Thread(target=build_simple).start()
 
 
 #帮助单线程
@@ -719,6 +723,30 @@ def XG_simple():
         try:
             Homepage()
             Brush_XG()
+            if stop_event.is_set():
+                break
+        except:
+            print('错误')
+    print('结束任务')
+#打巨兽单程序
+def WM_simple():
+    cnnect()
+    while True:
+        try:
+            Homepage()
+            Brush_WM()
+            if stop_event.is_set():
+                break
+        except:
+            print('错误')
+    print('结束任务')
+#打雪怪单程序
+def NPC_simple():
+    cnnect()
+    while True:
+        try:
+            Homepage()
+            NPC()
             if stop_event.is_set():
                 break
         except:
@@ -788,61 +816,65 @@ window.geometry("500x600")  # 设置窗口大小
 # 调用函数居中窗口
 center_window(window,500,600)
 
-bt = tkFont.Font(family="Helvetica", size=14, weight=tkFont.BOLD)
+bt = tkFont.Font(family="Helvetica", size=16, weight=tkFont.BOLD)
 tk.Label(window,text='无尽冬日',anchor='center',font=bt).pack()
 
+# 创建所有功能执行
+tk.Label(window,text='所有功能').place(x=40,y=40)
+start_button = ttk.Button(window, text="执行" ,command=start_function)
+start_button.place(x=350,y=40)
+
 # 创建一个单选项并添加选项
-tk.Label(window,text='开启互助功能').place(x=40,y=50)
-option = tk.IntVar()
-option.set(1)
-option1 = tk.Radiobutton(window,text='是',variable=option,value=1)
-option2 = tk.Radiobutton(window,text='否',variable=option,value=2)
+tk.Label(window,text='联盟互助功能').place(x=40,y=70)
+"""option = tk.IntVar()
+option1 = tk.Radiobutton(window,text='是',variable=option,value=0)
+option1.place(x=150,y=70)
+option2 = tk.Radiobutton(window,text='否',variable=option,value=1)
+option2.place(x=200,y=70)"""
 option_button = ttk.Button(window, text="执行",command=lambda:simle(1))
-option1.place(x=150,y=50)
-option2.place(x=200,y=50)
-option_button.place(x=350, y=50)
+option_button.place(x=350, y=70)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='开启打野怪功能').place(x=40, y=80)
-option_XG= tk.IntVar()
+tk.Label(window, text='世界野怪功能').place(x=40, y=100)
+'''option_XG= tk.IntVar()
 option_XG_1 = tk.Radiobutton(window, text='是', variable=option_XG, value=0)
+option_XG_1.place(x=150, y=100)
 option_XG_2 = tk.Radiobutton(window, text='否', variable=option_XG, value=1)
+option_XG_2.place(x=200, y=100)'''
 option_XG_button = ttk.Button(window, text="执行", command=lambda: simle(2))
-option_XG_1.place(x=150, y=80)
-option_XG_2.place(x=200, y=80)
-option_XG_button.place(x=350, y=80)
+option_XG_button.place(x=350, y=100)
 
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='开启集结巨兽功能').place(x=40, y=110)
-bear_active = tk.IntVar()
+tk.Label(window, text='集结巨兽功能').place(x=40, y=130)
+"""bear_active = tk.IntVar()
 bear_active_1 = tk.Radiobutton(window, text='是', variable=bear_active, value=0)
+bear_active_1.place(x=150, y=130)
 bear_active_2 = tk.Radiobutton(window, text='否', variable=bear_active, value=1)
+bear_active_2.place(x=200, y=130)"""
 bear_active_button = ttk.Button(window, text="执行", command=lambda: simle(3))
-bear_active_1.place(x=150, y=110)
-bear_active_2.place(x=200, y=110)
-bear_active_button.place(x=350,y=110)
+bear_active_button.place(x=350,y=130)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='开启训练功能').place(x=40, y=140)
-option_Production = tk.IntVar()
+tk.Label(window, text='训练士兵功能').place(x=40, y=160)
+"""option_Production = tk.IntVar()
 option_Production_1 = tk.Radiobutton(window, text='是', variable=option_Production, value=0)
+option_Production_1.place(x=150, y=160)
 option_Production_2 = tk.Radiobutton(window, text='否', variable=option_Production, value=1)
+option_Production_2.place(x=200, y=1650)"""
 option_Production_button = ttk.Button(window, text="执行", command=lambda: simle(4))
-option_Production_1.place(x=150, y=140)
-option_Production_2.place(x=200, y=140)
-option_Production_button.place(x=350,y=140)
+option_Production_button.place(x=350,y=160)
 
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='开启建筑功能').place(x=40, y=170)
-option_build = tk.IntVar()
+tk.Label(window, text='建筑升级功能').place(x=40, y=190)
+"""option_build = tk.IntVar()
 option_build_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_build_1.place(x=150, y=190)
 option_build_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_build_2.place(x=200, y=190)"""
 option_build_button = ttk.Button(window, text="执行", command=lambda: simle(5))
-option_build_1.place(x=150, y=170)
-option_build_2.place(x=200, y=170)
-option_build_button.place(x=350,y=170)
+option_build_button.place(x=350,y=190)
 
 
 
@@ -856,12 +888,9 @@ entry_arg2 = ttk.Entry(window,width=5)
 entry_arg2.place(x=410, y=160)"""
 
 
-# 创建开始按钮
-start_button = ttk.Button(window, text="开始" ,command=start_function)
-start_button.place(x=150,y=380)
 # 创建停止按钮
 stop_button = ttk.Button(window, text="停止", command=stop_function)
-stop_button.place(x=250,y=380)
+stop_button.place(x=200,y=380)
 
 # 创建一个ScrolledText控件作为输出框
 tk.Label(window, text='输出:').place(x=10, y=400)
