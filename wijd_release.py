@@ -134,7 +134,7 @@ def Production_soldiers():
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.85, record_pos=(-0.186, -0.058),
+    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.9,rgb=True, record_pos=(-0.186, -0.058),
                        resolution=(414, 780))):
         print_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
@@ -304,7 +304,7 @@ def Brush_XG():
 def bear():
     now = datetime.now().time()
     if 20 < now.hour < 22:
-        print_space('当前时间：\033[31m%s\033[0m,巨兽活动进行中' % now.strftime("%H:%M:%S"))
+        print_space('当前时间：%s,巨兽活动进行中' % now.strftime("%H:%M:%S"))
         if exists(Template(r"icon\tpl1721191349777.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):
             print_space('点击活动按钮')
             touch(Template(r"icon\tpl1721191349777.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))
@@ -354,10 +354,11 @@ def Brush_WM():
 
 # 采集出兵
 def gather():
+    print_space('点击采集按钮')
     touch(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920)))
-    if exists(Template(r"icon\tpl1720675170747.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):  # 有兵力可出征
+    if exists(Template(r"icon\tpl1721191349776.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):  # 有兵力可出征
         print_space('点击出征按钮')
-        touch(Template(r"icon\tpl1720675170747.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))  # 点击出征
+        touch(Template(r"icon\tpl1721191349776.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))  # 点击出征
         print_space('出征成功')
         time.sleep(1)
     else:  # 判断是否有多余兵力
@@ -473,47 +474,44 @@ def Iron():
 
 # 自动采集
 def Collection():
-    now = datetime.now().time()
-    if now.hour == 3:
-        if not exists(Template(r"icon\tpl1720145326019.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
-            print_space('不在世界，点击去往世界')
-            touch([950, 1850])  # 点击野外
-            time.sleep(5)  # 等待5秒
-        else:
-            print_space('在野外，执行采集任务')
-            time, sleep(3)
-        touch([14, 823])
-        time.sleep(1)
-        touch([500, 400])
-        if not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
-            print_space('有空闲队伍，执行采肉任务')
-            time.sleep(1)
-            Meat()
-        else:
-            print_space('已有采肉队伍')
-        if not exists(Template(r"icon\tpl1720766916044.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
-            print_space('有空闲队伍，执行采木头任务')
-            time.sleep(1)
-            Wood()
-        else:
-            print_space('已有采木材队伍')
-        if not exists(Template(r"icon\tpl1720766916045.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
-            print_space('有空闲队伍，执行采煤任务')
-            time.sleep(1)
-            Coal()
-        else:
-            print_space('已有采煤队伍')
-        if not exists(
-                Template(r"icon\tpl1720766916046.png", rgb=True, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
-            print_space('有空闲队伍，执行采铁任务')
-            time.sleep(1)
-            Iron()
-        else:
-            print_space('已有采铁队伍')
-        touch(
-            Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+    if not exists(Template(r"icon\tpl1720145326019.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
+        print_space('不在世界，点击去往世界')
+        touch([950, 1850])  # 点击野外
+        time.sleep(5)  # 等待5秒
     else:
-        print_space('当前时间：\033[31m%s\033[0m,未到采集时间' % now.strftime("%H:%M"))
+        print_space('在野外，执行采集任务')
+        time, sleep(3)
+    touch([14, 823])
+    time.sleep(1)
+    touch([500, 400])
+    if not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+        print_space('有空闲队伍，执行采肉任务')
+        time.sleep(1)
+        Meat()
+    else:
+        print_space('已有采肉队伍')
+    if not exists(Template(r"icon\tpl1720766916044.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+        print_space('有空闲队伍，执行采木头任务')
+        time.sleep(1)
+        Wood()
+    else:
+        print_space('已有采木材队伍')
+    if not exists(Template(r"icon\tpl1720766916045.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+        print_space('有空闲队伍，执行采煤任务')
+        time.sleep(1)
+        Coal()
+    else:
+        print_space('已有采煤队伍')
+    if not exists(
+            Template(r"icon\tpl1720766916046.png", rgb=True, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+        print_space('有空闲队伍，执行采铁任务')
+        time.sleep(1)
+        Iron()
+    else:
+        print_space('已有采铁队伍')
+    touch(
+        Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+
 #治疗
 def treatment():
     now = datetime.now().time()
@@ -630,7 +628,11 @@ def Subject():
             run_i = 1
             Homepage()  # 主页检查
             try:
-                Collection()  # 采集资源模块
+                now = datetime.now().time()
+                if now.hour == 3:
+                    Collection()  # 采集资源模块
+                else:
+                    print_space('当前时间：%s,未到采集时间' % now.strftime("%H:%M"))
                 if stop_event.is_set():
                     break
             except:
@@ -681,7 +683,7 @@ def simle(button_id):
     # 互助功能
     if button_id == 1:
         stop_event.clear()
-        thread_Help = threading.Thread(target=help_simple).start()
+        threading.Thread(target=help_simple).start()
     # 世界野怪
     elif button_id == 2:
         stop_event.clear()
@@ -702,6 +704,15 @@ def simle(button_id):
     elif button_id == 6:
         stop_event.clear()
         threading.Thread(target=build_simple).start()
+    elif button_id == 7:
+        stop_event.clear()
+        threading.Thread(target=Collection_simple).start()
+    elif button_id == 8:
+        stop_event.clear()
+        threading.Thread(target=bear_simple).start()
+    elif button_id == 9:
+        stop_event.clear()
+        threading.Thread(target=treatment_simple).start()
 
 
 #帮助单线程
@@ -752,16 +763,56 @@ def NPC_simple():
         except:
             print('错误')
     print('结束任务')
+
+#采集资源
+def Collection_simple():
+    cnnect()
+    while True:
+        try:
+            Homepage()
+            Collection()
+            if stop_event.is_set():
+                break
+        except:
+            print('错误')
+    print('结束任务')
+
+# 巨熊活动
+def bear_simple():
+    cnnect()
+    while True:
+        try:
+            Homepage()
+            bear()
+            if stop_event.is_set():
+                break
+        except:
+            print('错误')
+    print('结束任务')
+#治疗
+def treatment_simple():
+    cnnect()
+    while True:
+        try:
+            Homepage()
+            treatment()
+            if stop_event.is_set():
+                break
+        except:
+            print('错误')
+    print('结束任务')
 def Production_simple():
     cnnect()
     while True:
         try:
+            Homepage()
             Production_soldiers()
             if stop_event.is_set():
                 break
         except:
             print('错误')
     print('结束任务')
+#建筑升级代码
 def build_simple():
     cnnect()
     while True:
@@ -856,7 +907,7 @@ bear_active_button = ttk.Button(window, text="执行", command=lambda: simle(3))
 bear_active_button.place(x=350,y=130)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='训练士兵功能').place(x=40, y=160)
+tk.Label(window, text='集结雪怪功能').place(x=40, y=160)
 """option_Production = tk.IntVar()
 option_Production_1 = tk.Radiobutton(window, text='是', variable=option_Production, value=0)
 option_Production_1.place(x=150, y=160)
@@ -867,7 +918,7 @@ option_Production_button.place(x=350,y=160)
 
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='建筑升级功能').place(x=40, y=190)
+tk.Label(window, text='训练士兵功能').place(x=40, y=190)
 """option_build = tk.IntVar()
 option_build_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
 option_build_1.place(x=150, y=190)
@@ -876,6 +927,45 @@ option_build_2.place(x=200, y=190)"""
 option_build_button = ttk.Button(window, text="执行", command=lambda: simle(5))
 option_build_button.place(x=350,y=190)
 
+# 创建一个单选项并添加选项
+tk.Label(window, text='建筑升级功能').place(x=40, y=220)
+"""option_build = tk.IntVar()
+option_build_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_build_1.place(x=150, y=220)
+option_build_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_build_2.place(x=200, y=220)"""
+option_build_button = ttk.Button(window, text="执行", command=lambda: simle(6))
+option_build_button.place(x=350,y=220)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='采集资源功能').place(x=40, y=250)
+"""option_build = tk.IntVar()
+option_build_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_build_1.place(x=150, y=250)
+option_build_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_build_2.place(x=200, y=250)"""
+option_build_button = ttk.Button(window, text="执行", command=lambda: simle(7))
+option_build_button.place(x=350,y=250)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='巨熊活动功能').place(x=40, y=280)
+"""option_build = tk.IntVar()
+option_build_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_build_1.place(x=150, y=280)
+option_build_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_build_2.place(x=200, y=280)"""
+option_build_button = ttk.Button(window, text="执行", command=lambda: simle(8))
+option_build_button.place(x=350,y=280)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='治疗士兵功能').place(x=40, y=310)
+"""option_build = tk.IntVar()
+option_build_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_build_1.place(x=150, y=310)
+option_build_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_build_2.place(x=200, y=310)"""
+option_build_button = ttk.Button(window, text="执行", command=lambda: simle(9))
+option_build_button.place(x=350,y=310)
 
 
 
