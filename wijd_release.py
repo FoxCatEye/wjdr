@@ -3,6 +3,7 @@ __author__ = "猫耳小刻晴"
 
 import logging
 import threading
+import time
 import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
@@ -822,6 +823,7 @@ def XG_simple():
             Brush_XG()
             if stop_event.is_set():
                 break
+            time.sleep(30)
         except:
             print('错误')
     option_XG_button.configure(text='开始', command=XG_simple)  # 野怪功能
@@ -837,6 +839,7 @@ def WM_simple():
             Brush_WM()
             if stop_event.is_set():
                 break
+            time.sleep(90)
         except:
             print('错误')
     option_WM_button.configure(text='开始', command=WM_simple)  # 停止后按钮变为开始
@@ -867,6 +870,7 @@ def Collection_simple():
             Collection()
             if stop_event.is_set():
                 break
+            #time.sleep()
         except:
             print('错误')
     option_Collection_button.configure(text='开始', command=Collection_simple)  # 停止后按钮变为开始
@@ -897,6 +901,7 @@ def treatment_simple():
             treatment()
             if stop_event.is_set():
                 break
+            time.sleep(60)
         except:
             print('错误')
     option_treatment_button.configure(text='开始', command=treatment_simple)  # 停止后按钮变为开始
@@ -940,6 +945,7 @@ def adventure_simple():
             adventure()
             if stop_event.is_set():
                 break
+            time.sleep(3600)
         except:
             print('错误')
     option_adventure_button.configure(text='开始', command=adventure_simple)  # 停止后按钮变为开始
@@ -952,8 +958,10 @@ def donate_simple():
         try:
             Homepage()
             donate()
+            print_space('等待5分钟')
             if stop_event.is_set():
                 break
+            time.sleep(300)
         except:
             print('错误')
     option_donate_button.configure(text='开始', command=donate_simple)  # 停止后按钮变为开始
