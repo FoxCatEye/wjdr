@@ -21,7 +21,7 @@ def cnnect():
     while a > 0:  # 连接模拟器
         try:
             print_space('%d.开始连接模拟器' % a)
-            connect_device("android://127.0.0.1:5037/emulator-5570")
+            connect_device("android://127.0.0.1:5037")
             time.sleep(10)
             print_space('连接模拟器成功，准备启动游戏')
             a = 0
@@ -569,12 +569,13 @@ def adventure():
     print_space('点击探险')
     touch(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
                    resolution=(414, 780)))
-    if exists(Template(r'icon\tpl1721784579075.png',rgb=True, threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
-                       resolution=(414, 780))):
+    if exists(Template(r'icon\tpl1721784579075.png', rgb=True, threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,resolution=(414, 780))):
         print_space('点击领取按钮')
         touch(Template(r'icon\tpl1721784579075.png', threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,resolution=(414, 780)))
+        time.sleep(1)
         print_space('点击二次领取按钮')
         touch(Template(r'icon\tpl1721784579076.png',threshold=0.9,record_pos=(-0.398, 0.819),scale_max=800,resolution=(414, 780)))
+        time.sleep(1)
         print_space('回到主页')
         touch([500, 500])
         touch(Template(r"icon\tpl1719198082012.png",threshold=0.8,record_pos=(-0.44, -0.783),resolution=(414, 780)))
@@ -618,6 +619,7 @@ def Subject():
             try:
                 Production_soldiers()  # 训练模块
                 if stop_event.is_set():
+                    start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                     break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -628,6 +630,7 @@ def Subject():
             try:
                 Build()  # 建造模块
                 if stop_event.is_set():
+                    start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                     break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -640,14 +643,17 @@ def Subject():
                 if 17 <= now.hour <= 23:
                     Brush_XG()  # 打普通野怪
                     if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                         break
                 elif now.hour == 0 or now.hour == 1:
                     Brush_WM()  # 打巨兽模块
                     if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                         break
                 elif now.day == 24 or now.day == 25 or now.day == 26:
                     NPC()
                     if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                         break
                 else:
                     print_space('未到时间，暂停打冰原巨兽')
@@ -664,6 +670,7 @@ def Subject():
                 else:
                     print_space('当前时间：%s,未到采集时间' % now.strftime("%H:%M"))
                 if stop_event.is_set():
+                    start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                     break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -675,27 +682,32 @@ def Subject():
             try:
                 Help()  # 互助模块
                 if stop_event.is_set():
+                    start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                     break
                 now = datetime.now().time()
                 if 20 < now.hour < 22:
                     print_space('当前时间：%s,巨兽活动进行中' % now.strftime("%H:%M:%S"))
                     bear()  # 巨熊模块
                     if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                         break
                 now = datetime.now().time()
                 if now.minute == 21:
                     treatment()  # 治疗模块
                     if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                         break
                 now = datetime.now().time()
                 if 0 < now.minute < 2:
                     donate()  # 捐赠模块
                     if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                         break
                 now = datetime.now().time()
                 if now.minute == 25:
                     adventure()
                     if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -719,7 +731,7 @@ running = True
 def main():
     cnnect()
     Subject()
-    start_button.configure(text='开始', command=main)  # 总功能
+
 
 # 单线程主代码
 def simle(button_id):
@@ -807,10 +819,10 @@ def help_simple():
             Homepage()
             Help()
             if stop_event.is_set():
+                option_help_button.configure(text='开始', command=lambda: simle(1))  # 互助功能
                 break
         except:
             print('错误')
-    option_help_button.configure(text='开始', command=help_simple)  # 互助功能
     print('任务已结束')
 
 
@@ -822,11 +834,12 @@ def XG_simple():
             Homepage()
             Brush_XG()
             if stop_event.is_set():
+                option_XG_button.configure(text='开始', command=lambda: simle(2))  # 野怪功能
                 break
-            time.sleep(30)
+            print_space('等待1分钟')
+            time.sleep(60)
         except:
             print('错误')
-    option_XG_button.configure(text='开始', command=XG_simple)  # 野怪功能
     print('任务已结束')
 
 
@@ -838,11 +851,11 @@ def WM_simple():
             Homepage()
             Brush_WM()
             if stop_event.is_set():
+                option_WM_button.configure(text='开始', command=lambda: simle(3))  # 停止后按钮变为开始
                 break
             time.sleep(90)
         except:
             print('错误')
-    option_WM_button.configure(text='开始', command=WM_simple)  # 停止后按钮变为开始
     print('任务已结束')
 
 
@@ -854,10 +867,12 @@ def NPC_simple():
             Homepage()
             NPC()
             if stop_event.is_set():
+                option_npc_button.configure(text='开始', command=lambda: simle(4))  # 停止后按钮变为开始
                 break
+            print_space('等待1分半')
+            time.sleep(90)
         except:
             print('错误')
-    option_npc_button.configure(text='开始', command=NPC_simple)  # 停止后按钮变为开始
     print('任务已结束')
 
 
@@ -869,11 +884,11 @@ def Collection_simple():
             Homepage()
             Collection()
             if stop_event.is_set():
+                option_Collection_button.configure(text='开始', command=lambda: simle(5))  # 停止后按钮变为开始
                 break
             #time.sleep()
         except:
             print('错误')
-    option_Collection_button.configure(text='开始', command=Collection_simple)  # 停止后按钮变为开始
     print('任务已结束')
 
 
@@ -885,10 +900,10 @@ def bear_simple():
             Homepage()
             bear()
             if stop_event.is_set():
+                option_bear_button.configure(text='开始', command=lambda: simle(6))  # 停止后按钮变为开始
                 break
         except:
             print('错误')
-    option_bear_button.configure(text='开始', command=bear_simple)  # 停止后按钮变为开始
     print('任务已结束')
 
 
@@ -900,11 +915,11 @@ def treatment_simple():
             Homepage()
             treatment()
             if stop_event.is_set():
+                option_treatment_button.configure(text='开始', command=lambda: simle(7))  # 停止后按钮变为开始
                 break
             time.sleep(60)
         except:
             print('错误')
-    option_treatment_button.configure(text='开始', command=treatment_simple)  # 停止后按钮变为开始
     print('任务已结束')
 
 #训练士兵
@@ -915,10 +930,12 @@ def Production_simple():
             Homepage()
             Production_soldiers()
             if stop_event.is_set():
+                option_Production_button.configure(text='开始', command=lambda: simle(8))  # 停止后按钮变为开始
                 break
+            print_space('等待1分钟')
+            time.sleep(60)
         except:
             print('错误')
-    option_Production_button.configure(text='开始', command=Production_simple)  # 停止后按钮变为开始
     print('任务已结束')
 
 
@@ -930,10 +947,10 @@ def build_simple():
             Homepage()
             Build()
             if stop_event.is_set():
+                option_build_button.configure(text='开始', command=lambda: simle(9))  # 停止后按钮变为开始
                 break
         except:
             print('错误')
-    option_build_button.configure(text='开始', command=build_simple)  # 停止后按钮变为开始
     print('任务已结束')
 
 #探险
@@ -944,11 +961,11 @@ def adventure_simple():
             Homepage()
             adventure()
             if stop_event.is_set():
+                option_adventure_button.configure(text='开始', command=lambda: simle(10))  # 停止后按钮变为开始
                 break
             time.sleep(3600)
         except:
             print('错误')
-    option_adventure_button.configure(text='开始', command=adventure_simple)  # 停止后按钮变为开始
     print('任务已结束')
 
 #联盟捐赠
@@ -958,13 +975,13 @@ def donate_simple():
         try:
             Homepage()
             donate()
-            print_space('等待5分钟')
             if stop_event.is_set():
+                option_donate_button.configure(text='开始', command=lambda: simle(11))  # 停止后按钮变为开始
                 break
             time.sleep(300)
+            print_space('等待5分钟')
         except:
             print('错误')
-    option_donate_button.configure(text='开始', command=donate_simple)  # 停止后按钮变为开始
     print('任务已结束')
 
 
@@ -1005,8 +1022,8 @@ def center_window(root, width, height):
 window = tk.Tk()
 window.title("无尽冬日")  # 设置窗口标题
 window.geometry("500x600")  # 设置窗口大小
-icon = tk.PhotoImage(file="main_icon.png")  # 设置窗口图标
-window.iconphoto(False, icon)
+#icon = tk.PhotoImage(file="main_icon.png")  # 设置窗口图标
+#window.iconphoto(False, icon)
 # 调用函数居中窗口
 center_window(window, 500, 600)
 
