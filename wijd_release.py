@@ -954,7 +954,6 @@ def build_simple():
         except:
             print('错误')
     print('任务已结束')
-
 #探险
 def adventure_simple():
     cnnect()
