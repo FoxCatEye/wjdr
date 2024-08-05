@@ -2,6 +2,7 @@
 __author__ = "猫耳小刻晴"
 
 import logging
+import subprocess
 import threading
 import tkinter as tk
 from tkinter import ttk
@@ -13,19 +14,22 @@ from airtest.core.android.android import *
 auto_setup(__file__)
 logging.getLogger('airtest').setLevel(logging.ERROR)
 
+'''打开模拟器'''
+def start_exe():
+
+    subprocess.Popen('E:\leidian\LDPlayer9\dnplayer.exe')
 
 # 连接模拟器
 def cnnect():
     a = 1
     while a > 0:  # 连接模拟器
         try:
-            print_space('%d.开始连接模拟器' % a)
+            print_space('%d.开始尝试连接模拟器' % a)
             connect_device("android://127.0.0.1:5037")
             time.sleep(10)
-            print_space('连接模拟器成功，准备启动游戏')
+            print_space('连接模拟器成功!!!')
             a = 0
             # 首次运行
-            start()
         except:
             a += 1
             print('未连接到模拟器，10s后重新执行')
@@ -33,16 +37,22 @@ def cnnect():
 
 
 # 启动APP
-def start():
-    if exists(Template(r"icon\tpl1719196072757.png", threshold=0.8, record_pos=(0.112, -0.519),
-                       resolution=(414, 780))):
-        print('游戏未启动，点击启动')
-        touch(Template(r"icon\tpl1719196072757.png", record_pos=(0.112, -0.519), resolution=(414, 780)))
-        print_space("等待25秒启动时间...")
-        time.sleep(25)
-        Homepage()
-    else:
-        print_space('游戏已启动，开始执行游戏任务')
+def start_app():
+    while True:
+        try:
+            print_space('开始尝试启动游戏')
+            '''if exists(Template(r"icon\tpl1719196072757.png", threshold=0.8, record_pos=(0.112, -0.519),
+                           resolution=(414, 780))):
+            print('游戏未启动，点击启动')'''
+            touch(Template(r"icon\tpl1719196072757.png", record_pos=(0.112, -0.519), resolution=(414, 780)))
+            print_space("等待25秒启动时间...")
+            time.sleep(25)
+            Homepage()
+            break
+        except :
+            print('启动失败，再次尝试')
+        '''else:
+        print_space('游戏已启动!!!')'''
 
 
 # 主页判断
@@ -345,14 +355,17 @@ def Brush_WM():
     print_space('点击集结按钮')
     touch(Template(r"icon\tpl1719376765868.png", record_pos=(0.002, 0.705), resolution=(414, 780)))  # 点击怪物集结
     time.sleep(1)  # 等待1s
-    print_space('点击发起集结')
-    touch(Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(414, 780)))  # 点击发起集结
-    time.sleep(1)  # 等待0.5s
-    if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(414, 780))):  # 有兵力可出征
-        print_space('点击出征按钮')
-        energy()
-    else:  # 判断是否有多余兵力
-        print_space('不满足条件，无兵力出征')
+    if exists(Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(414, 780))):
+        print_space('点击发起集结')
+        touch(Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(414, 780)))  # 点击发起集结
+        time.sleep(1)  # 等待0.5s
+        if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(414, 780))):  # 有兵力可出征
+            print_space('点击出征按钮')
+            energy()
+        else:  # 判断是否有多余兵力
+            print_space('不满足条件，无兵力出征')
+    else:
+        print_space('队伍数不足，无法出征')
 
 
 # 采集出兵
@@ -725,12 +738,25 @@ def print_space(variable, spaces=4):
 running = True
 """可视化界面代码"""
 
+def start_simple(buttom_start_id):
+    if buttom_start_id == 1:
+        start_exe()
+    elif buttom_start_id == 2:
+        cnnect()
+    elif buttom_start_id == 3:
+        start_app()
+    else:
+        print_space('错误')
+
+'''启动准备'''
+def all_start():
+    start_exe()
+    cnnect()
+    start_app()
 
 # 主线程代码
 def main():
-    cnnect()
     Subject()
-
 
 # 单线程主代码
 def simle(button_id):
@@ -812,7 +838,6 @@ def simle(button_id):
 
 # 帮助单线程
 def help_simple():
-    cnnect()
     while True:
         try:
             Homepage()
@@ -827,7 +852,6 @@ def help_simple():
 
 # 打野怪单程序
 def XG_simple():
-    cnnect()
     while True:
         try:
             Homepage()
@@ -844,7 +868,6 @@ def XG_simple():
 
 # 打巨兽单程序
 def WM_simple():
-    cnnect()
     while True:
         try:
             Homepage()
@@ -861,7 +884,6 @@ def WM_simple():
 
 # 打雪怪单程序
 def NPC_simple():
-    cnnect()
     while True:
         try:
             Homepage()
@@ -878,7 +900,6 @@ def NPC_simple():
 
 # 采集资源
 def Collection_simple():
-    cnnect()
     while True:
         try:
             Homepage()
@@ -895,7 +916,6 @@ def Collection_simple():
 
 # 巨熊活动
 def bear_simple():
-    cnnect()
     while True:
         try:
             Homepage()
@@ -910,7 +930,6 @@ def bear_simple():
 
 # 治疗
 def treatment_simple():
-    cnnect()
     while True:
         try:
             Homepage()
@@ -926,7 +945,6 @@ def treatment_simple():
 
 #训练士兵
 def Production_simple():
-    cnnect()
     while True:
         try:
             Homepage()
@@ -943,7 +961,6 @@ def Production_simple():
 
 # 建筑升级代码
 def build_simple():
-    cnnect()
     while True:
         try:
             Homepage()
@@ -956,7 +973,6 @@ def build_simple():
     print('任务已结束')
 #探险
 def adventure_simple():
-    cnnect()
     while True:
         try:
             Homepage()
@@ -965,14 +981,13 @@ def adventure_simple():
                 option_adventure_button.configure(text='开始', command=lambda: simle(10))  # 停止后按钮变为开始
                 break
             print_space('等待1小时后再次执行')
-            time.sleep(3600)
+            time.sleep(1)
         except:
             print('错误')
     print('任务已结束')
 
 #联盟捐赠
 def donate_simple():
-    cnnect()
     while True:
         try:
             Homepage()
@@ -1058,7 +1073,7 @@ option_XG_button = ttk.Button(window, text="开始", command=lambda: simle(2))
 option_XG_button.place(x=350, y=100)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='集结巨兽功能').place(x=40, y=130)
+tk.Label(window, text='冰原巨兽功能').place(x=40, y=130)
 """option_WM = tk.IntVar()
 option_WM_1 = tk.Radiobutton(window, text='是', variable=bear_active, value=0)
 option_WM_1.place(x=150, y=130)
@@ -1162,18 +1177,25 @@ entry_arg2.place(x=410, y=160)"""
 #stop_button.place(x=200, y=380)
 
 # 创建一个ScrolledText控件作为输出框
-tk.Label(window, text='输出:').place(x=10, y=400)
-output_box = tk.Text(window, width=68, height=13)
-output_box.place(x=10, y=420)
+tk.Label(window, text='输出:').place(x=10, y=430)
+output_box = tk.Text(window, width=68, height=10)
+output_box.place(x=10, y=450)
 # sys.stdout.write = print(output_box)#写入输出框
+
+'''功能按钮'''
+start_exe_button = ttk.Button(window,text='启动模拟器',command=lambda:start_simple(1))
+start_exe_button.place(x=60, y=400)
+cnnect_button = ttk.Button(window,text='连接模拟器',command=lambda:start_simple(2))
+cnnect_button.place(x=150,y=400)
+start_app_button = ttk.Button(window,text='启动游戏',command=lambda:start_simple(3))
+start_app_button.place(x=240,y=400)
+all_button = ttk.Button(window,text='一键启动',command=lambda:start_simple(4))
+all_button.place(x=330,y=400)
 
 # 开始Tkinter事件循环
 tk.mainloop()
 
 # 窗口线程
-thread_window = threading.Thread(target=window.mainloop)
+thread_window = threading.Thread(target=window.mainloop).start()
 
-# xx单线程
-
-thread_window.start()
 
