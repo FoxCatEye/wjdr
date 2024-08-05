@@ -573,7 +573,7 @@ def adventure():
         touch(Template(r'icon\tpl1721784579075.png', threshold=0.9, record_pos=(-0.398, 0.819),resolution=(1080, 1920)))
         time.sleep(1)
         print_space('点击二次领取按钮')
-        touch(Template(r'icon\tpl1721784579076.png',threshold=0.9,record_pos=(-0.398, 0.819),scale_max=800,resolution=(1080, 1920)))
+        touch(Template(r'icon\tpl1721784579076.png',threshold=0.9,record_pos=(-0.398, 0.819),resolution=(1080, 1920)))
         time.sleep(1)
         print_space('回到主页')
         touch([500, 500])
