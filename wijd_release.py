@@ -567,12 +567,12 @@ def donate():
 def adventure():
     print_space('点击探险')
     touch(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
-                   resolution=(414, 780)))
-    if exists(Template(r"icon\tpl1721784579075.png", rgb=True, record_pos=(0.359, 0.391), resolution=(1080, 1920))):
-        print_space('点击领取按钮')
-        touch(Template(r'icon\tpl1721784579075.png', threshold=0.9, record_pos=(-0.398, 0.819),resolution=(1080, 1920)))
-        time.sleep(1)
-        print_space('点击二次领取按钮')
+                   resolution=(1080, 1920)))
+    time.sleep(1)
+    print_space('点击宝箱')
+    touch([910,1250])
+    if exists(Template(r'icon\tpl1721784579076.png',threshold=0.9,record_pos=(-0.398, 0.819),resolution=(1080, 1920))):
+        print_space('点击领取奖励')
         touch(Template(r'icon\tpl1721784579076.png',threshold=0.9,record_pos=(-0.398, 0.819),resolution=(1080, 1920)))
         time.sleep(1)
         print_space('回到主页')
@@ -835,7 +835,7 @@ def XG_simple():
             if stop_event.is_set():
                 option_XG_button.configure(text='开始', command=lambda: simle(2))  # 野怪功能
                 break
-            print_space('等待1分钟')
+            print_space('等待1分钟后再次执行')
             time.sleep(60)
         except:
             print('错误')
@@ -852,6 +852,7 @@ def WM_simple():
             if stop_event.is_set():
                 option_WM_button.configure(text='开始', command=lambda: simle(3))  # 停止后按钮变为开始
                 break
+            print_space('等待90s后再次执行')
             time.sleep(90)
         except:
             print('错误')
@@ -868,7 +869,7 @@ def NPC_simple():
             if stop_event.is_set():
                 option_npc_button.configure(text='开始', command=lambda: simle(4))  # 停止后按钮变为开始
                 break
-            print_space('等待1分半')
+            print_space('等待90s后再次执行')
             time.sleep(90)
         except:
             print('错误')
@@ -885,7 +886,8 @@ def Collection_simple():
             if stop_event.is_set():
                 option_Collection_button.configure(text='开始', command=lambda: simle(5))  # 停止后按钮变为开始
                 break
-            #time.sleep()
+            print_space('等待1小时后再次执行')
+            time.sleep(3600)
         except:
             print('错误')
     print('任务已结束')
@@ -916,6 +918,7 @@ def treatment_simple():
             if stop_event.is_set():
                 option_treatment_button.configure(text='开始', command=lambda: simle(7))  # 停止后按钮变为开始
                 break
+            print_space('等待1分钟后再次执行')
             time.sleep(60)
         except:
             print('错误')
@@ -962,6 +965,7 @@ def adventure_simple():
             if stop_event.is_set():
                 option_adventure_button.configure(text='开始', command=lambda: simle(10))  # 停止后按钮变为开始
                 break
+            print_space('等待1小时后再次执行')
             time.sleep(3600)
         except:
             print('错误')
@@ -977,8 +981,8 @@ def donate_simple():
             if stop_event.is_set():
                 option_donate_button.configure(text='开始', command=lambda: simle(11))  # 停止后按钮变为开始
                 break
+            print_space('等待5分钟后再次执行')
             time.sleep(300)
-            print_space('等待5分钟')
         except:
             print('错误')
     print('任务已结束')
@@ -1173,3 +1177,4 @@ thread_window = threading.Thread(target=window.mainloop)
 # xx单线程
 
 thread_window.start()
+
