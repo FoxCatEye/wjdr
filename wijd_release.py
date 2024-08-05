@@ -3,7 +3,6 @@ __author__ = "猫耳小刻晴"
 
 import logging
 import threading
-import time
 import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
@@ -569,16 +568,16 @@ def adventure():
     print_space('点击探险')
     touch(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
                    resolution=(414, 780)))
-    if exists(Template(r'icon\tpl1721784579075.png', rgb=True, threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,resolution=(414, 780))):
+    if exists(Template(r"icon\tpl1721784579075.png", rgb=True, record_pos=(0.359, 0.391), resolution=(1080, 1920))):
         print_space('点击领取按钮')
-        touch(Template(r'icon\tpl1721784579075.png', threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,resolution=(414, 780)))
+        touch(Template(r'icon\tpl1721784579075.png', threshold=0.9, record_pos=(-0.398, 0.819),resolution=(1080, 1920)))
         time.sleep(1)
         print_space('点击二次领取按钮')
-        touch(Template(r'icon\tpl1721784579076.png',threshold=0.9,record_pos=(-0.398, 0.819),scale_max=800,resolution=(414, 780)))
+        touch(Template(r'icon\tpl1721784579076.png',threshold=0.9,record_pos=(-0.398, 0.819),scale_max=800,resolution=(1080, 1920)))
         time.sleep(1)
         print_space('回到主页')
         touch([500, 500])
-        touch(Template(r"icon\tpl1719198082012.png",threshold=0.8,record_pos=(-0.44, -0.783),resolution=(414, 780)))
+        touch(Template(r"icon\tpl1719198082012.png",threshold=0.8,record_pos=(-0.44, -0.783),resolution=(1080, 1920)))
     else:
         print_space('没有可领取奖励')
 
