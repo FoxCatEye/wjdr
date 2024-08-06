@@ -8,6 +8,8 @@ import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
 from tkinter import font as tkFont
+from tkinter.scrolledtext import ScrolledText
+
 from airtest.core.api import *
 from airtest.core.android.android import *
 
@@ -16,8 +18,10 @@ logging.getLogger('airtest').setLevel(logging.ERROR)
 
 '''打开模拟器'''
 def start_exe():
-
-    subprocess.Popen('E:\leidian\LDPlayer9\dnplayer.exe')
+    try:
+        subprocess.Popen('E:\leidian\LDPlayer9\dnplayer.exe')
+    except:
+        print_space('未找到雷电模拟器')
 
 # 连接模拟器
 def cnnect():
@@ -584,9 +588,9 @@ def adventure():
     time.sleep(1)
     print_space('点击宝箱')
     touch([910,1250])
-    if exists(Template(r'icon\tpl1721784579076.png',threshold=0.9,record_pos=(-0.398, 0.819),resolution=(1080, 1920))):
+    if exists(Template(r'icon\tpl1721784579076.png',threshold=0.8,record_pos=(-0.398, 0.819),resolution=(1080, 1920))):
         print_space('点击领取奖励')
-        touch(Template(r'icon\tpl1721784579076.png',threshold=0.9,record_pos=(-0.398, 0.819),resolution=(1080, 1920)))
+        touch(Template(r'icon\tpl1721784579076.png',threshold=0.8,record_pos=(-0.398, 0.819),resolution=(1080, 1920)))
         time.sleep(1)
         print_space('回到主页')
         touch([500, 500])
@@ -1178,8 +1182,9 @@ entry_arg2.place(x=410, y=160)"""
 
 # 创建一个ScrolledText控件作为输出框
 tk.Label(window, text='输出:').place(x=10, y=430)
-output_box = tk.Text(window, width=68, height=10)
-output_box.place(x=10, y=450)
+output_box = ScrolledText(window, width=68, height=10)
+#output_box.place(x=10, y=450)
+output_box.pack(side=tk.BOTTOM,padx=10,pady=10)
 # sys.stdout.write = print(output_box)#写入输出框
 
 '''功能按钮'''
