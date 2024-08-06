@@ -19,7 +19,9 @@ logging.getLogger('airtest').setLevel(logging.ERROR)
 '''打开模拟器'''
 def start_exe():
     try:
+        print('开始启动雷电模拟器')
         subprocess.Popen('E:\leidian\LDPlayer9\dnplayer.exe')
+        print('启动成功')
     except:
         print_space('未找到雷电模拟器')
 
@@ -28,7 +30,7 @@ def cnnect():
     a = 1
     while a > 0:  # 连接模拟器
         try:
-            print_space('%d.开始尝试连接模拟器' % a)
+            print('%d.开始尝试连接模拟器' % a)
             connect_device("android://127.0.0.1:5037")
             time.sleep(5)
             print_space('连接模拟器成功!!!')
@@ -567,7 +569,7 @@ def donate():
             if not exists(Template(r"icon\tpl1721784579074.png", rgb=True, record_pos=(-0.44, -0.783),
                                resolution=(414, 780))):
                 print_space('点击捐献')
-                touch(Template(r"icon\tpl1721784579073.png", rgb=True, record_pos=(-0.44, -0.783),
+                touch(Template(r"icon\tpl1721784579073.png", record_pos=(-0.44, -0.783),
                                resolution=(414, 780)))
             else:
                 print_space('无捐献次数，结束任务')
@@ -742,13 +744,24 @@ running = True
 
 def start_simple(buttom_start_id):
     if buttom_start_id == 1:
-        start_exe_button.configure(text='再次启动',command=lambda: start_simple(1))
-        start_exe()
+        start_exe_button.configure(text='启动模拟器',command=lambda: start_simple(1))
+        #start_exe()
+        '''启动模拟器线程'''
+        threading.Thread(target=start_exe).start()
+        #threading.Thread(target=start_exe).join()
     elif buttom_start_id == 2:
-        cnnect()
+        '''连接模拟器线程'''
+        threading.Thread(target=cnnect).start()
+        #threading.Thread(target=cnnect).join()
     elif buttom_start_id == 3:
-        start_app_button.configure(text='再次启动',command=lambda: start_simple(3))
-        start_app()
+        start_app_button.configure(text='再次启动app',command=lambda: start_simple(3))
+        #start_app()
+        '''启动app线程'''
+        threading.Thread(target=start_app).start()
+        #threading.Thread(target=start_app).join()
+    elif buttom_start_id == 4:
+        '''一键启动线程'''
+        threading.Thread(target=all_start).start()
     else:
         print_space('错误')
 
