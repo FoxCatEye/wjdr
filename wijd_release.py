@@ -30,10 +30,9 @@ def cnnect():
         try:
             print_space('%d.开始尝试连接模拟器' % a)
             connect_device("android://127.0.0.1:5037")
-            time.sleep(10)
+            time.sleep(5)
             print_space('连接模拟器成功!!!')
             a = 0
-            # 首次运行
         except:
             a += 1
             print('未连接到模拟器，10s后重新执行')
@@ -51,7 +50,6 @@ def start_app():
             touch(Template(r"icon\tpl1719196072757.png", record_pos=(0.112, -0.519), resolution=(414, 780)))
             print_space("等待25秒启动时间...")
             time.sleep(25)
-            Homepage()
             break
         except :
             print('启动失败，再次尝试')
@@ -744,10 +742,12 @@ running = True
 
 def start_simple(buttom_start_id):
     if buttom_start_id == 1:
+        start_exe_button.configure(text='再次启动',command=lambda: start_simple(1))
         start_exe()
     elif buttom_start_id == 2:
         cnnect()
     elif buttom_start_id == 3:
+        start_app_button.configure(text='再次启动',command=lambda: start_simple(3))
         start_app()
     else:
         print_space('错误')
@@ -755,6 +755,8 @@ def start_simple(buttom_start_id):
 '''启动准备'''
 def all_start():
     start_exe()
+    print('等待30s以完成模拟器的启动')
+    time.sleep(30)
     cnnect()
     start_app()
 
