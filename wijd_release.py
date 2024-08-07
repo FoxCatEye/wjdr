@@ -979,7 +979,6 @@ def Production_simple():
             print('错误')
     print('任务已结束')
 
-
 # 建筑升级代码
 def build_simple():
     while True:
@@ -1022,13 +1021,11 @@ def donate_simple():
             print('错误')
     print('任务已结束')
 
-
 def stop_function():
     # 这里放置程序停止时需要执行的代码
     global stop_event
     stop_event.set()  # 设置事件，通知线程结束运行
-    print("-------当前任务结束后停止执行-------")
-
+    print("------------当前任务结束后停止执行------------")
 
 stop_event = threading.Event()
 
@@ -1055,12 +1052,11 @@ def center_window(root, width, height):
     # 设置窗口在屏幕上的位置
     root.geometry(f"{width}x{height}+{x}+{y}")
 
-
 # 创建主窗口
 window = tk.Tk()
 window.title("无尽冬日")  # 设置窗口标题
 window.geometry("500x600")  # 设置窗口大小
-icon = tk.PhotoImage(file="E:\测试文件\测试工具\版本控制\Wjdr\log\log.ico")  # 设置窗口图标
+icon = tk.PhotoImage(file="E:\测试文件\测试工具\版本控制\Wjdr\log\log.png")  # 设置窗口图标
 window.iconphoto(True, icon)
 # 调用函数居中窗口
 center_window(window, 500, 600)
