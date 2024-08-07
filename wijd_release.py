@@ -52,6 +52,7 @@ def start_app():
             touch(Template(r"icon\tpl1719196072757.png", record_pos=(0.112, -0.519), resolution=(414, 780)))
             print_space("等待25秒启动时间...")
             time.sleep(25)
+            print_space('启动完成')
             break
         except :
             print('启动失败，再次尝试')
@@ -62,26 +63,29 @@ def start_app():
 # 主页判断
 def Homepage():
     a = 1
-    while a < 4:
-        if exists(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
-                           resolution=(414, 780))):
-            print_space("在主页，准备执行任务")  # 在主界面，执行任务
-            return
-        else:
-            a += 1
-            print_space("不在主页，返回上一级")
-            if exists(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
+    try:
+        while a < 4:
+            if exists(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
                                resolution=(414, 780))):
-                print_space('点击返回按钮')
-                touch(
-                    Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
-                             resolution=(414, 780)))
-            elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780))):
-                print_space('点击关闭按钮')
-                touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
+                print_space("在主页，准备执行任务")  # 在主界面，执行任务
+                return
             else:
-                print_space('点击其他区域')
-                touch([500, 600])  # 不在主界面，返回到主页
+                a += 1
+                print_space("不在主页，返回上一级")
+                if exists(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
+                                   resolution=(414, 780))):
+                    print_space('点击返回按钮')
+                    touch(
+                        Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
+                                 resolution=(414, 780)))
+                elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780))):
+                    print_space('点击关闭按钮')
+                    touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
+                else:
+                    print_space('点击其他区域')
+                    touch([500, 600])  # 不在主界面，返回到主页
+    except:
+        print('执行错误')
     if a == 4:
         re_connet()
 
@@ -305,21 +309,19 @@ def Brush_XG():
     print_space('点击搜索按钮')
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
-    print_space('点击出征按钮')
+    print_space('点击攻击按钮')
     touch(Template(r"icon\tpl1721191349775.png", rgb=False, record_pos=(0.002, 0.705),
                    resolution=(414, 780)))  # 点击出征怪物
     time.sleep(1)  # 等待1s
     if exists(
             Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):  # 判断是否有兵力
-        touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
-        if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824),
-                           resolution=(414, 780))):  # 判断体力是否充足
+        #touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
+        if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824),resolution=(414, 780))):  # 判断体力是否充足
             energy()
         else:
             print_space("体力不足，暂停打野怪")
     else:
         print_space('兵力不足，暂停打野怪')
-        print_space('点击出征按钮')
 
 
 # 巨熊活动
@@ -742,24 +744,24 @@ def print_space(variable, spaces=4):
 running = True
 """可视化界面代码"""
 
-def start_simple(buttom_start_id):
-    if buttom_start_id == 1:
+def start_simple(button_start_id):
+    if button_start_id == 1:
         start_exe_button.configure(text='启动模拟器',command=lambda: start_simple(1))
         #start_exe()
         '''启动模拟器线程'''
         threading.Thread(target=start_exe).start()
         #threading.Thread(target=start_exe).join()
-    elif buttom_start_id == 2:
+    elif button_start_id == 2:
         '''连接模拟器线程'''
         threading.Thread(target=cnnect).start()
         #threading.Thread(target=cnnect).join()
-    elif buttom_start_id == 3:
+    elif button_start_id == 3:
         start_app_button.configure(text='再次启动app',command=lambda: start_simple(3))
         #start_app()
         '''启动app线程'''
         threading.Thread(target=start_app).start()
         #threading.Thread(target=start_app).join()
-    elif buttom_start_id == 4:
+    elif button_start_id == 4:
         '''一键启动线程'''
         threading.Thread(target=all_start).start()
     else:
@@ -1032,10 +1034,10 @@ stop_event = threading.Event()
 
 
 # 输出框输出内容
-def print(text):
+def print(text_1):
     #    str_args = " ".join(str(arg) for arg in args)
     output_box.configure(state="normal")
-    output_box.insert('end', text + '\n')  # 换行显示
+    output_box.insert('end', text_1 + '\n')  # 换行显示
     output_box.see("end")  # 显示最底部内容
     output_box.configure(state="disabled")
 
@@ -1058,8 +1060,8 @@ def center_window(root, width, height):
 window = tk.Tk()
 window.title("无尽冬日")  # 设置窗口标题
 window.geometry("500x600")  # 设置窗口大小
-#icon = tk.PhotoImage(file="main_icon.png")  # 设置窗口图标
-#window.iconphoto(False, icon)
+icon = tk.PhotoImage(file="E:\测试文件\测试工具\版本控制\Wjdr\log\log.ico")  # 设置窗口图标
+window.iconphoto(True, icon)
 # 调用函数居中窗口
 center_window(window, 500, 600)
 
