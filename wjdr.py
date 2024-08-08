@@ -2,69 +2,90 @@
 __author__ = "猫耳小刻晴"
 
 import logging
+import subprocess
 import threading
 import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
 from tkinter import font as tkFont
+from tkinter.scrolledtext import ScrolledText
+
 from airtest.core.api import *
 from airtest.core.android.android import *
 
 auto_setup(__file__)
 logging.getLogger('airtest').setLevel(logging.ERROR)
 
+'''打开模拟器'''
+def start_exe():
+    try:
+        print('开始启动雷电模拟器')
+        subprocess.Popen('E:\leidian\LDPlayer9\dnplayer.exe')
+        print('启动成功')
+    except:
+        print_space('未找到雷电模拟器')
+
 # 连接模拟器
 def cnnect():
     a = 1
     while a > 0:  # 连接模拟器
         try:
-            print_space('%d.开始连接模拟器' % a)
-            connect_device("android://127.0.0.1:5037/emulator-5570")
-            time.sleep(10)
-            print_space('连接模拟器成功，准备启动游戏')
+            print('%d.开始尝试连接模拟器' % a)
+            connect_device("android://127.0.0.1:5037")
+            time.sleep(5)
+            print_space('连接模拟器成功!!!')
             a = 0
-              # 首次运行
-            start()
         except:
             a += 1
             print('未连接到模拟器，10s后重新执行')
             time.sleep(10)
 
+
 # 启动APP
-def start():
-    if exists(Template(r"icon\tpl1719196072757.png", threshold=0.8, record_pos=(0.112, -0.519),
-                       resolution=(414, 780))):
-        print('游戏未启动，点击启动')
-        touch(Template(r"icon\tpl1719196072757.png", record_pos=(0.112, -0.519), resolution=(414, 780)))
-        print_space("等待25秒启动时间...")
-        time.sleep(25)
-        Homepage()
-    else:
-        print_space('游戏已启动，开始执行游戏任务')
+def start_app():
+    while True:
+        try:
+            print_space('开始尝试启动游戏')
+            '''if exists(Template(r"icon\tpl1719196072757.png", threshold=0.8, record_pos=(0.112, -0.519),
+                           resolution=(414, 780))):
+            print('游戏未启动，点击启动')'''
+            touch(Template(r"icon\tpl1719196072757.png", record_pos=(0.112, -0.519), resolution=(414, 780)))
+            print_space("等待25秒启动时间...")
+            time.sleep(25)
+            print_space('启动完成')
+            break
+        except :
+            print('启动失败，再次尝试')
+        '''else:
+        print_space('游戏已启动!!!')'''
+
 
 # 主页判断
 def Homepage():
     a = 1
-    while a < 4:
-        if exists(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
-                           resolution=(414, 780))):
-            print_space("在主页，准备执行任务")  # 在主界面，执行任务
-            return
-        else:
-            a += 1
-            print_space("不在主页，返回上一级")
-            if exists(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
+    try:
+        while a < 4:
+            if exists(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
                                resolution=(414, 780))):
-                print_space('点击返回按钮')
-                touch(
-                    Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
-                             resolution=(414, 780)))
-            elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780))):
-                print_space('点击关闭按钮')
-                touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
+                print_space("在主页，准备执行任务")  # 在主界面，执行任务
+                return
             else:
-                print_space('点击其他区域')
-                touch([500, 600])  # 不在主界面，返回到主页
+                a += 1
+                print_space("不在主页，返回上一级")
+                if exists(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
+                                   resolution=(414, 780))):
+                    print_space('点击返回按钮')
+                    touch(
+                        Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
+                                 resolution=(414, 780)))
+                elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780))):
+                    print_space('点击关闭按钮')
+                    touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
+                else:
+                    print_space('点击其他区域')
+                    touch([500, 600])  # 不在主界面，返回到主页
+    except:
+        print('执行错误')
     if a == 4:
         re_connet()
 
@@ -102,12 +123,12 @@ def train():
         touch(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920)))
         print_space('点击开始晋升士兵')
         touch(Template(r"icon\tpl1721784579063.png", rgb=True, record_pos=(0.22, 0.338), resolution=(1080, 1920)))
-    elif exists(Template(r"icon\tpl1721784547262.png",rgb=True, record_pos=(0.399, 0.019), resolution=(1080, 1920))):
+    elif exists(Template(r"icon\tpl1721784547262.png", rgb=True, record_pos=(0.399, 0.019), resolution=(1080, 1920))):
         print_space('点击晋升图标')
         touch(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920)))
         print_space('点击开始晋升士兵')
         touch(Template(r"icon\tpl1721784579063.png", rgb=True, record_pos=(0.22, 0.338), resolution=(1080, 1920)))
-    elif exists(Template(r"icon\tpl1721784547262.png",rgb=True, record_pos=(0.399, 0.019), resolution=(1080, 1920))):
+    elif exists(Template(r"icon\tpl1721784547262.png", rgb=True, record_pos=(0.399, 0.019), resolution=(1080, 1920))):
         print_space('点击兵种')
         touch(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920)))
         print_space('点击晋升图标')
@@ -124,7 +145,7 @@ def train():
     elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780))):
         touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))  # 关闭当前界面
     else:
-        print_space('\033[31m未找到对应图案\033[0m')
+        print_space('未找到对应图案')
     print_space('训练完成')
     time.sleep(1)
     touch([14, 823])
@@ -136,16 +157,18 @@ def Production_soldiers():
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    if exists(Template(r"icon\tpl1719478488282.png",rgb= True, threshold=0.9, record_pos=(-0.186, -0.058),
+    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.9, rgb=True, record_pos=(-0.186, -0.058),
                        resolution=(414, 780))):
         print_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
-    if exists(Template(r"icon\tpl1719480722195.png",rgb=True, threshold=0.9, record_pos=(-0.437, 0.046), resolution=(414, 780))):
+    if exists(Template(r"icon\tpl1719480722195.png", rgb=True, threshold=0.9, record_pos=(-0.437, 0.046),
+                       resolution=(414, 780))):
         print_space("跳转到矛兵兵营...")
         touch([600, 942])  # 点击索引到对应兵营
         train()
-    if exists(Template(r"icon\tpl1719480732965.png",rgb=True, threshold=0.9, record_pos=(-0.437, 0.145), resolution=(414, 780))):
+    if exists(Template(r"icon\tpl1719480732965.png", rgb=True, threshold=0.9, record_pos=(-0.437, 0.145),
+                       resolution=(414, 780))):
         print_space("跳转到射手兵营...")
         touch([600, 1060])  # 点击索引到对应兵营
         train()
@@ -233,120 +256,114 @@ def search_main():
     print_space('点击搜索图标')
     touch([63, 1314])  # 点击搜索图标
     time.sleep(1)  # 等待1s
+
+
 # 打雪怪功能
 def NPC():
-    now = datetime.now().date()
-    if now.day == 24 or now.day == 25 or now.day == 26:
-        print_space('打雪怪时间，开始集结雪怪')
-        print_space('打开背包')
-        touch([460, 1836])  # 点击打开背包
-        time.sleep(1)
-        if exists(
-                Template(r"icon\tpl1719376487523.png", record_pos=(0.449, -0.78), resolution=(414, 780))):  # 判断背包是否打开成功
-            touch([949, 171])  # 点击其他跳转至该页
-            print_space('查看活动道具')
-            if exists(Template(r"icon\tpl1719376586643.png", record_pos=(0.106, -0.476),
-                               resolution=(414, 780))):  # 判断是否有该道具
-                print_space('使用活动道具')
-                touch(Template(r"icon\tpl1719376586643.png", record_pos=(0.106, -0.476), resolution=(414, 780)))  # 点击道具
-                touch(Template(r"icon\tpl1719376629723.png", record_pos=(0.0, 0.092), resolution=(414, 780)))  # 点击使用
-                time.sleep(1)
-                print_space('集结打怪')
-                touch(Template(r"icon\tpl1719376765868.png", record_pos=(0.002, 0.705),
-                               resolution=(414, 780)))  # 寻找到怪物点击集结
-                touch(Template(r"icon\tpl1719376776844.png", record_pos=(0.0, 0.326), resolution=(414, 780)))  # 点击发起集结
-                print_space('兵力检查')
-                if exists(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):
-                    touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
-                    print_space('体力检查')
-                    if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824),
-                                       resolution=(414, 780))):  # 判断体力是否充足
-                        energy()
-                    else:
-                        print_space("体力不足，暂停打怪")
+    print_space('打雪怪时间，开始集结雪怪')
+    print_space('打开背包')
+    touch([460, 1836])  # 点击打开背包
+    time.sleep(1)
+    if exists(
+            Template(r"icon\tpl1719376487523.png", record_pos=(0.449, -0.78), resolution=(414, 780))):  # 判断背包是否打开成功
+        touch([949, 171])  # 点击其他跳转至该页
+        print_space('查看活动道具')
+        if exists(Template(r"icon\tpl1719376586643.png", record_pos=(0.106, -0.476),
+                           resolution=(414, 780))):  # 判断是否有该道具
+            print_space('使用活动道具')
+            touch(Template(r"icon\tpl1719376586643.png", record_pos=(0.106, -0.476), resolution=(414, 780)))  # 点击道具
+            touch(Template(r"icon\tpl1719376629723.png", record_pos=(0.0, 0.092), resolution=(414, 780)))  # 点击使用
+            time.sleep(1)
+            print_space('集结打怪')
+            touch(Template(r"icon\tpl1719376765868.png", record_pos=(0.002, 0.705),
+                           resolution=(414, 780)))  # 寻找到怪物点击集结
+            touch(Template(r"icon\tpl1719376776844.png", record_pos=(0.0, 0.326), resolution=(414, 780)))  # 点击发起集结
+            print_space('兵力检查')
+            if exists(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):
+                touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
+                print_space('体力检查')
+                if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824),
+                                   resolution=(414, 780))):  # 判断体力是否充足
+                    energy()
                 else:
-                    print_space('兵力不足，暂停打怪')
+                    print_space("体力不足，暂停打怪")
             else:
-                print_space("未找到相关物品，退出任务")
-                touch(Template(r"icon\tpl1719198082012.png", threshold=0.5, record_pos=(-0.44, -0.783),
-                               resolution=(414, 780))) or touch(
-                    Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
-    else:
-        print_space('未到活动时间，不执行该功能')
+                print_space('兵力不足，暂停打怪')
+        else:
+            print_space("未找到相关物品，退出任务")
+            touch(Template(r"icon\tpl1719198082012.png", threshold=0.5, record_pos=(-0.44, -0.783),
+                           resolution=(414, 780))) or touch(
+                Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
+
+
 # 野兽
 def Brush_XG():
-    now = datetime.now().time()
-    if 17 <= now.hour <= 23:
-        print_space('打野怪时间，开始出征')
-        search_main()
-        print_space('点击选择普通野兽')
-        touch([120, 1373])  # 点击普通野兽
-        time.sleep(1)  # 等待1s
-        print_space('点击等级')
-        touch([651, 1573])  # 点击等级3
-        time.sleep(1)  # 等待1s
-        print_space('点击搜索按钮')
-        touch([534, 1821])  # 点击搜索
-        time.sleep(1)  # 等待1s
-        print_space('点击出征按钮')
-        touch(Template(r"icon\tpl1721191349775.png", rgb=False, record_pos=(0.002, 0.705),
-                       resolution=(414, 780)))  # 点击出征怪物
-        time.sleep(1)  # 等待1s
-        if exists(
-                Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):  # 判断是否有兵力
-            touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
-            if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824),
-                               resolution=(414, 780))):  # 判断体力是否充足
-                energy()
-            else:
-                print_space("体力不足，暂停打野怪")
+    print_space('打野怪时间，开始出征')
+    search_main()
+    print_space('点击选择普通野兽')
+    touch([120, 1373])  # 点击普通野兽
+    time.sleep(1)  # 等待1s
+    print_space('点击等级')
+    touch([651, 1573])  # 点击等级3
+    time.sleep(1)  # 等待1s
+    print_space('点击搜索按钮')
+    touch([534, 1821])  # 点击搜索
+    time.sleep(1)  # 等待1s
+    print_space('点击攻击按钮')
+    touch(Template(r"icon\tpl1721191349775.png", rgb=False, record_pos=(0.002, 0.705),
+                   resolution=(414, 780)))  # 点击出征怪物
+    time.sleep(1)  # 等待1s
+    if exists(
+            Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):  # 判断是否有兵力
+        #touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
+        if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824),resolution=(414, 780))):  # 判断体力是否充足
+            energy()
         else:
-            print_space('兵力不足，暂停打野怪')
-            print_space('点击出征按钮')
+            print_space("体力不足，暂停打野怪")
     else:
-        print_space('未到时间，暂停打野怪')
-# 巨兽活动
+        print_space('兵力不足，暂停打野怪')
+
+
+# 巨熊活动
 def bear():
-    now = datetime.now().time()
-    if 20 < now.hour < 22:
-        print_space('当前时间：\033[31m%s\033[0m,巨兽活动进行中' % now.strftime("%H:%M:%S"))
-        if exists(Template(r"icon\tpl1721191349777.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):
-            print_space('点击活动按钮')
-            touch(Template(r"icon\tpl1721191349777.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))
-            time.sleep(2)
-            print_space('点击集结按钮')
-            touch(Template(r'icon\tpl1721784579065.png', record_pos=(0.26, 0.795), resolution=(1080, 1920)))
-            if exists(Template(r"icon\tpl1721784579066.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):
-                print_space('发起集结')
-                touch(Template(r"icon\tpl1721784579066.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))
-                print_space('点击出征')
-                touch(Template(r"icon\tpl1721784579067.png", record_pos=(0.002, 0.705), resolution=(414, 780)))
-                print_space('出征成功')
-            else:
-                print_space('集结中')
+    if exists(Template(r"icon\tpl1721191349777.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):
+        print_space('点击活动按钮')
+        touch(Template(r"icon\tpl1721191349777.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))
+        time.sleep(2)
+        print_space('点击集结按钮')
+        touch(Template(r'icon\tpl1721784579065.png', record_pos=(0.26, 0.795), resolution=(1080, 1920)))
+        if exists(Template(r"icon\tpl1721784579066.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):
+            print_space('发起集结')
+            touch(Template(r"icon\tpl1721784579066.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))
+            print_space('点击出征')
+            touch(Template(r"icon\tpl1721784579067.png", record_pos=(0.002, 0.705), resolution=(414, 780)))
+            print_space('出征成功')
         else:
-            print_space('未找到活动图标')
+            print_space('集结中')
+    else:
+        print_space('未找到活动图标')
+
 
 # 冰原巨兽
 def Brush_WM():
-    now = datetime.now().time()
-    if now.hour == 0 or now.hour == 1:
-        search_main()
-        print_space('点击选择冰原巨兽')
-        touch([365, 1373])  # 点击冰原巨兽
-        time.sleep(1)  # 等待1s
-        print_space('点击等级')
-        touch([500, 1573])  # 点击等级3
-        time.sleep(1)  # 等待1s
-        print_space('点击搜索按钮')
-        touch([534, 1821])  # 点击搜索
-        time.sleep(1)  # 等待1s
-        print_space('点击集结按钮')
-        touch(Template(r"icon\tpl1719376765868.png", record_pos=(0.002, 0.705), resolution=(414, 780)))  # 点击怪物集结
-        time.sleep(1)  # 等待1s
+    search_main()
+    swipe([600, 1370], vector=[0.4103, 0.0170])  # 滑动
+    time.sleep(1)  # 等待1s
+    print_space('点击选择冰原巨兽')
+    touch([365, 1373])  # 点击冰原巨兽
+    time.sleep(1)  # 等待1s
+    print_space('点击等级')
+    touch([500, 1573])  # 点击等级3
+    time.sleep(1)  # 等待1s
+    print_space('点击搜索按钮')
+    touch([534, 1821])  # 点击搜索
+    time.sleep(1)  # 等待1s
+    print_space('点击集结按钮')
+    touch(Template(r"icon\tpl1719376765868.png", record_pos=(0.002, 0.705), resolution=(414, 780)))  # 点击怪物集结
+    time.sleep(1)  # 等待1s
+    if exists(Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(414, 780))):
         print_space('点击发起集结')
-        touch(
-            Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(414, 780)))  # 点击发起集结
+        touch(Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(414, 780)))  # 点击发起集结
         time.sleep(1)  # 等待0.5s
         if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(414, 780))):  # 有兵力可出征
             print_space('点击出征按钮')
@@ -354,19 +371,22 @@ def Brush_WM():
         else:  # 判断是否有多余兵力
             print_space('不满足条件，无兵力出征')
     else:
-        print_space('未到时间，暂停打冰原巨兽')
+        print_space('队伍数不足，无法出征')
 
 
 # 采集出兵
 def gather():
+    print_space('点击采集按钮')
     touch(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920)))
-    if exists(Template(r"icon\tpl1720675170747.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):  # 有兵力可出征
+    if exists(Template(r"icon\tpl1721191349776.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):  # 有兵力可出征
         print_space('点击出征按钮')
-        touch(Template(r"icon\tpl1720675170747.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))  # 点击出征
+        touch(Template(r"icon\tpl1721191349776.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))  # 点击出征
         print_space('出征成功')
         time.sleep(1)
     else:  # 判断是否有多余兵力
         print_space('不满足条件，无兵力出征')
+
+
 # 打怪出兵
 def energy():
     touch(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(414, 780)))  # 点击出征
@@ -377,6 +397,9 @@ def energy():
         touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
         print_space('关闭出征界面')
         touch(Template(r"icon\tpl1719198082012.png", threshold=0.5, record_pos=(-0.44, -0.783), resolution=(414, 780)))
+    elif exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(414, 780))):
+        touch(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(414, 780)))  # 点击出征
+        print_space('出征成功')
     else:
         print_space("出征成功")
 
@@ -478,214 +501,546 @@ def Iron():
 
 # 自动采集
 def Collection():
-    now = datetime.now().time()
-    if now.hour == 3:
-        if not exists(Template(r"icon\tpl1720145326019.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
-            print_space('不在世界，点击去往世界')
-            touch([950, 1850])  # 点击野外
-            time.sleep(5)  # 等待5秒
-        else:
-            print_space('在野外，执行采集任务')
-            time, sleep(3)
-        touch([14, 823])
-        time.sleep(1)
-        touch([500, 400])
-        if not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
-            print_space('有空闲队伍，执行采肉任务')
-            time.sleep(1)
-            Meat()
-        else:
-            print_space('已有采肉队伍')
-        if not exists(Template(r"icon\tpl1720766916044.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
-            print_space('有空闲队伍，执行采木头任务')
-            time.sleep(1)
-            Wood()
-        else:
-            print_space('已有采木材队伍')
-        if not exists(Template(r"icon\tpl1720766916045.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
-            print_space('有空闲队伍，执行采煤任务')
-            time.sleep(1)
-            Coal()
-        else:
-            print_space('已有采煤队伍')
-        if not exists(
-                Template(r"icon\tpl1720766916046.png", rgb=True, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
-            print_space('有空闲队伍，执行采铁任务')
-            time.sleep(1)
-            Iron()
-        else:
-            print_space('已有采铁队伍')
-        touch(
-            Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+    if not exists(Template(r"icon\tpl1720145326019.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
+        print_space('不在世界，点击去往世界')
+        touch([950, 1850])  # 点击野外
+        time.sleep(5)  # 等待5秒
     else:
-        print_space('当前时间：\033[31m%s\033[0m,未到采集时间' % now.strftime("%H:%M"))
-#治疗
-def treatment():
-    now = datetime.now().time()
-    if now.minute == 21:
-        if exists(Template(r"icon\tpl1721191349778.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
-            print_space("点击治疗图标")
-            touch(Template(r"icon\tpl1721191349778.png", threshold=0.8, record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
-            print_space('点击治疗按钮')
-            touch(Template(r"icon\tpl1721191349779.png", threshold=0.8, record_pos=(0.142, -0.126),
-                           resolution=(1080, 1920)))
-            print_space('点击联盟互助')
-            touch(Template(r"icon\tpl1721191349780.png", threshold=0.8, record_pos=(0.142, -0.126),
-                           resolution=(1080, 1920)))
-        else:
-            print_space('没有需要治疗的士兵')
+        print_space('在野外，执行采集任务')
+        time, sleep(3)
+    touch([14, 823])
+    time.sleep(1)
+    touch([500, 400])
+    if not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+        print_space('有空闲队伍，执行采肉任务')
+        time.sleep(1)
+        Meat()
+    else:
+        print_space('已有采肉队伍')
+    if not exists(Template(r"icon\tpl1720766916044.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+        print_space('有空闲队伍，执行采木头任务')
+        time.sleep(1)
+        Wood()
+    else:
+        print_space('已有采木材队伍')
+    if not exists(Template(r"icon\tpl1720766916045.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+        print_space('有空闲队伍，执行采煤任务')
+        time.sleep(1)
+        Coal()
+    else:
+        print_space('已有采煤队伍')
+    if not exists(
+            Template(r"icon\tpl1720766916046.png", rgb=True, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+        print_space('有空闲队伍，执行采铁任务')
+        time.sleep(1)
+        Iron()
+    else:
+        print_space('已有采铁队伍')
+    touch(
+        Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
 
-#联盟捐赠
+
+# 治疗
+def treatment():
+    if exists(Template(r"icon\tpl1721191349778.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+        print_space("点击治疗图标")
+        touch(Template(r"icon\tpl1721191349778.png", threshold=0.8, record_pos=(-0.168, -0.088),
+                       resolution=(1080, 1920)))
+        print_space('点击治疗按钮')
+        touch(Template(r"icon\tpl1721191349779.png", threshold=0.8, record_pos=(0.142, -0.126),
+                       resolution=(1080, 1920)))
+        print_space('点击联盟互助')
+        touch(Template(r"icon\tpl1721191349780.png", threshold=0.8, record_pos=(0.142, -0.126),
+                       resolution=(1080, 1920)))
+    else:
+        print_space('没有需要治疗的士兵')
+
+
+# 联盟捐赠
 def donate():
-    now = datetime.now().time()
-    if 0 < now.minute < 2:
-        print_space('开始执行联盟捐献任务')
-        print_space('点击联盟图案')
-        touch(Template(r"icon\tpl1721784579070.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
-        print_space('点击联盟科技')
-        touch(Template(r"icon\tpl1721784579071.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
-        if exists(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
-            print_space('点击大拇指科技')
-            touch(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
-            x=1
-            while x>0:
-                if exists(Template(r"icon\tpl1721784579073.png", rgb=True, record_pos=(-0.44, -0.783),
-                             resolution=(414, 780))):
-                    print_space('点击捐献')
-                    touch(Template(r"icon\tpl1721784579073.png", rgb=True, record_pos=(-0.44, -0.783),
-                             resolution=(414, 780)))
-                else:
-                    print_space('无捐献次数，结束任务')
-                    x=0
-        else:
-            print_space('无大拇指指引，返回主页')
-            touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
-                             resolution=(414, 780)))
-#设备顶号重连
+    print_space('开始执行联盟捐献任务')
+    print_space('点击联盟图案')
+    touch(Template(r"icon\tpl1721784579070.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+    print_space('点击联盟科技')
+    touch(Template(r"icon\tpl1721784579071.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+    if exists(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+        print_space('点击大拇指科技')
+        touch(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+        x = 1
+        while x > 0:
+            if not exists(Template(r"icon\tpl1721784579074.png", rgb=True, record_pos=(-0.44, -0.783),
+                               resolution=(414, 780))):
+                print_space('点击捐献')
+                touch(Template(r"icon\tpl1721784579073.png", record_pos=(-0.44, -0.783),
+                               resolution=(414, 780)))
+            else:
+                print_space('无捐献次数，结束任务')
+                x = 0
+    else:
+        print_space('无大拇指指引，返回主页')
+        touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
+                       resolution=(414, 780)))
+
+
+# 探险
+def adventure():
+    print_space('点击探险')
+    touch(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
+                   resolution=(1080, 1920)))
+    time.sleep(1)
+    print_space('点击宝箱')
+    touch([910,1250])
+    if exists(Template(r'icon\tpl1721784579076.png',threshold=0.8,record_pos=(-0.398, 0.819),resolution=(1080, 1920))):
+        print_space('点击领取奖励')
+        touch(Template(r'icon\tpl1721784579076.png',threshold=0.8,record_pos=(-0.398, 0.819),resolution=(1080, 1920)))
+        time.sleep(1)
+        print_space('回到主页')
+        touch([500, 500])
+        touch(Template(r"icon\tpl1719198082012.png",threshold=0.8,record_pos=(-0.44, -0.783),resolution=(1080, 1920)))
+    else:
+        print_space('没有可领取奖励')
+
+# 设备顶号重连
 def re_connet():
     if exists(Template(r"icon\tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
-        print('\033[31m在其他设备登录，等待5分钟后重新连接\033[0m')
+        print('在其他设备登录，等待5分钟后重新连接')
         time.sleep(300)
         try:
             print_space('点击重新连接')
             re = 1
-            while re >0:
+            while re > 0:
                 touch(
                     Template(r"icon\tpl1720766916047.png", record_pos=(-0.168, -0.088),
                              resolution=(1080, 1920)))
                 time.sleep(10)
                 if exists(Template(r"icon\tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088),
                                    resolution=(1080, 1920))):
-                    print('\033[31m重新连接失败，等待1分钟继续尝试\033[0m')
+                    print('重新连接失败，等待1分钟继续尝试')
                     time.sleep(60)
                 else:
                     print_space('重新连接成功')
                     re = 0
         except:
-            print('\033[31m重新连接失败，稍后尝试\033[0m')
+            print('重新连接失败，稍后尝试')
     else:
         print_space('连接正常')
+
 
 # 主体代码
 def Subject():
     run_i = 1
-    while run_i < 30:
+    while True:
         if run_i % 10 == 0:
-            print('\n'+'%d.开始执行训练任务' % run_i)
+            print('\n' + '%d.开始执行训练任务' % run_i)
+            run_i += 1
             Homepage()  # 主页检查
             try:
                 Production_soldiers()  # 训练模块
+                if stop_event.is_set():
+                    start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                    break
             except:
-                print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
-            run_i += 1
+                print('程序执行异常，结束该任务，执行其他任务')
         elif run_i % 14 == 0:
-            print('\n'+'%d.开始执行建造任务' % run_i)
+            print('\n' + '%d.开始执行建造任务' % run_i)
+            run_i += 1
             Homepage()  # 主页检查
             try:
                 Build()  # 建造模块
+                if stop_event.is_set():
+                    start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                    break
             except:
-                print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
-            run_i += 1
+                print('程序执行异常，结束该任务，执行其他任务')
         elif run_i % 19 == 0:
-            print('\n'+'%d.开始执行打怪任务' % run_i)
-            Homepage()  # 主页检查
-            try:
-                #Brush_XG()  # 打普通野怪
-                Brush_WM()  # 打巨兽模块
-                NPC()  # 打雪怪模块
-            except:
-                print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
+            print('\n' + '%d.开始执行打怪任务' % run_i)
             run_i += 1
-        elif run_i % 29 == 0:
-            print('\n'+'%d.开始执行采集任务' % run_i)
             Homepage()  # 主页检查
             try:
-                Collection()  # 采集资源模块
+                now = datetime.now()
+                if 17 <= now.hour <= 23:
+                    Brush_XG()  # 打普通野怪
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+                elif now.hour == 0 or now.hour == 1:
+                    Brush_WM()  # 打巨兽模块
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+                elif now.day == 24 or now.day == 25 or now.day == 26:
+                    NPC()
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+                else:
+                    print_space('未到时间，暂停打冰原巨兽')
             except:
-                print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
-            print('\033[31m执行完成，结束该周期，开始新的周期\033[0m')
+                print('程序执行异常，结束该任务，执行其他任务')
+        elif run_i % 29 == 0:
+            print('\n' + '%d.开始执行采集任务' % run_i)
             run_i = 1
+            Homepage()  # 主页检查
+            try:
+                now = datetime.now().time()
+                if now.hour == 3:
+                    Collection()  # 采集资源模块
+                else:
+                    print_space('当前时间：%s,未到采集时间' % now.strftime("%H:%M"))
+                if stop_event.is_set():
+                    start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                    break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+            print('执行完成，结束该周期，开始新的周期')
         else:
-            print('\n'+'%d.开始执行互助任务' % run_i)
+            print('\n' + '%d.开始执行互助任务' % run_i)
+            run_i += 1
             Homepage()  # 主页检查
             try:
                 Help()  # 互助模块
-                bear()  # 巨熊模块
-                treatment() #治疗模块
-                donate()  #捐赠模块
+                if stop_event.is_set():
+                    start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                    break
+                now = datetime.now().time()
+                if 20 < now.hour < 22:
+                    print_space('当前时间：%s,巨兽活动进行中' % now.strftime("%H:%M:%S"))
+                    bear()  # 巨熊模块
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+                now = datetime.now().time()
+                if now.minute == 21:
+                    treatment()  # 治疗模块
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+                now = datetime.now().time()
+                if 0 < now.minute < 2:
+                    donate()  # 捐赠模块
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+                now = datetime.now().time()
+                if now.minute == 25:
+                    adventure()
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
             except:
-                print('\033[31m程序执行异常，结束该任务，执行其他任务\033[0m')
-            run_i += 1
+                print('程序执行异常，结束该任务，执行其他任务')
+    print('结束任务')
 
 
 def print_space(variable, spaces=4):
     print(' ' * spaces + str(variable))
 
-def main():
+
+# --distpath
+
+# pyinstaller  -w  --onefile --name "无尽冬日" --icon "E:\测试文件\测试工具\版本控制\Wjdr\main_icon.ico" --add-data "E:\测试文件\测试工具\AirtestIDE\airtest:airtest" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\icon:icon" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\wjdr.py:." E:\测试文件\测试工具\版本控制\Wjdr\wijd_release.py
+# pip install numpy==1.21.1
+
+running = True
+"""可视化界面代码"""
+
+def start_simple(button_start_id):
+    if button_start_id == 1:
+        start_exe_button.configure(text='启动模拟器',command=lambda: start_simple(1))
+        #start_exe()
+        '''启动模拟器线程'''
+        threading.Thread(target=start_exe).start()
+        #threading.Thread(target=start_exe).join()
+    elif button_start_id == 2:
+        '''连接模拟器线程'''
+        threading.Thread(target=cnnect).start()
+        #threading.Thread(target=cnnect).join()
+    elif button_start_id == 3:
+        start_app_button.configure(text='再次启动app',command=lambda: start_simple(3))
+        #start_app()
+        '''启动app线程'''
+        threading.Thread(target=start_app).start()
+        #threading.Thread(target=start_app).join()
+    elif button_start_id == 4:
+        '''一键启动线程'''
+        threading.Thread(target=all_start).start()
+    else:
+        print_space('错误')
+
+'''启动准备'''
+def all_start():
+    start_exe()
+    print('等待30s以完成模拟器的启动')
+    time.sleep(30)
     cnnect()
+    start_app()
+
+# 主线程代码
+def main():
     Subject()
 
-
-
-#--distpath
-
-#pyinstaller  -w  --onefile --name "无尽冬日" --icon "E:\测试文件\测试工具\版本控制\Wjdr\icon\tpl1719196072757.png" --add-data "E:\测试文件\测试工具\AirtestIDE\airtest:airtest" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\icon:icon" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\wjdr.py:." E:\测试文件\测试工具\版本控制\Wjdr\wijd_release.py
-#pip install numpy==1.21.1
-
-
-"""可视化界面代码"""
+# 单线程主代码
 def simle(button_id):
-    if button_id == 1:
-        thread_Help.start()
+    #总功能
+    if button_id == 0:
+        # 点击后按钮变化
+        start_button.configure(text='停止', command=stop_function)
+        print("程序开始执行...")
+        # 这里放置程序开始时需要执行的代码
+        stop_event.clear()
+        threading.Thread(target=main).start()
+    # 互助功能
+    elif button_id == 1:
+        # 点击后按钮变化
+        option_help_button.configure(text='停止', command=stop_function)
+        stop_event.clear()
+        threading.Thread(target=help_simple).start()
+    # 世界野怪
+    elif button_id == 2:
+        # 点击后按钮变化
+        option_XG_button.configure(text='停止', command=stop_function)
+        stop_event.clear()
+        threading.Thread(target=XG_simple).start()
+    # 巨兽
+    elif button_id == 3:
+        # 点击后按钮变化
+        option_WM_button.configure(text='停止', command=stop_function)
+        stop_event.clear()
+        threading.Thread(target=WM_simple).start()
+    # 雪怪
+    elif button_id == 4:
+        # 点击后按钮变化
+        option_npc_button.configure(text='停止', command=stop_function)
+        stop_event.clear()
+        threading.Thread(target=NPC_simple).start()
+    # 训练士兵
+    elif button_id == 5:
+        # 点击后按钮变化
+        option_Collection_button.configure(text='停止', command=stop_function)
+        stop_event.clear()
+        threading.Thread(target=Production_simple).start()
+    # 建筑升级
+    elif button_id == 6:
+        # 点击后按钮变化
+        option_build_button.configure(text='停止', command=stop_function)
+        stop_event.clear()
+        threading.Thread(target=build_simple).start()
+    #采集
+    elif button_id == 7:
+        # 点击后按钮变化
+        option_Collection_button.configure(text='停止', command=stop_function)
+        stop_event.clear()
+        threading.Thread(target=Collection_simple).start()
+    #巨兽活动
+    elif button_id == 8:
+        # 点击后按钮变化
+        option_bear_button.configure(text='停止', command=stop_function)
+        stop_event.clear()
+        threading.Thread(target=bear_simple).start()
+    #治疗
+    elif button_id == 9:
+        # 点击后按钮变化
+        option_treatment_button.configure(text='停止', command=stop_function)
+        stop_event.clear()
+        threading.Thread(target=treatment_simple).start()
+    #探险
+    elif button_id ==10:
+        # 点击后按钮变化
+        option_adventure_button.configure(text='停止', command=stop_function)
+        stop_event.clear()
+        threading.Thread(target=adventure_simple).start()
+    #联盟捐赠
+    elif button_id ==11:
+        # 点击后按钮变化
+        option_donate_button.configure(text='停止', command=stop_function)
+        stop_event.clear()
+        threading.Thread(target=donate_simple).start()
 
-#主线程
-thread_main = threading.Thread(target=main)
-def start_function():
-    print("程序开始执行...")
-    # 这里放置程序开始时需要执行的代码
-    thread_main.start()
 
-def stop_function():
-    print("程序停止执行...")
-    # 这里放置程序停止时需要执行的代码
-
+# 帮助单线程
 def help_simple():
-    cnnect()
     while True:
         try:
+            Homepage()
             Help()
+            if stop_event.is_set():
+                option_help_button.configure(text='开始', command=lambda: simle(1))  # 互助功能
+                break
         except:
             print('错误')
-#输出框输出内容
-def print(text):
-#    str_args = " ".join(str(arg) for arg in args)
+    print('任务已结束')
+
+
+# 打野怪单程序
+def XG_simple():
+    while True:
+        try:
+            Homepage()
+            Brush_XG()
+            if stop_event.is_set():
+                option_XG_button.configure(text='开始', command=lambda: simle(2))  # 野怪功能
+                break
+            print_space('等待1分钟后再次执行')
+            time.sleep(60)
+        except:
+            print('错误')
+    print('任务已结束')
+
+
+# 打巨兽单程序
+def WM_simple():
+    while True:
+        try:
+            Homepage()
+            Brush_WM()
+            if stop_event.is_set():
+                option_WM_button.configure(text='开始', command=lambda: simle(3))  # 停止后按钮变为开始
+                break
+            print_space('等待90s后再次执行')
+            time.sleep(90)
+        except:
+            print('错误')
+    print('任务已结束')
+
+
+# 打雪怪单程序
+def NPC_simple():
+    while True:
+        try:
+            Homepage()
+            NPC()
+            if stop_event.is_set():
+                option_npc_button.configure(text='开始', command=lambda: simle(4))  # 停止后按钮变为开始
+                break
+            print_space('等待90s后再次执行')
+            time.sleep(90)
+        except:
+            print('错误')
+    print('任务已结束')
+
+
+# 采集资源
+def Collection_simple():
+    while True:
+        try:
+            Homepage()
+            Collection()
+            if stop_event.is_set():
+                option_Collection_button.configure(text='开始', command=lambda: simle(5))  # 停止后按钮变为开始
+                break
+            print_space('等待1小时后再次执行')
+            time.sleep(3600)
+        except:
+            print('错误')
+    print('任务已结束')
+
+
+# 巨熊活动
+def bear_simple():
+    while True:
+        try:
+            Homepage()
+            bear()
+            if stop_event.is_set():
+                option_bear_button.configure(text='开始', command=lambda: simle(6))  # 停止后按钮变为开始
+                break
+        except:
+            print('错误')
+    print('任务已结束')
+
+
+# 治疗
+def treatment_simple():
+    while True:
+        try:
+            Homepage()
+            treatment()
+            if stop_event.is_set():
+                option_treatment_button.configure(text='开始', command=lambda: simle(7))  # 停止后按钮变为开始
+                break
+            print_space('等待1分钟后再次执行')
+            time.sleep(60)
+        except:
+            print('错误')
+    print('任务已结束')
+
+#训练士兵
+def Production_simple():
+    while True:
+        try:
+            Homepage()
+            Production_soldiers()
+            if stop_event.is_set():
+                option_Production_button.configure(text='开始', command=lambda: simle(8))  # 停止后按钮变为开始
+                break
+            print_space('等待1分钟')
+            time.sleep(60)
+        except:
+            print('错误')
+    print('任务已结束')
+
+# 建筑升级代码
+def build_simple():
+    while True:
+        try:
+            Homepage()
+            Build()
+            if stop_event.is_set():
+                option_build_button.configure(text='开始', command=lambda: simle(9))  # 停止后按钮变为开始
+                break
+        except:
+            print('错误')
+    print('任务已结束')
+#探险
+def adventure_simple():
+    while True:
+        try:
+            Homepage()
+            adventure()
+            if stop_event.is_set():
+                option_adventure_button.configure(text='开始', command=lambda: simle(10))  # 停止后按钮变为开始
+                break
+            print_space('等待1小时后再次执行')
+            time.sleep(1)
+        except:
+            print('错误')
+    print('任务已结束')
+
+#联盟捐赠
+def donate_simple():
+    while True:
+        try:
+            Homepage()
+            donate()
+            if stop_event.is_set():
+                option_donate_button.configure(text='开始', command=lambda: simle(11))  # 停止后按钮变为开始
+                break
+            print_space('等待5分钟后再次执行')
+            time.sleep(300)
+        except:
+            print('错误')
+    print('任务已结束')
+
+def stop_function():
+    # 这里放置程序停止时需要执行的代码
+    global stop_event
+    stop_event.set()  # 设置事件，通知线程结束运行
+    print("------------当前任务结束后停止执行------------")
+
+stop_event = threading.Event()
+
+
+# 输出框输出内容
+def print(text_1):
+    #    str_args = " ".join(str(arg) for arg in args)
     output_box.configure(state="normal")
-    output_box.insert('end', text + '\n')#换行显示
-    output_box.see("end")#显示最底部内容
+    output_box.insert('end', text_1 + '\n')  # 换行显示
+    output_box.see("end")  # 显示最底部内容
     output_box.configure(state="disabled")
 
-#窗口在屏幕中的位置
-def center_window(root,width,height):
+
+# 窗口在屏幕中的位置
+def center_window(root, width, height):
     # 获取屏幕尺寸
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
@@ -697,78 +1052,168 @@ def center_window(root,width,height):
     # 设置窗口在屏幕上的位置
     root.geometry(f"{width}x{height}+{x}+{y}")
 
-
 # 创建主窗口
 window = tk.Tk()
 window.title("无尽冬日")  # 设置窗口标题
 window.geometry("500x600")  # 设置窗口大小
+icon = tk.PhotoImage(file="E:\测试文件\测试工具\版本控制\Wjdr\log\log.png")  # 设置窗口图标
+window.iconphoto(True, icon)
 # 调用函数居中窗口
-center_window(window,500,600)
+center_window(window, 500, 600)
 
-bt = tkFont.Font(family="Helvetica", size=14, weight=tkFont.BOLD)
-tk.Label(window,text='无尽冬日',anchor='center',font=bt).pack()
+bt = tkFont.Font(family="Helvetica", size=16, weight=tkFont.BOLD)
+tk.Label(window, text='无尽冬日', anchor='center', font=bt).pack()
 
-# 创建一个单选项并添加选项
-tk.Label(window,text='开启互助功能').place(x=100,y=100)
-option = tk.IntVar()
-option.set(1)
-option1 = tk.Radiobutton(window,text='是',variable=option,value=1)
-option2 = tk.Radiobutton(window,text='否',variable=option,value=2)
-option_button = ttk.Button(window, text="执行",command=lambda:simle(1))
-option1.place(x=200,y=100)
-option2.place(x=300,y=100)
-option_button.place(x=350, y=100)
+# 创建所有功能执行
+tk.Label(window, text='所有功能').place(x=40, y=40)
+start_button = ttk.Button(window, text="开始", command=lambda:simle(0))
+start_button.place(x=350, y=40)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='开启2功能').place(x=100, y=130)
-checkbutton = tk.IntVar()
-checkbutton.set(1)
-checkbutton2 = tk.Radiobutton(window, text='是', variable=checkbutton, value=1)
-checkbutton3 = tk.Radiobutton(window, text='否', variable=checkbutton, value=2)
-checkbutton_button = ttk.Button(window, text="执行", command=lambda: simle(2))
-checkbutton2.place(x=200, y=130)
-checkbutton3.place(x=300, y=130)
-checkbutton_button.place(x=350, y=130)
-
+tk.Label(window, text='联盟互助功能').place(x=40, y=70)
+"""option_help = tk.IntVar()
+option_help1 = tk.Radiobutton(window,text='是',variable=option,value=0)
+option_help1.place(x=150,y=70)
+option_help2 = tk.Radiobutton(window,text='否',variable=option,value=1)
+option_help2.place(x=200,y=70)"""
+option_help_button = ttk.Button(window, text="开始", command=lambda: simle(1))
+option_help_button.place(x=350, y=70)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='开启3功能').place(x=100, y=160)
-opti = tk.IntVar()
-opti1 = tk.Radiobutton(window, text='是', variable=opti, value=0)
-opti2 = tk.Radiobutton(window, text='否', variable=opti, value=1)
-opti1.place(x=200, y=160)
-opti2.place(x=250, y=160)
+tk.Label(window, text='世界野怪功能').place(x=40, y=100)
+'''option_XG= tk.IntVar()
+option_XG_1 = tk.Radiobutton(window, text='是', variable=option_XG, value=0)
+option_XG_1.place(x=150, y=100)
+option_XG_2 = tk.Radiobutton(window, text='否', variable=option_XG, value=1)
+option_XG_2.place(x=200, y=100)'''
+option_XG_button = ttk.Button(window, text="开始", command=lambda: simle(2))
+option_XG_button.place(x=350, y=100)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='冰原巨兽功能').place(x=40, y=130)
+"""option_WM = tk.IntVar()
+option_WM_1 = tk.Radiobutton(window, text='是', variable=bear_active, value=0)
+option_WM_1.place(x=150, y=130)
+option_WM_2 = tk.Radiobutton(window, text='否', variable=bear_active, value=1)
+option_WM_2.place(x=200, y=130)"""
+option_WM_button = ttk.Button(window, text="开始", command=lambda: simle(3))
+option_WM_button.place(x=350, y=130)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='集结雪怪功能').place(x=40, y=160)
+"""option_npc = tk.IntVar()
+option_npc_1 = tk.Radiobutton(window, text='是', variable=option_Production, value=0)
+option_npc_1.place(x=150, y=160)
+option_npc_2 = tk.Radiobutton(window, text='否', variable=option_Production, value=1)
+option_npc_2.place(x=200, y=1650)"""
+option_npc_button = ttk.Button(window, text="开始", command=lambda: simle(4))
+option_npc_button.place(x=350, y=160)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='训练士兵功能').place(x=40, y=190)
+"""option_Production = tk.IntVar()
+option_Production_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_Production_1.place(x=150, y=190)
+option_Production_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_Production_2.place(x=200, y=190)"""
+option_Production_button = ttk.Button(window, text="开始", command=lambda: simle(5))
+option_Production_button.place(x=350, y=190)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='建筑升级功能').place(x=40, y=220)
+"""option_build = tk.IntVar()
+option_build_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_build_1.place(x=150, y=220)
+option_build_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_build_2.place(x=200, y=220)"""
+option_build_button = ttk.Button(window, text="开始", command=lambda: simle(6))
+option_build_button.place(x=350, y=220)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='采集资源功能').place(x=40, y=250)
+"""option_Collection = tk.IntVar()
+option_Collection_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_Collection_1.place(x=150, y=250)
+option_Collection_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_Collection_2.place(x=200, y=250)"""
+option_Collection_button = ttk.Button(window, text="开始", command=lambda: simle(7))
+option_Collection_button.place(x=350, y=250)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='巨熊活动功能').place(x=40, y=280)
+"""option_bear = tk.IntVar()
+option_bear_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_bear_1.place(x=150, y=280)
+option_bear_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_bear_2.place(x=200, y=280)"""
+option_bear_button = ttk.Button(window, text="开始", command=lambda: simle(8))
+option_bear_button.place(x=350, y=280)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='治疗士兵功能').place(x=40, y=310)
+"""option_treatment = tk.IntVar()
+option_treatment_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_treatment_1.place(x=150, y=310)
+option_treatment_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_treatment_2.place(x=200, y=310)"""
+option_treatment_button = ttk.Button(window, text="开始", command=lambda: simle(9))
+option_treatment_button.place(x=350, y=310)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='领取探险奖励').place(x=40, y=340)
+"""option_adventure = tk.IntVar()
+option_adventure_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_adventure_1.place(x=150, y=340)
+option_adventure_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_adventure_2.place(x=200, y=340)"""
+option_adventure_button = ttk.Button(window, text="开始", command=lambda: simle(10))
+option_adventure_button.place(x=350, y=340)
+
+# 创建一个单选项并添加选项
+tk.Label(window, text='联盟捐赠功能').place(x=40, y=370)
+"""option_donate = tk.IntVar()
+option_donate_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
+option_donate_1.place(x=150, y=340)
+option_donate_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
+option_donate_2.place(x=200, y=340)"""
+option_donate_button = ttk.Button(window, text="开始", command=lambda: simle(11))
+option_donate_button.place(x=350, y=370)
+
+
+
 # 创建标签和输入框
-entry_arg1 = ttk.Entry(window,width=5)
+"""entry_arg1 = ttk.Entry(window,width=5)
 entry_arg1.place(x=300, y=160)
 label_arg2 = ttk.Label(window, text="<小时数<")
 label_arg2.place(x=350, y=160)
 entry_arg2 = ttk.Entry(window,width=5)
-entry_arg2.place(x=410, y=160)
+entry_arg2.place(x=410, y=160)"""
 
-
-# 创建开始按钮
-start_button = ttk.Button(window, text="开始" ,command=start_function)
-start_button.place(x=150,y=380)
 # 创建停止按钮
-stop_button = ttk.Button(window, text="停止(待开发）", command=stop_function)
-stop_button.place(x=250,y=380)
+#stop_button = ttk.Button(window, text="停止", command=stop_function)
+#stop_button.place(x=200, y=380)
 
 # 创建一个ScrolledText控件作为输出框
-tk.Label(window, text='输出:').place(x=10, y=400)
-output_box = tk.Text(window, width=65, height=10)
-output_box.place(x=10,y=420)
-#sys.stdout.write = print(output_box)#写入输出框
+tk.Label(window, text='输出:').place(x=10, y=430)
+output_box = ScrolledText(window, width=68, height=10)
+#output_box.place(x=10, y=450)
+output_box.pack(side=tk.BOTTOM,padx=10,pady=10)
+# sys.stdout.write = print(output_box)#写入输出框
 
-    # 开始Tkinter事件循环
+'''功能按钮'''
+start_exe_button = ttk.Button(window,text='启动模拟器',command=lambda:start_simple(1))
+start_exe_button.place(x=60, y=400)
+cnnect_button = ttk.Button(window,text='连接模拟器',command=lambda:start_simple(2))
+cnnect_button.place(x=150,y=400)
+start_app_button = ttk.Button(window,text='启动游戏',command=lambda:start_simple(3))
+start_app_button.place(x=240,y=400)
+all_button = ttk.Button(window,text='一键启动',command=lambda:start_simple(4))
+all_button.place(x=330,y=400)
+
+# 开始Tkinter事件循环
 tk.mainloop()
 
-#窗口线程
-thread_window = threading.Thread(target=window.mainloop)
+# 窗口线程
+thread_window = threading.Thread(target=window.mainloop).start()
 
-#帮助单线程
-thread_Help = threading.Thread(target=help_simple)
-#xx单线程
-
-thread_window.start()
 

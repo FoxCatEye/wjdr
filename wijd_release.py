@@ -96,11 +96,11 @@ def Help():
     if result:  # 判断是否有盟员求助
         print_space("有盟员求助，需点击援助按钮")
         touch([800, 1700])
-        print_space("点击援助按钮成功，等待10s进行下一个任务")
-        time.sleep(10)
+        print_space("点击援助按钮成功，等待5s进行下一个任务")
+        time.sleep(5)
     else:
-        print_space("无盟员求助，等待10s进行下一个任务")
-        time.sleep(10)
+        print_space("无盟员求助，等待5s进行下一个任务")
+        time.sleep(5)
 
 
 # 生产士兵
@@ -627,109 +627,262 @@ def re_connet():
 
 
 # 主体代码
-def Subject():
-    run_i = 1
+def subject():
+    run_number = 1
     while True:
-        if run_i % 10 == 0:
-            print('\n' + '%d.开始执行训练任务' % run_i)
-            run_i += 1
-            Homepage()  # 主页检查
+        now = datetime.now()
+        if now.second % 2 == 0:
             try:
-                Production_soldiers()  # 训练模块
-                if stop_event.is_set():
-                    start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                    break
-            except:
-                print('程序执行异常，结束该任务，执行其他任务')
-        elif run_i % 14 == 0:
-            print('\n' + '%d.开始执行建造任务' % run_i)
-            run_i += 1
-            Homepage()  # 主页检查
-            try:
-                Build()  # 建造模块
-                if stop_event.is_set():
-                    start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                    break
-            except:
-                print('程序执行异常，结束该任务，执行其他任务')
-        elif run_i % 19 == 0:
-            print('\n' + '%d.开始执行打怪任务' % run_i)
-            run_i += 1
-            Homepage()  # 主页检查
-            try:
-                now = datetime.now()
-                if 17 <= now.hour <= 23:
-                    Brush_XG()  # 打普通野怪
-                    if stop_event.is_set():
-                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                        break
-                elif now.hour == 0 or now.hour == 1:
-                    Brush_WM()  # 打巨兽模块
-                    if stop_event.is_set():
-                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                        break
-                elif now.day == 24 or now.day == 25 or now.day == 26:
-                    NPC()
+                if checkbox_vars == 0:
+                    Homepage()  # 主页检查
+                    print('\n' + '%d.开始执行互助任务' % run_number)
+                    Help()  # 互助模块
+                    run_number += 1
                     if stop_event.is_set():
                         start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                         break
                 else:
-                    print_space('未到时间，暂停打冰原巨兽')
+                    print_space('不执行互助任务')
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
-        elif run_i % 29 == 0:
-            print('\n' + '%d.开始执行采集任务' % run_i)
-            run_i = 1
-            Homepage()  # 主页检查
+        if now.minute % 3 == 0:
             try:
-                now = datetime.now().time()
-                if now.hour == 3:
+                if checkbox_vars == 1:
+                    Homepage()# 主页检查
+                    print('\n' + '%d.开始执行野怪任务' % run_number)
+                    Brush_XG()  #野怪
+                    run_number += 1
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+        if now.minute % 6 == 0:
+            try:
+                if checkbox_vars == 1:
+                    Homepage()# 主页检查
+                    print('\n' + '%d.开始执行冰原巨兽任务' % run_number)
+                    Brush_WM()  #冰原巨兽
+                    run_number += 1
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+        if now.minute % 6 == 0:
+            try:
+                if checkbox_vars == 1:
+                    Homepage()# 主页检查
+                    print('\n' + '%d.开始执行活动雪怪任务' % run_number)
+                    NPC()  #活动雪怪
+                    run_number += 1
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+        if now.minute % 5 == 0:
+            try:
+                if checkbox_vars == 1:
+                    Homepage()  # 主页检查
+                    print('\n' + '%d.开始执行训练任务' % run_number)
+                    Production_soldiers()  # 训练模块
+                    run_number += 1
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+        if now.minute % 2 == 0:
+            try:
+                if checkbox_vars == 1:
+                    Homepage()  # 主页检查
+                    print('\n' + '%d.开始执行建造任务' % run_number)
+                    Build()  # 建造模块
+                    run_number += 1
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+        if now.hour  == 3:
+            try:
+                if checkbox_vars == 1:
+                    Homepage()  # 主页检查
+                    print('\n' + '%d.开始执行采集任务' % run_number)
                     Collection()  # 采集资源模块
-                else:
-                    print_space('当前时间：%s,未到采集时间' % now.strftime("%H:%M"))
-                if stop_event.is_set():
-                    start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                    break
+                    run_number += 1
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
-            print('执行完成，结束该周期，开始新的周期')
-        else:
-            print('\n' + '%d.开始执行互助任务' % run_i)
-            run_i += 1
-            Homepage()  # 主页检查
+        if now.hour == 21:
             try:
-                Help()  # 互助模块
-                if stop_event.is_set():
-                    start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                    break
-                now = datetime.now().time()
-                if 20 < now.hour < 22:
-                    print_space('当前时间：%s,巨兽活动进行中' % now.strftime("%H:%M:%S"))
+                if checkbox_vars ==1:
+                    Homepage()  # 主页检查
+                    print_space('当前时间：%s,巨熊活动进行中' % now.strftime("%H:%M:%S"))
                     bear()  # 巨熊模块
+                    run_number += 1
                     if stop_event.is_set():
                         start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                         break
-                now = datetime.now().time()
-                if now.minute == 21:
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+        if now.minute == 21:
+            try:
+                if checkbox_vars == 1:
+                    Homepage()  # 主页检查
+                    print('\n' + '%d.开始执行治疗任务' % run_number)
                     treatment()  # 治疗模块
+                    run_number += 1
                     if stop_event.is_set():
                         start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                         break
-                now = datetime.now().time()
-                if 0 < now.minute < 2:
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+        if now.minute == 25:
+            try:
+                if checkbox_vars == 1:
+                    Homepage()  # 主页检查
+                    print('\n' + '%d.开始执行探险任务' % run_number)
+                    adventure() #探险
+                    run_number += 1
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+        if now.minute == 1:
+            try:
+                if checkbox_vars == 1:
+                    Homepage()  # 主页检查
+                    print('\n' + '%d.开始执行捐赠任务' % run_number)
                     donate()  # 捐赠模块
-                    if stop_event.is_set():
-                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                        break
-                now = datetime.now().time()
-                if now.minute == 25:
-                    adventure()
+                    run_number += 1
                     if stop_event.is_set():
                         start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
     print('结束任务')
+
+
+'''def Subject():                                #老代码
+    run_i = 1
+    while True:
+        if run_i % 10 == 0:
+            Homepage()  # 主页检查
+            try:
+                if option_Production.get() == 1:
+                    print('\n' + '%d.开始执行训练任务' % run_i)
+                    Production_soldiers()  # 训练模块
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+            run_i += 1
+        if run_i % 14 == 0:
+            Homepage()  # 主页检查
+            try:
+                if option_build.get() == 1:
+                    print('\n' + '%d.开始执行建造任务' % run_i)
+                    Build()  # 建造模块
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+            run_i += 1
+        if run_i % 19 == 0:
+            Homepage()  # 主页检查
+            try:
+                now = datetime.now()
+                if 17 <= now.hour <= 23:
+                    if option_XG.get() == 1:
+                        print('\n' + '%d.开始执行打野怪任务' % run_i)
+                        Brush_XG()  # 打普通野怪
+                        if stop_event.is_set():
+                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                            break
+                if now.hour == 0 or now.hour == 1:
+                    if option_WM.get() == 1:
+                        Brush_WM()  # 打巨兽模块
+                        if stop_event.is_set():
+                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                            break
+                elif now.day == 24 or now.day == 25 or now.day == 26:
+                    if option_npc.get() == 1:
+                        NPC()
+                        if stop_event.is_set():
+                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                            break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+            run_i += 1
+        if run_i % 29 == 0:
+            Homepage()  # 主页检查
+            try:
+                if option_Collection == 1:
+                    print('\n' + '%d.开始执行采集任务' % run_i)
+                    now = datetime.now().time()
+                    if now.hour == 3:
+                        Collection()  # 采集资源模块
+                    else:
+                        print_space('当前时间：%s,未到采集时间' % now.strftime("%H:%M"))
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+            run_i = 1
+            print('执行完成，结束该周期，开始新的周期')
+        if not run_i==10 or not  run_i==14 or not  run_i==19 or not  run_i==29:
+            Homepage()  # 主页检查
+            try:
+                if option_help.get() == 1:
+                    print('\n' + '%d.开始执行互助任务' % run_i)
+                    Help()  # 互助模块
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
+                elif option_help.get() == 0:
+                    print_space('不执行互助任务')
+                if option_bear.get() ==1:
+                    now = datetime.now().time()
+                    if now.hour == 21:
+                        print_space('当前时间：%s,巨兽活动进行中' % now.strftime("%H:%M:%S"))
+                        bear()  # 巨熊模块
+                        if stop_event.is_set():
+                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                            break
+                if option_treatment.get() == 1:
+                    now = datetime.now().time()
+                    if now.minute == 21:
+                        treatment()  # 治疗模块
+                        if stop_event.is_set():
+                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                            break
+                if option_donate.get() == 1:
+                    now = datetime.now().time()
+                    if 0 < now.minute < 2:
+                        donate()  # 捐赠模块
+                        if stop_event.is_set():
+                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                            break
+                if option_adventure.get() == 1:
+                    now = datetime.now().time()
+                    if now.minute == 25:
+                        adventure()
+                        if stop_event.is_set():
+                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                            break
+                run_i += 1
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+
+    print('结束任务')'''
 
 
 def print_space(variable, spaces=4):
@@ -777,7 +930,7 @@ def all_start():
 
 # 主线程代码
 def main():
-    Subject()
+    subject()
 
 # 单线程主代码
 def simle(button_id):
@@ -1064,113 +1217,108 @@ center_window(window, 500, 600)
 bt = tkFont.Font(family="Helvetica", size=16, weight=tkFont.BOLD)
 tk.Label(window, text='无尽冬日', anchor='center', font=bt).pack()
 
-# 创建所有功能执行
-tk.Label(window, text='所有功能').place(x=40, y=40)
-start_button = ttk.Button(window, text="开始", command=lambda:simle(0))
-start_button.place(x=350, y=40)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='联盟互助功能').place(x=40, y=70)
-"""option_help = tk.IntVar()
-option_help1 = tk.Radiobutton(window,text='是',variable=option,value=0)
+tk.Label(window, text='联盟互助功能').place(x=40, y=220)
+'''option_help1 = tk.Radiobutton(window,text='是',variable=option_help,value=0)
 option_help1.place(x=150,y=70)
-option_help2 = tk.Radiobutton(window,text='否',variable=option,value=1)
-option_help2.place(x=200,y=70)"""
+option_help2 = tk.Radiobutton(window,text='否',variable=option_help,value=1)
+option_help2.place(x=200,y=70)'''
 option_help_button = ttk.Button(window, text="开始", command=lambda: simle(1))
-option_help_button.place(x=350, y=70)
+option_help_button.place(x=350, y=220)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='世界野怪功能').place(x=40, y=100)
+tk.Label(window, text='世界野怪功能').place(x=40, y=250)
 '''option_XG= tk.IntVar()
 option_XG_1 = tk.Radiobutton(window, text='是', variable=option_XG, value=0)
 option_XG_1.place(x=150, y=100)
 option_XG_2 = tk.Radiobutton(window, text='否', variable=option_XG, value=1)
 option_XG_2.place(x=200, y=100)'''
 option_XG_button = ttk.Button(window, text="开始", command=lambda: simle(2))
-option_XG_button.place(x=350, y=100)
+option_XG_button.place(x=150, y=250)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='冰原巨兽功能').place(x=40, y=130)
-"""option_WM = tk.IntVar()
-option_WM_1 = tk.Radiobutton(window, text='是', variable=bear_active, value=0)
+tk.Label(window, text='冰原巨兽功能').place(x=250, y=250)
+'''option_WM = tk.IntVar()
+option_WM_1 = tk.Radiobutton(window, text='是', variable=option_WM, value=0)
 option_WM_1.place(x=150, y=130)
-option_WM_2 = tk.Radiobutton(window, text='否', variable=bear_active, value=1)
-option_WM_2.place(x=200, y=130)"""
+option_WM_2 = tk.Radiobutton(window, text='否', variable=option_WM, value=1)
+option_WM_2.place(x=200, y=130)'''
 option_WM_button = ttk.Button(window, text="开始", command=lambda: simle(3))
-option_WM_button.place(x=350, y=130)
+option_WM_button.place(x=350, y=250)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='集结雪怪功能').place(x=40, y=160)
-"""option_npc = tk.IntVar()
-option_npc_1 = tk.Radiobutton(window, text='是', variable=option_Production, value=0)
+tk.Label(window, text='集结雪怪功能').place(x=40, y=280)
+'''option_npc = tk.IntVar()
+option_npc_1 = tk.Radiobutton(window, text='是', variable=option_npc, value=0)
 option_npc_1.place(x=150, y=160)
-option_npc_2 = tk.Radiobutton(window, text='否', variable=option_Production, value=1)
-option_npc_2.place(x=200, y=1650)"""
+option_npc_2 = tk.Radiobutton(window, text='否', variable=option_npc, value=1)
+option_npc_2.place(x=200, y=1650)'''
 option_npc_button = ttk.Button(window, text="开始", command=lambda: simle(4))
-option_npc_button.place(x=350, y=160)
+option_npc_button.place(x=150, y=280)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='训练士兵功能').place(x=40, y=190)
+tk.Label(window, text='训练士兵功能').place(x=250, y=280)
 """option_Production = tk.IntVar()
 option_Production_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
 option_Production_1.place(x=150, y=190)
 option_Production_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
 option_Production_2.place(x=200, y=190)"""
 option_Production_button = ttk.Button(window, text="开始", command=lambda: simle(5))
-option_Production_button.place(x=350, y=190)
+option_Production_button.place(x=350, y=280)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='建筑升级功能').place(x=40, y=220)
+tk.Label(window, text='建筑升级功能').place(x=40, y=310)
 """option_build = tk.IntVar()
 option_build_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
 option_build_1.place(x=150, y=220)
 option_build_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
 option_build_2.place(x=200, y=220)"""
 option_build_button = ttk.Button(window, text="开始", command=lambda: simle(6))
-option_build_button.place(x=350, y=220)
+option_build_button.place(x=150, y=310)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='采集资源功能').place(x=40, y=250)
+tk.Label(window, text='采集资源功能').place(x=250, y=310)
 """option_Collection = tk.IntVar()
 option_Collection_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
 option_Collection_1.place(x=150, y=250)
 option_Collection_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
 option_Collection_2.place(x=200, y=250)"""
 option_Collection_button = ttk.Button(window, text="开始", command=lambda: simle(7))
-option_Collection_button.place(x=350, y=250)
+option_Collection_button.place(x=350, y=310)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='巨熊活动功能').place(x=40, y=280)
+tk.Label(window, text='巨熊活动功能').place(x=40, y=340)
 """option_bear = tk.IntVar()
 option_bear_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
 option_bear_1.place(x=150, y=280)
 option_bear_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
 option_bear_2.place(x=200, y=280)"""
 option_bear_button = ttk.Button(window, text="开始", command=lambda: simle(8))
-option_bear_button.place(x=350, y=280)
+option_bear_button.place(x=150, y=340)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='治疗士兵功能').place(x=40, y=310)
+tk.Label(window, text='治疗士兵功能').place(x=250, y=340)
 """option_treatment = tk.IntVar()
 option_treatment_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
 option_treatment_1.place(x=150, y=310)
 option_treatment_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
 option_treatment_2.place(x=200, y=310)"""
 option_treatment_button = ttk.Button(window, text="开始", command=lambda: simle(9))
-option_treatment_button.place(x=350, y=310)
+option_treatment_button.place(x=350, y=340)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='领取探险奖励').place(x=40, y=340)
+tk.Label(window, text='领取探险奖励').place(x=40, y=370)
 """option_adventure = tk.IntVar()
 option_adventure_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
 option_adventure_1.place(x=150, y=340)
 option_adventure_2 = tk.Radiobutton(window, text='否', variable=option_build, value=1)
 option_adventure_2.place(x=200, y=340)"""
 option_adventure_button = ttk.Button(window, text="开始", command=lambda: simle(10))
-option_adventure_button.place(x=350, y=340)
+option_adventure_button.place(x=150, y=370)
 
 # 创建一个单选项并添加选项
-tk.Label(window, text='联盟捐赠功能').place(x=40, y=370)
+tk.Label(window, text='联盟捐赠功能').place(x=250, y=370)
 """option_donate = tk.IntVar()
 option_donate_1 = tk.Radiobutton(window, text='是', variable=option_build, value=0)
 option_donate_1.place(x=150, y=340)
@@ -1199,6 +1347,67 @@ output_box = ScrolledText(window, width=68, height=10)
 #output_box.place(x=10, y=450)
 output_box.pack(side=tk.BOTTOM,padx=10,pady=10)
 # sys.stdout.write = print(output_box)#写入输出框
+
+def select_all(checkbox):
+    for checkbox in checkbox:
+        checkbox.select()
+# 创建所有功能执行
+tk.Label(window, text='功能选项(多选)：').place(x=40, y=40)
+checkbox_vars = []  # 创建3个复选框的状态变量
+for i in range(11):
+    var = tk.IntVar()
+    checkbox_vars.append(var)
+    checkbox = [tk.Checkbutton(window, text="联盟互助", variable=checkbox_vars[0]),
+                  tk.Checkbutton(window, text="她", variable=checkbox_vars[1]),
+                  tk.Checkbutton(window, text="他", variable=checkbox_vars[2]),
+                  tk.Checkbutton(window, text="她", variable=checkbox_vars[3]),
+                  tk.Checkbutton(window, text="他", variable=checkbox_vars[4]),
+                  tk.Checkbutton(window, text="她", variable=checkbox_vars[5]),
+                  tk.Checkbutton(window, text="他", variable=checkbox_vars[6]),
+                  tk.Checkbutton(window, text="她", variable=checkbox_vars[7]),
+                  tk.Checkbutton(window, text="他", variable=checkbox_vars[8]),
+                  tk.Checkbutton(window, text="她", variable=checkbox_vars[9]),
+                  tk.Checkbutton(window, text="他", variable=checkbox_vars[10]),
+                  tk.Checkbutton(window, text="她", variable=checkbox_vars[11])]
+    checkbox.grid(row=i//4, column=i%4, sticky=tk.W)
+select_all_button = tk.Button(window, text="一键全选", command=lambda: select_all(checkbox))
+select_all_button.pack(side=tk.LEFT)
+# '''联盟互助'''
+# option_help = tk.IntVar()
+# tk.Checkbutton(window,text='联盟互助',variable=option_help, onvalue=1, offvalue=0).place(x=80,y=70)
+# '''世界野怪'''
+# option_XG= tk.IntVar()
+# tk.Checkbutton(window, text='世界野怪', variable=option_XG, onvalue=1, offvalue=0).place(x=160, y=70)
+# '''冰原巨兽'''
+# option_WM = tk.IntVar()
+# tk.Checkbutton(window, text='冰原巨兽', variable=option_WM, onvalue=1, offvalue=0).place(x=240, y=70)
+# '''活动雪怪'''
+# option_npc = tk.IntVar()
+# tk.Checkbutton(window,text='活动雪怪',variable=option_npc, onvalue=1, offvalue=0).place(x=320,y=70)
+# '''训练士兵'''
+# option_Production = tk.IntVar()
+# tk.Checkbutton(window,text='训练士兵',variable=option_Production, onvalue=1, offvalue=0).place(x=80, y=100)
+# '''建筑升级'''
+# option_build = tk.IntVar()
+# tk.Checkbutton(window,text='建筑升级',variable=option_build, onvalue=1, offvalue=0).place(x=160, y=100)
+# '''采集资源'''
+# option_Collection = tk.IntVar()
+# tk.Checkbutton(window,text='采集资源',variable=option_Collection, onvalue=1, offvalue=0).place(x=240, y=100)
+# '''巨熊活动'''
+# option_bear = tk.IntVar()
+# tk.Checkbutton(window,text='巨熊活动',variable=option_bear, onvalue=1, offvalue=0).place(x=320, y=100)
+# '''治疗士兵'''
+# option_treatment = tk.IntVar()
+# tk.Checkbutton(window,text='治疗士兵',variable=option_treatment, onvalue=1, offvalue=0).place(x=80, y=130)
+# '''探险奖励'''
+# option_adventure = tk.IntVar()
+# tk.Checkbutton(window,text='探险奖励',variable=option_adventure, onvalue=1, offvalue=0).place(x=160, y=130)
+# '''联盟捐赠'''
+# option_donate = tk.IntVar()
+# tk.Checkbutton(window,text='联盟捐赠',variable=option_donate, onvalue=1, offvalue=0).place(x=240, y=130)
+
+start_button = ttk.Button(window, text="开始", command=lambda:simle(0))
+start_button.place(x=200, y=190)
 
 '''功能按钮'''
 start_exe_button = ttk.Button(window,text='启动模拟器',command=lambda:start_simple(1))
