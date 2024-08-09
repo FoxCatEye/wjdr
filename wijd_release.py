@@ -633,7 +633,7 @@ def subject():
         now = datetime.now()
         if now.second % 2 == 0:
             try:
-                if checkbox_vars == 0:
+                if option_help.get() == 1:
                     Homepage()  # 主页检查
                     print('\n' + '%d.开始执行互助任务' % run_number)
                     Help()  # 互助模块
@@ -643,11 +643,14 @@ def subject():
                         break
                 else:
                     print_space('不执行互助任务')
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
+                        break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute % 3 == 0:
             try:
-                if checkbox_vars == 1:
+                if option_XG.get() == 1:
                     Homepage()# 主页检查
                     print('\n' + '%d.开始执行野怪任务' % run_number)
                     Brush_XG()  #野怪
@@ -659,7 +662,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute % 6 == 0:
             try:
-                if checkbox_vars == 1:
+                if option_WM.get() == 1:
                     Homepage()# 主页检查
                     print('\n' + '%d.开始执行冰原巨兽任务' % run_number)
                     Brush_WM()  #冰原巨兽
@@ -671,7 +674,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute % 6 == 0:
             try:
-                if checkbox_vars == 1:
+                if option_npc.get() == 1:
                     Homepage()# 主页检查
                     print('\n' + '%d.开始执行活动雪怪任务' % run_number)
                     NPC()  #活动雪怪
@@ -683,7 +686,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute % 5 == 0:
             try:
-                if checkbox_vars == 1:
+                if option_Production.get() == 1:
                     Homepage()  # 主页检查
                     print('\n' + '%d.开始执行训练任务' % run_number)
                     Production_soldiers()  # 训练模块
@@ -695,7 +698,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute % 2 == 0:
             try:
-                if checkbox_vars == 1:
+                if option_build.get() == 1:
                     Homepage()  # 主页检查
                     print('\n' + '%d.开始执行建造任务' % run_number)
                     Build()  # 建造模块
@@ -707,7 +710,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.hour  == 3:
             try:
-                if checkbox_vars == 1:
+                if option_Collection.get() == 1:
                     Homepage()  # 主页检查
                     print('\n' + '%d.开始执行采集任务' % run_number)
                     Collection()  # 采集资源模块
@@ -719,7 +722,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.hour == 21:
             try:
-                if checkbox_vars ==1:
+                if option_bear.get() ==1:
                     Homepage()  # 主页检查
                     print_space('当前时间：%s,巨熊活动进行中' % now.strftime("%H:%M:%S"))
                     bear()  # 巨熊模块
@@ -731,7 +734,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute == 21:
             try:
-                if checkbox_vars == 1:
+                if option_treatment.get() == 1:
                     Homepage()  # 主页检查
                     print('\n' + '%d.开始执行治疗任务' % run_number)
                     treatment()  # 治疗模块
@@ -743,7 +746,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute == 25:
             try:
-                if checkbox_vars == 1:
+                if option_adventure.get() == 1:
                     Homepage()  # 主页检查
                     print('\n' + '%d.开始执行探险任务' % run_number)
                     adventure() #探险
@@ -755,7 +758,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute == 1:
             try:
-                if checkbox_vars == 1:
+                if option_donate.get() == 1:
                     Homepage()  # 主页检查
                     print('\n' + '%d.开始执行捐赠任务' % run_number)
                     donate()  # 捐赠模块
@@ -926,6 +929,8 @@ def all_start():
     print('等待30s以完成模拟器的启动')
     time.sleep(30)
     cnnect()
+    print('等待10s以确保系统加载完成')
+    time.sleep(10)
     start_app()
 
 # 主线程代码
@@ -1348,66 +1353,91 @@ output_box = ScrolledText(window, width=68, height=10)
 output_box.pack(side=tk.BOTTOM,padx=10,pady=10)
 # sys.stdout.write = print(output_box)#写入输出框
 
-def select_all(checkbox):
-    for checkbox in checkbox:
+def select_all():
+    for checkbox in checkboxes:
         checkbox.select()
+def deselect_all():
+    for checkbox in checkboxes:
+        checkbox.deselect()
+checkboxes = []  # 创建11个复选框的状态变量
+
+'''联盟互助'''
+for i in range(1,11):
+    option_help = tk.IntVar()
+    checkbox = tk.Checkbutton(window,text='联盟互助',variable=option_help, onvalue=1, offvalue=0)
+    checkbox.place(x=80,y=70)
+    checkboxes.append(checkbox)
+'''世界野怪'''
+#option_XG= tk.IntVar()
+for i in range(1,11):
+    option_XG = tk.IntVar()
+    checkbox = tk.Checkbutton(window,text='联盟互助',variable=option_XG, onvalue=1, offvalue=0)
+    checkbox.place(x=160, y=70)
+    checkboxes.append(checkbox)
+#tk.Checkbutton(window, text='世界野怪', variable=var, onvalue=1, offvalue=0).place(x=160, y=70)
+'''冰原巨兽'''
+for i in range(1,11):
+    option_WM = tk.IntVar()
+    checkbox = tk.Checkbutton(window,text='冰原巨兽', variable=option_WM, onvalue=1, offvalue=0)
+    checkbox.place(x=240, y=70)
+    checkboxes.append(checkbox)
+'''活动雪怪'''
+for i in range(1,11):
+    option_npc = tk.IntVar()
+    checkbox = tk.Checkbutton(window,text='活动雪怪', variable=option_npc, onvalue=1, offvalue=0)
+    checkbox.place(x=320,y=70)
+    checkboxes.append(checkbox)
+'''训练士兵'''
+for i in range(1,11):
+    option_Production = tk.IntVar()
+    checkbox = tk.Checkbutton(window,text='训练士兵', variable=option_Production, onvalue=1, offvalue=0)
+    checkbox.place(x=80, y=100)
+    checkboxes.append(checkbox)
+'''建筑升级'''
+for i in range(1, 11):
+    option_build = tk.IntVar()
+    checkbox = tk.Checkbutton(window, text='建筑升级', variable=option_build, onvalue=1, offvalue=0)
+    checkbox.place(x=160, y=100)
+    checkboxes.append(checkbox)
+'''采集资源'''
+for i in range(1, 11):
+    option_Collection = tk.IntVar()
+    checkbox = tk.Checkbutton(window, text='采集资源', variable=option_Collection, onvalue=1, offvalue=0)
+    checkbox.place(x=240, y=100)
+    checkboxes.append(checkbox)
+'''巨熊活动'''
+for i in range(1, 11):
+    option_bear = tk.IntVar()
+    checkbox = tk.Checkbutton(window, text='巨熊活动', variable=option_bear, onvalue=1, offvalue=0)
+    checkbox.place(x=320, y=100)
+    checkboxes.append(checkbox)
+'''治疗士兵'''
+for i in range(1, 11):
+    option_treatment = tk.IntVar()
+    checkbox = tk.Checkbutton(window, text='治疗士兵', variable=option_treatment, onvalue=1, offvalue=0)
+    checkbox.place(x=80, y=130)
+    checkboxes.append(checkbox)
+'''探险奖励'''
+for i in range(1, 11):
+    option_adventure = tk.IntVar()
+    checkbox = tk.Checkbutton(window, text='探险奖励', variable=option_adventure, onvalue=1, offvalue=0)
+    checkbox.place(x=160, y=130)
+    checkboxes.append(checkbox)
+'''联盟捐赠'''
+for i in range(1, 11):
+    option_donate = tk.IntVar()
+    checkbox = tk.Checkbutton(window, text='联盟捐赠', variable=option_donate, onvalue=1, offvalue=0)
+    checkbox.place(x=240, y=130)
+    checkboxes.append(checkbox)
+
 # 创建所有功能执行
 tk.Label(window, text='功能选项(多选)：').place(x=40, y=40)
-checkbox_vars = []  # 创建3个复选框的状态变量
-for i in range(11):
-    var = tk.IntVar()
-    checkbox_vars.append(var)
-    checkbox = [tk.Checkbutton(window, text="联盟互助", variable=checkbox_vars[0]),
-                  tk.Checkbutton(window, text="她", variable=checkbox_vars[1]),
-                  tk.Checkbutton(window, text="他", variable=checkbox_vars[2]),
-                  tk.Checkbutton(window, text="她", variable=checkbox_vars[3]),
-                  tk.Checkbutton(window, text="他", variable=checkbox_vars[4]),
-                  tk.Checkbutton(window, text="她", variable=checkbox_vars[5]),
-                  tk.Checkbutton(window, text="他", variable=checkbox_vars[6]),
-                  tk.Checkbutton(window, text="她", variable=checkbox_vars[7]),
-                  tk.Checkbutton(window, text="他", variable=checkbox_vars[8]),
-                  tk.Checkbutton(window, text="她", variable=checkbox_vars[9]),
-                  tk.Checkbutton(window, text="他", variable=checkbox_vars[10]),
-                  tk.Checkbutton(window, text="她", variable=checkbox_vars[11])]
-    checkbox.grid(row=i//4, column=i%4, sticky=tk.W)
-select_all_button = tk.Button(window, text="一键全选", command=lambda: select_all(checkbox))
-select_all_button.pack(side=tk.LEFT)
-# '''联盟互助'''
-# option_help = tk.IntVar()
-# tk.Checkbutton(window,text='联盟互助',variable=option_help, onvalue=1, offvalue=0).place(x=80,y=70)
-# '''世界野怪'''
-# option_XG= tk.IntVar()
-# tk.Checkbutton(window, text='世界野怪', variable=option_XG, onvalue=1, offvalue=0).place(x=160, y=70)
-# '''冰原巨兽'''
-# option_WM = tk.IntVar()
-# tk.Checkbutton(window, text='冰原巨兽', variable=option_WM, onvalue=1, offvalue=0).place(x=240, y=70)
-# '''活动雪怪'''
-# option_npc = tk.IntVar()
-# tk.Checkbutton(window,text='活动雪怪',variable=option_npc, onvalue=1, offvalue=0).place(x=320,y=70)
-# '''训练士兵'''
-# option_Production = tk.IntVar()
-# tk.Checkbutton(window,text='训练士兵',variable=option_Production, onvalue=1, offvalue=0).place(x=80, y=100)
-# '''建筑升级'''
-# option_build = tk.IntVar()
-# tk.Checkbutton(window,text='建筑升级',variable=option_build, onvalue=1, offvalue=0).place(x=160, y=100)
-# '''采集资源'''
-# option_Collection = tk.IntVar()
-# tk.Checkbutton(window,text='采集资源',variable=option_Collection, onvalue=1, offvalue=0).place(x=240, y=100)
-# '''巨熊活动'''
-# option_bear = tk.IntVar()
-# tk.Checkbutton(window,text='巨熊活动',variable=option_bear, onvalue=1, offvalue=0).place(x=320, y=100)
-# '''治疗士兵'''
-# option_treatment = tk.IntVar()
-# tk.Checkbutton(window,text='治疗士兵',variable=option_treatment, onvalue=1, offvalue=0).place(x=80, y=130)
-# '''探险奖励'''
-# option_adventure = tk.IntVar()
-# tk.Checkbutton(window,text='探险奖励',variable=option_adventure, onvalue=1, offvalue=0).place(x=160, y=130)
-# '''联盟捐赠'''
-# option_donate = tk.IntVar()
-# tk.Checkbutton(window,text='联盟捐赠',variable=option_donate, onvalue=1, offvalue=0).place(x=240, y=130)
-
 start_button = ttk.Button(window, text="开始", command=lambda:simle(0))
 start_button.place(x=200, y=190)
+select_button = ttk.Button(window, text="全选", command=select_all)
+select_button.place(x=100, y = 190)
+select_button = ttk.Button(window, text="取消全选", command=deselect_all)
+select_button.place(x=300, y = 190)
 
 '''功能按钮'''
 start_exe_button = ttk.Button(window,text='启动模拟器',command=lambda:start_simple(1))
