@@ -77,11 +77,11 @@ def Homepage():
         while a < 4:
             if exists(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
                                resolution=(414, 780))):
-                print_space('\n' + "在主页，准备执行任务")  # 在主界面，执行任务
+                print_space("在主页，准备执行任务")  # 在主界面，执行任务
                 return
             else:
                 a += 1
-                print_space('\n' + "不在主页，返回上一级")
+                print_space("不在主页，返回上一级")
                 if exists(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
                                    resolution=(414, 780))):
                     print_space('点击返回按钮')
@@ -649,8 +649,9 @@ def subject():
         if now.second % 2 == 0:
             try:
                 if option_help.get() == 1:
-                    Homepage()  # 主页检查
+
                     print('\n' + '%d.开始执行互助任务' % run_number)
+                    Homepage()  # 主页检查
                     Help()  # 互助模块
                     run_number += 1
                     if stop_event.is_set():
@@ -666,8 +667,9 @@ def subject():
         if now.minute % 5 == 0 and now.second % 5 == 0:
             try:
                 if option_XG.get() == 1:
-                    Homepage()# 主页检查
+
                     print('\n' + '%d.开始执行野怪任务' % run_number)
+                    Homepage()  # 主页检查
                     Brush_XG()  #野怪
                     run_number += 1
                     if stop_event.is_set():
@@ -678,8 +680,9 @@ def subject():
         if now.minute % 6 == 0:
             try:
                 if option_WM.get() == 1:
-                    Homepage()# 主页检查
+
                     print('\n' + '%d.开始执行冰原巨兽任务' % run_number)
+                    Homepage()  # 主页检查
                     Brush_WM()  #冰原巨兽
                     run_number += 1
                     if stop_event.is_set():
@@ -690,8 +693,9 @@ def subject():
         if now.minute % 6 == 0:
             try:
                 if option_npc.get() == 1:
-                    Homepage()# 主页检查
+
                     print('\n' + '%d.开始执行活动雪怪任务' % run_number)
+                    Homepage()  # 主页检查
                     NPC()  #活动雪怪
                     run_number += 1
                     if stop_event.is_set():
@@ -702,8 +706,9 @@ def subject():
         if now.minute % 5 == 0:
             try:
                 if option_Production.get() == 1:
-                    Homepage()  # 主页检查
+
                     print('\n' + '%d.开始执行训练任务' % run_number)
+                    Homepage()  # 主页检查
                     Production_soldiers()  # 训练模块
                     run_number += 1
                     if stop_event.is_set():
@@ -714,8 +719,9 @@ def subject():
         if now.minute % 2 == 0:
             try:
                 if option_build.get() == 1:
-                    Homepage()  # 主页检查
+
                     print('\n' + '%d.开始执行建造任务' % run_number)
+                    Homepage()  # 主页检查
                     Build()  # 建造模块
                     run_number += 1
                     if stop_event.is_set():
@@ -726,8 +732,9 @@ def subject():
         if now.hour  == 3:
             try:
                 if option_Collection.get() == 1:
-                    Homepage()  # 主页检查
+
                     print('\n' + '%d.开始执行采集任务' % run_number)
+                    Homepage()  # 主页检查
                     Collection()  # 采集资源模块
                     run_number += 1
                     if stop_event.is_set():
@@ -738,8 +745,9 @@ def subject():
         if now.hour == 21:
             try:
                 if option_bear.get() ==1:
-                    Homepage()  # 主页检查
+
                     print_space('当前时间：%s,巨熊活动进行中' % now.strftime("%H:%M:%S"))
+                    Homepage()  # 主页检查
                     bear()  # 巨熊模块
                     run_number += 1
                     if stop_event.is_set():
@@ -750,8 +758,9 @@ def subject():
         if now.minute == 21:
             try:
                 if option_treatment.get() == 1:
-                    Homepage()  # 主页检查
+
                     print('\n' + '%d.开始执行治疗任务' % run_number)
+                    Homepage()  # 主页检查
                     treatment()  # 治疗模块
                     run_number += 1
                     if stop_event.is_set():
@@ -762,8 +771,9 @@ def subject():
         if now.minute == 25:
             try:
                 if option_adventure.get() == 1:
-                    Homepage()  # 主页检查
+
                     print('\n' + '%d.开始执行探险任务' % run_number)
+                    Homepage()  # 主页检查
                     adventure() #探险
                     run_number += 1
                     if stop_event.is_set():
@@ -774,8 +784,9 @@ def subject():
         if now.minute == 1:
             try:
                 if option_donate.get() == 1:
-                    Homepage()  # 主页检查
+
                     print('\n' + '%d.开始执行捐赠任务' % run_number)
+                    Homepage()  # 主页检查
                     donate()  # 捐赠模块
                     run_number += 1
                     if stop_event.is_set():
@@ -1130,7 +1141,7 @@ canvas.create_window(300,150,window=select_button)
 '''区域'''
 canvas_simple = tk.Canvas(window, width=400, height=160)
 canvas_simple.place(x=50,y=230)
-canvas_simple.create_rectangle(2, 2, 400, 160, width=0)
+canvas_simple.create_rectangle(2, 2, 400, 160, width=1)
 
 '''标签'''
 title = tk.Label(window, text='功能选项(单选)：')
@@ -1200,7 +1211,7 @@ def simple_select():
         while True:
             try:
                 Homepage()
-                Collection()
+                Production_soldiers()
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=simple_start_button)  # 停止后按钮变为开始
                     break
@@ -1212,7 +1223,7 @@ def simple_select():
         while True:
             try:
                 Homepage()
-                bear()
+                Build()
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=simple_start_button)  # 停止后按钮变为开始
                     break
@@ -1222,7 +1233,7 @@ def simple_select():
         while True:
             try:
                 Homepage()
-                treatment()
+                Collection()
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=simple_start_button)  # 停止后按钮变为开始
                     break
@@ -1234,7 +1245,7 @@ def simple_select():
         while True:
             try:
                 Homepage()
-                Production_soldiers()
+                bear()
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=lambda: simle)  # 停止后按钮变为开始
                     break
@@ -1246,7 +1257,7 @@ def simple_select():
         while True:
             try:
                 Homepage()
-                Build()
+                treatment()
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=simple_start_button)  # 停止后按钮变为开始
                     break
@@ -1279,39 +1290,64 @@ def simple_select():
     print('任务已结束')
 
 
+'''------------------------------------额外设置区域------------------------------------'''
+canvas_additional = tk.Canvas(canvas_simple,width=205,height=32)
+canvas_simple.create_window(168,135,window=canvas_additional)
+canvas_additional.create_rectangle(2,2,200,30,width=1)
+def additional_select(value):
+    if value == 0:
+        additional_XG.place_forget()
+        canvas_additional.create_window(20,15,window=additional_help)
+    elif value == 1:
+        additional_help.place_forget() #隐藏上一个
+        additional_XG.place(x=5,y=370)
 # 创建单选项并添加选项
 var = tk.IntVar()
-select_help = tk.Radiobutton(window,text='联盟互助',variable=var,value='0')
+'''联盟互助'''
+select_help = tk.Radiobutton(window,text='联盟互助',variable=var,value='0',command=lambda:additional_select(0))
 canvas_simple.create_window(88,45,window=select_help)
-select_XG = tk.Radiobutton(window,text='世界野怪',variable=var, value='1')
+additional_help = tk.Label(canvas_additional,text='选项')
+'''世界野怪'''
+select_XG = tk.Radiobutton(window,text='世界野怪',variable=var, value='1',command=lambda:additional_select(1))
 canvas_simple.create_window(168,45,window=select_XG)
+additional_XG = tk.Button(window,text='按钮')
+'''冰原巨兽'''
 select_WM = tk.Radiobutton(window,text='冰原巨兽',variable=var, value='2')
 canvas_simple.create_window(248,45,window=select_WM)
+'''活动雪怪'''
 select_npc = tk.Radiobutton(window,text='活动雪怪',variable=var, value='3')
 canvas_simple.create_window(328,45,window=select_npc)
+'''训练士兵'''
 select_production = tk.Radiobutton(window,text='训练士兵',variable=var, value='4')
 canvas_simple.create_window(88,75,window=select_production)
+'''建筑升级'''
 select_build = tk.Radiobutton(window,text='建筑升级',variable=var, value='5')
 canvas_simple.create_window(168,75,window=select_build)
+'''采集资源'''
 select_collection = tk.Radiobutton(window,text='采集资源',variable=var, value='6')
 canvas_simple.create_window(248,75,window=select_collection)
+'''巨熊活动'''
 select_bear = tk.Radiobutton(window,text='巨熊活动',variable=var, value='7')
 canvas_simple.create_window(328,75,window=select_bear)
+'''治疗士兵'''
 select_treatment = tk.Radiobutton(window,text='治疗士兵',variable=var, value='8')
 canvas_simple.create_window(88,105,window=select_treatment)
+'''探险奖励'''
 select_adventure = tk.Radiobutton(window,text='探险奖励',variable=var, value='9')
 canvas_simple.create_window(168,105,window=select_adventure)
+'''联盟捐赠'''
 select_donate = tk.Radiobutton(window,text='联盟捐赠',variable=var, value='10')
 canvas_simple.create_window(248,105,window=select_donate)
 '''开始按钮'''
-start_button_simple = ttk.Button(window,text='开始',command=simple_start_button)
-canvas_simple.create_window(190,140,window=start_button_simple)
+start_button_simple = ttk.Button(canvas_simple,text='开始',command=simple_start_button)
+canvas_simple.create_window(328,105,window=start_button_simple)
+
 
 '''------------------------------------输出区域------------------------------------'''
 '''区域'''
 canvas_output = tk.Canvas(window, width=490, height=200)
 canvas_output.place(x=5, y=390)
-canvas_output.create_rectangle(2, 2, 490, 200, width=0)
+canvas_output.create_rectangle(2, 2, 490, 200, width=1)
 '''创建一个ScrolledText控件作为输出框'''
 output_text = tk.Label(window, text='输出:')
 canvas_output.create_window(25,15,window=output_text)
