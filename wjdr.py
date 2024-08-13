@@ -46,15 +46,12 @@ def start_app():
     while True:
         try:
             print_space('开始尝试启动游戏')
-            '''if exists(Template(r"icon\tpl1719196072757.png", threshold=0.8, record_pos=(0.112, -0.519),
-                           resolution=(414, 780))):
-            print('游戏未启动，点击启动')'''
             touch(Template(r"icon\tpl1719196072757.png", record_pos=(0.112, -0.519), resolution=(414, 780)))
             print_space("等待25秒启动时间...")
             time.sleep(25)
             print_space('启动完成')
             break
-        except :
+        except:
             print('启动失败，再次尝试')
         '''else:
         print_space('游戏已启动!!!')'''

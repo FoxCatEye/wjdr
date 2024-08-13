@@ -4,7 +4,6 @@ __author__ = "猫耳小刻晴"
 import logging
 import subprocess
 import threading
-import time
 import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
@@ -186,12 +185,6 @@ def Production_soldiers():
         print_space("没有兵营已完成生产，结束该任务")
         touch(
             Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
-
-
-def clear_python_caches():
-    os.system('python -m py_compile -c .')  # 清理解释器代码缓存
-    os.system('python -m compileall -c .')  # 清理解释器编译后的代码缓存
-
 
 # 升级资源检查
 def build_main():
