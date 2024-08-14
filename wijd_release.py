@@ -4,10 +4,10 @@ __author__ = "猫耳小刻晴"
 import logging
 import subprocess
 import threading
-import configparser
 import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
+from configparser import ConfigParser
 from tkinter import font as tkFont
 from tkinter.scrolledtext import ScrolledText
 from airtest.core.api import *
@@ -955,7 +955,7 @@ def all_start():
     start_app()
 
 # 单线程主代码
-def simle():
+def simple():
     # 点击后按钮变化
     start_button.configure(text='停止', command=stop_function)
     print("程序开始执行...")
@@ -964,7 +964,7 @@ def simle():
     threading.Thread(target=subject).start()
 
 def save_simple():
-    simle()
+    simple()
     save_options()
 def stop_function():
     # 这里放置程序停止时需要执行的代码
@@ -1053,7 +1053,7 @@ def load_options():
     option_donate.set(config.get('Options', '联盟捐赠'))
 
 '''初始化配置解析器和选项变量'''
-config = configparser.ConfigParser()
+config = ConfigParser()
 config['Options'] = {}
 '''单选'''
 var = tk.StringVar()
@@ -1071,14 +1071,27 @@ option_adventure = tk.StringVar()#探险
 option_donate = tk.StringVar()#捐赠
 
 # 尝试加载先前保存的选项
-try:
-    with open('set.ini', 'r') as configfile:
-        config.read_file(configfile)
-    load_options()
-except IOError:
-    print('No saved options found.')
+if config.read('set.ini'):
+    try:
+        with open('set.ini', 'r') as configfile:
+            config.read_file(configfile)
+        load_options()
+    except IOError:
+        print('No saved options found.')
+#首次启动时默认选项
+else:
+    var.set('0')
+    option_help.set('1')
+    option_WM.set('1')
+    option_npc.set('1')
+    option_Production.set('1')
+    option_build.set('1')
+    option_Collection.set('1')
+    option_bear.set('1')
+    option_treatment.set('1')
+    option_adventure.set('1')
+    option_donate.set('1')
 '''------------------------------------多选功能区功能------------------------------------'''
-
 '''创建 Canvas(区域框)，设置宽度和高度'''
 canvas = tk.Canvas(window, width=400, height=170)
 canvas.place(x=50,y=65)
@@ -1107,7 +1120,7 @@ checkboxes = []  # 创建11个复选框的状态变量
 
 '''联盟互助'''
 for i in range(1,11):
-    #option_help.set(1)  # 设置复选框的默认值为选中状态
+    #option_help.set('1')  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window,text='联盟互助',variable=option_help,command=save_options)
     canvas.create_window(88,45,window=checkbox)
     #checkbox.place(x=80,y=70)
@@ -1197,7 +1210,7 @@ for i in range(1, 11):
 select_button = ttk.Button(window, text="全选", command=save_select_all)
 canvas.create_window(100,150,window=select_button)
 #select_button.place(x=100, y = 190)
-start_button = ttk.Button(window, text="开始", command=simle)
+start_button = ttk.Button(window, text="开始", command=save_simple)
 canvas.create_window(200,150,window=start_button)
 #start_button.place(x=200, y=190)
 select_button = ttk.Button(window, text="取消全选", command=save_deselect_all)
@@ -1322,7 +1335,7 @@ def simple_select():
                 Homepage()
                 bear()
                 if stop_event.is_set():
-                    start_button_simple.configure(text='开始', command=lambda: simle)  # 停止后按钮变为开始
+                    start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
                 print_space('等待1分钟')
                 time.sleep(60)
@@ -1488,6 +1501,6 @@ def print(text_1):
 tk.mainloop()
 
 # 窗口线程
-thread_window = threading.Thread(target=window.mainloop).start()
+#thread_window = threading.Thread(target=window.mainloop).start()
 
 
