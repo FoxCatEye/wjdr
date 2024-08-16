@@ -1290,7 +1290,7 @@ def simple_select():
             except:
                 print('错误')
     elif var_value == 1:
-        while True:
+        while execute:
             try:
                 Homepage()
                 Brush_XG()
@@ -1301,6 +1301,7 @@ def simple_select():
                 number = 0
                 while number < 6:
                     if stop_event.is_set():
+                        execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
@@ -1308,7 +1309,7 @@ def simple_select():
             except:
                 print('错误')
     elif var_value == 2:
-        while True:
+        while execute:
             try:
                 Homepage()
                 Brush_WM()
@@ -1319,6 +1320,7 @@ def simple_select():
                 number = 0
                 while number < 9:
                     if stop_event.is_set():
+                        execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
@@ -1326,7 +1328,7 @@ def simple_select():
             except:
                 print('错误')
     elif var_value == 3:
-        while True:
+        while execute:
             try:
                 Homepage()
                 NPC()
@@ -1337,6 +1339,7 @@ def simple_select():
                 number = 0
                 while number < 9:
                     if stop_event.is_set():
+                        execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
@@ -1373,7 +1376,7 @@ def simple_select():
             except:
                 print('错误')
     elif var_value == 6:
-        while True:
+        while execute:
             try:
                 Homepage()
                 Collection()
@@ -1384,6 +1387,7 @@ def simple_select():
                 number = 0
                 while number < 6:
                     if stop_event.is_set():
+                        execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
@@ -1391,7 +1395,7 @@ def simple_select():
             except:
                 print('错误')
     elif var_value == 7:
-        while True:
+        while execute:
             try:
                 Homepage()
                 bear()
@@ -1401,6 +1405,7 @@ def simple_select():
                 print_space('等待1分钟')
                 number = 0
                 while number < 6:
+                    execute = False
                     if stop_event.is_set():
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
@@ -1419,7 +1424,7 @@ def simple_select():
             except:
                 print('错误')
     elif var_value == 9:
-        while True:
+        while execute:
             try:
                 Homepage()
                 adventure()
@@ -1430,6 +1435,7 @@ def simple_select():
                 number = 0
                 while number < 360:
                     if stop_event.is_set():
+                        execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
@@ -1437,7 +1443,7 @@ def simple_select():
             except:
                 print('错误')
     elif var_value == 10:
-        while True:
+        while execute:
             try:
                 Homepage()
                 donate()
@@ -1447,6 +1453,7 @@ def simple_select():
                 print_space('等待5分钟后再次执行')
                 number = 0
                 while number < 30:
+                    execute = False
                     if stop_event.is_set():
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
