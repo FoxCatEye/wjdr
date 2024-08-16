@@ -4,7 +4,6 @@ __author__ = "猫耳小刻晴"
 import logging
 import subprocess
 import threading
-import time
 import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
