@@ -93,6 +93,10 @@ def Homepage():
                 else:
                     print_space('点击其他区域')
                     touch([500, 600])  # 不在主界面，返回到主页
+            if stop_event.is_set():
+                start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
+                break
+
     except:
         print('执行错误')
     if a == 4:
@@ -962,7 +966,7 @@ def stop_function():
     # 这里放置程序停止时需要执行的代码
     global stop_event
     stop_event.set()  # 设置事件，通知线程结束运行
-    print("------------等待10s左右结束任务------------")
+    print("------------等待当前任务完成或10s左右结束任务------------")
 
 
 stop_event = threading.Event()
