@@ -109,11 +109,11 @@ def Help():
     if result:  # 判断是否有盟员求助
         print_space("有盟员求助，需点击援助按钮")
         touch([800, 1700])
-        print_space("点击援助按钮成功，等待5s进行下一个任务")
-        time.sleep(5)
+        print_space("点击援助按钮成功，等待1s进行下一个任务")
+        time.sleep(1)
     else:
-        print_space("无盟员求助，等待5s进行下一个任务")
-        time.sleep(5)
+        print_space("无盟员求助，等待1s进行下一个任务")
+        time.sleep(1)
 
 
 # 生产士兵
@@ -645,7 +645,8 @@ def subject():
                     run_number += 1
                     if stop_event.is_set():
                         start_button.configure(text='开始', command=save_simple)  # 总功能
-                        break  # else:  #     print_space('不执行互助任务')  #     if stop_event.is_set():  #         start_button.configure(text='开始', command=simle)  # 总功能  #         break
+                        break
+                    # else:  #     print_space('不执行互助任务')  #     if stop_event.is_set():  #         start_button.configure(text='开始', command=simle)  # 总功能  #         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute % 5 == 0 and now.second % 5 == 0:
