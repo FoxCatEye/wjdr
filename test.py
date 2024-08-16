@@ -1,4 +1,43 @@
+import configparser
+from tkinter import Tk, Label, Entry, Button, END
 
+# 初始化Tk
+root = Tk()
+root.title("INI Editor")
+
+# 配置文件对象
+config = configparser.ConfigParser()
+
+# 输入框和按钮
+label = Label(root, text="Key:")
+label.pack()
+
+entry_key = Entry(root)
+entry_key.pack()
+
+label_value = Label(root, text="Value:")
+label_value.pack()
+
+entry_value = Entry(root)
+entry_value.pack()
+
+
+def save_to_ini():
+    key = entry_key.get()
+    value = entry_value.get()
+    config[section] = {key: value}
+    with open('config.ini', 'w') as configfile:
+        config.write(configfile)
+
+
+# 按钮保存
+button_save = Button(root, text="Save", command=save_to_ini)
+button_save.pack()
+
+# 设置section
+section = "DEFAULT"
+
+root.mainloop()
 # import tkinter as tk
 # from configparser import ConfigParser
 # from tkinter import ttk
