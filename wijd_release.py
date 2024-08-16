@@ -1046,7 +1046,6 @@ def save_options():
 
 '''读取设置'''
 
-
 def load_options():
     var.set(config.get('Options', '单项'))
     option_help.set(config.get('Options', '联盟互助'))
