@@ -146,7 +146,17 @@ def train():
         print_space('点击开始晋升士兵')
         touch(Template(r"icon\tpl1721784579063.png", rgb=True, record_pos=(0.22, 0.338), resolution=(1080, 1920)))
     else:
-        print_space("没有可晋升士兵，点击训练士兵")
+        print_space("没有可晋升士兵，训练最高级士兵")
+        swipe([950, 1225], vector=[-0.4103, 0.0170])#滑动训练兵种
+        touch([910,1225]) #点击十级兵
+        lv_x = 910
+        lv_y = 5
+        while lv_y >0:
+            if exists(Template(r"icon\tpl17217845790633.png", rgb=True, threshold=0.8, record_pos=(0.22, 0.338), resolution=(1080, 1920))):
+                lv_x = lv_x - 200
+                touch([lv_x, 1800])  # 点击开始上一级士兵
+            else:
+                break
         touch([800, 1800])  # 点击开始训练士兵
     time.sleep(1)  # 等待1秒
     print_space("返回上一级")
@@ -167,18 +177,27 @@ def Production_soldiers():
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.9, rgb=True, record_pos=(-0.186, -0.058),
-                       resolution=(414, 780))):
+    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.9, rgb=True, record_pos=(-0.186, -0.058), resolution=(414, 780))):
         print_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
-    if exists(Template(r"icon\tpl1719480722195.png", rgb=True, threshold=0.9, record_pos=(-0.437, 0.046),
-                       resolution=(414, 780))):
+    elif exists(Template(r"icon\tpl1719478488283.png", threshold=0.95, record_pos=(-0.186, -0.058), resolution=(414, 780))):
+        print_space("跳转到盾兵兵营...")
+        touch([600, 840])  # 点击索引到对应兵营
+        train()
+    if exists(Template(r"icon\tpl1719480722195.png", threshold=0.9, rgb=True, record_pos=(-0.437, 0.046), resolution=(414, 780))):
         print_space("跳转到矛兵兵营...")
         touch([600, 942])  # 点击索引到对应兵营
         train()
-    if exists(Template(r"icon\tpl1719480732965.png", rgb=True, threshold=0.9, record_pos=(-0.437, 0.145),
-                       resolution=(414, 780))):
+    elif exists(Template(r'icon\tpl1719480722196.png', threshold=0.95, record_pos=(-0.437, 0.046), resolution=(414, 780))):
+        print_space("跳转到矛兵兵营...")
+        touch([600, 942])  # 点击索引到对应兵营
+        train()
+    if exists(Template(r"icon\tpl1719480732965.png", threshold=0.9, rgb=True, record_pos=(-0.437, 0.145), resolution=(414, 780))):
+        print_space("跳转到射手兵营...")
+        touch([600, 1060])  # 点击索引到对应兵营
+        train()
+    elif exists(Template(r'icon\tpl1719480732966.png', threshold=0.95, record_pos=(-0.437, 0.046), resolution=(414, 780))):
         print_space("跳转到射手兵营...")
         touch([600, 1060])  # 点击索引到对应兵营
         train()
@@ -991,19 +1010,20 @@ def center_window(root, width, height):
 '''------------------------------------创建主窗口------------------------------------'''
 window = tk.Tk()
 window.title("无尽冬日")  # 设置窗口标题
-window.geometry("500x600")  # 设置窗口大小
+#window.geometry("500x600")  # 设置窗口大小
 icon = tk.PhotoImage(file="E:\测试文件\测试工具\版本控制\Wjdr\log\log.png")  # 设置窗口图标
 window.iconphoto(True, icon)
 # 调用函数居中窗口
 center_window(window, 500, 600)
 '''------------------------------------大标题------------------------------------'''
-bt = tkFont.Font(family="Helvetica", size=16, weight=tkFont.BOLD)
+bt = tkFont.Font(family="Helvetica", size=17, weight=tkFont.BOLD)
 tk.Label(window, text='无尽冬日', anchor='center', font=bt).pack()
 
 '''------------------------------------模拟器相关按钮------------------------------------'''
 '''创建区域'''
 canvas_mumu = tk.Canvas(window, width=370, height=35)
-canvas_mumu.place(x=60, y=30)
+#canvas_mumu.place(x=60, y=30)
+canvas_mumu.pack()
 canvas_mumu.create_rectangle(2, 2, 370, 35, width=0)
 '''创建按钮'''
 start_exe_button = ttk.Button(window,text='启动模拟器',command=lambda:start_simple(1))
@@ -1093,9 +1113,10 @@ else:
     option_donate.set('1')
 '''------------------------------------多选功能区功能------------------------------------'''
 '''创建 Canvas(区域框)，设置宽度和高度'''
-canvas = tk.Canvas(window, width=400, height=170)
-canvas.place(x=50,y=65)
-frame_id = canvas.create_rectangle(3, 3, 400, 170, width=0)
+canvas = tk.Canvas(window, width=400, height=150)
+#canvas.place(x=50,y=65)
+canvas.pack()
+canvas.create_rectangle(3, 3, 400, 150, width=0)
 
 '''标签'''
 title = tk.Label(window, text='功能选项(多选)：')
@@ -1208,20 +1229,21 @@ for i in range(1, 11):
 '''------------------------------------多选功能区功能按钮------------------------------------'''
 '''创建按钮'''
 select_button = ttk.Button(window, text="全选", command=save_select_all)
-canvas.create_window(100,150,window=select_button)
+canvas.create_window(100,135,window=select_button)
 #select_button.place(x=100, y = 190)
 start_button = ttk.Button(window, text="开始", command=save_simple)
-canvas.create_window(200,150,window=start_button)
+canvas.create_window(200,135,window=start_button)
 #start_button.place(x=200, y=190)
 select_button = ttk.Button(window, text="取消全选", command=save_deselect_all)
-canvas.create_window(300,150,window=select_button)
+canvas.create_window(300,135,window=select_button)
 #select_button.place(x=300, y = 190)
 
 '''------------------------------------单选功能区功能------------------------------------'''
 '''区域'''
-canvas_simple = tk.Canvas(window, width=400, height=160)
-canvas_simple.place(x=50,y=230)
-canvas_simple.create_rectangle(2, 2, 400, 160, width=0)
+canvas_simple = tk.Canvas(window, width=400, height=150)
+#canvas_simple.place(x=50,y=230)
+canvas_simple.pack()
+canvas_simple.create_rectangle(2, 2, 400, 150, width=0)
 
 '''标签'''
 title = tk.Label(window, text='功能选项(单选)：')
@@ -1377,7 +1399,7 @@ def simple_select():
                 print('错误')
     print('任务已结束')
 
-
+'''------------------------------------单选项选项------------------------------------'''
 # 创建单选项并添加选项
 '''联盟互助'''
 select_help = tk.Radiobutton(window,text='联盟互助',variable=var,value='0')
@@ -1413,14 +1435,15 @@ canvas_simple.create_window(168,105,window=select_adventure)
 select_donate = tk.Radiobutton(window,text='联盟捐赠',variable=var, value='10')
 canvas_simple.create_window(248,105,window=select_donate)
 '''开始按钮'''
-start_button_simple = ttk.Button(canvas_simple,text='开始',command=save_simple_start_button)
-canvas_simple.create_window(328,105,window=start_button_simple)
+start_button_simple = ttk.Button(window,text='开始',command=save_simple_start_button)
+canvas_simple.create_window(200,135,window=start_button_simple)
 
 
 '''------------------------------------输出区域------------------------------------'''
 '''区域'''
 canvas_output = tk.Canvas(window, width=490, height=200)
-canvas_output.place(x=5, y=390)
+#canvas_output.place(x=5, y=390)
+canvas_output.pack()
 canvas_output.create_rectangle(2, 2, 490, 200, width=0)
 '''创建一个ScrolledText控件作为输出框'''
 output_text = tk.Label(window, text='输出:')
@@ -1440,67 +1463,12 @@ def print(text_1):
 
 
 
-
-# tk.Label(window, text='联盟互助功能').place(x=40, y=220)
-# option_help_button = ttk.Button(window, text="开始", command=lambda: simle(1))
-# option_help_button.place(x=350, y=220)
-#
-# # 创建一个单选项并添加选项
-# tk.Label(window, text='世界野怪功能').place(x=40, y=250)
-# option_XG_button = ttk.Button(window, text="开始", command=lambda: simle(2))
-# option_XG_button.place(x=150, y=250)
-#
-# # 创建一个单选项并添加选项
-# tk.Label(window, text='冰原巨兽功能').place(x=250, y=250)
-# option_WM_button = ttk.Button(window, text="开始", command=lambda: simle(3))
-# option_WM_button.place(x=350, y=250)
-#
-# # 创建一个单选项并添加选项
-# tk.Label(window, text='集结雪怪功能').place(x=40, y=280)
-# option_npc_button = ttk.Button(window, text="开始", command=lambda: simle(4))
-# option_npc_button.place(x=150, y=280)
-#
-# # 创建一个单选项并添加选项
-# tk.Label(window, text='训练士兵功能').place(x=250, y=280)
-# option_Production_button = ttk.Button(window, text="开始", command=lambda: simle(5))
-# option_Production_button.place(x=350, y=280)
-#
-# # 创建一个单选项并添加选项
-# tk.Label(window, text='建筑升级功能').place(x=40, y=310)
-# option_build_button = ttk.Button(window, text="开始", command=lambda: simle(6))
-# option_build_button.place(x=150, y=310)
-#
-# # 创建一个单选项并添加选项
-# tk.Label(window, text='采集资源功能').place(x=250, y=310)
-# option_Collection_button = ttk.Button(window, text="开始", command=lambda: simle(7))
-# option_Collection_button.place(x=350, y=310)
-#
-# # 创建一个单选项并添加选项
-# tk.Label(window, text='巨熊活动功能').place(x=40, y=340)
-# option_bear_button = ttk.Button(window, text="开始", command=lambda: simle(8))
-# option_bear_button.place(x=150, y=340)
-#
-# # 创建一个单选项并添加选项
-# tk.Label(window, text='治疗士兵功能').place(x=250, y=340)
-# option_treatment_button = ttk.Button(window, text="开始", command=lambda: simle(9))
-# option_treatment_button.place(x=350, y=340)
-#
-# # 创建一个单选项并添加选项
-# tk.Label(window, text='领取探险奖励').place(x=40, y=370)
-# option_adventure_button = ttk.Button(window, text="开始", command=lambda: simle(10))
-# option_adventure_button.place(x=150, y=370)
-#
-# # 创建一个单选项并添加选项
-# tk.Label(window, text='联盟捐赠功能').place(x=250, y=370)
-# option_donate_button = ttk.Button(window, text="开始", command=lambda: simle(11))
-# option_donate_button.place(x=350, y=370)
-
-
-
 # 开始Tkinter事件循环
 tk.mainloop()
 
 # 窗口线程
-#thread_window = threading.Thread(target=window.mainloop).start()
+thread_window = threading.Thread(target=window.mainloop).start()
+
+
 
 

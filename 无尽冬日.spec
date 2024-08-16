@@ -5,7 +5,7 @@ a = Analysis(
     ['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\wijd_release.py'],
     pathex=[],
     binaries=[],
-    datas=[('E:\\测试文件\\测试工具\\AirtestIDE\\airtest', 'airtest')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

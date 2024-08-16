@@ -9,7 +9,6 @@ from tkinter import ttk
 from datetime import datetime
 from tkinter import font as tkFont
 from tkinter.scrolledtext import ScrolledText
-
 from airtest.core.api import *
 from airtest.core.android.android import *
 
