@@ -21,7 +21,6 @@ emulator_click = 0
 
 '''打开模拟器'''
 
-
 def start_exe():
     try:
         print('开始启动雷电模拟器')
