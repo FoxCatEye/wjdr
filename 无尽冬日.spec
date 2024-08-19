@@ -29,11 +29,11 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=False,
+    console=True,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\log\\log.png'],
+    icon=['icon\\log.png'],
 )
