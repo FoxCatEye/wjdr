@@ -39,6 +39,7 @@ def cnnect():
     while a > 0:  # 连接模拟器
         try:
             print('%d.开始尝试连接模拟器' % a)
+            subprocess.run(["adb", "connect", "127.0.0.1:5037"])
             connect_device("android://127.0.0.1:5037")
             time.sleep(5)
             print_space('连接模拟器成功!!!')
@@ -46,7 +47,7 @@ def cnnect():
         except:
             a += 1
             print('未连接到模拟器，10s后重新执行')
-            time.sleep(10)
+            time.sleep(1)
 
 
 # 启动APP
@@ -993,7 +994,7 @@ def center_window(root, width, height):
 window = tk.Tk()
 window.title("无尽冬日")  # 设置窗口标题
 # window.geometry("500x600")  # 设置窗口大小
-icon = tk.PhotoImage(file="E:\测试文件\测试工具\版本控制\Wjdr\log\log.png")  # 设置窗口图标
+icon = tk.PhotoImage(file="icon\log.png")  # 设置窗口图标
 window.iconphoto(True, icon)
 # 调用函数居中窗口
 center_window(window, 500, 600)
