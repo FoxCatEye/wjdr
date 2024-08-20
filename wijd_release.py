@@ -4,7 +4,6 @@ __author__ = "猫耳小刻晴"
 import logging
 import subprocess
 import threading
-import time
 import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
@@ -784,123 +783,6 @@ def subject():
             start_button.configure(text='开始', command=save_simple)  # 总功能
             break
     print('结束任务')
-
-
-'''def Subject():                                #老代码
-    run_i = 1
-    while True:
-        if run_i % 10 == 0:
-            Homepage()  # 主页检查
-            try:
-                if option_Production.get() == 1:
-                    print('\n' + '%d.开始执行训练任务' % run_i)
-                    Production_soldiers()  # 训练模块
-                    if stop_event.is_set():
-                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                        break
-            except:
-                print('程序执行异常，结束该任务，执行其他任务')
-            run_i += 1
-        if run_i % 14 == 0:
-            Homepage()  # 主页检查
-            try:
-                if option_build.get() == 1:
-                    print('\n' + '%d.开始执行建造任务' % run_i)
-                    Build()  # 建造模块
-                    if stop_event.is_set():
-                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                        break
-            except:
-                print('程序执行异常，结束该任务，执行其他任务')
-            run_i += 1
-        if run_i % 19 == 0:
-            Homepage()  # 主页检查
-            try:
-                now = datetime.now()
-                if 17 <= now.hour <= 23:
-                    if option_XG.get() == 1:
-                        print('\n' + '%d.开始执行打野怪任务' % run_i)
-                        Brush_XG()  # 打普通野怪
-                        if stop_event.is_set():
-                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                            break
-                if now.hour == 0 or now.hour == 1:
-                    if option_WM.get() == 1:
-                        Brush_WM()  # 打巨兽模块
-                        if stop_event.is_set():
-                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                            break
-                elif now.day == 24 or now.day == 25 or now.day == 26:
-                    if option_npc.get() == 1:
-                        NPC()
-                        if stop_event.is_set():
-                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                            break
-            except:
-                print('程序执行异常，结束该任务，执行其他任务')
-            run_i += 1
-        if run_i % 29 == 0:
-            Homepage()  # 主页检查
-            try:
-                if option_Collection == 1:
-                    print('\n' + '%d.开始执行采集任务' % run_i)
-                    now = datetime.now().time()
-                    if now.hour == 3:
-                        Collection()  # 采集资源模块
-                    else:
-                        print_space('当前时间：%s,未到采集时间' % now.strftime("%H:%M"))
-                    if stop_event.is_set():
-                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                        break
-            except:
-                print('程序执行异常，结束该任务，执行其他任务')
-            run_i = 1
-            print('执行完成，结束该周期，开始新的周期')
-        if not run_i==10 or not  run_i==14 or not  run_i==19 or not  run_i==29:
-            Homepage()  # 主页检查
-            try:
-                if option_help.get() == 1:
-                    print('\n' + '%d.开始执行互助任务' % run_i)
-                    Help()  # 互助模块
-                    if stop_event.is_set():
-                        start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                        break
-                elif option_help.get() == 0:
-                    print_space('不执行互助任务')
-                if option_bear.get() ==1:
-                    now = datetime.now().time()
-                    if now.hour == 21:
-                        print_space('当前时间：%s,巨兽活动进行中' % now.strftime("%H:%M:%S"))
-                        bear()  # 巨熊模块
-                        if stop_event.is_set():
-                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                            break
-                if option_treatment.get() == 1:
-                    now = datetime.now().time()
-                    if now.minute == 21:
-                        treatment()  # 治疗模块
-                        if stop_event.is_set():
-                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                            break
-                if option_donate.get() == 1:
-                    now = datetime.now().time()
-                    if 0 < now.minute < 2:
-                        donate()  # 捐赠模块
-                        if stop_event.is_set():
-                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                            break
-                if option_adventure.get() == 1:
-                    now = datetime.now().time()
-                    if now.minute == 25:
-                        adventure()
-                        if stop_event.is_set():
-                            start_button.configure(text='开始', command=lambda: simle(0))  # 总功能
-                            break
-                run_i += 1
-            except:
-                print('程序执行异常，结束该任务，执行其他任务')
-
-    print('结束任务')'''
 
 
 def print_space(variable, spaces=4):
