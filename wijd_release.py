@@ -1528,8 +1528,8 @@ canvas_simple.create_window(300, 135, window=start_button_simple)
 ''''自定义单项功能的重新执行时间'''
 imput_text = tk.Label(canvas_simple,text='等待时间:')
 canvas_simple.create_window(80, 135, window=imput_text)
-input_time = tk.Entry(window)
-canvas_simple.create_window(165, 135, window=input_time)
+input_time = tk.Entry(window,width=15)
+canvas_simple.create_window(180, 135, window=input_time)
 
 
 '''------------------------------------输出区域------------------------------------'''
