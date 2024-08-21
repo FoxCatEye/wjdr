@@ -4,6 +4,7 @@ __author__ = "猫耳小刻晴"
 import logging
 import subprocess
 import threading
+import time
 import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
@@ -37,14 +38,14 @@ def cnnect():
     while a > 0:  # 连接模拟器
         try:
             print('%d.开始尝试连接模拟器' % a)
-            subprocess.run(["adb", "connect", "127.0.0.1:5037"])
+            os.popen('adb start-server')
             connect_device("android://127.0.0.1:5037")
             time.sleep(5)
             print_space('连接模拟器成功!!!')
             a = 0
         except:
             a += 1
-            print('未连接到模拟器，10s后重新执行')
+            print('未连接到模拟器，尝试重新连接')
             time.sleep(1)
 
 
@@ -921,7 +922,7 @@ def save_options():
     config.set('Options', '治疗士兵', option_treatment.get())
     config.set('Options', '探险奖励', option_adventure.get())
     config.set('Options', '联盟捐赠', option_donate.get())
-    config.set('Options', '互助设置',str(help_time))
+    #config.set('Options', '互助设置',str(help_time))
     with open('set.ini', 'w') as configfile:
         config.write(configfile)
 
@@ -941,7 +942,7 @@ def load_options():
     option_treatment.set(config.get('Options', '治疗士兵'))
     option_adventure.set(config.get('Options', '探险奖励'))
     option_donate.set(config.get('Options', '联盟捐赠'))
-    help_time.set(config.get('Options', '互助设置'))
+    #help_time.set(config.get('Options', '互助设置'))
 
 
 
@@ -963,7 +964,7 @@ option_bear = tk.StringVar()  # 巨熊
 option_treatment = tk.StringVar()  # 治疗
 option_adventure = tk.StringVar()  # 探险
 option_donate = tk.StringVar()  # 捐赠
-help_time = tk.StringVar()
+#help_time = tk.StringVar()
 
 # 尝试加载先前保存的选项
 if config.read('set.ini'):
@@ -987,7 +988,7 @@ else:
     option_treatment.set('1')
     option_adventure.set('1')
     option_donate.set('1')
-    help_time.set('10')
+    #help_time.set('10')
 '''------------------------------------多选功能区功能------------------------------------'''
 '''创建 Canvas(区域框)，设置宽度和高度'''
 canvas = tk.Canvas(window, width=400, height=150)
@@ -1181,8 +1182,10 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 互助功能
                     break
-                print(int(input_value(0)))
-                time.sleep(int(input_value(0)))
+                print('等待2s后再次执行')
+                time.sleep(2)
+                #print(int(input_value(0)))
+                #time.sleep(int(input_value(0)))
             except:
                 print('错误')
     elif var_value == 1:
@@ -1361,12 +1364,12 @@ def simple_select():
 
 
 '''获取输入框的值'''
-def input_value(value):
+'''def input_value(value):
     if value == 0 :
-        help_time = input_time.get()
-        return help_time
+        if input_time.get() != null:
+            help_time = input_time.get()
     if value == 1 :
-        return input_time.get()
+        return input_time.get()'''
 '''------------------------------------单选项选项------------------------------------'''
 # 创建单选项并添加选项
 '''联盟互助'''
@@ -1408,10 +1411,10 @@ start_button_simple = ttk.Button(window, text='开始', command=save_simple_star
 canvas_simple.create_window(300, 135, window=start_button_simple)
 
 ''''自定义单项功能的重新执行时间'''
-imput_text = tk.Label(canvas_simple,text='等待时间:')
-canvas_simple.create_window(80, 135, window=imput_text)
-input_time = tk.Entry(window,width=15)
-canvas_simple.create_window(180, 135, window=input_time)
+# imput_text = tk.Label(canvas_simple,text='等待时间:')
+# canvas_simple.create_window(80, 135, window=imput_text)
+# input_time = tk.Entry(window,width=15)
+# canvas_simple.create_window(180, 135, window=input_time)
 
 
 '''------------------------------------输出区域------------------------------------'''
