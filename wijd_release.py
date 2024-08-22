@@ -364,7 +364,7 @@ def Brush_WM():
     touch([365, 1373])  # 点击冰原巨兽
     time.sleep(1)  # 等待1s
     print_space('点击等级')
-    touch([500, 1573])  # 点击等级3
+    touch([520, 1573])  # 点击等级3
     time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
     touch([534, 1821])  # 点击搜索
@@ -372,7 +372,7 @@ def Brush_WM():
     print_space('点击集结按钮')
     touch(Template(r"icon\tpl1719376765868.png", record_pos=(0.002, 0.705), resolution=(414, 780)))  # 点击怪物集结
     time.sleep(1)  # 等待1s
-    if exists(Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(414, 780))):
+    if exists(Template(r"icon\tpl1719376776844.png", record_pos=(0.0, 0.326), resolution=(414, 780))):
         print_space('点击发起集结')
         touch(Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(414, 780)))  # 点击发起集结
         time.sleep(1)  # 等待0.5s
@@ -662,7 +662,7 @@ def subject():
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
-        if now.minute % 6 == 0:
+        if now.minute % 6 == 0 and 0 < now.second < 20:
             try:
                 if int(option_WM.get()) == 1:
 
@@ -1134,7 +1134,7 @@ canvas.create_window(300, 135, window=select_button)
 canvas_simple = tk.Canvas(window, width=400, height=150)
 # canvas_simple.place(x=50,y=230)
 canvas_simple.pack()
-canvas_simple.create_rectangle(2, 2, 400, 150, width=1)
+canvas_simple.create_rectangle(2, 2, 400, 150, width=0)
 
 '''标签'''
 title = tk.Label(window, text='功能选项(单选)：')
@@ -1206,7 +1206,7 @@ def simple_select():
                         time.sleep(10)
             except:
                 print('错误')
-    elif var_value == 2:
+    elif var_value == 2:   #冰原巨兽
         while execute:
             try:
                 Homepage()
@@ -1214,14 +1214,15 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                print_space('等待90s后再次执行')
+                print_space('等待180s后再次执行')
                 number = 0
-                while number < 9:
+                while number < 18:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
+                        number += 1
                         time.sleep(10)
             except:
                 print('错误')
