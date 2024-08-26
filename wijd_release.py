@@ -364,7 +364,7 @@ def Brush_WM():
     touch([365, 1373])  # 点击冰原巨兽
     time.sleep(1)  # 等待1s
     print_space('点击等级')
-    touch([520, 1573])  # 点击等级3
+    touch([500, 1573])  # 点击等级3
     time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
     touch([534, 1821])  # 点击搜索
