@@ -1280,9 +1280,11 @@ def simple_select():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 互助功能
                     break
                 #print('等待2s后再次执行')
-                help_time = int(set_help_time.get())
-                print_space('\n'+'等待%s后继续执行任务'%help_time)
-                time.sleep(help_time)
+                help_time = set_help_time.get()
+                print_space('\n'+'等待%s秒后继续执行任务'%help_time)
+                XG_number = int(help_time) / 10
+                #print(XG_number)
+                time.sleep(XG_number)
                 #time.sleep(int(input_value(0)))
             except:
                 print('错误')
@@ -1294,19 +1296,17 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                     break
-                XG_time = int(set_XG_time.get())
-                print_space('\n'+'等待%s秒后再次执行'%XG_time)
+                XG_time = set_XG_time.get()
+                print_space('等待%s秒后再次执行'%XG_time+'\n')
                 number = 0
-                XG_number = XG_time % 10
-                print_space(XG_number)
+                XG_number = int(XG_time) / 10
                 while XG_number > number:
-
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
-
                         break
                     else:
+                        number += 1
                         time.sleep(10)
             except:
                 print('错误')
@@ -1318,9 +1318,11 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                print_space('等待180s后再次执行')
+                WM_time = set_WM_time.get()
+                print_space('等待%s秒后再次执行'%WM_time+'\n')
                 number = 0
-                while number < 18:
+                WM_number = int(WM_time) / 10
+                while number < WM_number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
@@ -1338,14 +1340,17 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                print_space('等待90s后再次执行')
+                npc_time = set_XG_time.get()
+                print_space('等待%s秒后再次执行'%npc_time+'\n')
                 number = 0
-                while number < 9:
+                npc_number = int(npc_time) / 10
+                while number < npc_number:
                     if stop_event.is_set():
                         execute = False
-                        start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
+                        start_button_simple.configure(text='开始', command=save_simple_start_button)
                         break
                     else:
+                        number += 1
                         time.sleep(10)
             except:
                 print('错误')
@@ -1357,25 +1362,38 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                print_space('等待1小时后再次执行')
+                Production_time = set_Production_time.get()
+                print_space('等待%s秒后再次执行'%Production_time+'\n')
+                Production_number = int(Production_time) / 10
                 number = 0
-                while number < 360:
+                while number < Production_number:
                     if stop_event.is_set():
                         execute = False
-                        start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
-                        break
+                        start_button_simple.configure(text='开始', command=save_simple_start_button)
                     else:
+                        number += 1
                         time.sleep(10)
             except:
                 print('错误')
     elif var_value == 5:
-        while True:
+        while execute:
             try:
                 Homepage()
                 Build()
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
+                build_time = set_build_time.get()
+                print_space('等待%s秒后再次执行' % build_time + '\n')
+                build_number = int(build_time) / 10
+                number = 0
+                while number < build_number:
+                    if stop_event.is_set():
+                        execute = False
+                        start_button_simple.configure(text='开始', command=save_simple_start_button)
+                    else:
+                        number += 1
+                        time.sleep(10)
             except:
                 print('错误')
     elif var_value == 6:
@@ -1386,14 +1404,17 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                print_space('等待1分钟后再次执行')
+                Collection_time = set_Collection_time.get()
+                print_space('等待%s秒后再次执行' % Collection_time + '\n')
                 number = 0
-                while number < 6:
+                Collection_number = int(Collection_time) / 10
+                while number < Collection_number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
+                        number += 1
                         time.sleep(10)
             except:
                 print('错误')
@@ -1405,25 +1426,40 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                print_space('等待1分钟')
+                bear_time = set_bear_time.get()
+                print_space('等待%s秒后再次执行' % bear_time + '\n')
                 number = 0
-                while number < 6:
+                bear_number = int(bear_time) / 10
+                while number < bear_number:
                     execute = False
                     if stop_event.is_set():
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
+                        number += 1
                         time.sleep(10)
             except:
                 print('错误')
     elif var_value == 8:
-        while True:
+        while execute:
             try:
                 Homepage()
                 treatment()
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
+                treatment_time = set_treatment_time.get()
+                print_space('等待%s秒后再次执行' % treatment_time + '\n')
+                number = 0
+                treatment_number = int(treatment_time) / 10
+                while number < treatment_number:
+                    execute = False
+                    if stop_event.is_set():
+                        start_button_simple.configure(text='开始', command=save_simple_start_button)
+                        break
+                    else:
+                        number += 1
+                        time.sleep(10)
             except:
                 print('错误')
     elif var_value == 9:
@@ -1434,14 +1470,17 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                print_space('等待1小时后再次执行')
+                adventure_time = set_adventure_time.get()
+                print_space('等待%s秒后再次执行' % adventure_time + '\n')
                 number = 0
-                while number < 360:
+                adventure_number = int(adventure_time) / 10
+                while number < adventure_number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
+                        number += 1
                         time.sleep(10)
             except:
                 print('错误')
@@ -1453,14 +1492,17 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                print_space('等待5分钟后再次执行')
+                donate_time = set_donate_time.get()
+                print_space('等待%s秒后再次执行' % donate_time + '\n')
                 number = 0
-                while number < 30:
+                donate_number = int(donate_time) / 10
+                while number < donate_number:
                     execute = False
                     if stop_event.is_set():
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
+                        number += 1
                         time.sleep(10)
             except:
                 print('错误')
