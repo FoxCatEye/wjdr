@@ -922,17 +922,55 @@ def save_options():
     with open('set.ini', 'w') as configfile:
         config.write(configfile)
 def save_simple_set():
-    if combo_box.current() == 0:
-        help_time = entry.get()
-        config.set('Options', '联盟互助设置', help_time)
-    elif combo_box.current() == 1:
-        XG_time = entry.get()
-        config.set('Options', '世界野怪设置', XG_time)
-    elif combo_box.current() == 2:
-        WM_time = entry.get()
-        config.set('Option','冰原巨兽设置',WM_time)
-    with open('set.ini', 'w') as configfile:
-        config.write(configfile)
+    if entry.get() != '':
+        if int(var.get()) == 0:
+            help_time = entry.get()
+            config.set('Options', '联盟互助设置', help_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 1:
+            XG_time = entry.get()
+            config.set('Options', '世界野怪设置', XG_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 2:
+            WM_time = entry.get()
+            config.set('Options','冰原巨兽设置',WM_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 3:
+            npc_time = entry.get()
+            config.set('Options','活动雪怪设置',npc_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 4:
+            Production_time = entry.get()
+            config.set('Options','训练士兵设置',Production_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 5:
+            build_time = entry.get()
+            config.set('Options', '建筑升级设置', build_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 6:
+            Collection_time = entry.get()
+            config.set('Options', '采集资源设置', Collection_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 7:
+            bear_time = entry.get()
+            config.set('Options', '巨熊活动设置', bear_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 8:
+            treatment_time = entry.get()
+            config.set('Options', '治疗士兵设置', treatment_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 9:
+            adventure_time = entry.get()
+            config.set('Options', '探险奖励设置', adventure_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 10:
+            donate_time = entry.get()
+            config.set('Options', '联盟捐赠设置', donate_time)
+            print('设置成功！！！')
+        with open('set.ini', 'w') as configfile:
+            config.write(configfile)
+    else:
+        print('-------------间隔时间不能为空-------------')
 
 '''读取设置'''
 
@@ -1177,68 +1215,67 @@ canvas_simple.create_rectangle(2, 2, 400, 150, width=0)
 '''标签'''
 title = tk.Label(window, text='功能选项(单选)：')
 canvas_simple.create_window(55, 15, window=title)
-''''自定义单项功能的重新执行时间'''
 
+''''自定义单项功能的重新执行时间'''
 '''选中选项时输入框获取对应选项的时间'''
-def dropdown_changed(event):
-    if combo_box.current() == 0:
+def dropdown_changed():
+    if int(var.get()) == 0:
         entry.delete(0,'end')
-        read_save()
         entry.insert(0,set_help_time.get())
-    elif combo_box.current() == 1:
+    elif int(var.get()) == 1:
         entry.delete(0,'end')
         entry.insert(0,set_XG_time.get())
-    elif combo_box.current() == 2:
+    elif int(var.get()) == 2:
         entry.delete(0,'end')
         entry.insert(0,set_WM_time.get())
-    elif combo_box.current() == 3:
+    elif int(var.get()) == 3:
         entry.delete(0,'end')
         entry.insert(0,set_npc_time.get())
-    elif combo_box.current() == 4:
+    elif int(var.get()) == 4:
         entry.delete(0,'end')
         entry.insert(0,set_Production_time.get())
-    elif combo_box.current() == 5:
+    elif int(var.get()) == 5:
         entry.delete(0,'end')
         entry.insert(0,set_build_time.get())
-    elif combo_box.current() == 6:
+    elif int(var.get()) == 6:
         entry.delete(0,'end')
         entry.insert(0,set_Collection_time.get())
-    elif combo_box.current() == 7:
+    elif int(var.get()) == 7:
         entry.delete(0,'end')
         entry.insert(0,set_bear_time.get())
-    elif combo_box.current() == 8:
+    elif int(var.get()) == 8:
         entry.delete(0,'end')
         entry.insert(0,set_treatment_time.get())
-    elif combo_box.current() == 9:
+    elif int(var.get()) == 9:
         entry.delete(0,'end')
         entry.insert(0,set_adventure_time.get())
-    elif combo_box.current() == 10:
+    elif int(var.get()) == 10:
         entry.delete(0,'end')
         entry.insert(0,set_donate_time.get())
 '''下拉框'''
-combo_box = ttk.Combobox(window,width=8,state='readonly')
+'''combo_box = ttk.Combobox(window,width=8,state='readonly')
 combo_box['values'] = ['联盟互助', '世界野怪', '冰原巨兽','活动雪怪','训练士兵','建筑升级','采集资源','巨熊活动','治疗士兵','探险奖励','联盟捐赠']
-combo_box.current(0)  # 设置默认选中第一个选项
+combo_box.current(int(var.get()))  # 设置打开时默认选中
 combo_box.bind("<<ComboboxSelected>>", dropdown_changed)
-canvas_simple.create_window(140, 15, window=combo_box)
-# 将下拉框的值与编号关联
-#combo_box['values'] = list(combo_box_values.values())
+canvas_simple.create_window(140, 15, window=combo_box)'''
 '''文本标题'''
-imput_text = tk.Label(canvas_simple,text='重复执行:')
-canvas_simple.create_window(220, 15, window=imput_text)
+imput_text = tk.Label(canvas_simple,text='执行间隔:')
+canvas_simple.create_window(150, 15, window=imput_text)
 '''输入框'''
 def clear_entry(event, entry):
     entry.delete(0, tk.END)
+'''输入框'''
 entry = tk.Entry(window,width=5)
-canvas_simple.create_window(270, 15, window=entry)
+canvas_simple.create_window(210, 15, window=entry)
+dropdown_changed()
 time_unit = tk.Label(window,text='秒')
-canvas_simple.create_window(290, 15, window=time_unit)
+canvas_simple.create_window(230, 15, window=time_unit)
 #entry.insert(0, '秒')
 # 绑定一个点击事件到entry，当点击entry时，调用clear_entry函数
 entry.bind("<Button-1>", lambda event: clear_entry(event, entry))
 '''保存按钮'''
 save_set_time_button = ttk.Button(window,text='设置',command=save_simple_set)
-canvas_simple.create_window(360, 15, window=save_set_time_button)
+canvas_simple.create_window(320, 15, window=save_set_time_button)
 
 def simple_start_button():
     start_button_simple.configure(text='停止', command=stop_function)
@@ -1256,8 +1293,11 @@ def simple_stop_button():
 
 
 def save_simple_start_button():
-    simple_start_button()
-    save_options()
+    if entry.get() != '':
+        simple_start_button()
+        save_options()
+    else:
+        print('-------------间隔时间不能为空-------------')
 
 
 '''单项运行函数'''
@@ -1279,13 +1319,10 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 互助功能
                     break
-                #print('等待2s后再次执行')
                 help_time = set_help_time.get()
-                print_space('\n'+'等待%s秒后继续执行任务'%help_time)
-                XG_number = int(help_time) / 10
-                #print(XG_number)
+                print_space('等待%s秒后继续执行任务'%help_time+'\n')
+                XG_number = int(help_time)
                 time.sleep(XG_number)
-                #time.sleep(int(input_value(0)))
             except:
                 print('错误')
     elif var_value == 1:
@@ -1391,6 +1428,7 @@ def simple_select():
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)
+                        break
                     else:
                         number += 1
                         time.sleep(10)
@@ -1431,8 +1469,8 @@ def simple_select():
                 number = 0
                 bear_number = int(bear_time) / 10
                 while number < bear_number:
-                    execute = False
                     if stop_event.is_set():
+                        execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
@@ -1453,8 +1491,8 @@ def simple_select():
                 number = 0
                 treatment_number = int(treatment_time) / 10
                 while number < treatment_number:
-                    execute = False
                     if stop_event.is_set():
+                        execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)
                         break
                     else:
@@ -1497,8 +1535,8 @@ def simple_select():
                 number = 0
                 donate_number = int(donate_time) / 10
                 while number < donate_number:
-                    execute = False
                     if stop_event.is_set():
+                        execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
@@ -1507,49 +1545,40 @@ def simple_select():
             except:
                 print('错误')
     print('任务已结束')
-
-
-'''获取输入框的值'''
-'''def input_value(value):
-    if value == 0 :
-        if input_time.get() != null:
-            help_time = input_time.get()
-    if value == 1 :
-        return input_time.get()'''
 '''------------------------------------单选项选项------------------------------------'''
 # 创建单选项并添加选项
 '''联盟互助'''
-select_help = tk.Radiobutton(window, text='联盟互助', variable=var, value=0)
+select_help = tk.Radiobutton(window, text='联盟互助', variable=var, value=0,command=dropdown_changed)
 canvas_simple.create_window(88, 45, window=select_help)
 '''世界野怪'''
-select_XG = tk.Radiobutton(window, text='世界野怪', variable=var, value=1)
+select_XG = tk.Radiobutton(window, text='世界野怪', variable=var, value=1,command=dropdown_changed)
 canvas_simple.create_window(168, 45, window=select_XG)
 '''冰原巨兽'''
-select_WM = tk.Radiobutton(window, text='冰原巨兽', variable=var, value=2)
+select_WM = tk.Radiobutton(window, text='冰原巨兽', variable=var, value=2,command=dropdown_changed)
 canvas_simple.create_window(248, 45, window=select_WM)
 '''活动雪怪'''
-select_npc = tk.Radiobutton(window, text='活动雪怪', variable=var, value='3')
+select_npc = tk.Radiobutton(window, text='活动雪怪', variable=var, value=3,command=dropdown_changed)
 canvas_simple.create_window(328, 45, window=select_npc)
 '''训练士兵'''
-select_production = tk.Radiobutton(window, text='训练士兵', variable=var, value='4')
+select_production = tk.Radiobutton(window, text='训练士兵', variable=var, value=4,command=dropdown_changed)
 canvas_simple.create_window(88, 75, window=select_production)
 '''建筑升级'''
-select_build = tk.Radiobutton(window, text='建筑升级', variable=var, value='5')
+select_build = tk.Radiobutton(window, text='建筑升级', variable=var, value=5,command=dropdown_changed)
 canvas_simple.create_window(168, 75, window=select_build)
 '''采集资源'''
-select_collection = tk.Radiobutton(window, text='采集资源', variable=var, value='6')
+select_collection = tk.Radiobutton(window, text='采集资源', variable=var, value=6,command=dropdown_changed)
 canvas_simple.create_window(248, 75, window=select_collection)
 '''巨熊活动'''
-select_bear = tk.Radiobutton(window, text='巨熊活动', variable=var, value='7')
+select_bear = tk.Radiobutton(window, text='巨熊活动', variable=var, value=7,command=dropdown_changed)
 canvas_simple.create_window(328, 75, window=select_bear)
 '''治疗士兵'''
-select_treatment = tk.Radiobutton(window, text='治疗士兵', variable=var, value='8')
+select_treatment = tk.Radiobutton(window, text='治疗士兵', variable=var, value=8,command=dropdown_changed)
 canvas_simple.create_window(88, 105, window=select_treatment)
 '''探险奖励'''
-select_adventure = tk.Radiobutton(window, text='探险奖励', variable=var, value='9')
+select_adventure = tk.Radiobutton(window, text='探险奖励', variable=var, value=9,command=dropdown_changed)
 canvas_simple.create_window(168, 105, window=select_adventure)
 '''联盟捐赠'''
-select_donate = tk.Radiobutton(window, text='联盟捐赠', variable=var, value='10')
+select_donate = tk.Radiobutton(window, text='联盟捐赠', variable=var, value=10,command=dropdown_changed)
 canvas_simple.create_window(248, 105, window=select_donate)
 
 '''开始按钮'''
@@ -1586,6 +1615,5 @@ def print(text_1):
 
 # 开始Tkinter事件循环
 tk.mainloop()
-
 # 窗口线程
 thread_window = threading.Thread(target=window.mainloop).start()
