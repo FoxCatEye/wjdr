@@ -17,7 +17,7 @@ auto_setup(__file__)
 logging.getLogger('airtest').setLevel(logging.ERROR)
 '''模拟器点击变量'''
 emulator_click = 0
-
+number_brush = 0
 '''打开模拟器'''
 
 def start_exe():
@@ -355,6 +355,19 @@ def bear():
         print_space('未找到活动图标')
 
 
+def lv():
+    global number_brush
+    number_brush += 1
+    print('本次启动首次打')
+    print('点击等级输入框')
+    touch([900, 1573])
+    print('删除原本等级')
+    keyevent('KEYCODE_DEL')
+    time.sleep(1)#等待1秒
+    print('输入新的等级')
+    text('4', enter=True)
+    print('点击确定按钮')
+    touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))
 # 冰原巨兽
 def Brush_WM():
     search_main()
@@ -363,9 +376,10 @@ def Brush_WM():
     print_space('点击选择冰原巨兽')
     touch([365, 1373])  # 点击冰原巨兽
     time.sleep(1)  # 等待1s
-    print_space('选择等级')
-    touch([500, 1573])  # 点击等级3
-    time.sleep(1)  # 等待1s
+    '''判断本次启动是否执行过，执行过就不在选择等级'''
+    if number_brush == 0:
+        lv()
+        time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
@@ -638,7 +652,6 @@ def subject():
         if now.second % 2 == 0:
             try:
                 if int(option_help.get()) == 1:
-
                     print('\n' + '%d.开始执行互助任务' % run_number)
                     Homepage()  # 主页检查
                     Help()  # 互助模块
@@ -969,6 +982,7 @@ def save_simple_set():
             print('设置成功！！！')
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
+        load_options()
     else:
         print('-------------间隔时间不能为空-------------')
 
@@ -1320,6 +1334,7 @@ def simple_select():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 互助功能
                     break
                 help_time = set_help_time.get()
+                print('%s'%help_time)
                 print_space('等待%s秒后继续执行任务'%help_time+'\n')
                 XG_number = int(help_time)
                 time.sleep(XG_number)

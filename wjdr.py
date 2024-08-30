@@ -969,6 +969,7 @@ def save_simple_set():
             print('设置成功！！！')
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
+        load_options()
     else:
         print('-------------间隔时间不能为空-------------')
 
