@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\wjdr.py'],
+    ['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\wjdr_release.py'],
     pathex=[],
     binaries=[],
     #datas=[],

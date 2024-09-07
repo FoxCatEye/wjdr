@@ -356,28 +356,29 @@ def bear():
 
 
 def lv():
-    global number_brush
-    number_brush += 1
-    print('本次启动首次打')
-    print('点击等级输入框')
+    print_space('首次启动或数据有更新，重新输入等级')
+    print_space('点击等级输入框')
     touch([900, 1573])
-    print('删除原本等级')
+    time.sleep(1)
+    print_space('删除原本等级')
     keyevent('KEYCODE_DEL')
     time.sleep(1)#等待1秒
-    print('输入新的等级')
+    print_space('输入新的等级')
     text(set_WM_number.get(), enter=True)
-    print('点击确定按钮')
+    print_space('点击确定按钮')
     touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))
 # 冰原巨兽
 def Brush_WM():
+    global number_brush
     search_main()
     swipe([600, 1370], vector=[0.4103, 0.0170])  # 滑动
     time.sleep(1)  # 等待1s
     print_space('点击选择冰原巨兽')
     touch([365, 1373])  # 点击冰原巨兽
     time.sleep(1)  # 等待1s
-    '''判断本次启动是否执行过，执行过就不在选择等级'''
+    '''判断本次是否需要执行选择等级'''
     if number_brush == 0:
+        number_brush += 1
         lv()
         time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
@@ -895,7 +896,9 @@ center_window(window, 500, 600)
 '''------------------------------------大标题------------------------------------'''
 bt = tkFont.Font(family="Helvetica", size=17, weight=tkFont.BOLD)
 tk.Label(window, text='无尽冬日', anchor='center', font=bt).pack()
-
+'''提示文本'''
+prompt_text = tkFont.Font(window,family="Helvetica", size=10, weight=tkFont.NORMAL)
+tk.Label(window,text='请等待程序停止后再设置相关参数', anchor='center', font=prompt_text).pack()
 '''------------------------------------模拟器相关按钮------------------------------------'''
 '''创建区域'''
 canvas_mumu = tk.Canvas(window, width=370, height=35)
@@ -935,6 +938,7 @@ def save_options():
     with open('set.ini', 'w') as configfile:
         config.write(configfile)
 def save_simple_set():
+    global number_brush
     if entry.get() != '':
         config.set('Options', '单项', var.get())
         if int(var.get()) == 0:
@@ -946,6 +950,7 @@ def save_simple_set():
             config.set('Options', '世界野怪设置', XG_time)
             print('设置成功！！！')
         elif int(var.get()) == 2:
+            number_brush = 0
             WM_time = entry.get()
             WM_number = entry_number.get()
             config.set('Options','冰原巨兽设置',WM_time)
@@ -1087,7 +1092,7 @@ read_save()
 canvas = tk.Canvas(window, width=400, height=150)
 # canvas.place(x=50,y=65)
 canvas.pack()
-canvas.create_rectangle(3, 3, 400, 150, width=0)
+canvas.create_rectangle(1, 1, 400, 150, width=0)
 
 '''标签'''
 title = tk.Label(window, text='功能选项(多选)：')
@@ -1128,14 +1133,14 @@ checkboxes = []  # 创建11个复选框的状态变量
 for i in range(1, 11):
     # option_help.set('1')  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='联盟互助', variable=option_help, command=save_options)
-    canvas.create_window(168, 15, window=checkbox)
+    canvas.create_window(88, 45, window=checkbox)
     # checkbox.place(x=80,y=70)
     checkboxes.append(checkbox)
 '''世界野怪'''
 for i in range(1, 11):
     # option_XG.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='世界野怪', variable=option_XG, command=save_options)
-    canvas.create_window(248, 15, window=checkbox)
+    canvas.create_window(168, 45, window=checkbox)
     # checkbox.place(x=160, y=70)
     checkboxes.append(checkbox)
 '''冰原巨兽'''
@@ -1143,7 +1148,7 @@ for i in range(1, 11):
     # option_WM = tk.IntVar()
     # option_WM.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='冰原巨兽', variable=option_WM, command=save_options)
-    canvas.create_window(328, 15, window=checkbox)
+    canvas.create_window(248, 45, window=checkbox)
     # checkbox.place(x=240, y=70)
     checkboxes.append(checkbox)
 '''活动雪怪'''
@@ -1229,7 +1234,7 @@ canvas.create_window(300, 135, window=select_button)
 canvas_simple = tk.Canvas(window, width=400, height=150)
 # canvas_simple.place(x=50,y=230)
 canvas_simple.pack()
-canvas_simple.create_rectangle(2, 2, 400, 150, width=0)
+canvas_simple.create_rectangle(1, 1, 400, 150, width=0)
 
 '''标签'''
 title = tk.Label(window, text='功能选项(单选)：')
@@ -1262,8 +1267,8 @@ def dropdown_changed():
         entry.delete(0,'end')
         entry.insert(0,set_XG_time.get())
     elif int(var.get()) == 2:             #冰原巨兽
-        WM_number.place(x=270,y=230)
-        entry_number.place(x=310,y=230)
+        WM_number.place(x=270,y=250)
+        entry_number.place(x=310,y=250)
         entry.delete(0,'end')
         entry_number.delete(0,'end')
         entry.insert(0,set_WM_time.get())
@@ -1618,12 +1623,12 @@ canvas_simple.create_window(200, 135, window=start_button_simple)
 canvas_output = tk.Canvas(window, width=490, height=200)
 # canvas_output.place(x=5, y=390)
 canvas_output.pack()
-canvas_output.create_rectangle(2, 2, 490, 200, width=0)
+canvas_output.create_rectangle(1, 1, 490, 200, width=0)
 '''创建一个ScrolledText控件作为输出框'''
 output_text = tk.Label(window, text='输出:')
-canvas_output.create_window(25, 15, window=output_text)
+canvas_output.create_window(25, 10, window=output_text)
 output_box = ScrolledText(window, width=65, height=13)
-canvas_output.create_window(250, 110, window=output_box)
+canvas_output.create_window(250, 105, window=output_box)
 # output_box.pack(side=tk.BOTTOM,padx=10,pady=10)
 # sys.stdout.write = print(output_box)#写入输出框
 
