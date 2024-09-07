@@ -936,6 +936,7 @@ def save_options():
         config.write(configfile)
 def save_simple_set():
     if entry.get() != '':
+        config.set('Options', '单项', var.get())
         if int(var.get()) == 0:
             help_time = entry.get()
             config.set('Options', '联盟互助设置', help_time)
@@ -946,7 +947,9 @@ def save_simple_set():
             print('设置成功！！！')
         elif int(var.get()) == 2:
             WM_time = entry.get()
+            WM_number = entry_number.get()
             config.set('Options','冰原巨兽设置',WM_time)
+            config.set('Options','冰原巨兽等级设置',WM_number)
             print('设置成功！！！')
         elif int(var.get()) == 3:
             npc_time = entry.get()
@@ -1012,6 +1015,7 @@ def load_options():
     set_treatment_time.set(config.get('Options', '治疗士兵设置'))
     set_adventure_time.set(config.get('Options', '探险奖励设置'))
     set_donate_time.set(config.get('Options', '联盟捐赠设置'))
+    set_WM_number.set(config.get('Options', '冰原巨兽等级设置'))
 '''初始化配置解析器和选项变量'''
 config = ConfigParser()
 config['Options'] = {}
@@ -1040,7 +1044,7 @@ set_bear_time = tk.StringVar()#巨熊
 set_treatment_time = tk.StringVar()#治疗
 set_adventure_time = tk.StringVar()#探险
 set_donate_time = tk.StringVar()#捐赠
-
+set_WM_number = tk.StringVar()#冰原巨兽等级
 # 尝试加载先前保存的选项
 def read_save():
     # 首次启动时默认选项
@@ -1068,6 +1072,7 @@ def read_save():
         config.set('Options', '治疗士兵设置', '1')
         config.set('Options', '探险奖励设置', '3600')
         config.set('Options', '联盟捐赠设置', '300')
+        config.set('Options', '冰原巨兽等级设置', '4')
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
     try:
@@ -1123,14 +1128,14 @@ checkboxes = []  # 创建11个复选框的状态变量
 for i in range(1, 11):
     # option_help.set('1')  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='联盟互助', variable=option_help, command=save_options)
-    canvas.create_window(88, 45, window=checkbox)
+    canvas.create_window(168, 15, window=checkbox)
     # checkbox.place(x=80,y=70)
     checkboxes.append(checkbox)
 '''世界野怪'''
 for i in range(1, 11):
     # option_XG.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='世界野怪', variable=option_XG, command=save_options)
-    canvas.create_window(168, 45, window=checkbox)
+    canvas.create_window(248, 15, window=checkbox)
     # checkbox.place(x=160, y=70)
     checkboxes.append(checkbox)
 '''冰原巨兽'''
@@ -1138,7 +1143,7 @@ for i in range(1, 11):
     # option_WM = tk.IntVar()
     # option_WM.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='冰原巨兽', variable=option_WM, command=save_options)
-    canvas.create_window(248, 45, window=checkbox)
+    canvas.create_window(328, 15, window=checkbox)
     # checkbox.place(x=240, y=70)
     checkboxes.append(checkbox)
 '''活动雪怪'''
@@ -1229,19 +1234,40 @@ canvas_simple.create_rectangle(2, 2, 400, 150, width=0)
 '''标签'''
 title = tk.Label(window, text='功能选项(单选)：')
 canvas_simple.create_window(55, 15, window=title)
+'''文本标题'''
+imput_text = tk.Label(canvas_simple,text='执行间隔:')
+canvas_simple.create_window(130, 15, window=imput_text)
+'''输入框'''
+entry = tk.Entry(window,width=5)
+canvas_simple.create_window(180, 15, window=entry)
 
+time_unit = tk.Label(window,text='秒')
+canvas_simple.create_window(200, 15, window=time_unit)
+WM_number = tk.Label(window, text='等级：')
+entry_number = tk.Entry(window, width=4)
+# 绑定一个点击事件到entry，当点击entry时，调用clear_entry函数
+entry.bind("<Button-1>",entry.delete(0, tk.END))
+'''保存按钮'''
+save_set_time_button = ttk.Button(window,text='设置',width=8,command=save_simple_set)
+canvas_simple.create_window(340, 15, window=save_set_time_button)
 ''''自定义单项功能的重新执行时间'''
 '''选中选项时输入框获取对应选项的时间'''
 def dropdown_changed():
+    WM_number.place_forget()
+    entry_number.place_forget()
     if int(var.get()) == 0:
         entry.delete(0,'end')
         entry.insert(0,set_help_time.get())
     elif int(var.get()) == 1:
         entry.delete(0,'end')
         entry.insert(0,set_XG_time.get())
-    elif int(var.get()) == 2:
+    elif int(var.get()) == 2:             #冰原巨兽
+        WM_number.place(x=270,y=230)
+        entry_number.place(x=310,y=230)
         entry.delete(0,'end')
+        entry_number.delete(0,'end')
         entry.insert(0,set_WM_time.get())
+        entry_number.insert(0,set_WM_number.get())
     elif int(var.get()) == 3:
         entry.delete(0,'end')
         entry.insert(0,set_npc_time.get())
@@ -1266,30 +1292,14 @@ def dropdown_changed():
     elif int(var.get()) == 10:
         entry.delete(0,'end')
         entry.insert(0,set_donate_time.get())
+dropdown_changed()
 '''下拉框'''
 '''combo_box = ttk.Combobox(window,width=8,state='readonly')
 combo_box['values'] = ['联盟互助', '世界野怪', '冰原巨兽','活动雪怪','训练士兵','建筑升级','采集资源','巨熊活动','治疗士兵','探险奖励','联盟捐赠']
 combo_box.current(int(var.get()))  # 设置打开时默认选中
 combo_box.bind("<<ComboboxSelected>>", dropdown_changed)
 canvas_simple.create_window(140, 15, window=combo_box)'''
-'''文本标题'''
-imput_text = tk.Label(canvas_simple,text='执行间隔:')
-canvas_simple.create_window(150, 15, window=imput_text)
-'''输入框'''
-def clear_entry(event, entry):
-    entry.delete(0, tk.END)
-'''输入框'''
-entry = tk.Entry(window,width=5)
-canvas_simple.create_window(210, 15, window=entry)
-dropdown_changed()
-time_unit = tk.Label(window,text='秒')
-canvas_simple.create_window(230, 15, window=time_unit)
-#entry.insert(0, '秒')
-# 绑定一个点击事件到entry，当点击entry时，调用clear_entry函数
-entry.bind("<Button-1>", lambda event: clear_entry(event, entry))
-'''保存按钮'''
-save_set_time_button = ttk.Button(window,text='设置',command=save_simple_set)
-canvas_simple.create_window(320, 15, window=save_set_time_button)
+
 
 def simple_start_button():
     start_button_simple.configure(text='停止', command=stop_function)
