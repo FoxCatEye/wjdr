@@ -1240,13 +1240,13 @@ canvas_simple.create_window(130, 15, window=imput_text)
 '''输入框'''
 entry = tk.Entry(window,width=5)
 canvas_simple.create_window(180, 15, window=entry)
-
+# 绑定一个点击事件到entry，当点击entry时，调用clear_entry函数
+entry.bind("<Button-1>",entry.delete(0, tk.END))
 time_unit = tk.Label(window,text='秒')
 canvas_simple.create_window(200, 15, window=time_unit)
 WM_number = tk.Label(window, text='等级：')
 entry_number = tk.Entry(window, width=4)
-# 绑定一个点击事件到entry，当点击entry时，调用clear_entry函数
-entry.bind("<Button-1>",entry.delete(0, tk.END))
+
 '''保存按钮'''
 save_set_time_button = ttk.Button(window,text='设置',width=8,command=save_simple_set)
 canvas_simple.create_window(340, 15, window=save_set_time_button)
