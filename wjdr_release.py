@@ -365,7 +365,7 @@ def lv():
     keyevent('KEYCODE_DEL')
     time.sleep(1)#等待1秒
     print('输入新的等级')
-    text('4', enter=True)
+    text(set_WM_number.get(), enter=True)
     print('点击确定按钮')
     touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))
 # 冰原巨兽
