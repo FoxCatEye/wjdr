@@ -572,6 +572,8 @@ def treatment():
         touch(Template(r"icon\tpl1721191349779.png", threshold=0.8, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
         print_space('点击联盟互助')
         touch(Template(r"icon\tpl1721191349780.png", threshold=0.8, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+        print_space('点击返回按钮')
+        touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
     else:
         print_space('没有需要治疗的士兵')
 
