@@ -819,7 +819,7 @@ def subject():
                 if int(option_donate.get()) == 1:
                     print('\n' + '%d.开始执行招募任务' % run_number)
                     Homepage()
-                    credits()
+                    recruit()
                     run_number += 1
                     if stop_event.is_set():
                         start_button.configure(text='开始', command=save_simple)  # 总功能
@@ -969,6 +969,7 @@ def save_options():
     config.set('Options', '治疗士兵', option_treatment.get())
     config.set('Options', '探险奖励', option_adventure.get())
     config.set('Options', '联盟捐赠', option_donate.get())
+    config.set('Options', '英雄招募', option_recruit.get())
     with open('set.ini', 'w') as configfile:
         config.write(configfile)
 def save_simple_set():
@@ -1022,6 +1023,9 @@ def save_simple_set():
             donate_time = entry.get()
             config.set('Options', '联盟捐赠设置', donate_time)
             print('设置成功！！！')
+        elif int(var.get()) == 11:
+            recruit_time = entry.get()
+            config.set('Options', '英雄招募设置',recruit_time)
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
         load_options()
@@ -1042,6 +1046,7 @@ def load_options():
     option_treatment.set(config.get('Options', '治疗士兵'))
     option_adventure.set(config.get('Options', '探险奖励'))
     option_donate.set(config.get('Options', '联盟捐赠'))
+    option_recruit.set(config.get('Options', '英雄招募'))
     set_help_time.set(config.get('Options', '联盟互助设置'))
     set_XG_time.set(config.get('Options', '世界野怪设置'))
     set_WM_time.set(config.get('Options','冰原巨兽设置'))
@@ -1054,6 +1059,7 @@ def load_options():
     set_adventure_time.set(config.get('Options', '探险奖励设置'))
     set_donate_time.set(config.get('Options', '联盟捐赠设置'))
     set_WM_number.set(config.get('Options', '冰原巨兽等级设置'))
+    set_recruit_time.set(config.get('Options', '英雄招募设置'))
 '''初始化配置解析器和选项变量'''
 config = ConfigParser()
 config['Options'] = {}
@@ -1071,6 +1077,7 @@ option_bear = tk.StringVar()  # 巨熊
 option_treatment = tk.StringVar()  # 治疗
 option_adventure = tk.StringVar()  # 探险
 option_donate = tk.StringVar()  # 捐赠
+option_recruit = tk.StringVar() #招募
 set_help_time = tk.StringVar()#互助
 set_XG_time = tk.StringVar()#野怪
 set_WM_time = tk.StringVar()#巨兽
@@ -1083,6 +1090,7 @@ set_treatment_time = tk.StringVar()#治疗
 set_adventure_time = tk.StringVar()#探险
 set_donate_time = tk.StringVar()#捐赠
 set_WM_number = tk.StringVar()#冰原巨兽等级
+set_recruit_time = tk.StringVar() #招募设置
 # 尝试加载先前保存的选项
 def read_save():
     # 首次启动时默认选项
@@ -1099,6 +1107,7 @@ def read_save():
         config.set('Options', '治疗士兵', '1')
         config.set('Options', '探险奖励', '1')
         config.set('Options', '联盟捐赠', '1')
+        config.set('Options', '英雄招募', '1')
         config.set('Options', '联盟互助设置', '2')
         config.set('Options', '世界野怪设置', '60')
         config.set('Options', '冰原巨兽设置', '180')
@@ -1111,6 +1120,7 @@ def read_save():
         config.set('Options', '探险奖励设置', '3600')
         config.set('Options', '联盟捐赠设置', '300')
         config.set('Options', '冰原巨兽等级设置', '4')
+        config.set('Options', '英雄招募设置', '300')
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
     try:
@@ -1163,21 +1173,21 @@ def save_deselect_all():
 checkboxes = []  # 创建11个复选框的状态变量
 
 '''联盟互助'''
-for i in range(1, 11):
+for i in range(1, 12):
     # option_help.set('1')  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='联盟互助', variable=option_help, command=save_options)
     canvas.create_window(88, 45, window=checkbox)
     # checkbox.place(x=80,y=70)
     checkboxes.append(checkbox)
 '''世界野怪'''
-for i in range(1, 11):
+for i in range(1, 12):
     # option_XG.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='世界野怪', variable=option_XG, command=save_options)
     canvas.create_window(168, 45, window=checkbox)
     # checkbox.place(x=160, y=70)
     checkboxes.append(checkbox)
 '''冰原巨兽'''
-for i in range(1, 11):
+for i in range(1, 12):
     # option_WM = tk.IntVar()
     # option_WM.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='冰原巨兽', variable=option_WM, command=save_options)
@@ -1185,7 +1195,7 @@ for i in range(1, 11):
     # checkbox.place(x=240, y=70)
     checkboxes.append(checkbox)
 '''活动雪怪'''
-for i in range(1, 11):
+for i in range(1, 12):
     # option_npc = tk.IntVar()
     # option_npc.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='活动雪怪', variable=option_npc, command=save_options)
@@ -1193,7 +1203,7 @@ for i in range(1, 11):
     # checkbox.place(x=320,y=70)
     checkboxes.append(checkbox)
 '''训练士兵'''
-for i in range(1, 11):
+for i in range(1, 12):
     # option_Production = tk.IntVar()
     # option_Production.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='训练士兵', variable=option_Production, command=save_options)
@@ -1201,7 +1211,7 @@ for i in range(1, 11):
     # checkbox.place(x=80, y=100)
     checkboxes.append(checkbox)
 '''建筑升级'''
-for i in range(1, 11):
+for i in range(1, 12):
     # option_build = tk.IntVar()
     # option_build.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='建筑升级', variable=option_build, command=save_options)
@@ -1209,7 +1219,7 @@ for i in range(1, 11):
     # checkbox.place(x=160, y=100)
     checkboxes.append(checkbox)
 '''采集资源'''
-for i in range(1, 11):
+for i in range(1, 12):
     # option_Collection = tk.IntVar()
     # option_Collection.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='采集资源', variable=option_Collection, command=save_options)
@@ -1217,7 +1227,7 @@ for i in range(1, 11):
     # checkbox.place(x=240, y=100)
     checkboxes.append(checkbox)
 '''巨熊活动'''
-for i in range(1, 11):
+for i in range(1, 12):
     # option_bear = tk.IntVar()
     # option_bear.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='巨熊活动', variable=option_bear, command=save_options)
@@ -1225,7 +1235,7 @@ for i in range(1, 11):
     # checkbox.place(x=320, y=100)
     checkboxes.append(checkbox)
 '''治疗士兵'''
-for i in range(1, 11):
+for i in range(1, 12):
     # option_treatment = tk.IntVar()
     # option_treatment.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='治疗士兵', variable=option_treatment, command=save_options)
@@ -1233,7 +1243,7 @@ for i in range(1, 11):
     # checkbox.place(x=80, y=130)
     checkboxes.append(checkbox)
 '''探险奖励'''
-for i in range(1, 11):
+for i in range(1, 12):
     # option_adventure = tk.IntVar()
     # option_adventure.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='探险奖励', variable=option_adventure, command=save_options)
@@ -1241,11 +1251,18 @@ for i in range(1, 11):
     # checkbox.place(x=160, y=130)
     checkboxes.append(checkbox)
 '''联盟捐赠'''
-for i in range(1, 11):
+for i in range(1, 12):
     # option_donate = tk.IntVar()
     # option_donate.set(1)  # 设置复选框的默认值为选中状态
     checkbox = tk.Checkbutton(window, text='联盟捐赠', variable=option_donate, command=save_options)
     canvas.create_window(248, 105, window=checkbox)
+    # checkbox.place(x=240, y=130)
+    checkboxes.append(checkbox)
+for i in range(1, 12):
+    # option_donate = tk.IntVar()
+    # option_donate.set(1)  # 设置复选框的默认值为选中状态
+    checkbox = tk.Checkbutton(window, text='英雄招募', variable=option_recruit, command=save_options)
+    canvas.create_window(328, 105, window=checkbox)
     # checkbox.place(x=240, y=130)
     checkboxes.append(checkbox)
 
@@ -1332,7 +1349,7 @@ def dropdown_changed():
         entry.insert(0,set_donate_time.get())
     elif int(var.get()) == 11:
         entry.delete(0,'end')
-
+        entry.insert(0,set_recruit_time.get())
 dropdown_changed()
 '''下拉框'''
 '''combo_box = ttk.Combobox(window,width=8,state='readonly')
@@ -1399,18 +1416,21 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                     break
-                XG_time = set_XG_time.get()
+                XG_time = int(set_XG_time.get())
                 print_space('等待%s秒后再次执行'%XG_time+'\n')
                 number = 0
-                XG_number = int(XG_time) / 10
+                XG_number = XG_time / 10
                 while XG_number > number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
-                        number += 1
-                        time.sleep(10)
+                        if XG_number < 1:
+                            time.sleep(XG_number)
+                        else:
+                            number += 1
+                            time.sleep(10)
             except:
                 print('错误')
     elif var_value == 2:   #冰原巨兽
@@ -1421,18 +1441,21 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                WM_time = set_WM_time.get()
+                WM_time = int(set_WM_time.get())
                 print_space('等待%s秒后再次执行'%WM_time+'\n')
                 number = 0
-                WM_number = int(WM_time) / 10
+                WM_number = WM_time / 10
                 while number < WM_number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
-                        number += 1
-                        time.sleep(10)
+                        if WM_number < 1:
+                            time.sleep(WM_number)
+                        else:
+                            number += 1
+                            time.sleep(10)
             except:
                 print('错误')
     elif var_value == 3:
@@ -1443,18 +1466,21 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                npc_time = set_XG_time.get()
+                npc_time = int(set_XG_time.get())
                 print_space('等待%s秒后再次执行'%npc_time+'\n')
                 number = 0
-                npc_number = int(npc_time) / 10
+                npc_number = npc_time / 10
                 while number < npc_number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)
                         break
                     else:
-                        number += 1
-                        time.sleep(10)
+                        if npc_number < 1:
+                            time.sleep(npc_number)
+                        else:
+                            number += 1
+                            time.sleep(10)
             except:
                 print('错误')
     elif var_value == 4:
@@ -1465,17 +1491,20 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                Production_time = set_Production_time.get()
+                Production_time = int(set_Production_time.get())
                 print_space('等待%s秒后再次执行'%Production_time+'\n')
-                Production_number = int(Production_time) / 10
+                Production_number = Production_time / 10
                 number = 0
                 while number < Production_number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)
                     else:
-                        number += 1
-                        time.sleep(10)
+                        if Production_number < 1:
+                            time.sleep(Production_number)
+                        else:
+                            number += 1
+                            time.sleep(10)
             except:
                 print('错误')
     elif var_value == 5:
@@ -1486,9 +1515,9 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                build_time = set_build_time.get()
+                build_time = int(set_build_time.get())
                 print_space('等待%s秒后再次执行' % build_time + '\n')
-                build_number = int(build_time) / 10
+                build_number = build_time / 10
                 number = 0
                 while number < build_number:
                     if stop_event.is_set():
@@ -1496,8 +1525,11 @@ def simple_select():
                         start_button_simple.configure(text='开始', command=save_simple_start_button)
                         break
                     else:
-                        number += 1
-                        time.sleep(10)
+                        if build_number < 1:
+                            time.sleep(build_number)
+                        else:
+                            number += 1
+                            time.sleep(10)
             except:
                 print('错误')
     elif var_value == 6:
@@ -1508,18 +1540,21 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                Collection_time = set_Collection_time.get()
+                Collection_time = int(set_Collection_time.get())
                 print_space('等待%s秒后再次执行' % Collection_time + '\n')
                 number = 0
-                Collection_number = int(Collection_time) / 10
+                Collection_number = Collection_time / 10
                 while number < Collection_number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
-                        number += 1
-                        time.sleep(10)
+                        if Collection_number < 1:
+                            time.sleep(Collection_number)
+                        else:
+                            number += 1
+                            time.sleep(10)
             except:
                 print('错误')
     elif var_value == 7:
@@ -1530,18 +1565,21 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                bear_time = set_bear_time.get()
+                bear_time = int(set_bear_time.get())
                 print_space('等待%s秒后再次执行' % bear_time + '\n')
                 number = 0
-                bear_number = int(bear_time) / 10
+                bear_number = bear_time / 10
                 while number < bear_number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
-                        number += 1
-                        time.sleep(10)
+                        if bear_number < 1:
+                            time.sleep(bear_number)
+                        else:
+                            number += 1
+                            time.sleep(10)
             except:
                 print('错误')
     elif var_value == 8:
@@ -1552,18 +1590,21 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                treatment_time = set_treatment_time.get()
+                treatment_time = int(set_treatment_time.get())
                 print_space('等待%s秒后再次执行' % treatment_time + '\n')
                 number = 0
-                treatment_number = int(treatment_time) / 10
+                treatment_number = treatment_time / 10
                 while number < treatment_number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)
                         break
                     else:
-                        number += 1
-                        time.sleep(10)
+                        if treatment_number < 1:
+                            time.sleep(treatment_number)
+                        else:
+                            number += 1
+                            time.sleep(10)
             except:
                 print('错误')
     elif var_value == 9:
@@ -1574,18 +1615,21 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                adventure_time = set_adventure_time.get()
+                adventure_time = int(set_adventure_time.get())
                 print_space('等待%s秒后再次执行' % adventure_time + '\n')
                 number = 0
-                adventure_number = int(adventure_time) / 10
+                adventure_number = adventure_time / 10
                 while number < adventure_number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
-                        number += 1
-                        time.sleep(10)
+                        if adventure_number < 1:
+                            time.sleep(adventure_number)
+                        else:
+                            number += 1
+                            time.sleep(10)
             except:
                 print('错误')
     elif var_value == 10:
@@ -1596,18 +1640,21 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                donate_time = set_donate_time.get()
+                donate_time = int(set_donate_time.get())
                 print_space('等待%s秒后再次执行' % donate_time + '\n')
                 number = 0
-                donate_number = int(donate_time) / 10
+                donate_number = donate_time / 10
                 while number < donate_number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
-                        number += 1
-                        time.sleep(10)
+                        if donate_number < 1:
+                            time.sleep(donate_number)
+                        else:
+                            number += 1
+                            time.sleep(10)
             except:
                 print('错误')
     elif var_value == 11:
@@ -1618,18 +1665,21 @@ def simple_select():
                 if stop_event.is_set():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
                     break
-                donate_time = set_donate_time.get()
-                print_space('等待%s秒后再次执行' % donate_time + '\n')
+                recruit_time = int(set_recruit_time.get())
+                print_space('等待%s秒后再次执行' % recruit_time + '\n')
                 number = 0
-                donate_number = int(donate_time) / 10
-                while number < donate_number:
+                recruit_number = recruit_time / 10
+                while number < recruit_number:
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                         break
                     else:
-                        number += 1
-                        time.sleep(10)
+                        if recruit_number < 1:
+                            time.sleep(recruit_time)
+                        else:
+                            number += 1
+                            time.sleep(10)
             except:
                 print('错误')
     print('任务已结束')
