@@ -87,6 +87,9 @@ def Homepage():
                 if exists(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780))):
                     print_space('点击返回按钮')
                     touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
+                elif exists(Template(r'icon\英雄招募返回.png',threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780))):
+                    print_space('点击返回按钮')
+                    touch(Template(r"icon\英雄招募返回.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
                 elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780))):
                     print_space('点击关闭按钮')
                     touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
@@ -96,7 +99,6 @@ def Homepage():
             if stop_event.is_set():
                 start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
                 break
-
     except:
         print('执行错误')
     if a == 4:
@@ -618,6 +620,24 @@ def adventure():
     else:
         print_space('没有可领取奖励')
 
+'''招募英雄'''
+def recruit():
+    if exists(Template(r"icon\英雄.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
+        print_space('点击英雄')
+        touch(Template(r"icon\英雄.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
+        print_space('点击英雄招募')
+        touch(Template(r"icon\英雄招募.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
+        if exists(Template(r"icon\免费招募.png", threshold=0.8, rgb=True, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
+            print_space('点击免费招募')
+            touch(Template(r"icon\免费招募.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon\英雄招募返回.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
+            time.sleep(1)
+        else:
+            print_space('无免费招募次数')
+        touch(Template(r"icon\英雄招募返回.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
+        time.sleep(1)
+        touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
 
 # 设备顶号重连
 def re_connet():
@@ -785,7 +805,6 @@ def subject():
         if now.minute == 1:
             try:
                 if int(option_donate.get()) == 1:
-
                     print('\n' + '%d.开始执行捐赠任务' % run_number)
                     Homepage()  # 主页检查
                     donate()  # 捐赠模块
@@ -795,6 +814,19 @@ def subject():
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
+        if now.hour == 1 and now.minute % 5 == 0:
+            try:
+                if int(option_donate.get()) == 1:
+                    print('\n' + '%d.开始执行招募任务' % run_number)
+                    Homepage()
+                    credits()
+                    run_number += 1
+                    if stop_event.is_set():
+                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+
         if stop_event.is_set():
             start_button.configure(text='开始', command=save_simple)  # 总功能
             break
@@ -997,7 +1029,6 @@ def save_simple_set():
         print('-------------间隔时间不能为空-------------')
 
 '''读取设置'''
-
 def load_options():
     var.set(config.get('Options', '单项'))
     option_help.set(config.get('Options', '联盟互助'))
@@ -1299,6 +1330,9 @@ def dropdown_changed():
     elif int(var.get()) == 10:
         entry.delete(0,'end')
         entry.insert(0,set_donate_time.get())
+    elif int(var.get()) == 11:
+        entry.delete(0,'end')
+
 dropdown_changed()
 '''下拉框'''
 '''combo_box = ttk.Combobox(window,width=8,state='readonly')
@@ -1576,6 +1610,28 @@ def simple_select():
                         time.sleep(10)
             except:
                 print('错误')
+    elif var_value == 11:
+        while execute:
+            try:
+                Homepage()
+                recruit()
+                if stop_event.is_set():
+                    start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
+                    break
+                donate_time = set_donate_time.get()
+                print_space('等待%s秒后再次执行' % donate_time + '\n')
+                number = 0
+                donate_number = int(donate_time) / 10
+                while number < donate_number:
+                    if stop_event.is_set():
+                        execute = False
+                        start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
+                        break
+                    else:
+                        number += 1
+                        time.sleep(10)
+            except:
+                print('错误')
     print('任务已结束')
 '''------------------------------------单选项选项------------------------------------'''
 # 创建单选项并添加选项
@@ -1612,7 +1668,9 @@ canvas_simple.create_window(168, 105, window=select_adventure)
 '''联盟捐赠'''
 select_donate = tk.Radiobutton(window, text='联盟捐赠', variable=var, value=10,command=dropdown_changed)
 canvas_simple.create_window(248, 105, window=select_donate)
-
+'''英雄招募'''
+select_recruit = tk.Radiobutton(window,text='英雄招募',variable=var,value=11,command=dropdown_changed)
+canvas_simple.create_window(328,105, window=select_recruit)
 '''开始按钮'''
 start_button_simple = ttk.Button(window, text='开始', command=save_simple_start_button)
 canvas_simple.create_window(200, 135, window=start_button_simple)
