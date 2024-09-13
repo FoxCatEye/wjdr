@@ -23,7 +23,7 @@ number_brush = 0
 def start_exe():
     try:
         print('开始启动雷电模拟器')
-        subprocess.Popen('E:\leidian\LDPlayer9\dnplayer.exe')
+        subprocess.Popen("C:\Users\ZS-204\Desktop\雷电模拟器9")
         print('启动成功')
     except:
         print_space('未找到雷电模拟器')
