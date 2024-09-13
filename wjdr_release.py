@@ -21,12 +21,16 @@ number_brush = 0
 '''打开模拟器'''
 
 def start_exe():
-    try:
-        print('开始启动雷电模拟器')
-        subprocess.Popen("C:\Users\ZS-204\Desktop\雷电模拟器9")
-        print('启动成功')
-    except:
-        print_space('未找到雷电模拟器')
+    while True:
+        try:
+            print('开始启动雷电模拟器')
+            #subprocess.Popen('E:\leidian\LDPlayer9\dnplayer.exe')
+            subprocess.Popen('%s' % set_address.get())
+            print('启动成功')
+            break
+        except:
+            print_space('未找到雷电模拟器，5s后重新尝试启动')
+            time.sleep(5)
 
 
 # 连接模拟器
@@ -928,19 +932,34 @@ window.iconphoto(True, icon)
 # 调用函数居中窗口
 center_window(window, 500, 600)
 '''------------------------------------大标题------------------------------------'''
-bt = tkFont.Font(family="Helvetica", size=17, weight=tkFont.BOLD)
-tk.Label(window, text='无尽冬日', anchor='center', font=bt).pack()
 '''提示文本'''
 prompt_text = tkFont.Font(window,family="Helvetica", size=10, weight=tkFont.NORMAL)
 tk.Label(window,text='请等待程序停止后再设置相关参数', anchor='center', font=prompt_text).pack()
+'''保存模拟器地址'''
+def save_address():
+    config.set('Options', '模拟器地址',emulator_address.get())
+    with open('set.ini', 'w') as configfile:
+        config.write(configfile)
+    load_options()
+    print('保存成功！！！')
+address = tk.Canvas(window, width=400, height=30)
+address.pack()
+address.create_rectangle(2,2,400,30,width=0)
+text_address = tk.Label(window,text='模拟器地址:')
+address.create_window((40, 15), window=text_address)
+emulator_address = tk.Entry(window ,width=30)
+address.create_window(180,15,window=emulator_address)
+save_address_button = ttk.Button(address,text='保存地址',command=save_address)
+address.create_window(335,15,window=save_address_button)
+
 '''------------------------------------模拟器相关按钮------------------------------------'''
 '''创建区域'''
-canvas_mumu = tk.Canvas(window, width=370, height=35)
+canvas_mumu = tk.Canvas(window,width=370, height=35)
 # canvas_mumu.place(x=60, y=30)
 canvas_mumu.pack()
 canvas_mumu.create_rectangle(2, 2, 370, 35, width=0)
 '''创建按钮'''
-start_exe_button = ttk.Button(window, text='启动模拟器', command=lambda: start_simple(1))
+start_exe_button = ttk.Button(canvas_mumu, text='启动模拟器', command=lambda: start_simple(1))
 canvas_mumu.create_window(50, 18, window=start_exe_button)
 # start_exe_button.place(x=60, y=400)
 cnnect_button = ttk.Button(window, text='连接模拟器', command=lambda: start_simple(2))
@@ -955,6 +974,7 @@ canvas_mumu.create_window(320, 18, window=all_button)
 
 
 '''------------------------------------保存设置区域------------------------------------'''
+
 '''保存设置'''
 def save_options():
     config.set('Options', '单项', var.get())
@@ -1034,6 +1054,7 @@ def save_simple_set():
 
 '''读取设置'''
 def load_options():
+    set_address.set(config.get('Options', '模拟器地址'))
     var.set(config.get('Options', '单项'))
     option_help.set(config.get('Options', '联盟互助'))
     option_XG.set(config.get('Options', '世界野怪'))
@@ -1066,6 +1087,7 @@ config['Options'] = {}
 '''单选'''
 var = tk.StringVar()
 '''多选'''
+set_address = tk.StringVar() #设置模拟器地址
 option_help = tk.StringVar()  # 互助
 option_XG = tk.StringVar()  # 野怪
 option_WM = tk.StringVar()  # 巨兽
@@ -1095,6 +1117,7 @@ set_recruit_time = tk.StringVar() #招募设置
 def read_save():
     # 首次启动时默认选项
     if not config.read('set.ini'):
+        config.set('Options', '模拟器地址', 'null')
         config.set('Options', '单项', '0')
         config.set('Options', '联盟互助', '1')
         config.set('Options', '世界野怪', '1')
@@ -1135,7 +1158,7 @@ read_save()
 canvas = tk.Canvas(window, width=400, height=150)
 # canvas.place(x=50,y=65)
 canvas.pack()
-canvas.create_rectangle(1, 1, 400, 150, width=0)
+canvas.create_rectangle(2, 2, 400, 150, width=0)
 
 '''标签'''
 title = tk.Label(window, text='功能选项(多选)：')
@@ -1308,6 +1331,7 @@ canvas_simple.create_window(340, 15, window=save_set_time_button)
 ''''自定义单项功能的重新执行时间'''
 '''选中选项时输入框获取对应选项的时间'''
 def dropdown_changed():
+    emulator_address.insert(0,set_address.get())
     WM_number.place_forget()
     entry_number.place_forget()
     if int(var.get()) == 0:
