@@ -685,7 +685,7 @@ def subject():
                     # else:  #     print_space('不执行互助任务')  #     if stop_event.is_set():  #         start_button.configure(text='开始', command=simle)  # 总功能  #         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
-        if now.minute % 5 == 0 and now.second % 5 == 0:
+        if now.minute % 5 == 0 and now.second % 5 == 0 and now.hour != 21:
             try:
                 if int(option_XG.get()) == 1:
 
@@ -698,7 +698,7 @@ def subject():
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
-        if now.minute % 6 == 0 and 0 < now.second < 20:
+        if now.minute % 6 == 0 and 0 < now.second < 20 and now.hour != 21:
             try:
                 if int(option_WM.get()) == 1:
 
@@ -711,7 +711,7 @@ def subject():
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
-        if now.minute % 6 == 0:
+        if now.minute % 6 == 0 and now.hour != 21:
             try:
                 if int(option_npc.get()) == 1:
 
