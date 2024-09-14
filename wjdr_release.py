@@ -937,11 +937,14 @@ prompt_text = tkFont.Font(window,family="Helvetica", size=10, weight=tkFont.NORM
 tk.Label(window,text='请等待程序停止后再设置相关参数', anchor='center', font=prompt_text).pack()
 '''保存模拟器地址'''
 def save_address():
-    config.set('Options', '模拟器地址',emulator_address.get())
-    with open('set.ini', 'w') as configfile:
-        config.write(configfile)
-    load_options()
-    print('保存成功！！！')
+    if emulator_address.get() == '':
+        print('模拟器地址为空')
+    else:
+        config.set('Options', '模拟器地址',emulator_address.get())
+        with open('set.ini', 'w') as configfile:
+            config.write(configfile)
+        load_options()
+        print('保存成功！！！')
 address = tk.Canvas(window, width=400, height=30)
 address.pack()
 address.create_rectangle(2,2,400,30,width=0)
@@ -959,7 +962,7 @@ canvas_mumu = tk.Canvas(window,width=370, height=35)
 canvas_mumu.pack()
 canvas_mumu.create_rectangle(2, 2, 370, 35, width=0)
 '''创建按钮'''
-start_exe_button = ttk.Button(canvas_mumu, text='启动模拟器', command=lambda: start_simple(1))
+start_exe_button = ttk.Button(window, text='启动模拟器', command=lambda: start_simple(1))
 canvas_mumu.create_window(50, 18, window=start_exe_button)
 # start_exe_button.place(x=60, y=400)
 cnnect_button = ttk.Button(window, text='连接模拟器', command=lambda: start_simple(2))
@@ -1117,7 +1120,7 @@ set_recruit_time = tk.StringVar() #招募设置
 def read_save():
     # 首次启动时默认选项
     if not config.read('set.ini'):
-        config.set('Options', '模拟器地址', 'null')
+        config.set('Options', '模拟器地址', 'E:\leidian\LDPlayer9\dnplayer.exe')
         config.set('Options', '单项', '0')
         config.set('Options', '联盟互助', '1')
         config.set('Options', '世界野怪', '1')
@@ -1331,9 +1334,10 @@ canvas_simple.create_window(340, 15, window=save_set_time_button)
 ''''自定义单项功能的重新执行时间'''
 '''选中选项时输入框获取对应选项的时间'''
 def dropdown_changed():
-    emulator_address.insert(0,set_address.get())
-    WM_number.place_forget()
-    entry_number.place_forget()
+    emulator_address.delete(0, tk.END) #初始化模拟器地址输入框
+    emulator_address.insert(0,set_address.get())  #获取配置文件内模拟器地址并放入输入框
+    WM_number.place_forget()   #隐藏冰原巨兽等级文本
+    entry_number.place_forget()   #隐藏冰原巨兽等级输入框
     if int(var.get()) == 0:
         entry.delete(0,'end')
         entry.insert(0,set_help_time.get())
