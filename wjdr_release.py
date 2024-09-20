@@ -29,7 +29,7 @@ def start_exe():
             print('启动成功')
             break
         except:
-            print_space('未找到雷电模拟器，5s后重新尝试启动')
+            print_space('未找到模拟器，5s后重新尝试启动')
             time.sleep(5)
 
 
@@ -42,14 +42,15 @@ def cnnect():
         try:
             print('%d.开始尝试连接模拟器' % a)
             os.popen('adb start-server')
-            connect_device("android://127.0.0.1:5037")
+            print('地址：android:// %s' % str(set_ip.get()))
+            connect_device('android://%s' % str(set_ip.get()))
             time.sleep(5)
-            print_space('连接模拟器成功!!!')
+            print('连接模拟器成功!!!')
             a = 0
         except:
             a += 1
-            print('未连接到模拟器，尝试重新连接')
-            time.sleep(1)
+            print('未连接到模拟器，5s后尝试重新连接')
+            time.sleep(5)
 
 
 # 启动APP
@@ -101,7 +102,7 @@ def Homepage():
                     print_space('点击其他区域')
                     touch([500, 600])  # 不在主界面，返回到主页
             if stop_event.is_set():
-                start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
+                start_button_simple.configure(text='开始', command=save_simple_start_button)
                 break
     except:
         print('执行错误')
@@ -322,9 +323,9 @@ def Brush_XG():
     print_space('点击选择普通野兽')
     touch([120, 1373])  # 点击普通野兽
     time.sleep(1)  # 等待1s
-    print_space('点击等级')
+    '''print_space('点击等级')
     touch([651, 1573])  # 点击等级3
-    time.sleep(1)  # 等待1s
+    time.sleep(1)  # 等待1s'''
     print_space('点击搜索按钮')
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
@@ -361,7 +362,7 @@ def bear():
         print_space('未找到活动图标')
 
 
-def lv():
+def WM_lv():
     print_space('首次启动或数据有更新，重新输入等级')
     print_space('点击等级输入框')
     touch([900, 1573])
@@ -385,7 +386,7 @@ def Brush_WM():
     '''判断本次是否需要执行选择等级'''
     if number_brush == 0:
         number_brush += 1
-        lv()
+        WM_lv()
         time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
     touch([534, 1821])  # 点击搜索
@@ -937,23 +938,37 @@ prompt_text = tkFont.Font(window,family="Helvetica", size=10, weight=tkFont.NORM
 tk.Label(window,text='请等待程序停止后再设置相关参数', anchor='center', font=prompt_text).pack()
 '''保存模拟器地址'''
 def save_address():
-    if emulator_address.get() == '':
-        print('模拟器地址为空')
+    if emulator_entry.get() == '':
+        print('输入框为空')
     else:
-        config.set('Options', '模拟器地址',emulator_address.get())
+        if text_address.current() ==0:
+            config.set('Options', '模拟器路径',emulator_entry.get())
+        if text_address.current() == 1:
+            config.set('Options', '模拟器ip端口', emulator_entry.get())
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
         load_options()
         print('保存成功！！！')
-address = tk.Canvas(window, width=400, height=30)
+def on_select(event):
+    if text_address.current() == 0:
+        emulator_entry.delete(0, tk.END)
+        emulator_entry.insert(0,set_address.get())  #获取配置文件内模拟器地址并放入输入框
+    if text_address.current() == 1:
+        emulator_entry.delete(0, tk.END)
+        emulator_entry.insert(0, set_ip.get())
+
+address = tk.Canvas(window, width=410, height=30)
 address.pack()
-address.create_rectangle(2,2,400,30,width=0)
-text_address = tk.Label(window,text='模拟器地址:')
-address.create_window((40, 15), window=text_address)
-emulator_address = tk.Entry(window ,width=30)
-address.create_window(180,15,window=emulator_address)
-save_address_button = ttk.Button(address,text='保存地址',command=save_address)
-address.create_window(335,15,window=save_address_button)
+address.create_rectangle(2,2,410,30,width=0)
+text_address = ttk.Combobox(window,width=9,state='readonly')
+text_address['value'] = ('模拟器路径','模拟器ip')
+text_address.current(0)
+address.create_window((50, 15), window=text_address)
+text_address.bind('<<ComboboxSelected>>', on_select)
+emulator_entry = tk.Entry(window ,width=30)
+address.create_window(210,15,window=emulator_entry)
+save_address_button = ttk.Button(address,text='保存',command=save_address)
+address.create_window(365,15,window=save_address_button)
 
 '''------------------------------------模拟器相关按钮------------------------------------'''
 '''创建区域'''
@@ -1057,7 +1072,8 @@ def save_simple_set():
 
 '''读取设置'''
 def load_options():
-    set_address.set(config.get('Options', '模拟器地址'))
+    set_ip.set(config.get('Options', '模拟器ip'))
+    set_address.set(config.get('Options', '模拟器路径'))
     var.set(config.get('Options', '单项'))
     option_help.set(config.get('Options', '联盟互助'))
     option_XG.set(config.get('Options', '世界野怪'))
@@ -1090,6 +1106,7 @@ config['Options'] = {}
 '''单选'''
 var = tk.StringVar()
 '''多选'''
+set_ip = tk.StringVar()   #设置模拟器ip
 set_address = tk.StringVar() #设置模拟器地址
 option_help = tk.StringVar()  # 互助
 option_XG = tk.StringVar()  # 野怪
@@ -1120,7 +1137,8 @@ set_recruit_time = tk.StringVar() #招募设置
 def read_save():
     # 首次启动时默认选项
     if not config.read('set.ini'):
-        config.set('Options', '模拟器地址', 'E:\leidian\LDPlayer9\dnplayer.exe')
+        config.set('Options','模拟器ip','127.0.0.1:5037')
+        config.set('Options', '模拟器路径', 'E:\leidian\LDPlayer9\dnplayer.exe')
         config.set('Options', '单项', '0')
         config.set('Options', '联盟互助', '1')
         config.set('Options', '世界野怪', '1')
@@ -1147,6 +1165,7 @@ def read_save():
         config.set('Options', '联盟捐赠设置', '300')
         config.set('Options', '冰原巨兽等级设置', '4')
         config.set('Options', '英雄招募设置', '300')
+        config.set('Options', 'version', '1.2.0')
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
     try:
@@ -1334,14 +1353,14 @@ canvas_simple.create_window(340, 15, window=save_set_time_button)
 ''''自定义单项功能的重新执行时间'''
 '''选中选项时输入框获取对应选项的时间'''
 def dropdown_changed():
-    emulator_address.delete(0, tk.END) #初始化模拟器地址输入框
-    emulator_address.insert(0,set_address.get())  #获取配置文件内模拟器地址并放入输入框
+    emulator_entry.delete(0, tk.END) #初始化模拟器地址输入框
+    emulator_entry.insert(0,set_address.get())  #获取配置文件内模拟器地址并放入输入框
     WM_number.place_forget()   #隐藏冰原巨兽等级文本
     entry_number.place_forget()   #隐藏冰原巨兽等级输入框
-    if int(var.get()) == 0:
+    if int(var.get()) == 0:               #互助
         entry.delete(0,'end')
         entry.insert(0,set_help_time.get())
-    elif int(var.get()) == 1:
+    elif int(var.get()) == 1:             #野怪
         entry.delete(0,'end')
         entry.insert(0,set_XG_time.get())
     elif int(var.get()) == 2:             #冰原巨兽

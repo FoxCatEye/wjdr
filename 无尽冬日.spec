@@ -23,7 +23,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='无尽冬日',
+    name='Wjdr',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
