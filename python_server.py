@@ -1,20 +1,6 @@
-'''# server.py
-from http.server import SimpleHTTPRequestHandler
-from socketserver import TCPServer
-
-PORT = 8000
-
-handler = SimpleHTTPRequestHandler
-httpd = TCPServer(("", PORT), handler)
-
-print("Server running on port", PORT)
-httpd.serve_forever()'''
-import cgi
 import  http.server
 import socketserver
 import os
-from urllib.parse import unquote
-
 #定义服务器端口
 PORT = 8158
 #定义文件目录
