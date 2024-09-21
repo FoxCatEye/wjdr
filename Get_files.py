@@ -1,8 +1,8 @@
 import sys
 import requests
-
+import zipfile
 def check_update():
-    version_url = "https://12a0f9fa.r7.cpolar.cn/set.ini"
+    version_url = "https://41989c1b.r7.cpolar.cn/set.ini"
     version = '1.1.0'
     response = requests.get(version_url)
     get_version = response.text.strip()
@@ -39,7 +39,7 @@ def download_icon():
     else:
         print(f"无法下载 ，状态码：{response.status_code}")
 def download_update():
-    update_url = "https://12a0f9fa.r7.cpolar.cn/Wjdr.exe"
+    update_url = "https://41989c1b.r7.cpolar.cn/downloaded_file.zip"
     response = requests.get(update_url,stream=True)
     # 确保请求成功
     if response.status_code == 200:
@@ -51,7 +51,7 @@ def download_update():
                         print(f"Downloading {update_url}")
                         f.write(chunk)
         else:  # 如果Content-Length可用，显示下载进度
-            with open('./wjdr.exe', 'wb') as f:
+            with open('./downloaded_file.zip', 'wb') as f:
                 downloaded = 0
                 total = int(total_length)
                 print(f"Downloading {update_url}")
@@ -89,5 +89,15 @@ def download_ini():
     else:
         print(f"无法下载 ，状态码：{response.status_code}")
 
+
+def extract_zip(zip_filename, dest_path):
+    with zipfile.ZipFile(zip_filename, 'r') as zip_ref:
+        for filename in zip_ref.namelist():
+            zip_ref.extract(filename, dest_path)
+zip_filename = 'downloaded_file.zip'  # 之前下载的压缩文件名
+dest_path = 'extraction_folder'  # 指定解压的目标文件夹
+
 if __name__ == "__main__":
     check_update()
+    extract_zip(zip_filename, dest_path)
+    print('文件解压完成。')

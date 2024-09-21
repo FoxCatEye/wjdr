@@ -1,21 +1,30 @@
-import requests
-import os
-
-def download_file(url, save_path):
-    response = requests.get(url)
-    with open(save_path, "wb") as file:
-        print(f"Downloading {url}")
-        file.write(response.content)
+'''import tkinter as tk
+from PIL import Image, ImageTk
 
 
+def center_window(root, width, height):
+    # 获取屏幕尺寸
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
 
-def ensure_folder_exists(folder_path):
-    if not os.path.exists(folder_path):
-        os.makedirs(folder_path)
-    else:
-        print(f"Folder {folder_path} already exists")
+    # 计算窗口位置
+    x = (screen_width - width) / 2
+    y = (screen_height - height) / 2
 
+    # 设置窗口位置
+    root.geometry("%dx%d+%d+%d" % (width, height, x, y))
 
-url = "https://12a0f9fa.r7.cpolar.cn/set.ini"  # 替换为你要下载的文件URL
-save_folder = "./无尽冬日脚本（电脑版）"  # 替换为你要保存文件的文件夹路径
-download_file(url, os.path.join(save_folder,'se.ini'))  # 下载并保存文件到指定文件夹中
+root = tk.Tk()
+center_window(root, 960, 540)  # 设置窗口初始位置
+
+# 加载并缩放背景图片
+image_path = 'icon/11.png'  # 背景图片路径
+image = Image.open(image_path)
+image = image.resize((960, 540))
+image = ImageTk.PhotoImage(image)
+
+# 创建背景标签
+background_label = tk.Label(root, image=image)
+background_label.image = image  # 防止图片被垃圾回收
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+root.mainloop()'''

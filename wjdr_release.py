@@ -12,6 +12,7 @@ from tkinter import font as tkFont
 from tkinter.scrolledtext import ScrolledText
 from airtest.core.api import *
 from airtest.core.android.android import *
+from PIL import Image, ImageTk
 
 auto_setup(__file__)
 logging.getLogger('airtest').setLevel(logging.ERROR)
@@ -43,7 +44,7 @@ def cnnect():
             print('%d.开始尝试连接模拟器' % a)
             os.popen('adb start-server')
             print('地址：android:// %s' % str(set_ip.get()))
-            connect_device('android://%s' % str(set_ip.get()))
+            connect_device('android://%s'%set_ip.get())
             time.sleep(5)
             print('连接模拟器成功!!!')
             a = 0
@@ -67,8 +68,8 @@ def start_app():
                            resolution=(414, 780))):
             print('游戏未启动，点击启动')'''
             touch(Template(r"icon\tpl1719196072757.png", record_pos=(0.112, -0.519), resolution=(414, 780)))
-            print_space("等待25秒启动时间...")
-            time.sleep(25)
+            print_space("启动成功，等待30秒启动时间...")
+            time.sleep(30)
             print_space('启动完成')
             break
         except:
@@ -930,8 +931,16 @@ window.title("无尽冬日")  # 设置窗口标题
 # window.geometry("500x600")  # 设置窗口大小
 icon = tk.PhotoImage(file="icon\log.png")  # 设置窗口图标
 window.iconphoto(True, icon)
+# 设置窗口不能调整大小
+window.resizable(False, False)
+# 加载背景图片
+background_image = Image.open("icon/11.png")
+background_image = background_image.resize((960, 540))
+image = ImageTk.PhotoImage(background_image)
+label_1 = tk.Label(window, image=image)
+label_1.place(x=0, y=0, relwidth=1, relheight=1)
 # 调用函数居中窗口
-center_window(window, 500, 600)
+center_window(window, 960, 540)
 '''------------------------------------大标题------------------------------------'''
 '''提示文本'''
 prompt_text = tkFont.Font(window,family="Helvetica", size=10, weight=tkFont.NORMAL)
@@ -943,8 +952,8 @@ def save_address():
     else:
         if text_address.current() ==0:
             config.set('Options', '模拟器路径',emulator_entry.get())
-        if text_address.current() == 1:
-            config.set('Options', '模拟器ip端口', emulator_entry.get())
+        elif text_address.current() == 1:
+            config.set('Options', '模拟器ip', emulator_entry.get())
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
         load_options()
@@ -953,13 +962,13 @@ def on_select(event):
     if text_address.current() == 0:
         emulator_entry.delete(0, tk.END)
         emulator_entry.insert(0,set_address.get())  #获取配置文件内模拟器地址并放入输入框
-    if text_address.current() == 1:
+    elif text_address.current() == 1:
         emulator_entry.delete(0, tk.END)
         emulator_entry.insert(0, set_ip.get())
 
 address = tk.Canvas(window, width=410, height=30)
-address.pack()
-address.create_rectangle(2,2,410,30,width=0)
+address.place(x=5,y=30)
+address.create_rectangle(0,0,410,30,width=0)
 text_address = ttk.Combobox(window,width=9,state='readonly')
 text_address['value'] = ('模拟器路径','模拟器ip')
 text_address.current(0)
@@ -972,10 +981,10 @@ address.create_window(365,15,window=save_address_button)
 
 '''------------------------------------模拟器相关按钮------------------------------------'''
 '''创建区域'''
-canvas_mumu = tk.Canvas(window,width=370, height=35)
+canvas_mumu = tk.Canvas(window,width=400, height=35)
 # canvas_mumu.place(x=60, y=30)
-canvas_mumu.pack()
-canvas_mumu.create_rectangle(2, 2, 370, 35, width=0)
+canvas_mumu.place(x=5,y=70)
+canvas_mumu.create_rectangle(2, 2, 400, 35, width=0)
 '''创建按钮'''
 start_exe_button = ttk.Button(window, text='启动模拟器', command=lambda: start_simple(1))
 canvas_mumu.create_window(50, 18, window=start_exe_button)
@@ -1179,7 +1188,7 @@ read_save()
 '''创建 Canvas(区域框)，设置宽度和高度'''
 canvas = tk.Canvas(window, width=400, height=150)
 # canvas.place(x=50,y=65)
-canvas.pack()
+canvas.place(x=5,y=120)
 canvas.create_rectangle(2, 2, 400, 150, width=0)
 
 '''标签'''
@@ -1328,7 +1337,7 @@ canvas.create_window(300, 135, window=select_button)
 '''区域'''
 canvas_simple = tk.Canvas(window, width=400, height=150)
 # canvas_simple.place(x=50,y=230)
-canvas_simple.pack()
+canvas_simple.place(x=5,y=280)
 canvas_simple.create_rectangle(1, 1, 400, 150, width=0)
 
 '''标签'''
@@ -1779,7 +1788,7 @@ canvas_simple.create_window(200, 135, window=start_button_simple)
 '''区域'''
 canvas_output = tk.Canvas(window, width=490, height=200)
 # canvas_output.place(x=5, y=390)
-canvas_output.pack()
+canvas_output.place(x=450,y=30)
 canvas_output.create_rectangle(1, 1, 490, 200, width=0)
 '''创建一个ScrolledText控件作为输出框'''
 output_text = tk.Label(window, text='输出:')
