@@ -632,10 +632,10 @@ def recruit():
         print_space('点击英雄')
         touch(Template(r"icon\英雄.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
         print_space('点击英雄招募')
-        touch(Template(r"icon\英雄招募.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
-        if exists(Template(r"icon\免费招募.png", threshold=0.8, rgb=True, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
+        touch(Template(r"icon\英雄招募.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
+        if exists(Template(r"icon\免费招募.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
             print_space('点击免费招募')
-            touch(Template(r"icon\免费招募.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
+            touch(Template(r"icon\免费招募.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
             time.sleep(1)
             touch(Template(r"icon\英雄招募返回.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
             time.sleep(1)
@@ -933,6 +933,7 @@ icon = tk.PhotoImage(file="icon\log.png")  # 设置窗口图标
 window.iconphoto(True, icon)
 # 设置窗口不能调整大小
 window.resizable(False, False)
+window.resizable(False, False)
 # 加载背景图片
 background_image = Image.open("icon/11.png")
 background_image = background_image.resize((960, 540))
@@ -943,8 +944,9 @@ label_1.place(x=0, y=0, relwidth=1, relheight=1)
 center_window(window, 960, 540)
 '''------------------------------------大标题------------------------------------'''
 '''提示文本'''
-prompt_text = tkFont.Font(window,family="Helvetica", size=10, weight=tkFont.NORMAL)
-tk.Label(window,text='请等待程序停止后再设置相关参数', anchor='center', font=prompt_text).pack()
+#prompt_text = tkFont.Font(window,family="Helvetica", size=10, weight=tkFont.NORMAL)
+#tk.Label(window,text='请等待程序停止后再设置相关参数', anchor='center', font=prompt_text).pack()
+tk.Label(text='请等待程序停止后再设置相关参数').pack()
 '''保存模拟器地址'''
 def save_address():
     if emulator_entry.get() == '':
@@ -1073,6 +1075,7 @@ def save_simple_set():
         elif int(var.get()) == 11:
             recruit_time = entry.get()
             config.set('Options', '英雄招募设置',recruit_time)
+            print('设置成功！！！')
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
         load_options()
