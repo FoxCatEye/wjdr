@@ -8,7 +8,6 @@ import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
 from configparser import ConfigParser
-from tkinter import font as tkFont
 from tkinter.scrolledtext import ScrolledText
 from airtest.core.api import *
 from airtest.core.android.android import *
@@ -931,6 +930,8 @@ window.title("无尽冬日")  # 设置窗口标题
 # window.geometry("500x600")  # 设置窗口大小
 icon = tk.PhotoImage(file="icon\log.png")  # 设置窗口图标
 window.iconphoto(True, icon)
+#window.attributes("-transparentcolor", '')
+#window.attributes("-topmost", True)
 # 设置窗口不能调整大小
 window.resizable(False, False)
 window.resizable(False, False)
@@ -968,38 +969,30 @@ def on_select(event):
         emulator_entry.delete(0, tk.END)
         emulator_entry.insert(0, set_ip.get())
 
-address = tk.Canvas(window, width=410, height=30)
-address.place(x=5,y=30)
-address.create_rectangle(0,0,410,30,width=0)
+address = tk.Frame(window, width=400, height=27)
+#address.place(x=5,y=30)
 text_address = ttk.Combobox(window,width=9,state='readonly')
 text_address['value'] = ('模拟器路径','模拟器ip')
 text_address.current(0)
-address.create_window((50, 15), window=text_address)
+text_address.place(x=3,y=32)
 text_address.bind('<<ComboboxSelected>>', on_select)
 emulator_entry = tk.Entry(window ,width=30)
-address.create_window(210,15,window=emulator_entry)
-save_address_button = ttk.Button(address,text='保存',command=save_address)
-address.create_window(365,15,window=save_address_button)
-
+emulator_entry.place(x=91,y=32)
+save_address_button = ttk.Button(window,text='保存',command=save_address)
+save_address_button.place(x=310,y=30)
 '''------------------------------------模拟器相关按钮------------------------------------'''
 '''创建区域'''
-canvas_mumu = tk.Canvas(window,width=400, height=35)
-# canvas_mumu.place(x=60, y=30)
-canvas_mumu.place(x=5,y=70)
-canvas_mumu.create_rectangle(2, 2, 400, 35, width=0)
+frame_mumu = tk.Frame(window,width=400, height=27)
+#frame_mumu.place(x=5,y=70)
 '''创建按钮'''
 start_exe_button = ttk.Button(window, text='启动模拟器', command=lambda: start_simple(1))
-canvas_mumu.create_window(50, 18, window=start_exe_button)
-# start_exe_button.place(x=60, y=400)
+start_exe_button.place(x=6, y=70)
 cnnect_button = ttk.Button(window, text='连接模拟器', command=lambda: start_simple(2))
-canvas_mumu.create_window(140, 18, window=cnnect_button)
-# cnnect_button.place(x=150,y=400)
+cnnect_button.place(x=106,y=70)
 start_app_button = ttk.Button(window, text='启动游戏', command=lambda: start_simple(3))
-canvas_mumu.create_window(230, 18, window=start_app_button)
-# start_app_button.place(x=240,y=400)
+start_app_button.place(x=206,y=70)
 all_button = ttk.Button(window, text='一键启动', command=lambda: start_simple(4))
-canvas_mumu.create_window(320, 18, window=all_button)
-# all_button.place(x=330,y=400)
+all_button.place(x=306,y=70)
 
 
 '''------------------------------------保存设置区域------------------------------------'''
@@ -1188,15 +1181,14 @@ def read_save():
         print('No saved options found.')
 read_save()
 '''------------------------------------多选功能区功能------------------------------------'''
-'''创建 Canvas(区域框)，设置宽度和高度'''
-canvas = tk.Canvas(window, width=400, height=150)
-# canvas.place(x=50,y=65)
-canvas.place(x=5,y=120)
-canvas.create_rectangle(2, 2, 400, 150, width=0)
+'''创建 frame(区域框)，设置宽度和高度'''
+frame = tk.Frame(window, width=400, height=150)
+#frame.place(x=5,y=120)
 
 '''标签'''
 title = tk.Label(window, text='功能选项(多选)：')
-canvas.create_window(55, 15, window=title)
+title.place(x=6,y=120)
+#frame.create_window(55, 15, window=title)
 '''全选'''
 
 def select_all():
@@ -1232,136 +1224,142 @@ checkboxes = []  # 创建11个复选框的状态变量
 '''联盟互助'''
 for i in range(1, 12):
     # option_help.set('1')  # 设置复选框的默认值为选中状态
-    checkbox = tk.Checkbutton(window, text='联盟互助', variable=option_help, command=save_options)
-    canvas.create_window(88, 45, window=checkbox)
-    # checkbox.place(x=80,y=70)
+    checkbox = tk.Checkbutton(window, text='联盟互助',width=6,height=1,  variable=option_help, command=save_options)
+    #frame.create_window(88, 45, window=checkbox)
+    checkbox.place(x=9,y=150)
     checkboxes.append(checkbox)
 '''世界野怪'''
 for i in range(1, 12):
     # option_XG.set(1)  # 设置复选框的默认值为选中状态
-    checkbox = tk.Checkbutton(window, text='世界野怪', variable=option_XG, command=save_options)
-    canvas.create_window(168, 45, window=checkbox)
-    # checkbox.place(x=160, y=70)
+    checkbox = tk.Checkbutton(window, text='世界野怪',width=6,height=1, variable=option_XG, command=save_options)
+    #frame.create_window(168, 45, window=checkbox)
+    checkbox.place(x=89, y=150)
     checkboxes.append(checkbox)
 '''冰原巨兽'''
 for i in range(1, 12):
     # option_WM = tk.IntVar()
     # option_WM.set(1)  # 设置复选框的默认值为选中状态
-    checkbox = tk.Checkbutton(window, text='冰原巨兽', variable=option_WM, command=save_options)
-    canvas.create_window(248, 45, window=checkbox)
-    # checkbox.place(x=240, y=70)
+    checkbox = tk.Checkbutton(window, text='冰原巨兽',width=6,height=1, variable=option_WM, command=save_options)
+    #frame.create_window(248, 45, window=checkbox)
+    checkbox.place(x=169, y=150)
     checkboxes.append(checkbox)
 '''活动雪怪'''
 for i in range(1, 12):
     # option_npc = tk.IntVar()
     # option_npc.set(1)  # 设置复选框的默认值为选中状态
-    checkbox = tk.Checkbutton(window, text='活动雪怪', variable=option_npc, command=save_options)
-    canvas.create_window(328, 45, window=checkbox)
-    # checkbox.place(x=320,y=70)
+    checkbox = tk.Checkbutton(window, text='活动雪怪',width=6,height=1, variable=option_npc, command=save_options)
+    #frame.create_window(328, 45, window=checkbox)
+    checkbox.place(x=249,y=150)
     checkboxes.append(checkbox)
 '''训练士兵'''
 for i in range(1, 12):
     # option_Production = tk.IntVar()
     # option_Production.set(1)  # 设置复选框的默认值为选中状态
-    checkbox = tk.Checkbutton(window, text='训练士兵', variable=option_Production, command=save_options)
-    canvas.create_window(88, 75, window=checkbox)
-    # checkbox.place(x=80, y=100)
+    checkbox = tk.Checkbutton(window, text='训练士兵',width=6,height=1, variable=option_Production, command=save_options)
+    #frame.create_window(88, 75, window=checkbox)
+    checkbox.place(x=329, y=150)
     checkboxes.append(checkbox)
 '''建筑升级'''
 for i in range(1, 12):
     # option_build = tk.IntVar()
     # option_build.set(1)  # 设置复选框的默认值为选中状态
-    checkbox = tk.Checkbutton(window, text='建筑升级', variable=option_build, command=save_options)
-    canvas.create_window(168, 75, window=checkbox)
-    # checkbox.place(x=160, y=100)
+    checkbox = tk.Checkbutton(window, text='建筑升级',width=6,height=1, variable=option_build, command=save_options)
+    #frame.create_window(168, 75, window=checkbox)
+    checkbox.place(x=9, y=180)
     checkboxes.append(checkbox)
 '''采集资源'''
 for i in range(1, 12):
     # option_Collection = tk.IntVar()
     # option_Collection.set(1)  # 设置复选框的默认值为选中状态
-    checkbox = tk.Checkbutton(window, text='采集资源', variable=option_Collection, command=save_options)
-    canvas.create_window(248, 75, window=checkbox)
-    # checkbox.place(x=240, y=100)
+    checkbox = tk.Checkbutton(window, text='采集资源',width=6,height=1, variable=option_Collection, command=save_options)
+    #frame.create_window(248, 75, window=checkbox)
+    checkbox.place(x=89, y=180)
     checkboxes.append(checkbox)
 '''巨熊活动'''
 for i in range(1, 12):
     # option_bear = tk.IntVar()
     # option_bear.set(1)  # 设置复选框的默认值为选中状态
-    checkbox = tk.Checkbutton(window, text='巨熊活动', variable=option_bear, command=save_options)
-    canvas.create_window(328, 75, window=checkbox)
-    # checkbox.place(x=320, y=100)
+    checkbox = tk.Checkbutton(window, text='巨熊活动',width=6,height=1, variable=option_bear, command=save_options)
+    #frame.create_window(328, 75, window=checkbox)
+    checkbox.place(x=169, y=180)
     checkboxes.append(checkbox)
 '''治疗士兵'''
 for i in range(1, 12):
     # option_treatment = tk.IntVar()
     # option_treatment.set(1)  # 设置复选框的默认值为选中状态
-    checkbox = tk.Checkbutton(window, text='治疗士兵', variable=option_treatment, command=save_options)
-    canvas.create_window(88, 105, window=checkbox)
-    # checkbox.place(x=80, y=130)
+    checkbox = tk.Checkbutton(window, text='治疗士兵',width=6,height=1, variable=option_treatment, command=save_options)
+    #frame.create_window(88, 105, window=checkbox)
+    checkbox.place(x=249, y=180)
     checkboxes.append(checkbox)
 '''探险奖励'''
 for i in range(1, 12):
     # option_adventure = tk.IntVar()
     # option_adventure.set(1)  # 设置复选框的默认值为选中状态
-    checkbox = tk.Checkbutton(window, text='探险奖励', variable=option_adventure, command=save_options)
-    canvas.create_window(168, 105, window=checkbox)
-    # checkbox.place(x=160, y=130)
+    checkbox = tk.Checkbutton(window, text='探险奖励',width=6,height=1, variable=option_adventure, command=save_options)
+    #frame.create_window(168, 105, window=checkbox)
+    checkbox.place(x=329, y=180)
     checkboxes.append(checkbox)
 '''联盟捐赠'''
 for i in range(1, 12):
     # option_donate = tk.IntVar()
     # option_donate.set(1)  # 设置复选框的默认值为选中状态
-    checkbox = tk.Checkbutton(window, text='联盟捐赠', variable=option_donate, command=save_options)
-    canvas.create_window(248, 105, window=checkbox)
-    # checkbox.place(x=240, y=130)
+    checkbox = tk.Checkbutton(window, text='联盟捐赠',width=6,height=1, variable=option_donate, command=save_options)
+    #frame.create_window(248, 105, window=checkbox)
+    checkbox.place(x=9, y=210)
     checkboxes.append(checkbox)
 for i in range(1, 12):
     # option_donate = tk.IntVar()
     # option_donate.set(1)  # 设置复选框的默认值为选中状态
-    checkbox = tk.Checkbutton(window, text='英雄招募', variable=option_recruit, command=save_options)
-    canvas.create_window(328, 105, window=checkbox)
-    # checkbox.place(x=240, y=130)
+    checkbox = tk.Checkbutton(window, text='英雄招募',width=6,height=1, variable=option_recruit, command=save_options)
+    #frame.create_window(328, 105, window=checkbox)
+    checkbox.place(x=89, y=210)
     checkboxes.append(checkbox)
 
 '''------------------------------------多选功能区功能按钮------------------------------------'''
 '''创建按钮'''
 select_button = ttk.Button(window, text="全选", command=save_select_all)
-canvas.create_window(100, 135, window=select_button)
-# select_button.place(x=100, y = 190)
+#frame.create_window(100, 135, window=select_button)
+select_button.place(x=65, y = 240)
 start_button = ttk.Button(window, text="开始", command=save_simple)
-canvas.create_window(200, 135, window=start_button)
-# start_button.place(x=200, y=190)
-select_button = ttk.Button(window, text="取消全选", command=save_deselect_all)
-canvas.create_window(300, 135, window=select_button)
-# select_button.place(x=300, y = 190)
+#frame.create_window(200, 135, window=start_button)
+start_button.place(x=165, y=240)
+select_all_button = ttk.Button(window, text="取消全选", command=save_deselect_all)
+#frame.create_window(300, 135, window=select_button)
+select_all_button.place(x=265, y = 240)
 
 '''------------------------------------单选功能区功能------------------------------------'''
 
 '''区域'''
-canvas_simple = tk.Canvas(window, width=400, height=150)
-# canvas_simple.place(x=50,y=230)
-canvas_simple.place(x=5,y=280)
-canvas_simple.create_rectangle(1, 1, 400, 150, width=0)
+frame_simple = tk.Frame(window, width=400, height=150)
+# frame_simple.place(x=50,y=230)
+#frame_simple.place(x=5,y=280)
+#frame_simple.create_rectangle(1, 1, 400, 150, width=0)
 
 '''标签'''
-title = tk.Label(window, text='功能选项(单选)：')
-canvas_simple.create_window(55, 15, window=title)
+title = tk.Label(window, text='功能选项(单选):',width=12)
+#frame_simple.create_window(55, 15, window=title)
+title.place(x=450,y=30)
 '''文本标题'''
-imput_text = tk.Label(canvas_simple,text='执行间隔:')
-canvas_simple.create_window(130, 15, window=imput_text)
+imput_text = tk.Label(window,text='执行间隔(秒):',width=10)
+#frame_simple.create_window(130, 15, window=imput_text)
+imput_text.place(x=555,y=30)
 '''输入框'''
-entry = tk.Entry(window,width=5)
-canvas_simple.create_window(180, 15, window=entry)
+entry = tk.Entry(window,width=4)
+#frame_simple.create_window(180, 15, window=entry)
+entry.place(x=635,y=30)
 # 绑定一个点击事件到entry，当点击entry时，调用clear_entry函数
 entry.bind("<Button-1>",entry.delete(0, tk.END))
 time_unit = tk.Label(window,text='秒')
-canvas_simple.create_window(200, 15, window=time_unit)
-WM_number = tk.Label(window, text='等级：')
+#frame_simple.create_window(200, 15, window=time_unit)
+#time_unit.place(x=195,y=280)
+WM_number = tk.Label(window, text='等级:',width=4)
 entry_number = tk.Entry(window, width=4)
+
 
 '''保存按钮'''
 save_set_time_button = ttk.Button(window,text='设置',width=8,command=save_simple_set)
-canvas_simple.create_window(340, 15, window=save_set_time_button)
+#frame_simple.create_window(340, 15, window=save_set_time_button)
+save_set_time_button.place(x=785,y=30)
 ''''自定义单项功能的重新执行时间'''
 '''选中选项时输入框获取对应选项的时间'''
 def dropdown_changed():
@@ -1376,8 +1374,8 @@ def dropdown_changed():
         entry.delete(0,'end')
         entry.insert(0,set_XG_time.get())
     elif int(var.get()) == 2:             #冰原巨兽
-        WM_number.place(x=270,y=250)
-        entry_number.place(x=310,y=250)
+        WM_number.place(x=690,y=30)
+        entry_number.place(x=725,y=30)
         entry.delete(0,'end')
         entry_number.delete(0,'end')
         entry.insert(0,set_WM_time.get())
@@ -1415,7 +1413,7 @@ dropdown_changed()
 combo_box['values'] = ['联盟互助', '世界野怪', '冰原巨兽','活动雪怪','训练士兵','建筑升级','采集资源','巨熊活动','治疗士兵','探险奖励','联盟捐赠']
 combo_box.current(int(var.get()))  # 设置打开时默认选中
 combo_box.bind("<<ComboboxSelected>>", dropdown_changed)
-canvas_simple.create_window(140, 15, window=combo_box)'''
+frame_simple.create_window(140, 15, window=combo_box)'''
 
 
 def simple_start_button():
@@ -1745,60 +1743,70 @@ def simple_select():
 '''------------------------------------单选项选项------------------------------------'''
 # 创建单选项并添加选项
 '''联盟互助'''
-select_help = tk.Radiobutton(window, text='联盟互助', variable=var, value=0,command=dropdown_changed)
-canvas_simple.create_window(88, 45, window=select_help)
+select_help = tk.Radiobutton(window, text='联盟互助',width=6,height=1,  variable=var, value=0,command=dropdown_changed)
+#frame_simple.create_window(88, 45, window=select_help)
+select_help.place(x=454, y=60)
 '''世界野怪'''
-select_XG = tk.Radiobutton(window, text='世界野怪', variable=var, value=1,command=dropdown_changed)
-canvas_simple.create_window(168, 45, window=select_XG)
+select_XG = tk.Radiobutton(window, text='世界野怪',width=6,height=1,  variable=var, value=1,command=dropdown_changed)
+#frame_simple.create_window(168, 45, window=select_XG)
+select_XG.place(x=534,y=60)
 '''冰原巨兽'''
-select_WM = tk.Radiobutton(window, text='冰原巨兽', variable=var, value=2,command=dropdown_changed)
-canvas_simple.create_window(248, 45, window=select_WM)
+select_WM = tk.Radiobutton(window, text='冰原巨兽',width=6,height=1,  variable=var, value=2,command=dropdown_changed)
+#frame_simple.create_window(248, 45, window=select_WM)
+select_WM.place(x=614,y=60)
 '''活动雪怪'''
-select_npc = tk.Radiobutton(window, text='活动雪怪', variable=var, value=3,command=dropdown_changed)
-canvas_simple.create_window(328, 45, window=select_npc)
+select_npc = tk.Radiobutton(window, text='活动雪怪',width=6,height=1,  variable=var, value=3,command=dropdown_changed)
+#frame_simple.create_window(328, 45, window=select_npc)
+select_npc.place(x=694,y=60)
 '''训练士兵'''
-select_production = tk.Radiobutton(window, text='训练士兵', variable=var, value=4,command=dropdown_changed)
-canvas_simple.create_window(88, 75, window=select_production)
+select_production = tk.Radiobutton(window, text='训练士兵',width=6,height=1,  variable=var, value=4,command=dropdown_changed)
+#frame_simple.create_window(88, 75, window=select_production)
+select_production.place(x=774,y=60)
 '''建筑升级'''
-select_build = tk.Radiobutton(window, text='建筑升级', variable=var, value=5,command=dropdown_changed)
-canvas_simple.create_window(168, 75, window=select_build)
+select_build = tk.Radiobutton(window, text='建筑升级',width=6,height=1,  variable=var, value=5,command=dropdown_changed)
+#frame_simple.create_window(168, 75, window=select_build)
+select_build.place(x=454,y=90)
 '''采集资源'''
-select_collection = tk.Radiobutton(window, text='采集资源', variable=var, value=6,command=dropdown_changed)
-canvas_simple.create_window(248, 75, window=select_collection)
+select_collection = tk.Radiobutton(window, text='采集资源',width=6,height=1,  variable=var, value=6,command=dropdown_changed)
+#frame_simple.create_window(248, 75, window=select_collection)
+select_collection.place(x=534,y=90)
 '''巨熊活动'''
-select_bear = tk.Radiobutton(window, text='巨熊活动', variable=var, value=7,command=dropdown_changed)
-canvas_simple.create_window(328, 75, window=select_bear)
+select_bear = tk.Radiobutton(window, text='巨熊活动',width=6,height=1,  variable=var, value=7,command=dropdown_changed)
+#frame_simple.create_window(328, 75, window=select_bear)
+select_bear.place(x=614,y=90)
 '''治疗士兵'''
-select_treatment = tk.Radiobutton(window, text='治疗士兵', variable=var, value=8,command=dropdown_changed)
-canvas_simple.create_window(88, 105, window=select_treatment)
+select_treatment = tk.Radiobutton(window, text='治疗士兵',width=6,height=1,  variable=var, value=8,command=dropdown_changed)
+#frame_simple.create_window(88, 105, window=select_treatment)
+select_treatment.place(x=694,y=90)
 '''探险奖励'''
-select_adventure = tk.Radiobutton(window, text='探险奖励', variable=var, value=9,command=dropdown_changed)
-canvas_simple.create_window(168, 105, window=select_adventure)
+select_adventure = tk.Radiobutton(window, text='探险奖励',width=6,height=1,  variable=var, value=9,command=dropdown_changed)
+#frame_simple.create_window(168, 105, window=select_adventure)
+select_adventure.place(x=774,y=90)
 '''联盟捐赠'''
-select_donate = tk.Radiobutton(window, text='联盟捐赠', variable=var, value=10,command=dropdown_changed)
-canvas_simple.create_window(248, 105, window=select_donate)
+select_donate = tk.Radiobutton(window, text='联盟捐赠',width=6,height=1,  variable=var, value=10,command=dropdown_changed)
+#frame_simple.create_window(248, 105, window=select_donate)
+select_donate.place(x=454,y=120)
 '''英雄招募'''
-select_recruit = tk.Radiobutton(window,text='英雄招募',variable=var,value=11,command=dropdown_changed)
-canvas_simple.create_window(328,105, window=select_recruit)
+select_recruit = tk.Radiobutton(window,text='英雄招募',width=6,height=1, variable=var,value=11,command=dropdown_changed)
+#frame_simple.create_window(328,105, window=select_recruit)
+select_recruit.place(x=534,y=120)
 '''开始按钮'''
 start_button_simple = ttk.Button(window, text='开始', command=save_simple_start_button)
-canvas_simple.create_window(200, 135, window=start_button_simple)
+#frame_simple.create_window(200, 135, window=start_button_simple)
+start_button_simple.place(x=600,y=150)
 
 
 
 
 '''------------------------------------输出区域------------------------------------'''
 '''区域'''
-canvas_output = tk.Canvas(window, width=490, height=200)
-# canvas_output.place(x=5, y=390)
-canvas_output.place(x=450,y=30)
-canvas_output.create_rectangle(1, 1, 490, 200, width=0)
+frame_output = tk.Frame(window,width=490,height=300)
+#frame_output.place(x=450,y=30)
 '''创建一个ScrolledText控件作为输出框'''
 output_text = tk.Label(window, text='输出:')
-canvas_output.create_window(25, 10, window=output_text)
-output_box = ScrolledText(window, width=65, height=13)
-canvas_output.create_window(250, 105, window=output_box)
-# output_box.pack(side=tk.BOTTOM,padx=10,pady=10)
+output_text.place(x=450,y=270)
+output_box = ScrolledText(window, width=65, height=16, takefocus=0)
+output_box.place(x=450,y=300)
 # sys.stdout.write = print(output_box)#写入输出框
 
 '''------------------------------------输出框输出内容------------------------------------'''

@@ -1,4 +1,4 @@
-import tkinter as tk
+'''import tkinter as tk
 from PIL import Image, ImageTk
 
 
@@ -28,3 +28,4 @@ background_label = tk.Label(root, image=image)
 background_label.image = image  # 防止图片被垃圾回收
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 root.mainloop()
+'''
