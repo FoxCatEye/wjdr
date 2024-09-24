@@ -29,3 +29,31 @@ background_label.image = image  # 防止图片被垃圾回收
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 root.mainloop()
 '''
+import tkinter as tk
+from PIL import Image, ImageTk
+
+
+def update_background(button):
+    global canvas
+    # 更新背景图片
+    canvas.itemconfig(bg_image, image=image_list[int(button.cget('text'))])
+
+
+root = tk.Tk()
+root.title("更新背景图片")
+
+# 准备图片列表
+image_list = [ImageTk.PhotoImage(Image.open(f"icon/{i + 1}{i + 1}.png")) for i in range(2)]
+
+# 创建画布
+canvas = tk.Canvas(root, width=400, height=400)
+bg_image = canvas.create_image(0, 0, anchor='nw', image=image_list[0])
+canvas.pack()
+
+# 创建按钮
+for i in range(2):
+    button = tk.Button(root, text=str(i + 1), command=lambda b=tk.Button: update_background(b))
+    button.config(width=5, height=2)
+    button.pack()
+
+root.mainloop()
