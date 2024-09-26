@@ -97,6 +97,7 @@ config['Options'] = {}
 set_version = tk.StringVar()
 def check_update():
     # 首次启动时默认选项
+
     if not config.read('set.ini'):
         config.set('Options', '模拟器ip', '127.0.0.1:5037')
         config.set('Options', '模拟器路径', 'E:\leidian\LDPlayer9\dnplayer.exe')
@@ -129,12 +130,14 @@ def check_update():
         config.set('Options', 'version', '0.0.0')
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
+
     try:
         with open('set.ini', 'r') as configfile:
             config.read_file(configfile)
         load_options()
     except IOError:
         print('No saved options found.')
+
     version_url = "http://fukesihu.gnway.cc:80/set.ini"
     version = set_version.get()
     response = requests.get(version_url)

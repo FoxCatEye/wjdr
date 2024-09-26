@@ -43,8 +43,8 @@ def cnnect():
             print('%d.开始尝试连接模拟器' % a)
             os.popen('adb start-server')
             print('地址：android:// %s' % str(set_ip.get()))
-            #connect_device('android://127.0.0.1:21503')
-            subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
+            connect_device('android://%s'%set_ip.get())
+            #subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
             time.sleep(5)
             print('连接模拟器成功!!!')
             a = 0
@@ -932,7 +932,7 @@ def hide_widgets():
     #label_2.image = image  # 防止图片被垃圾回收
     label_2.place(x=-2, y=-2)
     ttk.Button(window,text='显示UI',command=hide_widget,width=6).place(x=0, y=513)
-    ttk.Label(window, text='版本:0.4.2').place(x=901, y=518)
+    ttk.Label(window, text='版本:%s'%set_version.get()).place(x=901, y=518)
 #控件显示
 def hide_widget():
     global label_2,version_label
