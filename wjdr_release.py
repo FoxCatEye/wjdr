@@ -1851,7 +1851,7 @@ output_box = ScrolledText(window, width=65, height=16, takefocus=0)
 output_box.place(x=450,y=300)
 # sys.stdout.write = print(output_box)#写入输出框
 '''------------------------------------版本号------------------------------------'''
-ttk.Label(window, text='版本:0.4.2').place(x=901,y=518)
+ttk.Label(window, text='版本:%s'%set_version.get()).place(x=901,y=518)
 
 '''------------------------------------输出框输出内容------------------------------------'''
 

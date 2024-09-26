@@ -125,9 +125,9 @@ def thread_main():
     check_update()
     time.sleep(2)
     # 结束并打开一个新的程序
-    #replace_process('./wjdr_release.py', 'wjdr_release.py')  #打包后需要的代码
-    os.system('taskkill /F /IM ' + os.path.basename(sys.executable) + '>nul')
-    subprocess.Popen('wjdr_release.py')
+    replace_process('./main.exe', 'main.exe')  #打包后运行需要的代码
+    #os.system('taskkill /F /IM ' + os.path.basename(sys.executable) + '>nul')
+    #subprocess.Popen('wjdr_release.py')#本地运行
 thread_m = threading.Thread(target=thread_main).start()
 # 开始Tkinter事件循环
 tk.mainloop()
