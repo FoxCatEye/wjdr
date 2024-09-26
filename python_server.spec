@@ -2,11 +2,10 @@
 
 
 a = Analysis(
-    ['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\wjdr_release.py'],
+    ['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\python_server.py'],
     pathex=[],
     binaries=[],
-    #datas=[],
-    datas=[('E:\\测试文件\\测试工具\\AirtestIDE\\airtest', 'airtest')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -20,21 +19,26 @@ pyz = PYZ(a.pure)
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.datas,
     [],
-    name='无尽冬日',
+    exclude_binaries=True,
+    name='python_server',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    upx_exclude=[],
-    runtime_tmpdir=None,
-    console=False,
+    console=True,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['icon\\log.png'],
+)
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.datas,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    name='python_server',
 )

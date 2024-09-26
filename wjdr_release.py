@@ -9,8 +9,6 @@ from tkinter import ttk
 from datetime import datetime
 from configparser import ConfigParser
 from tkinter.scrolledtext import ScrolledText
-
-import pyautogui
 from airtest.core.api import *
 from airtest.core.android.android import *
 from PIL import Image, ImageTk
@@ -45,7 +43,8 @@ def cnnect():
             print('%d.开始尝试连接模拟器' % a)
             os.popen('adb start-server')
             print('地址：android:// %s' % str(set_ip.get()))
-            connect_device('android://%s'%set_ip.get())
+            #connect_device('android://127.0.0.1:21503')
+            subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
             time.sleep(5)
             print('连接模拟器成功!!!')
             a = 0
@@ -1146,6 +1145,7 @@ def load_options():
     set_donate_time.set(config.get('Options', '联盟捐赠设置'))
     set_WM_number.set(config.get('Options', '冰原巨兽等级设置'))
     set_recruit_time.set(config.get('Options', '英雄招募设置'))
+    set_version.set(config.get('Options', 'version'))
 '''初始化配置解析器和选项变量'''
 config = ConfigParser()
 config['Options'] = {}
@@ -1179,6 +1179,7 @@ set_adventure_time = tk.StringVar()#探险
 set_donate_time = tk.StringVar()#捐赠
 set_WM_number = tk.StringVar()#冰原巨兽等级
 set_recruit_time = tk.StringVar() #招募设置
+set_version = tk.StringVar()#设置版本号
 # 尝试加载先前保存的选项
 def read_save():
     # 首次启动时默认选项
@@ -1861,9 +1862,5 @@ def print(text_1):
     output_box.insert('end', text_1 + '\n')  # 换行显示
     output_box.see("end")  # 显示最底部内容
     output_box.configure(state="disabled")
-
-
 # 开始Tkinter事件循环
 tk.mainloop()
-# 窗口线程
-thread_window = threading.Thread(target=window.mainloop).start()

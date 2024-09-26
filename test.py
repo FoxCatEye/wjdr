@@ -30,30 +30,23 @@ background_label.place(x=0, y=0, relwidth=1, relheight=1)
 root.mainloop()
 '''
 import tkinter as tk
-from PIL import Image, ImageTk
 
 
-def update_background(button):
-    global canvas
-    # 更新背景图片
-    canvas.itemconfig(bg_image, image=image_list[int(button.cget('text'))])
+def my_function():
+    print("函数在窗口出现后运行")
+
+
+def on_window_shown():
+    my_function()
+    root.protocol("WM_DELETE_WINDOW", on_closing)
+
+
+def on_closing():
+    print("窗口关闭")
+    root.destroy()
 
 
 root = tk.Tk()
-root.title("更新背景图片")
-
-# 准备图片列表
-image_list = [ImageTk.PhotoImage(Image.open(f"icon/{i + 1}{i + 1}.png")) for i in range(2)]
-
-# 创建画布
-canvas = tk.Canvas(root, width=400, height=400)
-bg_image = canvas.create_image(0, 0, anchor='nw', image=image_list[0])
-canvas.pack()
-
-# 创建按钮
-for i in range(2):
-    button = tk.Button(root, text=str(i + 1), command=lambda b=tk.Button: update_background(b))
-    button.config(width=5, height=2)
-    button.pack()
-
+root.title("我的窗口")
+root.after_idle(on_window_shown)  # 在主循环空闲时调用on_window_shown
 root.mainloop()
