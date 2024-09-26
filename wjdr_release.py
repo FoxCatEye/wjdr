@@ -628,16 +628,16 @@ def adventure():
 
 '''招募英雄'''
 def recruit():
-    if exists(Template(r"icon\英雄.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
+    if exists(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
         print_space('点击英雄')
-        touch(Template(r"icon\英雄.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
+        touch(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
         print_space('点击英雄招募')
-        touch(Template(r"icon\英雄招募.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
-        if exists(Template(r"icon\免费招募.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
+        touch(Template(r"icon\hero_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
+        if exists(Template(r"icon\hero_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
             print_space('点击免费招募')
-            touch(Template(r"icon\免费招募.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
+            touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
             time.sleep(1)
-            touch(Template(r"icon\英雄招募返回.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
+            touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
             time.sleep(1)
         else:
             print_space('无免费招募次数')

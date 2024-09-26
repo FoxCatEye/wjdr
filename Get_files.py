@@ -1,5 +1,4 @@
 import os
-import subprocess
 import sys
 import threading
 import time
@@ -24,7 +23,7 @@ def download_update():
         total_length = response.headers.get('Content-Length')
         if total_length is None:  # 如果Content-Length不可用，可以省略进度显示
             with open('./files.zip', 'wb') as f:
-                for chunk in response.iter_content(chunk_size=172032):  # 每次读取1KB数据
+                for chunk in response.iter_content(chunk_size=102400):  # 每次读取1KB数据
                     if chunk:  # 过滤掉空的chunk
                         print(f"Downloading {update_url}")
                         f.write(chunk)
@@ -33,7 +32,7 @@ def download_update():
                 downloaded = 0
                 total = int(total_length)
                 print(f"Downloading {update_url}")
-                for chunk in response.iter_content(chunk_size=172032):  # 每次读取1KB数据
+                for chunk in response.iter_content(chunk_size=102400):  # 每次读取1KB数据
                     downloaded += len(chunk)
                     f.write(chunk)
                     percentage = (downloaded / total) * 100
@@ -82,7 +81,7 @@ def replace_process(executable, *args):
 window = tk.Tk()
 window.title("更新检查")  # 设置窗口标题
 # window.geometry("500x600")  # 设置窗口大小
-icon = tk.PhotoImage(file="icon\log.png")  # 设置窗口图标
+icon = tk.PhotoImage(file="log.png")  # 设置窗口图标
 window.iconphoto(True, icon)
 # 设置窗口不能调整大小
 window.resizable(False, False)
@@ -97,9 +96,45 @@ config = ConfigParser()
 config['Options'] = {}
 set_version = tk.StringVar()
 def check_update():
-    with open('set.ini', 'r') as configfile:
-        config.read_file(configfile)
-    load_options()
+    # 首次启动时默认选项
+    if not config.read('set.ini'):
+        config.set('Options', '模拟器ip', '127.0.0.1:5037')
+        config.set('Options', '模拟器路径', 'E:\leidian\LDPlayer9\dnplayer.exe')
+        config.set('Options', '单项', '0')
+        config.set('Options', '联盟互助', '1')
+        config.set('Options', '世界野怪', '1')
+        config.set('Options', '冰原巨兽', '1')
+        config.set('Options', '活动雪怪', '1')
+        config.set('Options', '训练士兵', '1')
+        config.set('Options', '建筑升级', '1')
+        config.set('Options', '采集资源', '1')
+        config.set('Options', '巨熊活动', '1')
+        config.set('Options', '治疗士兵', '1')
+        config.set('Options', '探险奖励', '1')
+        config.set('Options', '联盟捐赠', '1')
+        config.set('Options', '英雄招募', '1')
+        config.set('Options', '联盟互助设置', '2')
+        config.set('Options', '世界野怪设置', '60')
+        config.set('Options', '冰原巨兽设置', '180')
+        config.set('Options', '活动雪怪设置', '90')
+        config.set('Options', '训练士兵设置', '3600')
+        config.set('Options', '建筑升级设置', '1')
+        config.set('Options', '采集资源设置', '60')
+        config.set('Options', '巨熊活动设置', '60')
+        config.set('Options', '治疗士兵设置', '1')
+        config.set('Options', '探险奖励设置', '3600')
+        config.set('Options', '联盟捐赠设置', '300')
+        config.set('Options', '冰原巨兽等级设置', '4')
+        config.set('Options', '英雄招募设置', '300')
+        config.set('Options', 'version', '0.0.0')
+        with open('set.ini', 'w') as configfile:
+            config.write(configfile)
+    try:
+        with open('set.ini', 'r') as configfile:
+            config.read_file(configfile)
+        load_options()
+    except IOError:
+        print('No saved options found.')
     version_url = "http://fukesihu.gnway.cc:80/set.ini"
     version = set_version.get()
     response = requests.get(version_url)
@@ -113,8 +148,6 @@ def check_update():
         if last_version != version:
             print('当前版本:%s'%version)
             print("有新版本:%s"%last_version)
-            print('更新内容：')
-            print('    更换新的服务器地址')
             download_update()
         else:
             print("已是最新版本")
@@ -125,7 +158,7 @@ def thread_main():
     check_update()
     time.sleep(2)
     # 结束并打开一个新的程序
-    replace_process('./main.exe', 'main.exe')  #打包后运行需要的代码
+    replace_process('./main/main.exe', 'main.exe')  #打包后运行需要的代码
     #os.system('taskkill /F /IM ' + os.path.basename(sys.executable) + '>nul')
     #subprocess.Popen('wjdr_release.py')#本地运行
 thread_m = threading.Thread(target=thread_main).start()

@@ -5,8 +5,7 @@ a = Analysis(
     ['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\Get_files.py'],
     pathex=[],
     binaries=[],
-    #datas=[],
-    #datas=[('E:\\测试文件\\测试工具\\AirtestIDE\\airtest', 'airtest')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -36,6 +35,6 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['icon\\log.png'], # 生成exe文件时使用的图标，放在此路径下的*.ico或*.png文件
+    icon=['log.png'], # 生成exe文件时使用的图标，放在此路径下的*.ico或*.png文件
 
 )
