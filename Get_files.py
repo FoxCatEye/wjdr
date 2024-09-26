@@ -24,7 +24,7 @@ def download_update():
         total_length = response.headers.get('Content-Length')
         if total_length is None:  # 如果Content-Length不可用，可以省略进度显示
             with open('./files.zip', 'wb') as f:
-                for chunk in response.iter_content(chunk_size=51200):  # 每次读取1KB数据
+                for chunk in response.iter_content(chunk_size=172032):  # 每次读取1KB数据
                     if chunk:  # 过滤掉空的chunk
                         print(f"Downloading {update_url}")
                         f.write(chunk)
@@ -33,7 +33,7 @@ def download_update():
                 downloaded = 0
                 total = int(total_length)
                 print(f"Downloading {update_url}")
-                for chunk in response.iter_content(chunk_size=51200):  # 每次读取1KB数据
+                for chunk in response.iter_content(chunk_size=172032):  # 每次读取1KB数据
                     downloaded += len(chunk)
                     f.write(chunk)
                     percentage = (downloaded / total) * 100
