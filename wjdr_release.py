@@ -93,9 +93,9 @@ def Homepage():
                 if exists(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780))):
                     print_space('点击返回按钮')
                     touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
-                elif exists(Template(r'icon\英雄招募返回.png',threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780))):
+                elif exists(Template(r'icon\return.png',threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780))):
                     print_space('点击返回按钮')
-                    touch(Template(r"icon\英雄招募返回.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
+                    touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
                 elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780))):
                     print_space('点击关闭按钮')
                     touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
@@ -938,7 +938,7 @@ def hide_widget():
     global label_2,version_label
     label_2.place_forget()
     ttk.Button(window, text="隐藏UI",command=hide_widgets,width=6).place(x=0, y=513)
-    ttk.Label(window, text='版本:0.4.2').place(x=901, y=518)
+    ttk.Label(window, text='版本:%s'%set_version.get()).place(x=901, y=518)
 
 '''------------------------------------创建主窗口------------------------------------'''
 window = tk.Tk()
