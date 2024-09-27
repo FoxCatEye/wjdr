@@ -143,19 +143,19 @@ def train():
         print_space('点击晋升图标')
         touch(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920)))
         print_space('点击开始晋升士兵')
-        touch(Template(r"icon\tpl1721784579063.png", rgb=True, record_pos=(0.22, 0.338), resolution=(1080, 1920)))
+        touch(Template(r"icon\tpl1727422988298.png", record_pos=(0.216, 0.339), resolution=(1080, 1920)))
     elif exists(Template(r"icon\tpl1721784547262.png", rgb=True, record_pos=(0.399, 0.019), resolution=(1080, 1920))):
         print_space('点击晋升图标')
         touch(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920)))
         print_space('点击开始晋升士兵')
-        touch(Template(r"icon\tpl1721784579063.png", rgb=True, record_pos=(0.22, 0.338), resolution=(1080, 1920)))
+        touch(Template(r"icon\tpl1727422988298.png", record_pos=(0.216, 0.339), resolution=(1080, 1920)))
     elif exists(Template(r"icon\tpl1721784547262.png", rgb=True, record_pos=(0.399, 0.019), resolution=(1080, 1920))):
         print_space('点击兵种')
         touch(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920)))
         print_space('点击晋升图标')
         touch(Template(r"icon\tpl1721784547262.png", record_pos=(0.399, 0.019), resolution=(1080, 1920)))
         print_space('点击开始晋升士兵')
-        touch(Template(r"icon\tpl1721784579063.png", rgb=True, record_pos=(0.22, 0.338), resolution=(1080, 1920)))
+        touch(Template(r"icon\tpl1727422988298.png", record_pos=(0.216, 0.339), resolution=(1080, 1920)))
     else:
         print_space("没有可晋升士兵，训练最高级士兵")
         swipe([950, 1225], vector=[-0.4103, 0.0170])  # 滑动训练兵种
@@ -170,12 +170,12 @@ def train():
             else:
                 break
         touch([800, 1800])  # 点击开始训练士兵
-    time.sleep(1)  # 等待1秒
+    time.sleep(2)  # 等待2秒
     print_space("返回上一级")
-    if exists(Template(r"icon\tpl1719198082012.png", threshold=0.5, record_pos=(-0.44, -0.783), resolution=(414, 780))):
-        touch(Template(r"icon\tpl1719198082012.png", threshold=0.5, record_pos=(-0.44, -0.783), resolution=(414, 780)))
-    elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780))):
-        touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))  # 关闭当前界面
+    if exists(Template(r"icon\tpl1719198082012.png", threshold=0.5, record_pos=(-0.44, -0.783), resolution=(1080, 1920))):
+        touch(Template(r"icon\tpl1719198082012.png", threshold=0.5, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
+    elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920))):
+        touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))  # 关闭当前界面
     else:
         print_space('未找到对应图案')
     print_space('训练完成')
@@ -189,27 +189,30 @@ def Production_soldiers():
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.9, rgb=True, record_pos=(-0.189, -0.009), resolution=(414, 780))):
+    print('检查盾兵训练是否完成')
+    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.9, rgb=True, record_pos=(-0.189, -0.009), resolution=(1080, 1920))):
         print_space("1跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
-    elif exists(Template(r"icon\tpl1719478488283.png", threshold=0.9, record_pos=(-0.021, -0.003), resolution=(414, 780))):
-        print_space("2跳转到盾兵兵营...")
+    elif exists(Template(r"icon/tpl1719478488283.png",threshold=0.9,rgb=True, record_pos=(-0.066, -0.111), resolution=(1080, 1920))):
+        print_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
-    if exists(Template(r"icon\tpl1719480722195.png", threshold=0.9, rgb=True, record_pos=(-0.189, -0.009), resolution=(414, 780))):
+    print('检查矛兵训练是否完成')
+    if exists(Template(r"icon\tpl1719480722195.png", threshold=0.9, rgb=True, record_pos=(-0.189, -0.009), resolution=(1080, 1920))):
+        print_space("1跳转到矛兵兵营...")
+        touch([600, 942])  # 点击索引到对应兵营
+        train()
+    elif exists(Template(r"icon/tpl1719480722196.png", threshold=0.9, rgb=True, record_pos=(-0.066, -0.111), resolution=(1080, 1920))):
         print_space("跳转到矛兵兵营...")
         touch([600, 942])  # 点击索引到对应兵营
         train()
-    elif exists(Template(r'icon\tpl1719480722196.png', threshold=0.9, record_pos=(-0.021, -0.003), resolution=(414, 780))):
-        print_space("跳转到矛兵兵营...")
-        touch([600, 942])  # 点击索引到对应兵营
-        train()
-    if exists(Template(r"icon\tpl1719480732965.png", threshold=0.9, rgb=True, record_pos=(-0.189, -0.009), resolution=(414, 780))):
-        print_space("跳转到射手兵营...")
+    print('检查射手训练是否完成')
+    if exists(Template(r"icon/tpl1719480732965.png", threshold=0.9, rgb=True, record_pos=(-0.306, 0.092), resolution=(1080, 1920))):
+        print_space("1跳转到射手兵营...")
         touch([600, 1060])  # 点击索引到对应兵营
         train()
-    elif exists(Template(r'icon\tpl1719480732966.png', threshold=0.9, record_pos=(-0.021, -0.003), resolution=(414, 780))):
+    elif exists(Template(r'icon\tpl1719480732966.png', threshold=0.9, rgb=True, record_pos=(-0.021, -0.003), resolution=(1080, 1920))):
         print_space("跳转到射手兵营...")
         touch([600, 1060])  # 点击索引到对应兵营
         train()
@@ -1580,7 +1583,7 @@ def simple_select():
                             time.sleep(10)
             except:
                 print('错误')
-    elif var_value == 4:
+    elif var_value == 4:                             #训练士兵
         while execute:
             try:
                 Homepage()
@@ -1596,6 +1599,7 @@ def simple_select():
                     if stop_event.is_set():
                         execute = False
                         start_button_simple.configure(text='开始', command=save_simple_start_button)
+                        break
                     else:
                         if Production_number < 1:
                             time.sleep(Production_time)
