@@ -126,7 +126,7 @@ def Help():
 
 # 生产士兵
 def train():
-    time.sleep(3)  # 等待3秒
+    time.sleep(5)  # 等待3秒
     print_space("收取已生产士兵...")
     touch([500, 950])  # 收取已生产的兵
     time.sleep(1)  # 等待1秒
@@ -189,27 +189,27 @@ def Production_soldiers():
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.9, rgb=True, record_pos=(-0.186, -0.058), resolution=(414, 780))):
+    if exists(Template(r"icon\tpl1719478488282.png", threshold=0.9, rgb=True, record_pos=(-0.189, -0.009), resolution=(414, 780))):
         print_space("1跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
-    elif exists(Template(r"icon\tpl1719478488283.png", threshold=0.95, record_pos=(-0.437, 0.046), resolution=(414, 780))):
+    elif exists(Template(r"icon\tpl1719478488283.png", threshold=0.9, record_pos=(-0.021, -0.003), resolution=(414, 780))):
         print_space("2跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
-    if exists(Template(r"icon\tpl1719480722195.png", threshold=0.9, rgb=True, record_pos=(-0.437, 0.046), resolution=(414, 780))):
+    if exists(Template(r"icon\tpl1719480722195.png", threshold=0.9, rgb=True, record_pos=(-0.189, -0.009), resolution=(414, 780))):
         print_space("跳转到矛兵兵营...")
         touch([600, 942])  # 点击索引到对应兵营
         train()
-    elif exists(Template(r'icon\tpl1719480722196.png', threshold=0.95, record_pos=(-0.437, 0.046), resolution=(414, 780))):
+    elif exists(Template(r'icon\tpl1719480722196.png', threshold=0.9, record_pos=(-0.021, -0.003), resolution=(414, 780))):
         print_space("跳转到矛兵兵营...")
         touch([600, 942])  # 点击索引到对应兵营
         train()
-    if exists(Template(r"icon\tpl1719480732965.png", threshold=0.9, rgb=True, record_pos=(-0.437, 0.145), resolution=(414, 780))):
+    if exists(Template(r"icon\tpl1719480732965.png", threshold=0.9, rgb=True, record_pos=(-0.189, -0.009), resolution=(414, 780))):
         print_space("跳转到射手兵营...")
         touch([600, 1060])  # 点击索引到对应兵营
         train()
-    elif exists(Template(r'icon\tpl1719480732966.png', threshold=0.95, record_pos=(-0.437, 0.046), resolution=(414, 780))):
+    elif exists(Template(r'icon\tpl1719480732966.png', threshold=0.9, record_pos=(-0.021, -0.003), resolution=(414, 780))):
         print_space("跳转到射手兵营...")
         touch([600, 1060])  # 点击索引到对应兵营
         train()
@@ -412,11 +412,12 @@ def Brush_WM():
 def gather():
     print_space('点击采集按钮')
     touch(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920)))
-    if exists(Template(r"icon\tpl1721191349776.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):  # 有兵力可出征
+    if exists(Template(r"icon\tpl1721191349776.png", record_pos=(0.26, 0.798), resolution=(1080, 1920))):  # 有兵力可出征
         print_space('点击出征按钮')
-        touch(Template(r"icon\tpl1721191349776.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))  # 点击出征
+        touch(Template(r"icon\tpl1721191349776.png",rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
         print_space('出征成功')
         time.sleep(1)
+        touch([14, 823])
     else:  # 判断是否有多余兵力
         print_space('不满足条件，无兵力出征')
 
@@ -521,20 +522,14 @@ def Iron():
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
     if exists(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920))):
-        touch(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920)))
-        if not exists(Template(r"icon\tpl1720675170747.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):  # 判断是否有多余兵力
-            print_space('不满足条件，无兵力出征')
-        else:  # 有兵力可出征
-            print_space('点击出征按钮')
-            touch(Template(r"icon\tpl1720675170747.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))  # 点击出征
-            print_space('出征成功')
+        gather()
     else:
         print_space('未搜索到铁矿资源，结束该任务')
 
 
 # 自动采集
 def Collection():
-    if not exists(Template(r"icon\tpl1720145326019.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
+    if not exists(Template(r"icon\tpl1720145326019.png", record_pos=(-0.191, -0.169), resolution=(1080, 1920))):
         print_space('不在世界，点击去往世界')
         touch([950, 1850])  # 点击野外
         time.sleep(5)  # 等待5秒
@@ -544,7 +539,7 @@ def Collection():
     touch([14, 823])
     time.sleep(1)
     touch([500, 400])
-    if not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+    if not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.191, -0.169), resolution=(1080, 1920))):
         print_space('有空闲队伍，执行采肉任务')
         time.sleep(1)
         Meat()
@@ -577,7 +572,7 @@ def treatment():
         print_space("点击治疗图标")
         touch(Template(r"icon\tpl1721191349778.png", threshold=0.8, record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
         print_space('点击治疗按钮')
-        touch(Template(r"icon\tpl1721191349779.png", threshold=0.8, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+        touch(Template(r"icon\tpl1721191349779.png", threshold=0.8, record_pos=(0.29, 0.756), resolution=(461, 851)))
         print_space('点击联盟互助')
         touch(Template(r"icon\tpl1721191349780.png", threshold=0.8, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
         print_space('点击返回按钮')
@@ -600,7 +595,7 @@ def donate():
         while x > 0:
             if not exists(Template(r"icon\tpl1721784579074.png", rgb=True, record_pos=(-0.44, -0.783), resolution=(414, 780))):
                 print_space('点击捐献')
-                touch(Template(r"icon\tpl1721784579073.png", record_pos=(-0.44, -0.783), resolution=(414, 780)))
+                touch(Template(r"icon\tpl1721784579073.png", record_pos=(-0.44, -0.783), resolution=(414, 780)),duration = 2)
             else:
                 print_space('无捐献次数，结束任务')
                 x = 0
@@ -641,7 +636,7 @@ def recruit():
             time.sleep(1)
         else:
             print_space('无免费招募次数')
-        touch(Template(r"icon\英雄招募返回.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
+        touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
         time.sleep(1)
         touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
 
@@ -1526,7 +1521,8 @@ def simple_select():
                         break
                     else:
                         if XG_number < 1:
-                            time.sleep(XG_number)
+                            time.sleep(XG_time)
+                            break
                         else:
                             number += 1
                             time.sleep(10)
@@ -1551,7 +1547,8 @@ def simple_select():
                         break
                     else:
                         if WM_number < 1:
-                            time.sleep(WM_number)
+                            time.sleep(WM_time)
+                            break
                         else:
                             number += 1
                             time.sleep(10)
@@ -1576,7 +1573,8 @@ def simple_select():
                         break
                     else:
                         if npc_number < 1:
-                            time.sleep(npc_number)
+                            time.sleep(npc_time)
+                            break
                         else:
                             number += 1
                             time.sleep(10)
@@ -1600,7 +1598,8 @@ def simple_select():
                         start_button_simple.configure(text='开始', command=save_simple_start_button)
                     else:
                         if Production_number < 1:
-                            time.sleep(Production_number)
+                            time.sleep(Production_time)
+                            break
                         else:
                             number += 1
                             time.sleep(10)
@@ -1625,7 +1624,8 @@ def simple_select():
                         break
                     else:
                         if build_number < 1:
-                            time.sleep(build_number)
+                            time.sleep(build_time)
+                            break
                         else:
                             number += 1
                             time.sleep(10)
@@ -1650,7 +1650,8 @@ def simple_select():
                         break
                     else:
                         if Collection_number < 1:
-                            time.sleep(Collection_number)
+                            time.sleep(Collection_time)
+                            break
                         else:
                             number += 1
                             time.sleep(10)
@@ -1675,13 +1676,14 @@ def simple_select():
                         break
                     else:
                         if bear_number < 1:
-                            time.sleep(bear_number)
+                            time.sleep(bear_time)
+                            break
                         else:
                             number += 1
                             time.sleep(10)
             except:
                 print('错误')
-    elif var_value == 8:
+    elif var_value == 8:       #治疗
         while execute:
             try:
                 Homepage()
@@ -1700,7 +1702,8 @@ def simple_select():
                         break
                     else:
                         if treatment_number < 1:
-                            time.sleep(treatment_number)
+                            time.sleep(treatment_time)
+                            break
                         else:
                             number += 1
                             time.sleep(10)
@@ -1725,7 +1728,8 @@ def simple_select():
                         break
                     else:
                         if adventure_number < 1:
-                            time.sleep(adventure_number)
+                            time.sleep(adventure_time)
+                            break
                         else:
                             number += 1
                             time.sleep(10)
@@ -1750,7 +1754,8 @@ def simple_select():
                         break
                     else:
                         if donate_number < 1:
-                            time.sleep(donate_number)
+                            time.sleep(donate_time)
+                            break
                         else:
                             number += 1
                             time.sleep(10)
@@ -1776,6 +1781,7 @@ def simple_select():
                     else:
                         if recruit_number < 1:
                             time.sleep(recruit_time)
+                            break
                         else:
                             number += 1
                             time.sleep(10)
