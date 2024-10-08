@@ -18,6 +18,29 @@ logging.getLogger('airtest').setLevel(logging.ERROR)
 '''模拟器点击变量'''
 emulator_click = 0
 number_brush = 0
+import os
+
+# 获取当前文件的绝对路径(本地）
+current_file_path = os.path.abspath(__file__)
+
+# 获取当前文件夹的上一级目录的绝对路径(本地）
+#parent_directory_path = os.path.dirname(os.path.dirname(current_file_path))
+# 上一级文件夹中要删除的文件名
+file_to_delete = '无尽冬日.exe'
+
+# 构建要删除的文件的绝对路径(本地）
+#file_path_to_delete = os.path.join(current_file_path, file_to_delete)
+
+# 删除文件
+#os.remove(file_path_to_delete)
+if os.path.isfile(file_to_delete):
+    # 删除文件
+    time.sleep(2)
+    os.remove(file_to_delete)
+    print(f"文件 已被删除。")
+else:
+    print(f"文件 不存在。")
+
 '''打开模拟器'''
 
 def start_exe():
@@ -838,7 +861,6 @@ def subject():
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
-
         if stop_event.is_set():
             start_button.configure(text='开始', command=save_simple)  # 总功能
             break
@@ -849,6 +871,40 @@ def print_space(variable, spaces=4):
     print(' ' * spaces + str(variable))
 
 
+
+'''-------------------------------------更新公告-----------------------------------------------'''
+def gonggao():
+    print('当前更新内容：')
+    print_space('1.更新流程优化')
+    print_space('2.添加使用说明')
+    print_space('3.添加更新内容')
+
+'''-------------------------------------帮助说明-----------------------------------------------'''
+def help_txt():
+    print('模拟器路径：')
+    print_space('电脑模拟器安装地址，以exe结尾，启动模拟器功能需要，地址错误时无法启动模拟器，只能手动启动')
+    print('模拟器ip：')
+    print_space('连接模拟器需要，由本地地址＋端口号组成，ip错误将无法连接模拟器，影响使用')
+    print('启动游戏：')
+    print_space('启动无尽冬日游戏')
+    print('一键启动：')
+    print_space('包含启动模拟器、连接模拟器、启动游戏功能')
+    print('多选：')
+    print_space('可一次性选择多选功能同时执行')
+    print_space('互助：每2秒检测一次')
+    print_space('野怪：分钟与秒是5的倍数是检测一次，21点不检测')
+    print_space('冰原巨兽：分钟是6的倍数且秒数在0-20s时检查一次，21点不检测，等级可在单选内设置')
+    print_space('活动雪怪：分钟是6的倍数时检测一次，21点不检测')
+    print_space('训练士兵：分钟数是5的倍数时检测')
+    print_space('建筑升级：分钟数是2的倍数时检测')
+    print_space('采集资源：凌晨3点检测每一种资源是否有采集，每种只会采集一队')
+    print_space('巨熊活动：21点时检测')
+    print_space('治疗士兵：分钟数为21时检测，相当于每过一小时就检查')
+    print_space('探险奖励：分钟数为25时检测，相当于每过一小时就检查')
+    print_space('联盟捐赠：分钟数为1时检测，相当于每过一小时就检查')
+    print_space('英雄招募：凌晨1点时分钟数为5的倍数时会检查')
+    print('单选：')
+    print_space('每次只能执行单个功能，可设置单个功能执行间隔，冰原巨兽可设置等级，设置的等级多选可用')
 # --distpath
 
 # pyinstaller  -w  --onefile --name "无尽冬日" --icon "E:\测试文件\测试工具\版本控制\Wjdr\main_icon.ico" --add-data "E:\测试文件\测试工具\AirtestIDE\airtest:airtest" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\icon:icon" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\wjdr.py:." E:\测试文件\测试工具\版本控制\Wjdr\wjdrwjdr_release.py
@@ -983,6 +1039,8 @@ label_1 = tk.Label(window, image=image)
 label_1.place(x=-2, y=-2)
 # 创建一个UI控制标签
 ttk.Button(window, text="隐藏UI",command=hide_widgets,width=6).place(x=0, y=513)
+ttk.Button(window,text='更新内容',command=gonggao,width=7).place(x=80,y=513)
+ttk.Button(window,text='使用说明',command=help_txt,width=7).place(x=160,y=513)
 #创建一个背景控制标签
 '''background_button = ttk.Combobox(window,width=6,state='readonly')
 background_button['value'] = ('背景1','背景2')
@@ -994,7 +1052,8 @@ background_button.place(x=50, y=513)'''
 '''提示文本'''
 #prompt_text = tkFont.Font(window,family="Helvetica", size=10, weight=tkFont.NORMAL)
 #tk.Label(window,text='请等待程序停止后再设置相关参数', anchor='center', font=prompt_text).pack()
-tk.Label(text='请等待程序停止后再设置相关参数').place(x=400,y=10)
+tk.Label(text='请等待程序停止后再设置相关参数').pack()
+tk.Label(text='多选和单选不可同时执行').pack()
 '''保存模拟器地址'''
 def save_address():
     if emulator_entry.get() == '':
@@ -1855,10 +1914,7 @@ select_recruit.place(x=560,y=180)
 start_button_simple = ttk.Button(window, text='开始', command=save_simple_start_button)
 #frame_simple.create_window(200, 135, window=start_button_simple)
 start_button_simple.place(x=640,y=220)
-
-
-
-
+gonggao()
 '''------------------------------------输出区域------------------------------------'''
 '''区域'''
 frame_output = tk.Frame(window,width=490,height=300)
@@ -1872,7 +1928,7 @@ output_box.place(x=450,y=300)
 '''------------------------------------版本号------------------------------------'''
 ttk.Label(window, text='版本:%s'%set_version.get()).place(x=901,y=518)
 
-'''------------------------------------输出框输出内容------------------------------------'''
+
 
 
 def print(text_1):
@@ -1883,3 +1939,4 @@ def print(text_1):
     output_box.configure(state="disabled")
 # 开始Tkinter事件循环
 tk.mainloop()
+
