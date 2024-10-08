@@ -89,4 +89,4 @@ def Production_soldiers():
 def print_space(variable, spaces=4):
     print(' ' * spaces + str(variable))
 
-Production_soldiers()
+swipe([950, 1225], vector=[-0.8, 0.0170])  # 滑动训练兵种
