@@ -147,7 +147,7 @@ def check_update():
     last_line = get_version.split("\n")[-1]
     #print(last_line)
     last_version = last_line.replace('version = ', '')
-    if response.status_code ==200:
+    if response.status_code ==200 and 'Options' in get_version:
         if last_version != version:
             print('当前版本:%s'%version)
             print("有新版本:%s"%last_version)

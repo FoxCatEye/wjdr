@@ -662,7 +662,7 @@ def recruit():
         touch(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
         print_space('点击英雄招募')
         touch(Template(r"icon\hero_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
-        if exists(Template(r"icon\hero_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
+        if exists(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
             print_space('点击免费招募')
             touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
             time.sleep(1)
@@ -876,8 +876,8 @@ def print_space(variable, spaces=4):
 def gonggao():
     print('当前更新内容：')
     print_space('1.更新流程优化')
-    print_space('2.添加使用说明')
-    print_space('3.添加更新内容')
+    print_space('2.修复免费招募bug')
+    #print_space('3.添加更新内容')
 
 '''-------------------------------------帮助说明-----------------------------------------------'''
 def help_txt():
@@ -1914,7 +1914,6 @@ select_recruit.place(x=560,y=180)
 start_button_simple = ttk.Button(window, text='开始', command=save_simple_start_button)
 #frame_simple.create_window(200, 135, window=start_button_simple)
 start_button_simple.place(x=640,y=220)
-gonggao()
 '''------------------------------------输出区域------------------------------------'''
 '''区域'''
 frame_output = tk.Frame(window,width=490,height=300)
