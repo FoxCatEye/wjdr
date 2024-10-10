@@ -1,0 +1,43 @@
+<RCC>
+  <qresource prefix="/">
+QCheckBox {
+    spacing: 5px;
+}
+ 
+QCheckBox::indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px; /* 使边界变为圆形 */
+}
+ 
+QCheckBox::indicator:unchecked {
+    background: white; /* 未选中状态的背景色 */
+    border: 1px solid lightgrey;
+}
+ 
+QCheckBox::indicator:checked {
+    background: blue; /* 选中状态的背景色 */
+    border: 1px solid lightgrey;
+}
+ 
+QCheckBox::indicator:disabled {
+    background: lightgrey; /* 禁用状态的背景色 */
+    border: 1px solid grey;
+}
+ 
+QCheckBox::indicator:unchecked:hover {
+    background: lightblue; /* 鼠标悬浮时的背景色 */
+    border: 1px solid blue;
+}
+ 
+QCheckBox::indicator:checked:hover {
+    background: darkblue; /* 鼠标悬浮时的背景色（已选中） */
+    border: 1px solid blue;
+}
+ 
+QCheckBox::indicator:checked:disabled {
+    background: grey; /* 已选中且禁用时的背景色 */
+    border: 1px solid grey;
+}
+  </qresource>
+</RCC>
