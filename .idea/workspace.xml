@@ -1,0 +1,887 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="de39eb93-af8a-454c-9dc0-a6f45736e968" name="更改" comment="1.提交新版本窗口文件">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evnv1/icon_rc.py" beforeDir="false" afterPath="$PROJECT_DIR$/evnv1/icon_rc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evnv1/style.qrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/evnv1/untitled.py" beforeDir="false" afterPath="$PROJECT_DIR$/evnv1/untitled.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evnv1/untitled.ui" beforeDir="false" afterPath="$PROJECT_DIR$/evnv1/untitled.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wjdr_release.py" beforeDir="false" afterPath="$PROJECT_DIR$/wjdr_release.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitRewordedCommitMessages">
+    <option name="onto" value="dbfc49e7755270d7c245534ea8c6410eaa5aca4c" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2jlpGJFuIQkGaUpjmaRqAhUDceJ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Python 测试.Python tests in windows.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python 测试.Python 测试 (windows.py 内).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Get_files.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gongxiang.executor&quot;: &quot;Run&quot;,
+    &quot;Python.python server.executor&quot;: &quot;Run&quot;,
+    &quot;Python.python_server.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.threading.executor&quot;: &quot;Run&quot;,
+    &quot;Python.untitled.executor&quot;: &quot;Run&quot;,
+    &quot;Python.wijd_release (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.wijd_release.executor&quot;: &quot;Run&quot;,
+    &quot;Python.windows.executor&quot;: &quot;Run&quot;,
+    &quot;Python.wjdr.executor&quot;: &quot;Run&quot;,
+    &quot;Python.wjdr_release (1).executor&quot;: &quot;Debug&quot;,
+    &quot;Python.wjdr_release.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;窗口&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/测试文件/测试工具/版本控制/Wjdr/evnv1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.externalTools&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;
+    ]
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Wjdr" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="untitled" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Wjdr" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/evnv1" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/evnv1/untitled.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="wjdr" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Wjdr" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wjdr.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="wjdr_release" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Wjdr" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="E:\测试文件\测试工具\版本控制\Wjdr\wjdr_release.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.untitled" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.wjdr_release" />
+        <item itemvalue="Python.wjdr" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
+        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="ShelveChangesManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="de39eb93-af8a-454c-9dc0-a6f45736e968" name="更改" comment="" />
+      <created>1721971421066</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721971421066</updated>
+      <workItem from="1721971423821" duration="15751000" />
+      <workItem from="1721988891825" duration="247000" />
+      <workItem from="1721989197285" duration="66000" />
+      <workItem from="1721999160527" duration="7258000" />
+      <workItem from="1722217045520" duration="9255000" />
+      <workItem from="1722228967724" duration="1850000" />
+      <workItem from="1722230834583" duration="12911000" />
+      <workItem from="1722248283307" duration="907000" />
+      <workItem from="1722302370538" duration="29065000" />
+      <workItem from="1722389698432" duration="26507000" />
+      <workItem from="1722437300511" duration="179000" />
+      <workItem from="1722437505332" duration="26160000" />
+      <workItem from="1722563193140" duration="18560000" />
+      <workItem from="1722613733182" duration="2747000" />
+      <workItem from="1722674237963" duration="3657000" />
+      <workItem from="1722832189448" duration="3056000" />
+      <workItem from="1722836662626" duration="11246000" />
+      <workItem from="1722908312055" duration="12798000" />
+      <workItem from="1722994988956" duration="2989000" />
+      <workItem from="1723013337697" duration="5238000" />
+      <workItem from="1723018670190" duration="3945000" />
+      <workItem from="1723023837386" duration="71000" />
+      <workItem from="1723024074524" duration="10000" />
+      <workItem from="1723024217208" duration="233000" />
+      <workItem from="1723024591009" duration="610000" />
+      <workItem from="1723099211373" duration="13125000" />
+      <workItem from="1723112413472" duration="124000" />
+      <workItem from="1723167278022" duration="28213000" />
+      <workItem from="1723209003990" duration="1108000" />
+      <workItem from="1723431420246" duration="9609000" />
+      <workItem from="1723516039274" duration="2161000" />
+      <workItem from="1723533752906" duration="132000" />
+      <workItem from="1723534055512" duration="71000" />
+      <workItem from="1723534823738" duration="55000" />
+      <workItem from="1723534893024" duration="250000" />
+      <workItem from="1723535159009" duration="3217000" />
+      <workItem from="1723538406493" duration="123000" />
+      <workItem from="1723538697349" duration="5930000" />
+      <workItem from="1723602232779" duration="18365000" />
+      <workItem from="1723627689971" duration="2539000" />
+      <workItem from="1723630316097" duration="104000" />
+      <workItem from="1723691007528" duration="3351000" />
+      <workItem from="1723696030706" duration="1266000" />
+      <workItem from="1723697400899" duration="39000" />
+      <workItem from="1723697469377" duration="15016000" />
+      <workItem from="1723773864711" duration="23564000" />
+      <workItem from="1724031960202" duration="5429000" />
+      <workItem from="1724122310043" duration="37000" />
+      <workItem from="1724122425985" duration="76000" />
+      <workItem from="1724122561009" duration="5959000" />
+      <workItem from="1724131938148" duration="2013000" />
+      <workItem from="1724135502285" duration="66000" />
+      <workItem from="1724135579954" duration="184000" />
+      <workItem from="1724136153187" duration="67000" />
+      <workItem from="1724138145838" duration="97000" />
+      <workItem from="1724139887244" duration="40000" />
+      <workItem from="1724140111799" duration="66000" />
+      <workItem from="1724140521100" duration="317000" />
+      <workItem from="1724140927015" duration="27000" />
+      <workItem from="1724141042513" duration="100000" />
+      <workItem from="1724141171076" duration="264000" />
+      <workItem from="1724141456409" duration="360000" />
+      <workItem from="1724142304073" duration="109000" />
+      <workItem from="1724143826130" duration="4508000" />
+      <workItem from="1724206038034" duration="3588000" />
+      <workItem from="1724317054197" duration="4515000" />
+      <workItem from="1724339737291" duration="177000" />
+      <workItem from="1724392596662" duration="14716000" />
+      <workItem from="1724637319265" duration="13729000" />
+      <workItem from="1724651417409" duration="14770000" />
+      <workItem from="1724667362565" duration="245000" />
+      <workItem from="1724845369687" duration="539000" />
+      <workItem from="1724845931979" duration="3000" />
+      <workItem from="1724897277989" duration="953000" />
+      <workItem from="1724901781461" duration="2831000" />
+      <workItem from="1724986356789" duration="6479000" />
+      <workItem from="1725682771061" duration="11978000" />
+      <workItem from="1725939844562" duration="938000" />
+      <workItem from="1726033640318" duration="4171000" />
+      <workItem from="1726105327266" duration="972000" />
+      <workItem from="1726112429494" duration="5416000" />
+      <workItem from="1726135071515" duration="563000" />
+      <workItem from="1726199220357" duration="1919000" />
+      <workItem from="1726212579364" duration="8020000" />
+      <workItem from="1726222325454" duration="109000" />
+      <workItem from="1726303497590" duration="543000" />
+      <workItem from="1726633213711" duration="527000" />
+      <workItem from="1726634388444" duration="866000" />
+      <workItem from="1726648066357" duration="127000" />
+      <workItem from="1726652382423" duration="660000" />
+      <workItem from="1726717208302" duration="21559000" />
+      <workItem from="1726798840301" duration="13750000" />
+      <workItem from="1726818876441" duration="5931000" />
+      <workItem from="1726825956252" duration="659000" />
+      <workItem from="1726882497203" duration="1463000" />
+      <workItem from="1726890265211" duration="11198000" />
+      <workItem from="1726905357222" duration="7110000" />
+      <workItem from="1727056577446" duration="2314000" />
+      <workItem from="1727060054172" duration="15694000" />
+      <workItem from="1727142838747" duration="19032000" />
+      <workItem from="1727168215542" duration="1990000" />
+      <workItem from="1727171768516" duration="212000" />
+      <workItem from="1727172053457" duration="501000" />
+      <workItem from="1727234652222" duration="23320000" />
+      <workItem from="1727314592976" duration="10851000" />
+      <workItem from="1727326596522" duration="975000" />
+      <workItem from="1727327775444" duration="3325000" />
+      <workItem from="1727338691570" duration="6081000" />
+      <workItem from="1727407602117" duration="17197000" />
+      <workItem from="1727428532489" duration="46000" />
+      <workItem from="1727513078584" duration="4245000" />
+      <workItem from="1728353057047" duration="235000" />
+      <workItem from="1728359281911" duration="7212000" />
+      <workItem from="1728437629732" duration="2862000" />
+      <workItem from="1728444702105" duration="631000" />
+      <workItem from="1728463039664" duration="4151000" />
+      <workItem from="1728526617575" duration="2157000" />
+      <workItem from="1728530218093" duration="8775000" />
+      <workItem from="1728541360231" duration="1199000" />
+      <workItem from="1728547075870" duration="4540000" />
+    </task>
+    <task id="LOCAL-00051" summary="1.微调自定义设置UI">
+      <option name="closed" value="true" />
+      <created>1724129173130</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1724129173130</updated>
+    </task>
+    <task id="LOCAL-00052" summary="1.修改图标位置">
+      <option name="closed" value="true" />
+      <created>1724130096889</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1724130096889</updated>
+    </task>
+    <task id="LOCAL-00053" summary="1.修改图标位置">
+      <option name="closed" value="true" />
+      <created>1724130213346</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1724130213346</updated>
+    </task>
+    <task id="LOCAL-00054" summary="1.删除多余代码">
+      <option name="closed" value="true" />
+      <created>1724130326310</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1724130326310</updated>
+    </task>
+    <task id="LOCAL-00055" summary="1.优化模拟器连接&#10;2.屏蔽单项自定义设置代码&#10;3.关闭打包文件控制台设置">
+      <option name="closed" value="true" />
+      <created>1724207656661</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1724207656662</updated>
+    </task>
+    <task id="LOCAL-00056" summary="1.删除多余代码">
+      <option name="closed" value="true" />
+      <created>1724234634970</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1724234634970</updated>
+    </task>
+    <task id="LOCAL-00057" summary="1.调整单项巨兽时间为3分钟一次&#10;2.优化多项巨兽执行时间（增加秒的判定）">
+      <option name="closed" value="true" />
+      <created>1724318461357</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1724318461357</updated>
+    </task>
+    <task id="LOCAL-00058" summary="1.新增自定义单项任务的间隔时间&#10;2.已完成设置，获取&#10;3.执行获取时间待完成">
+      <option name="closed" value="true" />
+      <created>1724641839441</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1724641839441</updated>
+    </task>
+    <task id="LOCAL-00059" summary="1.完成所有单项任务的自定义任务时间间隔（未测试）">
+      <option name="closed" value="true" />
+      <created>1724647000504</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1724647000504</updated>
+    </task>
+    <task id="LOCAL-00060" summary="1.优化捐献图片">
+      <option name="closed" value="true" />
+      <created>1724661284254</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1724661284254</updated>
+    </task>
+    <task id="LOCAL-00061" summary="1.完成单项自定义间隔时间&#10;2.输入框与单选项对应&#10;3.增加空值判断">
+      <option name="closed" value="true" />
+      <created>1724667440527</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1724667440527</updated>
+    </task>
+    <task id="LOCAL-00062" summary="1.修改冰原巨兽等级">
+      <option name="closed" value="true" />
+      <created>1724897430756</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1724897430756</updated>
+    </task>
+    <task id="LOCAL-00063" summary="1.重命名测试版">
+      <option name="closed" value="true" />
+      <created>1724897614274</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1724897614274</updated>
+    </task>
+    <task id="LOCAL-00064" summary="1.添加依赖包">
+      <option name="closed" value="true" />
+      <created>1724910169674</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1724910169686</updated>
+    </task>
+    <task id="LOCAL-00065" summary="1.修复单选项设置不能实时生效bug（设置时重新读取配置）&#10;2.新增冰原巨兽等级设置（未完成）">
+      <option name="closed" value="true" />
+      <created>1725002898018</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1725002898019</updated>
+    </task>
+    <task id="LOCAL-00066" summary="1.新增冰原巨兽等级设置">
+      <option name="closed" value="true" />
+      <created>1725690664381</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1725690664381</updated>
+    </task>
+    <task id="LOCAL-00067" summary="1.新增冰原巨兽等级设置&#10;2.更新图片">
+      <option name="closed" value="true" />
+      <created>1725690712272</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1725690712272</updated>
+    </task>
+    <task id="LOCAL-00068" summary="1.增加打冰原巨兽输入等级（获取保存的等级）">
+      <option name="closed" value="true" />
+      <created>1725691211800</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1725691211800</updated>
+    </task>
+    <task id="LOCAL-00069" summary="1.增加打冰原巨兽输入等级（获取保存的等级，原本写死的）">
+      <option name="closed" value="true" />
+      <created>1725691327062</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1725691327062</updated>
+    </task>
+    <task id="LOCAL-00070" summary="1.新增提示">
+      <option name="closed" value="true" />
+      <created>1725702456069</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1725702456069</updated>
+    </task>
+    <task id="LOCAL-00071" summary="1.新增治疗完成返回主页">
+      <option name="closed" value="true" />
+      <created>1725940016849</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1725940016849</updated>
+    </task>
+    <task id="LOCAL-00072" summary="1.新增英雄招募">
+      <option name="closed" value="true" />
+      <created>1726105474853</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1726105474854</updated>
+    </task>
+    <task id="LOCAL-00073" summary="1.新增英雄招募">
+      <option name="closed" value="true" />
+      <created>1726105505832</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1726105505832</updated>
+    </task>
+    <task id="LOCAL-00074" summary="1.优化单项等待时间(小于10s判断）">
+      <option name="closed" value="true" />
+      <created>1726135303478</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1726135303478</updated>
+    </task>
+    <task id="LOCAL-00075" summary="1.优化执行巨熊期间不会进行其他出兵任务">
+      <option name="closed" value="true" />
+      <created>1726199446849</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1726199446849</updated>
+    </task>
+    <task id="LOCAL-00076" summary="1.优化启动模拟器判断（地址）">
+      <option name="closed" value="true" />
+      <created>1726213608557</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1726213608557</updated>
+    </task>
+    <task id="LOCAL-00077" summary="1.新增自定义输入模拟器地址">
+      <option name="closed" value="true" />
+      <created>1726221887179</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1726221887179</updated>
+    </task>
+    <task id="LOCAL-00078" summary="1.修复模拟器输入框内容一直叠加bug">
+      <option name="closed" value="true" />
+      <created>1726303932613</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1726303932613</updated>
+    </task>
+    <task id="LOCAL-00079" summary="1.新增自定义模拟器选项&#10;2.新增服务器，更新文件脚本">
+      <option name="closed" value="true" />
+      <created>1726815330517</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1726815330517</updated>
+    </task>
+    <task id="LOCAL-00080" summary="1.删除注释代码">
+      <option name="closed" value="true" />
+      <created>1726815420724</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1726815420724</updated>
+    </task>
+    <task id="LOCAL-00081" summary="1.删除无效引用">
+      <option name="closed" value="true" />
+      <created>1726815527603</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1726815527603</updated>
+    </task>
+    <task id="LOCAL-00082" summary="1.调整UI布局，添加背景">
+      <option name="closed" value="true" />
+      <created>1726911737598</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1726911737598</updated>
+    </task>
+    <task id="LOCAL-00083" summary="1.优化招募">
+      <option name="closed" value="true" />
+      <created>1727057579670</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1727057579670</updated>
+    </task>
+    <task id="LOCAL-00084" summary="1.布局调整（未完成）">
+      <option name="closed" value="true" />
+      <created>1727086023591</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1727086023603</updated>
+    </task>
+    <task id="LOCAL-00085" summary="1.布局调整（已完成）&#10;2.添加背景&#10;3.添加控件隐藏功能">
+      <option name="closed" value="true" />
+      <created>1727168957022</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1727168957022</updated>
+    </task>
+    <task id="LOCAL-00086" summary="1.布局调整&#10;2.服务器地址调整&#10;3.优化">
+      <option name="closed" value="true" />
+      <created>1727317687553</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1727317687553</updated>
+    </task>
+    <task id="LOCAL-00087" summary="1.更新程序调整&#10;2.版本号动态调整">
+      <option name="closed" value="true" />
+      <created>1727318027112</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1727318027112</updated>
+    </task>
+    <task id="LOCAL-00088" summary="1.更新程序调整&#10;2.版本号动态调整">
+      <option name="closed" value="true" />
+      <created>1727319486325</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1727319486325</updated>
+    </task>
+    <task id="LOCAL-00089" summary="1.修改图片名称&#10;2.优化代码">
+      <option name="closed" value="true" />
+      <created>1727325768529</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1727325768529</updated>
+    </task>
+    <task id="LOCAL-00090" summary="1.修改图片名称&#10;2.优化代码">
+      <option name="closed" value="true" />
+      <created>1727325793029</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1727325793029</updated>
+    </task>
+    <task id="LOCAL-00091" summary="1.修复隐藏UI后版本号错误bug">
+      <option name="closed" value="true" />
+      <created>1727329728962</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1727329728962</updated>
+    </task>
+    <task id="LOCAL-00092" summary="1.修复主页检查bug（使用的中文名图片）">
+      <option name="closed" value="true" />
+      <created>1727408258251</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1727408258251</updated>
+    </task>
+    <task id="LOCAL-00093" summary="1.修复采集采铁失败bug&#10;2.修复采集判定不准确bug&#10;3.修复单项执行时间小于10s不生效bug&#10;4.修复采集出兵bug">
+      <option name="closed" value="true" />
+      <created>1727420129812</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1727420129812</updated>
+    </task>
+    <task id="LOCAL-00094" summary="1.单项训练开始按钮不变bug">
+      <option name="closed" value="true" />
+      <created>1727425247151</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1727425247151</updated>
+    </task>
+    <task id="LOCAL-00095" summary="1.上传图片">
+      <option name="closed" value="true" />
+      <created>1727425292041</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1727425292041</updated>
+    </task>
+    <task id="LOCAL-00096" summary="1.上传新代码">
+      <option name="closed" value="true" />
+      <created>1728353128966</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1728353128967</updated>
+    </task>
+    <task id="LOCAL-00097" summary="1.更新删除旧版本（旧的更新程序）&#10;2.添加使用说明&#10;3.添加更新公告">
+      <option name="closed" value="true" />
+      <created>1728366038257</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1728366038257</updated>
+    </task>
+    <task id="LOCAL-00098" summary="1.更新优化&#10;2.招募bug修复">
+      <option name="closed" value="true" />
+      <created>1728440870921</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1728440870921</updated>
+    </task>
+    <task id="LOCAL-00099" summary="1.提交新版本窗口文件">
+      <option name="closed" value="true" />
+      <created>1728541224399</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1728541224400</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UpdateCopyrightCheckinHandler">
+    <option name="UPDATE_COPYRIGHT" value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/bug修复" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/master" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="HIGHLIGHTERS">
+                <map>
+                  <entry key="CURRENT_BRANCH" value="false" />
+                  <entry key="MERGE_COMMITS" value="false" />
+                  <entry key="MY_COMMITS" value="false" />
+                </map>
+              </option>
+              <option name="LONG_EDGES_VISIBLE" value="true" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1.新增英雄招募" />
+    <MESSAGE value="1.优化单项等待时间(小于10s判断）" />
+    <MESSAGE value="1.优化执行巨熊期间不会进行其他出兵任务" />
+    <MESSAGE value="1.优化启动模拟器判断（地址）" />
+    <MESSAGE value="1.新增自定义输入模拟器地址" />
+    <MESSAGE value="1.修复模拟器输入框内容一直叠加bug" />
+    <MESSAGE value="1.新增自定义模拟器选项&#10;2.新增服务器，更新文件脚本" />
+    <MESSAGE value="1.删除注释代码" />
+    <MESSAGE value="1.删除无效引用" />
+    <MESSAGE value="1.调整UI布局，添加背景" />
+    <MESSAGE value="1.优化招募" />
+    <MESSAGE value="1.布局调整（未完成）" />
+    <MESSAGE value="1.布局调整（已完成）&#10;2.添加背景&#10;3.添加控件隐藏功能" />
+    <MESSAGE value="1.布局调整&#10;2.服务器地址调整&#10;3.优化" />
+    <MESSAGE value="1.更新程序调整&#10;2.版本号动态调整" />
+    <MESSAGE value="1.修改图片名称&#10;2.优化代码" />
+    <MESSAGE value="1.修复隐藏UI后版本号错误bug" />
+    <MESSAGE value="1.修复主页检查bug（使用的中文名图片）" />
+    <MESSAGE value="1.修复采集采铁失败bug&#10;2.修复采集判定不准确bug&#10;3.修复单项执行时间小于10s不生效bug&#10;4.修复采集出兵bug" />
+    <MESSAGE value="1.单项训练开始按钮不变bug" />
+    <MESSAGE value="1.上传图片" />
+    <MESSAGE value="1.上传新代码" />
+    <MESSAGE value="1.更新删除旧版本（旧的更新程序）&#10;2.添加使用说明&#10;3.添加更新公告" />
+    <MESSAGE value="1.更新优化&#10;2.招募bug修复" />
+    <MESSAGE value="1.提交新版本窗口文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.提交新版本窗口文件" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$USER_HOME$/AppData/Local/Programs/Python/Python39/Lib/tkinter/scrolledtext.py</url>
+          <line>25</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/wijd_release_py$wjdr_release__1_.coverage" NAME="wjdr_release (1) 覆盖结果" MODIFIED="1727425449257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$wijd_release__1_.coverage" NAME="wijd_release (1) 覆盖结果" MODIFIED="1723623702130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$threading.coverage" NAME="threading 覆盖结果" MODIFIED="1723195394417" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/AppData/Local/Programs/Python/Python39/Lib" />
+    <SUITE FILE_PATH="coverage/Wjdr$test.coverage" NAME="test 覆盖结果" MODIFIED="1722912376032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$python_server.coverage" NAME="python_server 覆盖结果" MODIFIED="1728011093997" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Wjdr$wijd_release.coverage" NAME="wijd_release 覆盖结果" MODIFIED="1723021473099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$wjdr.coverage" NAME="wjdr 覆盖结果" MODIFIED="1724665831586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Wjdr$.coverage" NAME=" 覆盖结果" MODIFIED="1722229846776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$test1.coverage" NAME="test1 覆盖结果" MODIFIED="1728535544790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/evnv1" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$untitled.coverage" NAME="untitled 覆盖结果" MODIFIED="1728554763965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/evnv1" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$wjdr_release.coverage" NAME="wjdr_release 覆盖结果" MODIFIED="1728554757042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$Get_files.coverage" NAME="Get_files 覆盖结果" MODIFIED="1728439542800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$gongxiang.coverage" NAME="gongxiang 覆盖结果" MODIFIED="1726737001407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$test.coverage" NAME="test 覆盖结果" MODIFIED="1728359430160" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Wjdr$windows.coverage" NAME="windows 覆盖结果" MODIFIED="1722490823265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$wijd_release.coverage" NAME="wijd_release 覆盖结果" MODIFIED="1724659733958" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Wjdr$wjdr.coverage" NAME="wjdr 覆盖结果" MODIFIED="1722478626708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>

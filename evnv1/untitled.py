@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import icon_rc
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -18,9 +18,12 @@ class Ui_MainWindow(object):
         MainWindow.resize(960, 540)
         MainWindow.setAcceptDrops(False)
         MainWindow.setLayoutDirection(QtCore.Qt.LeftToRight)
-        MainWindow.setAutoFillBackground(True)
+        MainWindow.setAutoFillBackground(False)
+        MainWindow.setStyleSheet("")
         MainWindow.setDocumentMode(False)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setEnabled(True)
+        self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(0, 30, 461, 41))
@@ -86,10 +89,16 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.frame_3)
         self.label.setGeometry(QtCore.QRect(10, 10, 81, 16))
         self.label.setObjectName("label")
-        self.checkBox = QtWidgets.QCheckBox(self.frame_3)
-        self.checkBox.setGeometry(QtCore.QRect(20, 30, 71, 16))
-        self.checkBox.setObjectName("checkBox")
-        self.checkBox.setStyleSheet('border: 1px solid rgba(0, 0, 0, 0)')
+        self.help_select = QtWidgets.QCheckBox(self.frame_3)
+        self.help_select.setGeometry(QtCore.QRect(20, 30, 71, 16))
+        self.help_select.setAutoFillBackground(False)
+        self.help_select.setStyleSheet("")
+        self.help_select.setCheckable(False)
+        self.help_select.setChecked(False)
+        self.help_select.setAutoRepeat(False)
+        self.help_select.setAutoExclusive(False)
+        self.help_select.setTristate(False)
+        self.help_select.setObjectName("help_select")
         self.checkBox_2 = QtWidgets.QCheckBox(self.frame_3)
         self.checkBox_2.setGeometry(QtCore.QRect(110, 30, 71, 16))
         self.checkBox_2.setObjectName("checkBox_2")
@@ -107,6 +116,13 @@ class Ui_MainWindow(object):
         self.checkBox_6.setObjectName("checkBox_6")
         self.checkBox_7 = QtWidgets.QCheckBox(self.frame_3)
         self.checkBox_7.setGeometry(QtCore.QRect(290, 60, 71, 16))
+        self.checkBox_7.setMouseTracking(True)
+        self.checkBox_7.setTabletTracking(False)
+        self.checkBox_7.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.checkBox_7.setStyleSheet("")
+        self.checkBox_7.setCheckable(False)
+        self.checkBox_7.setChecked(False)
+        self.checkBox_7.setTristate(False)
         self.checkBox_7.setObjectName("checkBox_7")
         self.checkBox_8 = QtWidgets.QCheckBox(self.frame_3)
         self.checkBox_8.setGeometry(QtCore.QRect(20, 60, 71, 16))
@@ -150,22 +166,33 @@ class Ui_MainWindow(object):
         self.pushButton_6 = QtWidgets.QPushButton(self.frame_3)
         self.pushButton_6.setGeometry(QtCore.QRect(90, 150, 75, 23))
         self.pushButton_6.setObjectName("pushButton_6")
-        self.pushButton_7 = QtWidgets.QPushButton(self.frame_3)
-        self.pushButton_7.setGeometry(QtCore.QRect(190, 150, 75, 23))
-        self.pushButton_7.setObjectName("pushButton_7")
         self.pushButton_8 = QtWidgets.QPushButton(self.frame_3)
         self.pushButton_8.setGeometry(QtCore.QRect(290, 150, 75, 23))
         self.pushButton_8.setObjectName("pushButton_8")
+        self.pushButton_9 = QtWidgets.QPushButton(self.frame_3)
+        self.pushButton_9.setGeometry(QtCore.QRect(190, 150, 75, 23))
+        self.pushButton_9.setObjectName("pushButton_9")
+        self.pushButton_7 = QtWidgets.QPushButton(self.frame_3)
+        self.pushButton_7.setGeometry(QtCore.QRect(190, 150, 75, 23))
+        self.pushButton_7.setCheckable(True)
+        self.pushButton_7.setChecked(True)
+        self.pushButton_7.setObjectName("pushButton_7")
+        self.listView = QtWidgets.QListView(self.centralwidget)
+        self.listView.setGeometry(QtCore.QRect(-2, -1, 971, 553))
+        self.listView.setStyleSheet("background-image: url(:/11(1).png)")
+        self.listView.setObjectName("listView")
+        self.listView.raise_()
+        self.frame.raise_()
+        self.frame_2.raise_()
+        self.frame_3.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 960, 23))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+        self.pushButton_7.clicked.connect(self.pushButton_9.show) # type: ignore
+        self.pushButton_9.clicked.connect(self.pushButton_7.show) # type: ignore
+        self.pushButton_7.clicked.connect(self.pushButton_7.hide) # type: ignore
+        self.pushButton_9.clicked.connect(self.pushButton_9.hide) # type: ignore
+        self.pushButton_6.clicked.connect(self.label.lower) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -179,7 +206,7 @@ class Ui_MainWindow(object):
         self.pushButton_4.setText(_translate("MainWindow", "启动游戏"))
         self.pushButton_5.setText(_translate("MainWindow", "一键启动"))
         self.label.setText(_translate("MainWindow", "复选项（多选）"))
-        self.checkBox.setText(_translate("MainWindow", "哈哈打"))
+        self.help_select.setText(_translate("MainWindow", "联盟互助"))
         self.checkBox_2.setText(_translate("MainWindow", "CheckBox"))
         self.checkBox_3.setText(_translate("MainWindow", "CheckBox"))
         self.checkBox_4.setText(_translate("MainWindow", "CheckBox"))
@@ -200,21 +227,10 @@ class Ui_MainWindow(object):
         self.checkBox_19.setText(_translate("MainWindow", "CheckBox"))
         self.checkBox_20.setText(_translate("MainWindow", "CheckBox"))
         self.pushButton_6.setText(_translate("MainWindow", "全选"))
-        self.pushButton_7.setText(_translate("MainWindow", "开始"))
         self.pushButton_8.setText(_translate("MainWindow", "取消全选"))
-
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("背景图片示例")
-        self.set_background_image('11(1).png')  # 替换为您的图片路径
-
-    def set_background_image(self, image_path):
-        # 设置窗口的背景图片
-        palette = QPalette()
-        palette.setBrush(QPalette.Background, QBrush(QPixmap(image_path)))
-        self.setPalette(palette)
-
-
+        self.pushButton_9.setText(_translate("MainWindow", "停止"))
+        self.pushButton_7.setText(_translate("MainWindow", "开始"))
+import icon_rc
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPalette, QBrush, QPixmap

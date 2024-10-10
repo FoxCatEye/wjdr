@@ -26,7 +26,7 @@ current_file_path = os.path.abspath(__file__)
 # 获取当前文件夹的上一级目录的绝对路径(本地）
 #parent_directory_path = os.path.dirname(os.path.dirname(current_file_path))
 # 上一级文件夹中要删除的文件名
-file_to_delete = '无尽冬日.exe'
+file_to_delete = 'jiaoben-1.2.1.exe'
 
 # 构建要删除的文件的绝对路径(本地）
 #file_path_to_delete = os.path.join(current_file_path, file_to_delete)

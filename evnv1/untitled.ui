@@ -23,19 +23,21 @@
    <enum>Qt::LeftToRight</enum>
   </property>
   <property name="autoFillBackground">
-   <bool>true</bool>
+   <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">#QMainWindow{background-image: url(:/11(1).png);
-background-repeat: no-repeat;
-background-position: center;
-background-attachment: fixed;
-background-size: cover;}</string>
+   <string notr="true"/>
   </property>
   <property name="documentMode">
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
@@ -247,7 +249,7 @@ background-size: cover;}</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="select_text">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -260,7 +262,7 @@ background-size: cover;}</string>
       <string>复选项（多选）</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="checkBox_help">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -269,8 +271,14 @@ background-size: cover;}</string>
        <height>16</height>
       </rect>
      </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="text">
-      <string>CheckBox</string>
+      <string>联盟互助</string>
      </property>
      <property name="checkable">
       <bool>false</bool>
@@ -278,11 +286,20 @@ background-size: cover;}</string>
      <property name="checked">
       <bool>false</bool>
      </property>
-     <property name="tristate">
-      <bool>true</bool>
+     <property name="autoRepeat">
+      <bool>false</bool>
      </property>
+     <property name="autoExclusive">
+      <bool>false</bool>
+     </property>
+     <property name="tristate">
+      <bool>false</bool>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
-    <widget class="QCheckBox" name="checkBox_2">
+    <widget class="QCheckBox" name="checkBox_XG">
      <property name="geometry">
       <rect>
        <x>110</x>
@@ -294,8 +311,11 @@ background-size: cover;}</string>
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
-    <widget class="QCheckBox" name="checkBox_3">
+    <widget class="QCheckBox" name="checkBox_WM">
      <property name="geometry">
       <rect>
        <x>200</x>
@@ -307,8 +327,11 @@ background-size: cover;}</string>
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
-    <widget class="QCheckBox" name="checkBox_4">
+    <widget class="QCheckBox" name="checkBox_npc">
      <property name="geometry">
       <rect>
        <x>290</x>
@@ -320,8 +343,11 @@ background-size: cover;}</string>
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
-    <widget class="QCheckBox" name="checkBox_5">
+    <widget class="QCheckBox" name="checkBox_Production">
      <property name="geometry">
       <rect>
        <x>380</x>
@@ -333,6 +359,9 @@ background-size: cover;}</string>
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QCheckBox" name="checkBox_6">
      <property name="geometry">
@@ -346,6 +375,9 @@ background-size: cover;}</string>
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QCheckBox" name="checkBox_7">
      <property name="geometry">
@@ -366,10 +398,7 @@ background-size: cover;}</string>
       <enum>Qt::StrongFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">width: 20px;
-height: 20px;
-border-radius: 10px;
-</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>CheckBox</string>
@@ -383,6 +412,9 @@ border-radius: 10px;
      <property name="tristate">
       <bool>false</bool>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QCheckBox" name="checkBox_8">
      <property name="geometry">
@@ -396,6 +428,9 @@ border-radius: 10px;
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QCheckBox" name="checkBox_9">
      <property name="geometry">
@@ -409,6 +444,9 @@ border-radius: 10px;
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QCheckBox" name="checkBox_10">
      <property name="geometry">
@@ -422,6 +460,9 @@ border-radius: 10px;
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QCheckBox" name="checkBox_11">
      <property name="geometry">
@@ -435,6 +476,9 @@ border-radius: 10px;
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QCheckBox" name="checkBox_12">
      <property name="geometry">
@@ -448,6 +492,9 @@ border-radius: 10px;
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QCheckBox" name="checkBox_13">
      <property name="geometry">
@@ -461,6 +508,9 @@ border-radius: 10px;
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QCheckBox" name="checkBox_14">
      <property name="geometry">
@@ -474,6 +524,9 @@ border-radius: 10px;
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QCheckBox" name="checkBox_15">
      <property name="geometry">
@@ -487,32 +540,9 @@ border-radius: 10px;
      <property name="text">
       <string>CheckBox</string>
      </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_16">
-     <property name="geometry">
-      <rect>
-       <x>380</x>
-       <y>120</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>CheckBox</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_17">
-     <property name="geometry">
-      <rect>
-       <x>290</x>
-       <y>120</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>CheckBox</string>
-     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QCheckBox" name="checkBox_18">
      <property name="geometry">
@@ -526,6 +556,9 @@ border-radius: 10px;
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
     <widget class="QCheckBox" name="checkBox_19">
      <property name="geometry">
@@ -539,21 +572,11 @@ border-radius: 10px;
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <attribute name="buttonGroup">
+      <string notr="true">buttonGroup</string>
+     </attribute>
     </widget>
-    <widget class="QCheckBox" name="checkBox_20">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>120</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>CheckBox</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_6">
+    <widget class="QPushButton" name="select_all">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -566,20 +589,7 @@ border-radius: 10px;
       <string>全选</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_7">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>150</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>开始</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_8">
+    <widget class="QPushButton" name="select_unall">
      <property name="geometry">
       <rect>
        <x>290</x>
@@ -592,23 +602,148 @@ border-radius: 10px;
       <string>取消全选</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="select_stop">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>150</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>停止</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="select_start">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>150</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>开始</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
+   <widget class="QListView" name="listView">
+    <property name="geometry">
+     <rect>
+      <x>-2</x>
+      <y>-1</y>
+      <width>971</width>
+      <height>553</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/11(1).png)</string>
+    </property>
+   </widget>
+   <zorder>listView</zorder>
+   <zorder>frame</zorder>
+   <zorder>frame_2</zorder>
+   <zorder>frame_3</zorder>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>960</width>
-     <height>23</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
   <include location="icon.qrc"/>
-  <include location="style.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>select_stop</sender>
+   <signal>clicked()</signal>
+   <receiver>select_start</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>217</x>
+     <y>381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>227</x>
+     <y>311</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>select_all</sender>
+   <signal>clicked()</signal>
+   <receiver>buttonGroup</receiver>
+   <slot>deleteLater()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>127</x>
+     <y>311</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>select_start</sender>
+   <signal>clicked()</signal>
+   <receiver>select_stop</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>227</x>
+     <y>311</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>217</x>
+     <y>381</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>select_start</sender>
+   <signal>clicked()</signal>
+   <receiver>select_start</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>227</x>
+     <y>311</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>227</x>
+     <y>311</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>select_stop</sender>
+   <signal>clicked()</signal>
+   <receiver>select_stop</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>227</x>
+     <y>311</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>227</x>
+     <y>311</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <buttongroups>
+  <buttongroup name="buttonGroup">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
+ </buttongroups>
 </ui>
