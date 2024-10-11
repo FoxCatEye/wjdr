@@ -5,12 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de39eb93-af8a-454c-9dc0-a6f45736e968" name="更改" comment="1.提交新版本窗口文件">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evnv1/icon_rc.py" beforeDir="false" afterPath="$PROJECT_DIR$/evnv1/icon_rc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evnv1/style.qrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evnv1/11(1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/evnv1/11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/evnv1/22.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/evnv1/icon.qrc" beforeDir="false" afterPath="$PROJECT_DIR$/evnv1/icon.qrc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evnv1/untitled.py" beforeDir="false" afterPath="$PROJECT_DIR$/evnv1/untitled.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evnv1/untitled.ui" beforeDir="false" afterPath="$PROJECT_DIR$/evnv1/untitled.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wjdr_release.py" beforeDir="false" afterPath="$PROJECT_DIR$/wjdr_release.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -357,14 +358,8 @@
       <workItem from="1728530218093" duration="8775000" />
       <workItem from="1728541360231" duration="1199000" />
       <workItem from="1728547075870" duration="4540000" />
-    </task>
-    <task id="LOCAL-00051" summary="1.微调自定义设置UI">
-      <option name="closed" value="true" />
-      <created>1724129173130</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1724129173130</updated>
+      <workItem from="1728555021761" duration="280000" />
+      <workItem from="1728620952045" duration="3022000" />
     </task>
     <task id="LOCAL-00052" summary="1.修改图标位置">
       <option name="closed" value="true" />
@@ -750,7 +745,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728541224400</updated>
     </task>
-    <option name="localTasksCounter" value="100" />
+    <task id="LOCAL-00100" summary="1.提交新版本窗口文件">
+      <option name="closed" value="true" />
+      <created>1728555291421</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1728555291421</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -874,8 +877,8 @@
     <SUITE FILE_PATH="coverage/Wjdr$wijd_release.coverage" NAME="wijd_release 覆盖结果" MODIFIED="1723021473099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/wijd_release_py$wjdr.coverage" NAME="wjdr 覆盖结果" MODIFIED="1724665831586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Wjdr$.coverage" NAME=" 覆盖结果" MODIFIED="1722229846776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/wijd_release_py$test1.coverage" NAME="test1 覆盖结果" MODIFIED="1728535544790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/evnv1" />
-    <SUITE FILE_PATH="coverage/wijd_release_py$untitled.coverage" NAME="untitled 覆盖结果" MODIFIED="1728554763965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/evnv1" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$test1.coverage" NAME="test1 覆盖结果" MODIFIED="1728625605563" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/evnv1" />
+    <SUITE FILE_PATH="coverage/wijd_release_py$untitled.coverage" NAME="untitled 覆盖结果" MODIFIED="1728625930236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/evnv1" />
     <SUITE FILE_PATH="coverage/wijd_release_py$wjdr_release.coverage" NAME="wjdr_release 覆盖结果" MODIFIED="1728554757042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/wijd_release_py$Get_files.coverage" NAME="Get_files 覆盖结果" MODIFIED="1728439542800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/wijd_release_py$gongxiang.coverage" NAME="gongxiang 覆盖结果" MODIFIED="1726737001407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
