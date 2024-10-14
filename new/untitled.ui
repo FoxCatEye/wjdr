@@ -55,7 +55,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">#frame{border:1px solid rgb(0,255,0)}</string>
+     <string notr="true"/>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -74,6 +74,29 @@
      </property>
      <property name="autoFillBackground">
       <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox {background-color: rgba(255, 255, 255, 0); /* 白色背景，150为透明度 */
+    border: 1px solid rgb(0,255,0); /* 边框样式 */}
+QComboBox:editable {
+    background-color: rgba(255, 255, 255, 0); /* 编辑状态下的背景透明度 */
+}
+ QComboBox:!editable:on, QComboBox:editable:on {
+    background-color: rgba(255, 255, 255, 0); /* 下拉箭头按下时的背景透明度 */
+}
+ QComboBox:on { /* 下拉箭头按下时的背景透明度 */
+    background-color: rgba(255, 255, 255, 0);
+}
+ QComboBox:on:editable {
+    background-color: rgba(255, 255, 255, 0); /* 编辑状态下的下拉箭头按下时的背景透明度 */
+}
+ QComboBox:down-arrow {
+    image: url(:/icon/icon/tpl1721784527077.png); /* 自定义下拉箭头图标 */
+}
+ QComboBox QAbstractItemView {
+    background-color: rgba(255, 255, 255, 0); /* 下拉列表背景透明度 */
+    border: 1px solid gray; /* 下拉列表边框样式 */
+}</string>
      </property>
      <item>
       <property name="text">
@@ -155,6 +178,9 @@
      <property name="autoFillBackground">
       <bool>false</bool>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border:1px solid rgb(0,255,0)</string>
+     </property>
      <property name="text">
       <string>保存</string>
      </property>
@@ -224,7 +250,7 @@
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">#frame_2{border:1px solid rgb(0,255,0)}</string>
+     <string notr="true"/>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -238,7 +264,7 @@
     <property name="midLineWidth">
      <number>0</number>
     </property>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="start_simulator">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -247,6 +273,9 @@
        <height>23</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border:1px solid rgb(0,255,0)</string>
+     </property>
      <property name="text">
       <string>启动模拟器</string>
      </property>
@@ -254,7 +283,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_3">
+    <widget class="QPushButton" name="connect_simulator">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -263,6 +292,9 @@
        <height>23</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border:1px solid rgb(0,255,0)</string>
+     </property>
      <property name="text">
       <string>连接模拟器</string>
      </property>
@@ -270,7 +302,10 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="start_game">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>260</x>
@@ -279,8 +314,14 @@
        <height>23</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border:1px solid rgb(0,255,0)</string>
+     </property>
      <property name="text">
       <string>启动游戏</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
      </property>
      <property name="autoDefault">
       <bool>false</bool>
@@ -292,7 +333,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_5">
+    <widget class="QPushButton" name="simulator_start_all">
      <property name="geometry">
       <rect>
        <x>380</x>
@@ -300,6 +341,9 @@
        <width>75</width>
        <height>23</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border:1px solid rgb(0,255,0)</string>
      </property>
      <property name="text">
       <string>一键启动</string>
@@ -325,7 +369,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">#frame_3{border:1px solid rgb(0,255,0)}</string>
+     <string notr="true"/>
     </property>
     <property name="frameShape">
      <enum>QFrame::NoFrame</enum>
@@ -355,6 +399,12 @@
        <height>16</height>
       </rect>
      </property>
+     <property name="cursor">
+      <cursorShape>CrossCursor</cursorShape>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
      <property name="autoFillBackground">
       <bool>false</bool>
      </property>
@@ -365,10 +415,10 @@
       <string>联盟互助</string>
      </property>
      <property name="checkable">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="checked">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="autoRepeat">
       <bool>false</bool>
@@ -479,7 +529,7 @@
       <bool>false</bool>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox_8">
+    <widget class="QCheckBox" name="checkBox_build">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -553,6 +603,9 @@
        <height>23</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border:1px solid rgb(0,255,0)</string>
+     </property>
      <property name="text">
       <string>全选</string>
      </property>
@@ -568,6 +621,9 @@
        <width>75</width>
        <height>23</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border:1px solid rgb(0,255,0)</string>
      </property>
      <property name="text">
       <string>取消全选</string>
@@ -587,6 +643,9 @@
        <width>75</width>
        <height>23</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border:1px solid rgb(0,255,0)</string>
      </property>
      <property name="text">
       <string>停止</string>
@@ -615,6 +674,9 @@
      </property>
      <property name="autoFillBackground">
       <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border:1px solid rgb(0,255,0)</string>
      </property>
      <property name="text">
       <string>开始</string>
@@ -659,7 +721,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">#frame_4{border:1px solid rgb(0,255,0)}</string>
+     <string notr="true"/>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -884,6 +946,9 @@
        <height>23</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border:1px solid rgb(0,255,0)</string>
+     </property>
      <property name="text">
       <string>停止</string>
      </property>
@@ -919,7 +984,7 @@
       <bool>false</bool>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">border:1px solid rgb(0,255,0)</string>
      </property>
      <property name="text">
       <string>开始</string>
@@ -962,6 +1027,12 @@
        <height>21</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background: transparent</string>
+     </property>
+     <property name="clearButtonEnabled">
+      <bool>false</bool>
+     </property>
     </widget>
     <widget class="QLabel" name="label_4">
      <property name="geometry">
@@ -985,6 +1056,9 @@
        <height>21</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background: transparent</string>
+     </property>
     </widget>
     <widget class="QPushButton" name="pushButton_9">
      <property name="enabled">
@@ -1003,6 +1077,9 @@
      </property>
      <property name="tabletTracking">
       <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border:1px solid rgb(0,255,0)</string>
      </property>
      <property name="text">
       <string>设置</string>
@@ -1028,7 +1105,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">#frame_5{border:1px solid rgb(0,255,0)}</string>
+     <string notr="true"/>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>

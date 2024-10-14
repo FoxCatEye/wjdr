@@ -1,12 +1,16 @@
-
+import logging
 from PyQt5 import QtCore, QtGui, QtWidgets
 import threading
 import time
 import subprocess
 import os
-from airtest.core.api import connect_device
 
-
+from PyQt5.QtCore import QTimer
+from airtest.core.api import connect_device, touch
+from airtest.core.cv import Template
+logging.getLogger('airtest').setLevel(logging.ERROR)
+def print_space(variable, spaces=4):
+    print(' ' * spaces + str(variable))
 def start_exe():    #启动模拟器
     while True:
         try:
@@ -23,30 +27,21 @@ def cnnect():   #连接模拟器
     emulator_click = 1
     a = 1
     while a > 0:  # 连接模拟器
-        print('%d.开始尝试连接模拟器' % a)
-        #os.popen('adb start-server')
-        print('地址：android:// 127.0.0.1:5037')
-        # print('地址：android:// %s' % str(set_ip.get()))
-        connect_device('android://127.0.0.1:5037')
-        # connect_device('android://%s'%set_ip.get())
-        #subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
-        time.sleep(5)
-        print('连接模拟器成功!!!')
         a = 0
         try:
             print('%d.开始尝试连接模拟器' % a)
             #os.popen('adb start-server')
-            print('地址：android:// 127.0.0.1:5037')
+            print_space('地址：android:// 127.0.0.1:5037')
             #print('地址：android:// %s' % str(set_ip.get()))
             connect_device('android://127.0.0.1:5037')
             #connect_device('android://%s'%set_ip.get())
             #subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
             time.sleep(5)
-            print('连接模拟器成功!!!')
+            print_space('连接模拟器成功!!!')
             a = 0
         except:
             a += 1
-            print('未连接到模拟器，5s后尝试重新连接')
+            print_space('未连接到模拟器，5s后尝试重新连接')
             time.sleep(5)
 def start_app():    #启动APP
     global emulator_click
@@ -85,7 +80,7 @@ def start_simple(button_start_id):      #模拟器启动相关
         '''连接模拟器线程'''
         threading.Thread(target=cnnect).start()  # threading.Thread(target=cnnect).join()
     elif button_start_id == 3:
-        start_app_button.configure(text='再次启动app', command=lambda: start_simple(3))
+        #start_app_button.configure(text='再次启动app', command=lambda: start_simple(3))
         # start_app()
         '''启动app线程'''
         threading.Thread(target=start_app).start()  # threading.Thread(target=start_app).join()
@@ -102,7 +97,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(960, 540)
         MainWindow.setAcceptDrops(False)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/icon/icon/log.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/icon/icon/log.png"))
         MainWindow.setWindowIcon(icon)
         MainWindow.setLayoutDirection(QtCore.Qt.LeftToRight)
         MainWindow.setAutoFillBackground(False)
@@ -122,6 +117,15 @@ class Ui_MainWindow(object):
         self.comboBox = QtWidgets.QComboBox(self.frame)
         self.comboBox.setGeometry(QtCore.QRect(10, 10, 91, 22))
         self.comboBox.setAutoFillBackground(False)
+        #self.comboBox.setStyleSheet("background: transparent;")
+        self.comboBox.setStyleSheet("QComboBox {\n"
+                                    "    background-color: rgba(0, 0, 0, 0); /* 白色背景，150为透明度 */\n"
+                                    "    border: 1px solid rgba(0, 255, 0); /* 边框样式 */\n"
+                                    "}\n"
+                                    "QComboBox QAbstractItemView {\n"
+                                    "    background-color: transparent; /* 下拉列表背景透明度 */\n"
+                                    "    border: 1px solid rgb(0,255,0); /* 下拉列表边框样式 */\n"
+                                    "}")
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
@@ -132,32 +136,36 @@ class Ui_MainWindow(object):
         self.lineEdit.setAcceptDrops(True)
         self.lineEdit.setToolTip("")
         self.lineEdit.setAutoFillBackground(False)
-        self.lineEdit.setStyleSheet("QLineEdit {\n"
-"    background: transparent;\n"
-"}")
+        self.lineEdit.setStyleSheet("QLineEdit {\n""    background: transparent;\n""    border: 1px solid rgba(0, 255, 0); /* 边框样式 */\n""}")
         self.lineEdit.setFrame(True)
         self.lineEdit.setDragEnabled(False)
         self.lineEdit.setReadOnly(False)
         self.lineEdit.setClearButtonEnabled(False)
         self.lineEdit.setObjectName("lineEdit")
-        self.pushButton = QtWidgets.QPushButton(self.frame)
-        self.pushButton.setEnabled(True)
-        self.pushButton.setGeometry(QtCore.QRect(380, 10, 75, 23))
-        self.pushButton.setMouseTracking(False)
-        self.pushButton.setTabletTracking(False)
-        self.pushButton.setAcceptDrops(False)
-        self.pushButton.setToolTip("")
-        self.pushButton.setAutoFillBackground(False)
-        self.pushButton.setCheckable(False)
-        self.pushButton.setChecked(False)
-        self.pushButton.setAutoRepeat(False)
-        self.pushButton.setAutoExclusive(False)
-        self.pushButton.setAutoDefault(False)
-        self.pushButton.setDefault(False)
-        self.pushButton.setFlat(True)
-        self.pushButton.setStyleSheet("border:1px solid rgb(0,255,0)")
-        self.pushButton.setObjectName("pushButton")
-
+        self.save_simulator = QtWidgets.QPushButton(self.frame)
+        self.save_simulator.setEnabled(True)
+        self.save_simulator.setGeometry(QtCore.QRect(380, 10, 75, 23))
+        self.save_simulator.setMouseTracking(False)
+        self.save_simulator.setTabletTracking(False)
+        self.save_simulator.setAcceptDrops(False)
+        self.save_simulator.setToolTip("")
+        self.save_simulator.setAutoFillBackground(False)
+        self.save_simulator.setCheckable(False)
+        self.save_simulator.setChecked(False)
+        self.save_simulator.setAutoRepeat(False)
+        self.save_simulator.setAutoExclusive(False)
+        self.save_simulator.setAutoDefault(False)
+        self.save_simulator.setDefault(False)
+        self.save_simulator.setFlat(True)
+        self.save_simulator.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
+                                      "}"
+                                      "QPushButton:hover {\n"
+                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                      "}\n"
+                                      "QPushButton:pressed {\n"
+                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                      "}\n")
+        self.save_simulator.setObjectName("pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.frame_2.setGeometry(QtCore.QRect(10, 160, 461, 41))
         self.frame_2.setMinimumSize(QtCore.QSize(0, 0))
@@ -174,30 +182,30 @@ class Ui_MainWindow(object):
         self.frame_2.setLineWidth(1)
         self.frame_2.setMidLineWidth(0)
         self.frame_2.setObjectName("frame_2")
-        self.pushButton_2 = QtWidgets.QPushButton(self.frame_2)
-        self.pushButton_2.setGeometry(QtCore.QRect(10, 10, 75, 23))
-        self.pushButton_2.setFlat(True)
-        self.pushButton_2.setStyleSheet("border:1px solid rgb(0,255,0)")
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_3 = QtWidgets.QPushButton(self.frame_2)
-        self.pushButton_3.setGeometry(QtCore.QRect(130, 10, 75, 23))
-        self.pushButton_3.setFlat(True)
-        self.pushButton_3.setStyleSheet("border:1px solid rgb(0,255,0)")
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_4 = QtWidgets.QPushButton(self.frame_2)
-        self.pushButton_4.setGeometry(QtCore.QRect(260, 10, 75, 23))
-        self.pushButton_4.setAutoDefault(False)
-        self.pushButton_4.setDefault(False)
-        self.pushButton_4.setFlat(True)
-        self.pushButton_4.setStyleSheet("border:1px solid rgb(0,255,0)")
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_5 = QtWidgets.QPushButton(self.frame_2)
-        self.pushButton_5.setGeometry(QtCore.QRect(380, 10, 75, 23))
-        self.pushButton_5.setAutoDefault(False)
-        self.pushButton_5.setDefault(False)
-        self.pushButton_5.setFlat(True)
-        self.pushButton_5.setStyleSheet("border:1px solid rgb(0,255,0)")
-        self.pushButton_5.setObjectName("pushButton_5")
+        self.start_simulator = QtWidgets.QPushButton(self.frame_2)
+        self.start_simulator.setGeometry(QtCore.QRect(10, 10, 75, 23))
+        self.start_simulator.setFlat(True)
+        self.start_simulator.setStyleSheet("border:1px solid rgb(0,255,0)")
+        self.start_simulator.setObjectName("start_simulator")
+        self.connect_simulator = QtWidgets.QPushButton(self.frame_2)
+        self.connect_simulator.setGeometry(QtCore.QRect(130, 10, 75, 23))
+        self.connect_simulator.setFlat(True)
+        self.connect_simulator.setStyleSheet("border:1px solid rgb(0,255,0)")
+        self.connect_simulator.setObjectName("connect_simulator")
+        self.start_game = QtWidgets.QPushButton(self.frame_2)
+        self.start_game.setGeometry(QtCore.QRect(260, 10, 75, 23))
+        self.start_game.setAutoDefault(False)
+        self.start_game.setDefault(False)
+        self.start_game.setFlat(True)
+        self.start_game.setStyleSheet("border:1px solid rgb(0,255,0)")
+        self.start_game.setObjectName("start_game")
+        self.simulator_start_all = QtWidgets.QPushButton(self.frame_2)
+        self.simulator_start_all.setGeometry(QtCore.QRect(380, 10, 75, 23))
+        self.simulator_start_all.setAutoDefault(False)
+        self.simulator_start_all.setDefault(False)
+        self.simulator_start_all.setFlat(True)
+        self.simulator_start_all.setStyleSheet("border:1px solid rgb(0,255,0)")
+        self.simulator_start_all.setObjectName("simulator_start_all")
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
         self.frame_3.setGeometry(QtCore.QRect(10, 270, 461, 191))
         #self.frame_3.setStyleSheet("#frame_3{border:1px solid rgb(0,255,0)}")
@@ -210,7 +218,8 @@ class Ui_MainWindow(object):
         self.checkBox_help = QtWidgets.QCheckBox(self.frame_3)#互助
         self.checkBox_help.setGeometry(QtCore.QRect(20, 30, 71, 16))
         self.checkBox_help.setAutoFillBackground(False)
-        self.checkBox_help.setStyleSheet("")
+        self.checkBox_help.setStyleSheet("QCheckBox:indicator:checked {background-color: transparent;border:1px solid rgb(0,255,0)}"
+        "QCheckBox:indicator {background-color: transparent;border:1px solid rgb(0,0,0)}")
         self.checkBox_help.setAutoRepeat(False)
         self.checkBox_help.setAutoExclusive(False)
         self.checkBox_help.setTristate(False)
@@ -218,6 +227,7 @@ class Ui_MainWindow(object):
         self.checkBox_XG = QtWidgets.QCheckBox(self.frame_3)#野怪
         self.checkBox_XG.setGeometry(QtCore.QRect(110, 30, 71, 16))
         self.checkBox_XG.setObjectName("checkBox_XG")
+        self.checkBox_XG.setStyleSheet("background-color: transparent")
         self.checkBox_WM = QtWidgets.QCheckBox(self.frame_3)#冰原巨兽
         self.checkBox_WM.setGeometry(QtCore.QRect(200, 30, 71, 16))
         self.checkBox_WM.setObjectName("checkBox_WM")
@@ -259,6 +269,7 @@ class Ui_MainWindow(object):
         self.select_all.setGeometry(QtCore.QRect(90, 150, 75, 23))
         self.select_all.setFlat(True)
         self.select_all.setObjectName("select_all")
+        self.select_all.setStyleSheet("select_all:hover { background-color: blue; color: white; }")
         self.select_all.setStyleSheet("border:1px solid rgb(0,255,0)")
         self.select_unall = QtWidgets.QPushButton(self.frame_3)
         self.select_unall.setGeometry(QtCore.QRect(290, 150, 75, 23))
@@ -375,7 +386,8 @@ class Ui_MainWindow(object):
         self.lineEdit_2.setGeometry(QtCore.QRect(190, 1, 51, 21))
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.lineEdit_2.setStyleSheet("QLineEdit {\n"
-                                    "    background: transparent;\n"
+                                    "background: transparent;\n"
+                                    "border: 1px solid rgba(0, 255, 0)"
                                     "}")
         self.label_4 = QtWidgets.QLabel(self.frame_4)
         self.label_4.setGeometry(QtCore.QRect(270, 0, 54, 21))
@@ -384,7 +396,8 @@ class Ui_MainWindow(object):
         self.lineEdit_3.setGeometry(QtCore.QRect(300, 1, 31, 21))
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.lineEdit_3.setStyleSheet("QLineEdit {\n"
-                                    "    background: transparent;\n"
+                                    "background: transparent;\n"
+                                    "border: 1px solid rgba(0, 255, 0)"
                                     "}")
         self.pushButton_9 = QtWidgets.QPushButton(self.frame_4)
         self.pushButton_9.setGeometry(QtCore.QRect(380, 0, 75, 21))
@@ -400,25 +413,23 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.frame_5)
         self.label.setGeometry(QtCore.QRect(10, 10, 54, 12))
         self.label.setObjectName("label")
-        self.textBrowser = QtWidgets.QTextBrowser(self.frame_5)
-        self.textBrowser.setEnabled(False)
-        self.textBrowser.setGeometry(QtCore.QRect(10, 30, 441, 201))
-        self.textBrowser.setMouseTracking(True)
-        self.textBrowser.setTabletTracking(False)
-        self.textBrowser.setAcceptDrops(True)
-        self.textBrowser.setToolTip("")
-        self.textBrowser.setAutoFillBackground(False)
-        self.textBrowser.setStyleSheet("QTextBrowser {\n"
-"    background: transparent;\n"
-"}")
-        self.textBrowser.setTabChangesFocus(False)
-        self.textBrowser.setUndoRedoEnabled(False)
-        self.textBrowser.setReadOnly(True)
-        self.textBrowser.setOverwriteMode(False)
-        self.textBrowser.setAcceptRichText(True)
-        self.textBrowser.setOpenExternalLinks(False)
-        self.textBrowser.setOpenLinks(True)
-        self.textBrowser.setObjectName("textBrowser")
+        self.textEdit_out = QtWidgets.QTextEdit(self.frame_5)
+        self.textEdit_out.setEnabled(True)
+        self.textEdit_out.setGeometry(QtCore.QRect(10, 30, 441, 201))
+        self.textEdit_out.setMouseTracking(True)
+        self.textEdit_out.setTabletTracking(False)
+        self.textEdit_out.setAcceptDrops(True)
+        self.textEdit_out.setToolTip("")
+        self.textEdit_out.setAutoFillBackground(False)
+        self.textEdit_out.setStyleSheet("background: transparent;border:1px solid rgb(0,255,0)")
+        self.textEdit_out.setTabChangesFocus(False)
+        self.textEdit_out.setUndoRedoEnabled(False)
+        self.textEdit_out.setReadOnly(True)
+        self.textEdit_out.setOverwriteMode(False)
+        self.textEdit_out.setAcceptRichText(True)
+        #self.textEdit_out.setLineSpacing(1)
+        #self.textBrowser.setOpenLinks(True)
+        self.textEdit_out.setObjectName("textBrowser")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(890, 520, 71, 20))
         self.label_2.setObjectName("label_2")
@@ -481,12 +492,19 @@ class Ui_MainWindow(object):
         self.simple_stop.clicked.connect(self.simple_stop.hide) # type: ignore
         self.hide_UI.clicked.connect(self.hide_ui)  # type: ignore
         self.show_UI.clicked.connect(self.show_ui)  # type: ignore
-        self.pushButton_2.clicked.connect(lambda:start_simple(1))
-        self.pushButton_3.clicked.connect(lambda: start_simple(2))
-        self.pushButton_4.clicked.connect(lambda: start_simple(3))
-        self.pushButton_5.clicked.connect(lambda: start_simple(4))
+        self.start_simulator.clicked.connect(lambda:start_simple(1))
+        self.connect_simulator.clicked.connect(lambda: start_simple(2))
+        self.start_game.clicked.connect(lambda: start_simple(3))
+        self.simulator_start_all.clicked.connect(lambda: start_simple(4))
         self.select_all.clicked.connect(self.toggle_checkbox)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.comboBox.currentIndexChanged.connect(self.on_combobox_changed)
+    def on_combobox_changed(self,index):
+        if index == 0:
+            self.lineEdit.setText('模拟器地址')
+        if index == 1:
+            self.lineEdit.setText('模拟器ip')
+
     def hide_ui(self):
         self.frame.setVisible(False)
         self.frame_2.setVisible(False)
@@ -515,11 +533,11 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "无尽冬日"))
         self.comboBox.setItemText(0, _translate("MainWindow", "模拟器路径"))
         self.comboBox.setItemText(1, _translate("MainWindow", "模拟器ip"))
-        self.pushButton.setText(_translate("MainWindow", "保存"))
-        self.pushButton_2.setText(_translate("MainWindow", "启动模拟器"))
-        self.pushButton_3.setText(_translate("MainWindow", "连接模拟器"))
-        self.pushButton_4.setText(_translate("MainWindow", "启动游戏"))
-        self.pushButton_5.setText(_translate("MainWindow", "一键启动"))
+        self.save_simulator.setText(_translate("MainWindow", "保存"))
+        self.start_simulator.setText(_translate("MainWindow", "启动模拟器"))
+        self.connect_simulator.setText(_translate("MainWindow", "连接模拟器"))
+        self.start_game.setText(_translate("MainWindow", "启动游戏"))
+        self.simulator_start_all.setText(_translate("MainWindow", "一键启动"))
         self.select_text.setText(_translate("MainWindow", "复选项（多选）"))
         self.checkBox_help.setText(_translate("MainWindow", "联盟互助"))
         self.checkBox_XG.setText(_translate("MainWindow", "世界野怪"))
@@ -560,13 +578,17 @@ class Ui_MainWindow(object):
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.pushButton_7.setText(_translate("MainWindow", "更新公告"))
         self.pushButton_8.setText(_translate("MainWindow", "帮助"))
-        self.textEdit.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'宋体\',\'monospace\'; font-size:10pt; color:#000000;\">请等待程序停止后再设置相关参数</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'宋体\',\'monospace\'; font-size:10pt; color:#000000;\">多选和单选不可同时执行</span></p></body></html>"))
+        self.textEdit.setHtml(_translate("MainWindow",
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; \">请等待程序停止后再设置相关参数</span></p>\n"
+        "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; \">多选和单选不可同时执行</span></p></body>"))
+        self.textEdit.setReadOnly(True)
         self.hide_UI.setText(_translate("MainWindow", "隐藏UI"))
+
+    def write(self, text):
+        # 将text写入QTextBrowser
+        self.textEdit_out.insertPlainText(text)
+        #设置写入时不换行
+        #self.textBrowser.setLineWrapMode(0)
 import icon_rc
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
@@ -581,5 +603,8 @@ class MyApp(QMainWindow, Ui_MainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     mainWindow = MyApp()
+    # 重定向stdout和stderr
+    sys.stdout = mainWindow
+    sys.stderr = mainWindow
     mainWindow.show()
     sys.exit(app.exec_())
