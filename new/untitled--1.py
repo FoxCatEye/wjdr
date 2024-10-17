@@ -13,6 +13,7 @@ from configparser import ConfigParser
 from PyQt5.QtCore import QTimer
 from airtest.core.api import *
 from airtest.core.android.android import *
+
 logging.getLogger('airtest').setLevel(logging.ERROR)
 '''模拟器点击变量'''
 emulator_click = 0
@@ -57,10 +58,15 @@ option_treatment = config.get('Options', '治疗士兵')
 option_adventure = config.get('Options', '探险奖励')
 option_donate = config.get('Options', '联盟捐赠')
 option_recruit = config.get('Options', '英雄招募')
+
+
 #重写打印
 def print_space(variable, spaces=4):
     print(' ' * spaces + str(variable))
+
+
 '''打开模拟器'''
+
 
 def start_exe():
     while True:
@@ -117,7 +123,9 @@ def start_app():
             print('启动失败，再次尝试')
         '''else:
         print_space('游戏已启动!!!')'''
-def all_start():    #一键启动
+
+
+def all_start():  #一键启动
     start_exe()
     print('等待30s以完成模拟器的启动')
     time.sleep(30)
@@ -125,7 +133,9 @@ def all_start():    #一键启动
     print('等待10s以确保系统加载完成')
     time.sleep(10)
     start_app()
-def start_simple(button_start_id):      #模拟器启动相关
+
+
+def start_simple(button_start_id):  #模拟器启动相关
     if button_start_id == 1:
         #start_exe_button.configure(text='启动模拟器', command=lambda: start_simple(1))
         # start_exe()
@@ -145,13 +155,13 @@ def start_simple(button_start_id):      #模拟器启动相关
     else:
         print_space('错误')
 
+
 # 主页判断
 def Homepage():
     a = 1
     #try:
     while a < 4:
-        if exists(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(
-        414, 780))):
+        if exists(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(414, 780))):
             print_space("在主页，准备执行任务")  # 在主界面，执行任务
             return
         else:
@@ -160,7 +170,7 @@ def Homepage():
             if exists(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780))):
                 print_space('点击返回按钮')
                 touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
-            elif exists(Template(r'icon\return.png',threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780))):
+            elif exists(Template(r'icon\return.png', threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780))):
                 print_space('点击返回按钮')
                 touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
             elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780))):
@@ -170,8 +180,8 @@ def Homepage():
                 print_space('点击其他区域')
                 touch([500, 600])  # 不在主界面，返回到主页
         if stop_event.is_set():
-            start_button_simple.configure(text='开始', command=save_simple_start_button)
-                #break
+            main_class = Ui_MainWindow()
+            main_class.stop_button()
     '''except:
         print('执行错误')
     if a == 4:
@@ -230,7 +240,8 @@ def train():
         lv_x = 910
         lv_y = 5
         while lv_y > 0:
-            if not exists(Template(r"icon\tpl17217845790633.png", rgb=True, threshold=0.8, record_pos=(0.22, 0.338), resolution=(1080, 1920))):
+            if not exists(Template(r"icon\tpl17217845790633.png", rgb=True, threshold=0.8, record_pos=(0.22, 0.338), resolution=(
+                    1080, 1920))):
                 lv_x = lv_x - 200
                 touch([lv_x, 1225])  # 点击开始上一级士兵
                 lv_y -= 1
@@ -248,7 +259,6 @@ def train():
     print_space('训练完成')
 
 
-
 # 训练检查
 def Production_soldiers():
     touch([14, 823])
@@ -259,7 +269,7 @@ def Production_soldiers():
         print_space("1跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
-    elif exists(Template(r"icon/tpl1719478488283.png", threshold=0.9,rgb=True, record_pos=(-0.066, -0.111), resolution=(1080, 1920))):
+    elif exists(Template(r"icon/tpl1719478488283.png", threshold=0.9, rgb=True, record_pos=(-0.066, -0.111), resolution=(1080, 1920))):
         print_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
@@ -392,7 +402,7 @@ def NPC():
         else:
             print_space("未找到相关物品，退出任务")
             touch(Template(r"icon\tpl1719198082012.png", threshold=0.5, record_pos=(-0.44, -0.783), resolution=(
-            414, 780))) or touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
+                414, 780))) or touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
 
 
 # 野兽
@@ -448,12 +458,14 @@ def WM_lv():
     time.sleep(1)
     print_space('删除原本等级')
     keyevent('KEYCODE_DEL')
-    time.sleep(1)#等待1秒
+    time.sleep(1)  #等待1秒
     print_space('输入新的等级')
     text('5')
     #text(set_WM_number.get())
     print_space('点击确定按钮')
     touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))
+
+
 # 冰原巨兽
 def Brush_WM():
     global number_brush
@@ -493,7 +505,7 @@ def gather():
     touch(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920)))
     if exists(Template(r"icon\tpl1721191349776.png", record_pos=(0.26, 0.798), resolution=(1080, 1920))):  # 有兵力可出征
         print_space('点击出征按钮')
-        touch(Template(r"icon\tpl1721191349776.png",rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
+        touch(Template(r"icon\tpl1721191349776.png", rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
         print_space('出征成功')
         time.sleep(1)
         touch([14, 823])
@@ -674,7 +686,7 @@ def donate():
         while x > 0:
             if not exists(Template(r"icon\tpl1721784579074.png", rgb=True, record_pos=(-0.44, -0.783), resolution=(414, 780))):
                 print_space('点击捐献')
-                touch(Template(r"icon\tpl1721784579073.png", record_pos=(-0.44, -0.783), resolution=(414, 780)),duration = 2)
+                touch(Template(r"icon\tpl1721784579073.png", record_pos=(-0.44, -0.783), resolution=(414, 780)), duration=2)
             else:
                 print_space('无捐献次数，结束任务')
                 x = 0
@@ -700,7 +712,10 @@ def adventure():
     else:
         print_space('没有可领取奖励')
 
+
 '''招募英雄'''
+
+
 def recruit():
     if exists(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
         print_space('点击英雄')
@@ -718,6 +733,7 @@ def recruit():
         touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
         time.sleep(1)
         touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
+
 
 # 设备顶号重连
 def re_connet():
@@ -761,9 +777,9 @@ def subject():
                     Help()  # 互助模块
                     run_number += 1
                     if stop_event.is_set():
-                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        main_class = Ui_MainWindow()
+                        main_class.stop_button()
                         break
-                    # else:  #     print_space('不执行互助任务')  #     if stop_event.is_set():  #         start_button.configure(text='开始', command=simle)  # 总功能  #         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute % 5 == 0 and now.second % 5 == 0 and now.hour != 21:
@@ -775,7 +791,8 @@ def subject():
                     Brush_XG()  # 野怪
                     run_number += 1
                     if stop_event.is_set():
-                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        main_class = Ui_MainWindow()
+                        main_class.stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -788,7 +805,8 @@ def subject():
                     Brush_WM()  # 冰原巨兽
                     run_number += 1
                     if stop_event.is_set():
-                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        main_class = Ui_MainWindow()
+                        main_class.stop_button()
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -801,7 +819,8 @@ def subject():
                     NPC()  # 活动雪怪
                     run_number += 1
                     if stop_event.is_set():
-                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        main_class = Ui_MainWindow()
+                        main_class.stop_button()
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -814,7 +833,8 @@ def subject():
                     Production_soldiers()  # 训练模块
                     run_number += 1
                     if stop_event.is_set():
-                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        main_class = Ui_MainWindow()
+                        main_class.stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -827,7 +847,8 @@ def subject():
                     Build()  # 建造模块
                     run_number += 1
                     if stop_event.is_set():
-                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        main_class = Ui_MainWindow()
+                        main_class.stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -840,7 +861,8 @@ def subject():
                     Collection()  # 采集资源模块
                     run_number += 1
                     if stop_event.is_set():
-                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        main_class = Ui_MainWindow()
+                        main_class.stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -853,7 +875,8 @@ def subject():
                     bear()  # 巨熊模块
                     run_number += 1
                     if stop_event.is_set():
-                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        main_class = Ui_MainWindow()
+                        main_class.stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -866,7 +889,8 @@ def subject():
                     treatment()  # 治疗模块
                     run_number += 1
                     if stop_event.is_set():
-                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        main_class = Ui_MainWindow()
+                        main_class.stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -879,7 +903,8 @@ def subject():
                     adventure()  # 探险
                     run_number += 1
                     if stop_event.is_set():
-                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        main_class = Ui_MainWindow()
+                        main_class.stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -891,7 +916,8 @@ def subject():
                     donate()  # 捐赠模块
                     run_number += 1
                     if stop_event.is_set():
-                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        main_class = Ui_MainWindow()
+                        main_class.stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -903,16 +929,21 @@ def subject():
                     recruit()
                     run_number += 1
                     if stop_event.is_set():
-                        start_button.configure(text='开始', command=save_simple)  # 总功能
+                        main_class = Ui_MainWindow()
+                        main_class.stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
         if stop_event.is_set():
-            start_button.configure(text='开始', command=save_simple)  # 总功能
+            main_class = Ui_MainWindow()
+            main_class.stop_button()  # 总功能
             break
     print('结束任务')
 
+
 '''-------------------------------------更新公告-----------------------------------------------'''
+
+
 class Ui_NoticeWindow(object):
     def setupUi(self, noticewindow):
         noticewindow.setObjectName("helpWindow")
@@ -932,22 +963,27 @@ class Ui_NoticeWindow(object):
         _translate = QtCore.QCoreApplication.translate
         NoticeWindow.setWindowTitle(_translate("NoticeWindow", "更新公告"))
         self.textEdit.setHtml(_translate("NoticeWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-                                                       "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-                                                       "p, li { white-space: pre-wrap; }\n"
-                                                       "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-                                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px;\">更新公告</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">1.UI界面重构</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\"></p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\"></p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\"></p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\"></p></body></html>"))
+                                                         "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                                         "p, li { white-space: pre-wrap; }\n"
+                                                         "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+                                                         "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px;\">更新公告</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">1.UI界面重构</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\"></p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\"></p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\"></p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\"></p></body></html>"))
         self.textEdit.setReadOnly(True)
-class noticelog(QMainWindow,Ui_NoticeWindow):
+
+
+class noticelog(QMainWindow, Ui_NoticeWindow):
     def __init__(self, parent=None):
         super(noticelog, self).__init__(parent)
         self.setupUi(self)
 
+
 '''-------------------------------------帮助说明-----------------------------------------------'''
+
+
 class Ui_helpWindow(object):
     def setupUi(self, helpwindow):
         helpwindow.setObjectName("helpWindow")
@@ -995,14 +1031,19 @@ class Ui_helpWindow(object):
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">单选：</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">    每次只能执行单个功能，可设置单个功能执行间隔，冰原巨兽可设置等级，设置的等级多选可用</p></body></html>"))
         self.textEdit.setReadOnly(True)
-class helplog(QMainWindow,Ui_helpWindow):
+
+
+class helplog(QMainWindow, Ui_helpWindow):
     def __init__(self, parent=None):
         super(helplog, self).__init__(parent)
         self.setupUi(self)
 
+
 '''------------------------------------保存设置区域------------------------------------'''
 
 '''保存设置'''
+
+
 def save_options():
     config.set('Options', '单项', var.get())
     config.set('Options', '联盟互助', option_help.get())
@@ -1019,6 +1060,8 @@ def save_options():
     config.set('Options', '英雄招募', option_recruit.get())
     with open('set.ini', 'w') as configfile:
         config.write(configfile)
+
+
 def save_simple_set():
     global number_brush
     if entry.get() != '':
@@ -1035,16 +1078,16 @@ def save_simple_set():
             number_brush = 0
             WM_time = entry.get()
             WM_number = entry_number.get()
-            config.set('Options','冰原巨兽设置',WM_time)
-            config.set('Options','冰原巨兽等级设置',WM_number)
+            config.set('Options', '冰原巨兽设置', WM_time)
+            config.set('Options', '冰原巨兽等级设置', WM_number)
             print('设置成功！！！')
         elif int(var.get()) == 3:
             npc_time = entry.get()
-            config.set('Options','活动雪怪设置',npc_time)
+            config.set('Options', '活动雪怪设置', npc_time)
             print('设置成功！！！')
         elif int(var.get()) == 4:
             Production_time = entry.get()
-            config.set('Options','训练士兵设置',Production_time)
+            config.set('Options', '训练士兵设置', Production_time)
             print('设置成功！！！')
         elif int(var.get()) == 5:
             build_time = entry.get()
@@ -1072,7 +1115,7 @@ def save_simple_set():
             print('设置成功！！！')
         elif int(var.get()) == 11:
             recruit_time = entry.get()
-            config.set('Options', '英雄招募设置',recruit_time)
+            config.set('Options', '英雄招募设置', recruit_time)
             print('设置成功！！！')
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
@@ -1080,7 +1123,10 @@ def save_simple_set():
     else:
         print('-------------间隔时间不能为空-------------')
 
+
 '''读取设置'''
+
+
 def load_options():
     set_ip.set(config.get('Options', '模拟器ip'))
     set_address.set(config.get('Options', '模拟器路径'))
@@ -1099,8 +1145,8 @@ def load_options():
     option_recruit.set(config.get('Options', '英雄招募'))
     set_help_time.set(config.get('Options', '联盟互助设置'))
     set_XG_time.set(config.get('Options', '世界野怪设置'))
-    set_WM_time.set(config.get('Options','冰原巨兽设置'))
-    set_npc_time.set(config.get('Options','活动雪怪设置'))
+    set_WM_time.set(config.get('Options', '冰原巨兽设置'))
+    set_npc_time.set(config.get('Options', '活动雪怪设置'))
     set_Production_time.set(config.get('Options', '训练士兵设置'))
     set_build_time.set(config.get('Options', '建筑升级设置'))
     set_Collection_time.set(config.get('Options', '采集资源设置'))
@@ -1111,33 +1157,37 @@ def load_options():
     set_WM_number.set(config.get('Options', '冰原巨兽等级设置'))
     set_recruit_time.set(config.get('Options', '英雄招募设置'))
     set_version.set(config.get('Options', 'version'))
+
+
 '''初始化配置解析器和选项变量'''
 config = ConfigParser()
 config['Options'] = {}
 '''单选'''
 var = QSettings()
 '''多选'''
-set_ip = QSettings()   #设置模拟器ip
-set_address = QSettings() #设置模拟器地址
-set_help_time = QSettings()#互助
-set_XG_time = QSettings()#野怪
-set_WM_time = QSettings()#巨兽
-set_npc_time = QSettings()#雪怪
-set_Production_time = QSettings()#士兵
-set_build_time = QSettings()#建筑
-set_Collection_time = QSettings()#采集
-set_bear_time = QSettings()#巨熊
-set_treatment_time = QSettings()#治疗
-set_adventure_time = QSettings()#探险
-set_donate_time = QSettings()#捐赠
-set_WM_number = QSettings()#冰原巨兽等级
-set_recruit_time = QSettings() #招募设置
-set_version = QSettings()#设置版本号
+set_ip = QSettings()  #设置模拟器ip
+set_address = QSettings()  #设置模拟器地址
+set_help_time = QSettings()  #互助
+set_XG_time = QSettings()  #野怪
+set_WM_time = QSettings()  #巨兽
+set_npc_time = QSettings()  #雪怪
+set_Production_time = QSettings()  #士兵
+set_build_time = QSettings()  #建筑
+set_Collection_time = QSettings()  #采集
+set_bear_time = QSettings()  #巨熊
+set_treatment_time = QSettings()  #治疗
+set_adventure_time = QSettings()  #探险
+set_donate_time = QSettings()  #捐赠
+set_WM_number = QSettings()  #冰原巨兽等级
+set_recruit_time = QSettings()  #招募设置
+set_version = QSettings()  #设置版本号
+
+
 # 尝试加载先前保存的选项
 def read_save():
     # 首次启动时默认选项
     if not config.read('set.ini'):
-        config.set('Options','模拟器ip','127.0.0.1:5037')
+        config.set('Options', '模拟器ip', '127.0.0.1:5037')
         config.set('Options', '模拟器路径', 'E:\leidian\LDPlayer9\dnplayer.exe')
         config.set('Options', '单项', '0')
         config.set('Options', '联盟互助', '1')
@@ -1170,12 +1220,22 @@ def read_save():
             config.write(configfile)
     try:
         with open('set.ini', 'r') as configfile:
-            config.read_file(configfile)
-        #load_options()
+            config.read_file(configfile)  #load_options()
     except IOError:
         print('No saved options found.')
+
+
 read_save()
+
+
+def stop_function():
+    # 这里放置程序停止时需要执行的代码
+    global stop_event
+    stop_event.set()  # 设置事件，通知线程结束运行
+    print("------------等待当前任务完成或10s左右结束任务------------")
 stop_event = threading.Event()
+
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -1218,8 +1278,8 @@ class Ui_MainWindow(object):
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
-        #模拟器地址输入框
-        self.lineEdit = QtWidgets.QLineEdit(self.frame)
+
+        self.lineEdit = QtWidgets.QLineEdit(self.frame)  #模拟器地址输入框
         self.lineEdit.setEnabled(True)
         self.lineEdit.setGeometry(QtCore.QRect(130, 10, 221, 21))
         self.lineEdit.setMouseTracking(True)
@@ -1249,15 +1309,15 @@ class Ui_MainWindow(object):
         self.save_simulator.setDefault(False)
         self.save_simulator.setFlat(True)
         self.save_simulator.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n")
+                                          "}"
+                                          "QPushButton:hover {\n"
+                                          "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                          "}\n"
+                                          "QPushButton:pressed {\n"
+                                          "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                          "}\n")
         self.save_simulator.setObjectName("pushButton")
-        #模拟器区域
+        '''模拟器区域'''
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.frame_2.setGeometry(QtCore.QRect(10, 160, 461, 41))
         self.frame_2.setMinimumSize(QtCore.QSize(0, 0))
@@ -1279,26 +1339,26 @@ class Ui_MainWindow(object):
         self.start_simulator.setGeometry(QtCore.QRect(10, 10, 75, 23))
         self.start_simulator.setFlat(True)
         self.start_simulator.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n")
+                                           "}"
+                                           "QPushButton:hover {\n"
+                                           "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                           "}\n"
+                                           "QPushButton:pressed {\n"
+                                           "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                           "}\n")
         self.start_simulator.setObjectName("start_simulator")
         #连接模拟器
         self.connect_simulator = QtWidgets.QPushButton(self.frame_2)
         self.connect_simulator.setGeometry(QtCore.QRect(130, 10, 75, 23))
         self.connect_simulator.setFlat(True)
         self.connect_simulator.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n")
+                                             "}"
+                                             "QPushButton:hover {\n"
+                                             "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                             "}\n"
+                                             "QPushButton:pressed {\n"
+                                             "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                             "}\n")
         self.connect_simulator.setObjectName("connect_simulator")
         #启动游戏
         self.start_game = QtWidgets.QPushButton(self.frame_2)
@@ -1322,13 +1382,13 @@ class Ui_MainWindow(object):
         self.simulator_start_all.setDefault(False)
         self.simulator_start_all.setFlat(True)
         self.simulator_start_all.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n")
+                                               "}"
+                                               "QPushButton:hover {\n"
+                                               "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                               "}\n"
+                                               "QPushButton:pressed {\n"
+                                               "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                               "}\n")
         self.simulator_start_all.setObjectName("simulator_start_all")
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
         self.frame_3.setGeometry(QtCore.QRect(10, 270, 461, 191))
@@ -1339,7 +1399,7 @@ class Ui_MainWindow(object):
         self.select_text = QtWidgets.QLabel(self.frame_3)
         self.select_text.setGeometry(QtCore.QRect(10, 0, 81, 16))
         self.select_text.setObjectName("select_text")
-        self.checkBox_help = QtWidgets.QCheckBox(self.frame_3)#互助
+        self.checkBox_help = QtWidgets.QCheckBox(self.frame_3)  #互助
         self.checkBox_help.setGeometry(QtCore.QRect(20, 30, 71, 16))
         self.checkBox_help.setAutoFillBackground(False)
         '''self.checkBox_help.setStyleSheet("QCheckBox:indicator:checked {background-color: transparent;border:1px solid rgb(0,255,0)}"
@@ -1348,17 +1408,17 @@ class Ui_MainWindow(object):
         self.checkBox_help.setAutoExclusive(False)
         self.checkBox_help.setTristate(False)
         self.checkBox_help.setObjectName("checkBox_help")
-        self.checkBox_XG = QtWidgets.QCheckBox(self.frame_3)#野怪
+        self.checkBox_XG = QtWidgets.QCheckBox(self.frame_3)  #野怪
         self.checkBox_XG.setGeometry(QtCore.QRect(110, 30, 71, 16))
         self.checkBox_XG.setObjectName("checkBox_XG")
         self.checkBox_XG.setStyleSheet("background-color: transparent")
-        self.checkBox_WM = QtWidgets.QCheckBox(self.frame_3)#冰原巨兽
+        self.checkBox_WM = QtWidgets.QCheckBox(self.frame_3)  #冰原巨兽
         self.checkBox_WM.setGeometry(QtCore.QRect(200, 30, 71, 16))
         self.checkBox_WM.setObjectName("checkBox_WM")
-        self.checkBox_npc = QtWidgets.QCheckBox(self.frame_3)#活动雪怪
+        self.checkBox_npc = QtWidgets.QCheckBox(self.frame_3)  #活动雪怪
         self.checkBox_npc.setGeometry(QtCore.QRect(290, 30, 71, 16))
         self.checkBox_npc.setObjectName("checkBox_npc")
-        self.checkBox_Production = QtWidgets.QCheckBox(self.frame_3)#训练士兵
+        self.checkBox_Production = QtWidgets.QCheckBox(self.frame_3)  #训练士兵
         self.checkBox_Production.setGeometry(QtCore.QRect(380, 30, 71, 16))
         self.checkBox_Production.setObjectName("checkBox_Production")
         self.checkBox_adventure = QtWidgets.QCheckBox(self.frame_3)
@@ -1406,13 +1466,13 @@ class Ui_MainWindow(object):
         self.select_unall.setFlat(True)
         self.select_unall.setObjectName("select_unall")
         self.select_unall.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n")
+                                        "}"
+                                        "QPushButton:hover {\n"
+                                        "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                        "}\n"
+                                        "QPushButton:pressed {\n"
+                                        "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                        "}\n")
         #停止按钮
         self.select_stop = QtWidgets.QPushButton(self.frame_3)
         self.select_stop.setEnabled(True)
@@ -1421,13 +1481,13 @@ class Ui_MainWindow(object):
         self.select_stop.setVisible(False)
         self.select_stop.setObjectName("select_stop")
         self.select_stop.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n")
+                                       "}"
+                                       "QPushButton:hover {\n"
+                                       "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                       "}\n"
+                                       "QPushButton:pressed {\n"
+                                       "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                       "}\n")
         #开始按钮
         self.select_start = QtWidgets.QPushButton(self.frame_3)
         self.select_start.setEnabled(True)
@@ -1439,13 +1499,13 @@ class Ui_MainWindow(object):
         self.select_start.setFlat(True)
         self.select_start.setObjectName("select_start")
         self.select_start.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n")
+                                        "}"
+                                        "QPushButton:hover {\n"
+                                        "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                        "}\n"
+                                        "QPushButton:pressed {\n"
+                                        "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                        "}\n")
         self.listView = QtWidgets.QListView(self.centralwidget)
         self.listView.setEnabled(False)
         self.listView.setGeometry(QtCore.QRect(-2, -1, 971, 553))
@@ -1519,13 +1579,13 @@ class Ui_MainWindow(object):
         self.simple_stop.setFlat(True)
         self.simple_stop.setObjectName("simple_stop")
         self.simple_stop.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n")
+                                       "}"
+                                       "QPushButton:hover {\n"
+                                       "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                       "}\n"
+                                       "QPushButton:pressed {\n"
+                                       "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                       "}\n")
         #单项开始
         self.simple_start = QtWidgets.QPushButton(self.frame_4)
         self.simple_start.setEnabled(True)
@@ -1535,13 +1595,13 @@ class Ui_MainWindow(object):
         self.simple_start.setFlat(True)
         self.simple_start.setObjectName("simple_start")
         self.simple_start.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n")
+                                        "}"
+                                        "QPushButton:hover {\n"
+                                        "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                        "}\n"
+                                        "QPushButton:pressed {\n"
+                                        "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                        "}\n")
         #执行间隔文本
         self.label_3 = QtWidgets.QLabel(self.frame_4)
         self.label_3.setGeometry(QtCore.QRect(110, 0, 81, 21))
@@ -1551,9 +1611,9 @@ class Ui_MainWindow(object):
         self.lineEdit_2.setGeometry(QtCore.QRect(190, 1, 51, 21))
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.lineEdit_2.setStyleSheet("QLineEdit {\n"
-                                    "background: transparent;\n"
-                                    "border: 1px solid rgba(0, 255, 0)"
-                                    "}")
+                                      "background: transparent;\n"
+                                      "border: 1px solid rgba(0, 255, 0)"
+                                      "}")
         #等级文本
         self.label_4 = QtWidgets.QLabel(self.frame_4)
         self.label_4.setGeometry(QtCore.QRect(270, 0, 54, 21))
@@ -1563,22 +1623,22 @@ class Ui_MainWindow(object):
         self.lineEdit_3.setGeometry(QtCore.QRect(300, 1, 31, 21))
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.lineEdit_3.setStyleSheet("QLineEdit {\n"
-                                    "background: transparent;\n"
-                                    "border: 1px solid rgba(0, 255, 0)"
-                                    "}")
+                                      "background: transparent;\n"
+                                      "border: 1px solid rgba(0, 255, 0)"
+                                      "}")
         #单项保存按钮
         self.pushButton_9 = QtWidgets.QPushButton(self.frame_4)
         self.pushButton_9.setGeometry(QtCore.QRect(380, 0, 75, 21))
         self.pushButton_9.setObjectName("pushButton_9")
         self.pushButton_9.setFlat(True)
         self.pushButton_9.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n")
+                                        "}"
+                                        "QPushButton:hover {\n"
+                                        "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                        "}\n"
+                                        "QPushButton:pressed {\n"
+                                        "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                        "}\n")
         self.frame_5 = QtWidgets.QFrame(self.centralwidget)
         self.frame_5.setGeometry(QtCore.QRect(490, 270, 461, 241))
         #self.frame_5.setStyleSheet("#frame_5{border:1px solid rgb(0,255,0)}")
@@ -1656,16 +1716,15 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         #按钮点击触发响应
         self.retranslateUi(MainWindow)
-        self.select_stop.clicked.connect(self.select_start.show) # type: ignore
-        self.select_start.clicked.connect(self.save_simple) # type: ignore
-        self.select_stop.clicked.connect(self.select_stop.hide) # type: ignore
-        self.simple_start.clicked.connect(self.simple_start.hide) # type: ignore
-        self.simple_start.clicked.connect(self.simple_stop.show) # type: ignore
-        self.simple_stop.clicked.connect(self.simple_start.show) # type: ignore
-        self.simple_stop.clicked.connect(self.simple_stop.hide) # type: ignore
+        self.select_start.clicked.connect(self.save_simple)  # type: ignore
+        self.select_stop.clicked.connect(stop_function)  # type: ignore
+        self.simple_start.clicked.connect(self.simple_start.hide)  # type: ignore
+        self.simple_start.clicked.connect(self.simple_stop.show)  # type: ignore
+        self.simple_stop.clicked.connect(self.simple_start.show)  # type: ignore
+        self.simple_stop.clicked.connect(self.simple_stop.hide)  # type: ignore
         self.hide_UI.clicked.connect(self.hide_ui)  # type: ignore
         self.show_UI.clicked.connect(self.show_ui)  # type: ignore
-        self.start_simulator.clicked.connect(lambda:start_simple(1))
+        self.start_simulator.clicked.connect(lambda: start_simple(1))
         self.connect_simulator.clicked.connect(lambda: start_simple(2))
         self.start_game.clicked.connect(lambda: start_simple(3))
         self.simulator_start_all.clicked.connect(lambda: start_simple(4))
@@ -1739,20 +1798,25 @@ class Ui_MainWindow(object):
         else:
             self.checkBox_recruit.setChecked(False)
 
-
     def save_simple(self):
-        self.select_start.clicked.connect(self.select_stop.show)  # type: ignore
-        self.select_start.clicked.connect(self.select_start.hide)  # type: ignore
+        self.select_stop.show()  # type: ignore
+        self.select_start.hide()  # type: ignore
         print("程序开始执行...")
         # 这里放置程序开始时需要执行的代码
         #stop_event.clear()
-        threading.Thread(target=subject).start()
-        #save_options()
+        threading.Thread(target=subject).start()  #save_options()
+
+    def stop_button(self):
+        self.select_start.show()
+        self.select_stop.hide()
+
     def open_noticeable(self):
         self.notice.show()
+
     def open_helpline(self):
         self.help.show()
-    def on_combobox_changed(self,index):
+
+    def on_combobox_changed(self, index):
         if index == 0:
             self.lineEdit.setText('模拟器地址')
         if index == 1:
@@ -1767,6 +1831,7 @@ class Ui_MainWindow(object):
         self.hide_UI.setVisible(False)
         self.show_UI.setVisible(True)
         self.textEdit.setVisible(False)
+
     def show_ui(self):
         self.frame.setVisible(True)
         self.frame_2.setVisible(True)
@@ -1776,6 +1841,7 @@ class Ui_MainWindow(object):
         self.hide_UI.setVisible(True)
         self.show_UI.setVisible(False)
         self.textEdit.setVisible(True)
+
     def toggle_checkbox(self):
         self.checkBox_help.setChecked(True)
         self.checkBox_XG.setChecked(True)
@@ -1789,6 +1855,7 @@ class Ui_MainWindow(object):
         self.checkBox_adventure.setChecked(True)
         self.checkBox_donate.setChecked(True)
         self.checkBox_recruit.setChecked(True)
+
     def untoggle_checkbox(self):
         self.checkBox_help.setChecked(False)
         self.checkBox_XG.setChecked(False)
@@ -1802,6 +1869,7 @@ class Ui_MainWindow(object):
         self.checkBox_adventure.setChecked(False)
         self.checkBox_donate.setChecked(False)
         self.checkBox_recruit.setChecked(False)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "无尽冬日"))
@@ -1852,9 +1920,8 @@ class Ui_MainWindow(object):
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.notice_button.setText(_translate("MainWindow", "更新公告"))
         self.help_button.setText(_translate("MainWindow", "帮助文档"))
-        self.textEdit.setHtml(_translate("MainWindow",
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; \">请等待程序停止后再设置相关参数</span></p>\n"
-        "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; \">多选和单选不可同时执行</span></p></body>"))
+        self.textEdit.setHtml(_translate("MainWindow", "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; \">请等待程序停止后再设置相关参数</span></p>\n"
+                                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; \">多选和单选不可同时执行</span></p></body>"))
         self.textEdit.setReadOnly(True)
         self.hide_UI.setText(_translate("MainWindow", "隐藏UI"))
 
@@ -1863,16 +1930,18 @@ class Ui_MainWindow(object):
         self.textEdit_out.insertPlainText(text)
         self.textEdit_out.moveCursor(self.textEdit_out.textCursor().End)  # 移动光标到文本末尾
 
+
 class MyApp(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MyApp, self).__init__(parent)
         self.setupUi(self)
 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     mainWindow = MyApp()
     # 重定向stdout和stderr
-    sys.stdout = mainWindow
-    sys.stderr = mainWindow
+    #sys.stdout = mainWindow
+    #sys.stderr = mainWindow
     mainWindow.show()
     sys.exit(app.exec_())
