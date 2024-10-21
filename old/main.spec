@@ -2,9 +2,10 @@
 
 
 a = Analysis(
-    ['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\wjdr_release.py'],
+    ['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\old\\wjdr_release.py'],
     pathex=[],
     binaries=[],
+    #datas=[],
     datas=[('E:\\测试文件\\测试工具\\AirtestIDE\\airtest', 'airtest')],
     hiddenimports=[],
     hookspath=[],
@@ -32,7 +33,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\icon\\log.png'],
+    icon=['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\old\\icon\\log.png'],
 )
 coll = COLLECT(
     exe,

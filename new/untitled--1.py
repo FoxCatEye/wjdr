@@ -943,7 +943,6 @@ def subject():
 
 '''-------------------------------------更新公告-----------------------------------------------'''
 
-
 class Ui_NoticeWindow(object):
     def setupUi(self, noticewindow):
         noticewindow.setObjectName("helpWindow")
@@ -952,7 +951,7 @@ class Ui_NoticeWindow(object):
         self.centralwidget = QtWidgets.QWidget(noticewindow)
         self.centralwidget.setObjectName("centralwidget")
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(0, 0, 371, 261))
+        self.textEdit.setGeometry(QtCore.QRect(0, 0, 371, 262))
         self.textEdit.setObjectName("textEdit")
         noticewindow.setCentralWidget(self.centralwidget)
 
@@ -992,7 +991,7 @@ class Ui_helpWindow(object):
         self.centralwidget = QtWidgets.QWidget(helpwindow)
         self.centralwidget.setObjectName("centralwidget")
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(0, 0, 371, 261))
+        self.textEdit.setGeometry(QtCore.QRect(0, 0, 371, 262))
         self.textEdit.setObjectName("textEdit")
         helpwindow.setCentralWidget(self.centralwidget)
 

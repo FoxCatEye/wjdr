@@ -12,13 +12,13 @@ from tkinter.scrolledtext import ScrolledText
 from airtest.core.api import *
 from airtest.core.android.android import *
 from PIL import Image, ImageTk
-
+import os
 auto_setup(__file__)
 logging.getLogger('airtest').setLevel(logging.ERROR)
 '''模拟器点击变量'''
 emulator_click = 0
 number_brush = 0
-import os
+
 
 # 获取当前文件的绝对路径(本地）
 current_file_path = os.path.abspath(__file__)
@@ -26,7 +26,7 @@ current_file_path = os.path.abspath(__file__)
 # 获取当前文件夹的上一级目录的绝对路径(本地）
 #parent_directory_path = os.path.dirname(os.path.dirname(current_file_path))
 # 上一级文件夹中要删除的文件名
-file_to_delete = 'jiaoben-1.2.1.exe'
+file_to_delete = 'jiaoben-1.2.2.exe'
 
 # 构建要删除的文件的绝对路径(本地）
 #file_path_to_delete = os.path.join(current_file_path, file_to_delete)
@@ -184,12 +184,16 @@ def train():
         swipe([950, 1225], vector=[-0.8, 0.0170])  # 滑动训练兵种
         touch([910, 1225])  # 点击十级兵
         lv_x = 910
-        lv_y = 5
+        lv_y = 10
         while lv_y > 0:
             if not exists(Template(r"icon\tpl17217845790633.png", rgb=True, threshold=0.8, record_pos=(0.22, 0.338), resolution=(1080, 1920))):
                 lv_x = lv_x - 200
                 touch([lv_x, 1225])  # 点击开始上一级士兵
                 lv_y -= 1
+                if lv_y == 5:
+                    lv_x = 910
+                    swipe([115, 1225], vector=[0.7397, 0.0009])  # 滑动训练兵种
+                    touch([910, 1225])  # 点击五级兵
             else:
                 break
         touch([800, 1800])  # 点击开始训练士兵
@@ -254,17 +258,17 @@ def Production_soldiers():
 
 # 升级资源检查
 def build_main():
-    touch(Template(r"icon\tpl1719651083870.png", record_pos=(0.001, 0.731), resolution=(449, 842)))
+    touch(Template(r"icon\tpl1719651083870.png", record_pos=(0.001, 0.731), resolution=(1080, 1920)))
     time.sleep(1)
     if exists(Template(r"icon\tpl1719817875178.png", record_pos=(-0.002, 0.683), resolution=(1080, 1920))):
         print_space('一键补齐资源不足，回到首页')
-        touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
-        touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
+        touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
+        touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
     else:
-        touch(Template(r"icon\tpl1719651144335.png", record_pos=(0.224, 0.608), resolution=(449, 842)))
-        touch(Template(r"icon\tpl1719578558005.png", record_pos=(0.003, -0.045), resolution=(449, 842)))  # 点击升级
+        touch(Template(r"icon\tpl1719651144335.png", record_pos=(0.224, 0.608), resolution=(1080, 1920)))
+        touch(Template(r"icon\tpl1719578558005.png", record_pos=(0.003, -0.045), resolution=(1080, 1920)))  # 点击升级
         time.sleep(1)
-        touch(Template(r"icon\tpl1719579273500.png", record_pos=(0.003, -0.045), resolution=(449, 842)))
+        touch(Template(r"icon\tpl1719579273500.png", record_pos=(0.002, -0.08), resolution=(1080, 1920)))
 
 
 # 自动建筑升级
@@ -272,36 +276,36 @@ def Build():
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    if exists(Template(r"icon\tpl1719643933714.png", threshold=0.95, record_pos=(-0.306, -0.318), resolution=(449, 842))):
+    if exists(Template(r"tpl1719643933714.png",rgb=True, record_pos=(-0.311, -0.372), resolution=(1080, 1920))):
         print_space('有空闲队列，开始建造')
-        touch(Template(r"icon\tpl1719643933714.png", record_pos=(-0.306, -0.318), resolution=(449, 842)))  # 点击跳转到需升级的建筑
-        if exists(Template(r"icon\tpl1719580056417.png", record_pos=(-0.362, 0.238), resolution=(449, 842))):  # 判断是什么建筑升级升级
+        touch(Template(r"icon\tpl1719643933714.png", record_pos=(-0.306, -0.318), resolution=(1080, 1920)))  # 点击跳转到需升级的建筑
+        if exists(Template(r"icon\tpl1719580056417.png", record_pos=(-0.362, 0.238), resolution=(1080, 1920))):  # 判断是什么建筑升级升级
             print_space('升级资源建筑')
             time.sleep(5)  # 等待5s
-            if not exists(Template(r"icon\tpl1719644932718.png", threshold=0.9, record_pos=(0.308, 0.056), resolution=(449, 842))):
+            if not exists(Template(r"icon\tpl1719644932718.png", threshold=0.9, record_pos=(0.308, 0.056), resolution=(1080, 1920))):
                 print_space('建筑设施未达到升级要求，升级设施')
-                while not exists(Template(r"icon\tpl1719645172814.png", record_pos=(0.248, -0.102), resolution=(449, 842))):
+                while not exists(Template(r"icon\tpl1719645172814.png", record_pos=(0.248, -0.102), resolution=(1080, 1920))):
                     touch([900, 1000])
-                    if exists(Template(r"icon\tpl1719645172814.png", record_pos=(0.248, -0.102), resolution=(449, 842))):
+                    if exists(Template(r"icon\tpl1719645172814.png", record_pos=(0.248, -0.102), resolution=(1080, 1920))):
                         print_space('达到升级条件，开始升级')
             touch([900, 800])  # 点击升级按钮
             touch([800, 1800])  # 点击升级
-            if exists(Template(r"icon\tpl1719651083870.png", record_pos=(0.001, 0.731), resolution=(449, 842))):  # 判断资源是否充足
+            if exists(Template(r"icon\tpl1719651083870.png", record_pos=(0.001, 0.731), resolution=(1080, 1920))):  # 判断资源是否充足
                 print_space("/31资源不足，点击一键补齐")
                 build_main()
             else:
                 time.sleep(1)
-                touch(Template(r"icon\tpl1719579273500.png", record_pos=(0.003, -0.045), resolution=(449, 842)))  # 点击求助
+                touch(Template(r"icon\tpl1719579273500.png", record_pos=(0.003, -0.045), resolution=(1080, 1920)))  # 点击求助
         else:
             print_space('升级功能建筑')
             touch([553, 1333])  # 点击升级按钮
-            touch(Template(r"icon\tpl1719578558005.png", record_pos=(0.003, -0.045), resolution=(449, 842)))  # 点击升级
-            if exists(Template(r"icon\tpl1719651083870.png", record_pos=(0.001, 0.731), resolution=(449, 842))):  # 判断资源是否充足
+            touch(Template(r"icon\tpl1719578558005.png", record_pos=(0.003, -0.045), resolution=(1080, 1920)))  # 点击升级
+            if exists(Template(r"icon\tpl1719651083870.png", record_pos=(0.001, 0.731), resolution=(1080, 1920))):  # 判断资源是否充足
                 print_space('资源不足，点击一键补齐')
                 build_main()
             else:
                 time.sleep(1)
-                touch(Template(r"icon\tpl1719579273500.png", record_pos=(0.003, -0.045), resolution=(449, 842)))  # 点击求助
+                touch(Template(r"icon\tpl1719579273500.png", record_pos=(0.002, -0.08), resolution=(1080, 1920)))  # 点击求助
     else:
         print_space("没有空闲建筑队列")
         touch(Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
@@ -569,7 +573,7 @@ def Collection():
         time.sleep(5)  # 等待5秒
     else:
         print_space('在野外，执行采集任务')
-        time, sleep(3)
+        time.sleep(3)
     touch([14, 823])
     time.sleep(1)
     touch([500, 400])
@@ -875,8 +879,8 @@ def print_space(variable, spaces=4):
 '''-------------------------------------更新公告-----------------------------------------------'''
 def gonggao():
     print('当前更新内容：')
-    print_space('1.更新流程优化')
-    print_space('2.修复免费招募bug')
+    print_space('1.建筑升级优化')
+    print_space('2.训练士兵优化')
     #print_space('3.添加更新内容')
 
 '''-------------------------------------帮助说明-----------------------------------------------'''
@@ -1008,7 +1012,7 @@ window.title("无尽冬日")  # 设置窗口标题
 # window.geometry("500x600")  # 设置窗口大小
 icon = tk.PhotoImage(file="icon/log.png")  # 设置窗口图标
 window.iconphoto(True, icon)
-#window.attributes("-transparentcolor", '')
+#window.attributes("-transparent color", '')
 #window.attributes("-topmost", True)
 # 设置窗口不能调整大小
 window.resizable(False, False)
@@ -1567,7 +1571,7 @@ def simple_select():
                     start_button_simple.configure(text='开始', command=save_simple_start_button)  # 互助功能
                     break
                 help_time = set_help_time.get()
-                print('%s'%help_time)
+                #print('%s'%help_time)
                 print_space('等待%s秒后继续执行任务'%help_time+'\n')
                 XG_number = int(help_time)
                 time.sleep(XG_number)
