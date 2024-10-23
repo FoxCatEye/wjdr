@@ -1059,6 +1059,7 @@ def save_options():
     with open('set.ini', 'w') as configfile:
         config.write(configfile)
 
+
 def save_simple_set():
     global number_brush
     if entry.get() != '':
