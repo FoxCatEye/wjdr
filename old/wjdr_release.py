@@ -731,6 +731,7 @@ def re_connet():
             print('重新连接失败，稍后尝试')
     else:
         print_space('连接正常')
+        Homepage()
 
 
 # 主体代码
