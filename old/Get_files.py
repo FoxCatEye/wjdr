@@ -125,7 +125,8 @@ def check_update():
         config.set('Options', '治疗士兵设置', '1')
         config.set('Options', '探险奖励设置', '3600')
         config.set('Options', '联盟捐赠设置', '300')
-        config.set('Options', '冰原巨兽等级设置', '4')
+        config.set('Options', '冰原巨兽等级设置', '7')
+        config.set('Options', '采集等级设置', '6')
         config.set('Options', '英雄招募设置', '300')
         config.set('Options', 'version', '0.0.0')
         with open('set.ini', 'w') as configfile:

@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\Get_files.py'],
+    ['E:\\测试文件\\测试工具\\版本控制\\Wjdr\\old\\Get_files.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='jiaoben-1.2.1',
+    name='jiaoben-1.2.3',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

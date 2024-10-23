@@ -18,6 +18,10 @@ logging.getLogger('airtest').setLevel(logging.ERROR)
 '''模拟器点击变量'''
 emulator_click = 0
 number_brush = 0
+number_meat = 0
+number_wood = 0
+number_coal = 0
+number_iron = 0
 
 
 # 获取当前文件的绝对路径(本地）
@@ -106,18 +110,17 @@ def Homepage():
     a = 1
     try:
         while a < 4:
-            if exists(Template(r"icon\tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(
-            1080, 1920))):
+            if exists(Template(r"icon\tpl1719198809581.png", record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
                 print_space("在主页，准备执行任务")  # 在主界面，执行任务
                 return
             else:
                 a += 1
                 print_space("不在主页，返回上一级")
-                if exists(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920))):
-                    print_space('点击返回按钮')
-                    touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
-                elif exists(Template(r'icon\return.png',threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920))):
-                    print_space('点击返回按钮')
+                if exists(Template(r"icon\tpl1719198082012.png",rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
+                    print_space('点击黑色返回按钮')
+                    touch(Template(r"icon\tpl1719198082012.png",rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
+                elif exists(Template(r'icon\return.png',rgb=True, record_pos=(-0.44, -0.783), resolution=(1080, 1920))):
+                    print_space('点击白色返回按钮')
                     touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
                 elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920))):
                     print_space('点击关闭按钮')
@@ -139,12 +142,13 @@ def Help():
     result = exists(Template(r"icon\tpl1718936896202.png", record_pos=(0.248, 0.735), resolution=(1080, 1920)))
     if result:  # 判断是否有盟员求助
         print_space("有盟员求助，需点击援助按钮")
-        touch([800, 1700])
+        #touch([800, 1700])
+        touch(Template(r"icon\tpl1718936896202.png", record_pos=(0.248, 0.735), resolution=(1080, 1920)))
         #print_space("点击援助按钮成功，等待1s进行下一个任务")
         #time.sleep(1)
     else:
-        print_space("无盟员求助，等待1s进行下一个任务")
-        time.sleep(1)
+        print_space("无盟员求助，进行下一个任务")
+        #time.sleep(1)
 
 
 # 生产士兵
@@ -276,7 +280,7 @@ def Build():
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    if exists(Template(r"tpl1719643933714.png",rgb=True, record_pos=(-0.311, -0.372), resolution=(1080, 1920))):
+    if exists(Template(r"icon\tpl1719643933714.png",rgb=True, record_pos=(-0.311, -0.372), resolution=(1080, 1920))):
         print_space('有空闲队列，开始建造')
         touch(Template(r"icon\tpl1719643933714.png", record_pos=(-0.306, -0.318), resolution=(1080, 1920)))  # 点击跳转到需升级的建筑
         if exists(Template(r"icon\tpl1719580056417.png", record_pos=(-0.362, 0.238), resolution=(1080, 1920))):  # 判断是什么建筑升级升级
@@ -343,7 +347,7 @@ def NPC():
             if exists(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):
                 touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
                 print_space('体力检查')
-                if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(1080, 1920))):  # 判断体力是否充足
+                if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):  # 判断体力是否充足
                     energy()
                 else:
                     print_space("体力不足，暂停打怪")
@@ -372,8 +376,7 @@ def Brush_XG():
     touch(Template(r"icon\tpl1721191349775.png", rgb=False, record_pos=(0.002, 0.705), resolution=(1080, 1920)))  # 点击出征怪物
     time.sleep(1)  # 等待1s
     if exists(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):  # 判断是否有兵力
-        # touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
-        if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(1080, 1920))):  # 判断体力是否充足
+        if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):  # 判断体力是否充足
             energy()
         else:
             print_space("体力不足，暂停打野怪")
@@ -412,7 +415,7 @@ def WM_lv():
     print_space('输入新的等级')
     text(set_WM_number.get())
     print_space('点击确定按钮')
-    touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))
+    touch(Template(r"icon\sure_button.png", record_pos=(0.36, 0.806), resolution=(1080, 1920)))
 # 冰原巨兽
 def Brush_WM():
     global number_brush
@@ -431,13 +434,13 @@ def Brush_WM():
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
     print_space('点击集结按钮')
-    touch(Template(r"icon\tpl1719376765868.png", record_pos=(0.002, 0.705), resolution=(1080, 1920)))  # 点击怪物集结
+    touch(Template(r"icon\tpl1719376765868.png", record_pos=(-0.003, -0.227), resolution=(1080, 1920)))  # 点击怪物集结
     time.sleep(1)  # 等待1s
     if exists(Template(r"icon\tpl1719376776844.png", record_pos=(0.0, 0.326), resolution=(1080, 1920))):
         print_space('点击发起集结')
         touch(Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(1080, 1920)))  # 点击发起集结
         time.sleep(1)  # 等待0.5s
-        if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(1080, 1920))):  # 有兵力可出征
+        if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):  # 有兵力可出征
             print_space('点击出征按钮')
             energy()
         else:  # 判断是否有多余兵力
@@ -462,7 +465,7 @@ def gather():
 
 # 打怪出兵
 def energy():
-    touch(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(1080, 1920)))  # 点击出征
+    touch(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920)))  # 点击出征
     time.sleep(1)
     if exists(Template(r"icon\tpl1720264632282.png", record_pos=(0.301, -0.33), resolution=(1080, 1920))):  # 判断是否有体力
         print_space("体力不足，不满足出征条件，开始回到主页")
@@ -470,15 +473,30 @@ def energy():
         touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
         print_space('关闭出征界面')
         touch(Template(r"icon\tpl1719198082012.png", threshold=0.5, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
-    elif exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(1080, 1920))):
-        touch(Template(r"icon\tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(1080, 1920)))  # 点击出征
+    elif exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):
+        touch(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920)))  # 点击出征
         print_space('出征成功')
     else:
         print_space("出征成功")
 
 
+#采集等级设置
+def collection_lv():
+    print_space('首次启动或数据有更新，重新输入等级')
+    print_space('点击等级输入框')
+    touch([900, 1573])
+    time.sleep(1)
+    print_space('删除原本等级')
+    keyevent('KEYCODE_DEL')
+    time.sleep(1)#等待1秒
+    print_space('输入新的等级')
+    #print(set_collection_lv.get())
+    text(set_collection_lv.get())
+    print_space('点击确定按钮')
+    touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))
 # 生肉
 def Meat():
+    global number_meat
     print_space('准备采集生肉资源')
     print_space('点击搜索图标')
     touch([63, 1314])  # 点击搜索图标
@@ -488,8 +506,11 @@ def Meat():
     touch([240, 1373])  # 点击选择肉
     time.sleep(1)  # 等待1s
     print_space('点击等级')
-    touch([570, 1573])  # 点击等级
-    time.sleep(1)  # 等待1s
+    '''判断本次是否需要执行选择等级'''
+    if number_meat == 0:
+        number_meat += 1
+        collection_lv()
+        time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
     touch([534, 1821])  # 点击搜索
     time.sleep(3)  # 等待1s
@@ -501,6 +522,7 @@ def Meat():
 
 # 木材
 def Wood():
+    global number_wood
     print_space('准备采集木材资源')
     print_space('点击搜索图标')
     touch([63, 1314])  # 点击搜索图标
@@ -510,8 +532,11 @@ def Wood():
     touch([476, 1373])  # 点击选择木材
     time.sleep(1)  # 等待1s
     print_space('点击等级')
-    touch([570, 1573])  # 点击等级
-    time.sleep(1)  # 等待1s
+    '''判断本次是否需要执行选择等级'''
+    if number_wood == 0:
+        number_wood += 1
+        collection_lv()
+        time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
@@ -523,6 +548,7 @@ def Wood():
 
 # 煤矿
 def Coal():
+    global number_coal
     print_space('准备采集煤矿资源')
     print_space('点击搜索图标')
     touch([63, 1314])  # 点击搜索图标
@@ -532,8 +558,11 @@ def Coal():
     touch([710, 1373])  # 点击选择煤矿
     time.sleep(1)  # 等待1s
     print_space('点击等级')
-    touch([570, 1573])  # 点击等级
-    time.sleep(1)  # 等待1s
+    '''判断本次是否需要执行选择等级'''
+    if number_coal == 0:
+        number_coal += 1
+        collection_lv()
+        time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
@@ -545,6 +574,7 @@ def Coal():
 
 # 铁矿
 def Iron():
+    global number_iron
     print_space('准备采集铁矿资源')
     print_space('点击搜索图标')
     touch([63, 1314])  # 点击搜索图标
@@ -554,8 +584,11 @@ def Iron():
     touch([950, 1373])  # 点击选择铁矿
     time.sleep(1)  # 等待1s
     print_space('点击等级')
-    touch([570, 1573])  # 点击等级
-    time.sleep(1)  # 等待1s
+    '''判断本次是否需要执行选择等级'''
+    if number_iron == 0:
+        number_iron += 1
+        collection_lv()
+        time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
@@ -577,13 +610,13 @@ def Collection():
     touch([14, 823])
     time.sleep(1)
     touch([500, 400])
-    if not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.191, -0.169), resolution=(1080, 1920))):
+    if not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.188, -0.127), resolution=(1080, 1920))):
         print_space('有空闲队伍，执行采肉任务')
         time.sleep(1)
         Meat()
     else:
         print_space('已有采肉队伍')
-    if not exists(Template(r"icon\tpl1720766916044.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+    if not exists(Template(r"icon\tpl1720766916044.png",threshold=0.7, record_pos=(-0.438, -0.163), resolution=(1080, 1920))):
         print_space('有空闲队伍，执行采木头任务')
         time.sleep(1)
         Wood()
@@ -779,7 +812,6 @@ def subject():
         if now.minute % 2 == 0:
             try:
                 if int(option_build.get()) == 1:
-
                     print('\n' + '%d.开始执行建造任务' % run_number)
                     Homepage()  # 主页检查
                     Build()  # 建造模块
@@ -881,7 +913,8 @@ def gonggao():
     print('当前更新内容：')
     print_space('1.建筑升级优化')
     print_space('2.训练士兵优化')
-    #print_space('3.添加更新内容')
+    print_space('3.新增采集等级设置')
+    print_space('4.其他优化')
 
 '''-------------------------------------帮助说明-----------------------------------------------'''
 def help_txt():
@@ -1126,7 +1159,7 @@ def save_options():
     with open('set.ini', 'w') as configfile:
         config.write(configfile)
 def save_simple_set():
-    global number_brush
+    global number_brush,number_meat,number_iron,number_wood,number_coal
     if entry.get() != '':
         config.set('Options', '单项', var.get())
         if int(var.get()) == 0:
@@ -1157,8 +1190,14 @@ def save_simple_set():
             config.set('Options', '建筑升级设置', build_time)
             print('设置成功！！！')
         elif int(var.get()) == 6:
+            number_meat = 0
+            number_wood = 0
+            number_coal = 0
+            number_iron = 0
             Collection_time = entry.get()
+            collection_lv = entry_number.get()
             config.set('Options', '采集资源设置', Collection_time)
+            config.set('Options', '采集等级设置', collection_lv)
             print('设置成功！！！')
         elif int(var.get()) == 7:
             bear_time = entry.get()
@@ -1215,6 +1254,7 @@ def load_options():
     set_adventure_time.set(config.get('Options', '探险奖励设置'))
     set_donate_time.set(config.get('Options', '联盟捐赠设置'))
     set_WM_number.set(config.get('Options', '冰原巨兽等级设置'))
+    set_collection_lv.set(config.get('Options', '采集等级设置'))
     set_recruit_time.set(config.get('Options', '英雄招募设置'))
     set_version.set(config.get('Options', 'version'))
 '''初始化配置解析器和选项变量'''
@@ -1249,6 +1289,7 @@ set_treatment_time = tk.StringVar()#治疗
 set_adventure_time = tk.StringVar()#探险
 set_donate_time = tk.StringVar()#捐赠
 set_WM_number = tk.StringVar()#冰原巨兽等级
+set_collection_lv = tk.StringVar()#采集等级设置
 set_recruit_time = tk.StringVar() #招募设置
 set_version = tk.StringVar()#设置版本号
 # 尝试加载先前保存的选项
@@ -1281,7 +1322,8 @@ def read_save():
         config.set('Options', '治疗士兵设置', '1')
         config.set('Options', '探险奖励设置', '3600')
         config.set('Options', '联盟捐赠设置', '300')
-        config.set('Options', '冰原巨兽等级设置', '4')
+        config.set('Options', '冰原巨兽等级设置', '6')
+        config.set('Options', '采集等级设置', '7')
         config.set('Options', '英雄招募设置', '300')
         config.set('Options', 'version', '1.2.0')
         with open('set.ini', 'w') as configfile:
@@ -1503,8 +1545,12 @@ def dropdown_changed():
         entry.delete(0,'end')
         entry.insert(0,set_build_time.get())
     elif int(var.get()) == 6:
+        WM_number.place(x=715, y=60)
+        entry_number.place(x=750, y=60)
         entry.delete(0,'end')
+        entry_number.delete(0, 'end')
         entry.insert(0,set_Collection_time.get())
+        entry_number.insert(0, set_collection_lv.get())
     elif int(var.get()) == 7:
         entry.delete(0,'end')
         entry.insert(0,set_bear_time.get())
