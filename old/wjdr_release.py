@@ -23,7 +23,6 @@ number_wood = 0
 number_coal = 0
 number_iron = 0
 
-
 # 获取当前文件的绝对路径(本地）
 current_file_path = os.path.abspath(__file__)
 
