@@ -617,7 +617,6 @@ def Iron():
     else:
         print_space('未搜索到铁矿资源，结束该任务')
 
-
 # 自动采集
 def Collection():
     if not exists(Template(r"icon\tpl1720145326019.png", record_pos=(-0.191, -0.169), resolution=(1080, 1920))):
