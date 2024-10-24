@@ -1,4 +1,5 @@
 import logging
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 import threading
 import time
@@ -58,6 +59,7 @@ option_treatment = config.get('Options', '治疗士兵')
 option_adventure = config.get('Options', '探险奖励')
 option_donate = config.get('Options', '联盟捐赠')
 option_recruit = config.get('Options', '英雄招募')
+auto_fighting = config.get('Options', '自动扫矿')
 
 
 #重写打印
@@ -71,8 +73,8 @@ def print_space(variable, spaces=4):
 def start_exe():
     while True:
         try:
-            print('开始启动雷电模拟器')
-            subprocess.Popen('E:\leidian\LDPlayer9\dnplayer.exe')
+            print('开始启动模拟器')
+            subprocess.Popen(r"D:\Program Files\Netease\MuMu Player 12\shell\MuMuPlayer.exe")
             #subprocess.Popen('%s' % set_address.get())
             print('启动成功')
             break
@@ -91,9 +93,9 @@ def cnnect():
             print('%d.开始尝试连接模拟器' % a)
             os.popen('adb start-server')
             #print('地址：android:// %s' % str(set_ip.get()))
-            print('地址：android://127.0.0.1:5037')
+            print('地址：android://127.0.0.1:16384')
             #connect_device('android://%s'%set_ip.get())
-            connect_device('android://127.0.0.1:5037')
+            connect_device('android://127.0.0.1:16384')
             #subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
             time.sleep(5)
             print('连接模拟器成功!!!')
@@ -177,6 +179,11 @@ def Homepage():
                 print_space('点击关闭按钮')
                 touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
             else:
+                if exists(Template(r"icon/tpl1729739717241.png", record_pos=(0.406, 0.796), resolution=(1080, 1920))):
+                    touch(Template(r"icon/tpl1729739717241.png", record_pos=(0.406, 0.796), resolution=(1080, 1920)))
+                time.sleep(1)
+                if exists(Template(r"icon/outside.png", record_pos=(0.404, 0.8), resolution=(1080, 1920))):
+                    touch((Template(r"icon/outside.png", record_pos=(0.404, 0.8), resolution=(1080, 1920))))
                 print_space('点击其他区域')
                 touch([500, 600])  # 不在主界面，返回到主页
         if stop_event.is_set():
@@ -756,9 +763,138 @@ def re_connet():
     else:
         print_space('连接正常')
 
+# 自动扫矿
+def auto_fighting_func(self,run_number):
+    if self.auto_fighting.isChecked():
+        print('\n' + '%d.开始自动扫矿任务'% run_number)
+        # Homepage()  # 主页检查
+        # 获取当前手机设备
+        dev = device()
+        if exists(Template(r"icon/tpl1729739717241.png", record_pos=(0.406, 0.796), resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1729739717241.png", record_pos=(0.406, 0.796), resolution=(1080, 1920)))
+        time.sleep(1)
+        if exists(Template(r"icon/outside.png", record_pos=(0.404, 0.8), resolution=(1080, 1920))):
+            touch((Template(r"icon/outside.png", record_pos=(0.404, 0.8), resolution=(1080, 1920))))
+        time.sleep(3)
+
+        print('开始缩放')
+        # 从[550, 1100]，按半个屏幕的0.4倍向外放大，持续3秒，分3步
+        dev.touch_proxy.pinch(center=[550, 1100], percent=0.35, duration=3, steps=2, in_or_out='in')
+        touch([40,270])
+        cnt=0
+        while (not exists_people()) and cnt<10:
+            print("找不到有人挖的矿")
+            swipe([200,1000], [800,600],vector=[0.2718, -0.1938])
+            cnt+=1
+
+        if exists(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920)))
+            if exists(Template(r"icon\tpl1721784579067.png", resolution=(1080, 1920))):
+                touch(Template(r"icon\tpl1721784579067.png", resolution=(1080, 1920)))
+                # 点击比例分配
+                # touch([500,1800])
+                # 点击确定
+                # touch([550,1462])
+                # 点击出征
+                touch(Template(r"icon\tpl1729754826546.png", record_pos=(0.261, 0.796), resolution=(1080, 1920)))
+                return
+
+        if exists(Template(r"icon/tpl1729746328189.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1729746328189.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/mu8.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/mu8.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/tie8.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/tie8.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/rou8.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/rou8.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/mei8.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/mei8.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/tpl1729755056716.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1729755056716.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/tpl1729757241738.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1729757241738.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/tpl1729757248375.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1729757248375.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/tpl1729757256644.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1729757256644.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/tpl1729757271728.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1729757271728.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/tpl1729757289457.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1729757289457.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/tpl1729755669715.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1729755669715.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/tpl1729755729802.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1729755729802.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/tpl1729755760325.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1729755760325.png", resolution=(1080, 1920)))
+            time.sleep(1)
+            touch(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920)))
+
+        # 点击资源
+        if exists(Template(r"icon/tpl1729751856412.png", resolution=(1080, 1920))):
+            print("点击资源")
+            touch(Template(r"icon/tpl1729751856412.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920))):
+            # 点击出征
+            print("点击出征")
+            touch(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon\tpl1721784579067.png", resolution=(1080, 1920))):
+            touch(Template(r"icon\tpl1721784579067.png", resolution=(1080, 1920)))
+            # 点击比例分配
+            # touch([500,1800])
+            # 点击确定
+            # touch([550,1462])
+            # 点击出征
+            touch(Template(r"icon\tpl1729754826546.png", record_pos=(0.261, 0.796), resolution=(1080, 1920)))
+
+def exists_people():
+    templates = [
+        "icon/tpl1729746328189.png",
+        "icon/mu8.png",
+        "icon/tie8.png",
+        "icon/rou8.png",
+        "icon/mei8.png",
+        "icon/tpl1729755056716.png",
+        "icon/tpl1729755669715.png",
+        "icon/tpl1729755729802.png",
+        "icon/tpl1729755760325.png",
+        "icon/tpl1729757241738.png",
+        "icon/tpl1729757248375.png",
+        "icon/tpl1729757256644.png",
+        "icon/tpl1729757271728.png",
+        "icon/tpl1729757289457.png",
+    ]
+    return any(exists(Template(path, resolution=(1080, 1920))) for path in templates)
+
 
 # 主体代码
-def subject():
+def subject(self):
     if emulator_click == 0:
         time.sleep(1)
         print('未连接模拟器')
@@ -768,9 +904,18 @@ def subject():
     global option_help
     while True:
         now = datetime.now()
+        if now.second%10==0 and self.auto_fighting.isChecked():
+            Homepage()  # 主页检查
+            try:
+                auto_fighting_func(self,run_number)
+            except Exception as e:
+                print('程序执行异常，结束该任务，执行其他任务',str(e))
+                Homepage()  # 主页检查
+
+
         if now.second % 2 == 0:
             try:
-                if option_help.lower() == '1':
+                if self.checkBox_help.isChecked():
                     print('\n' + '%d.开始执行互助任务' % run_number)
                     Homepage()  # 主页检查
                     Help()  # 互助模块
@@ -783,7 +928,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute % 5 == 0 and now.second % 5 == 0 and now.hour != 21:
             try:
-                if int(option_XG.lower()) == 1:
+                if self.checkBox_XG.isChecked():
 
                     print('\n' + '%d.开始执行野怪任务' % run_number)
                     Homepage()  # 主页检查
@@ -797,7 +942,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute % 6 == 0 and 0 < now.second < 20 and now.hour != 21:
             try:
-                if int(option_WM.lower()) == 1:
+                if self.checkBox_WM.isChecked():
 
                     print('\n' + '%d.开始执行冰原巨兽任务' % run_number)
                     Homepage()  # 主页检查
@@ -811,7 +956,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute % 6 == 0 and now.hour != 21:
             try:
-                if int(option_npc.lower()) == 1:
+                if self.checkBox_npc.isChecked():
 
                     print('\n' + '%d.开始执行活动雪怪任务' % run_number)
                     Homepage()  # 主页检查
@@ -825,7 +970,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute % 5 == 0:
             try:
-                if int(option_Production.lower()) == 1:
+                if self.checkBox_Production.isChecked():
 
                     print('\n' + '%d.开始执行训练任务' % run_number)
                     Homepage()  # 主页检查
@@ -839,7 +984,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute % 2 == 0:
             try:
-                if int(option_build.lower()) == 1:
+                if self.checkBox_build.isChecked():
 
                     print('\n' + '%d.开始执行建造任务' % run_number)
                     Homepage()  # 主页检查
@@ -853,7 +998,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.hour == 3:
             try:
-                if int(option_Collection.lower()) == 1:
+                if self.checkBox_Collection.isChecked():
 
                     print('\n' + '%d.开始执行采集任务' % run_number)
                     Homepage()  # 主页检查
@@ -867,7 +1012,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.hour == 21:
             try:
-                if int(option_bear.lower()) == 1:
+                if self.checkBox_bear.isChecked():
 
                     print_space('当前时间：%s,巨熊活动进行中' % now.strftime("%H:%M:%S"))
                     Homepage()  # 主页检查
@@ -881,7 +1026,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute == 21:
             try:
-                if int(option_treatment.lower()) == 1:
+                if self.checkBox_treatment.isChecked():
 
                     print('\n' + '%d.开始执行治疗任务' % run_number)
                     Homepage()  # 主页检查
@@ -895,7 +1040,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute == 25:
             try:
-                if int(option_adventure.lower()) == 1:
+                if self.checkBox_adventure.isChecked():
 
                     print('\n' + '%d.开始执行探险任务' % run_number)
                     Homepage()  # 主页检查
@@ -909,7 +1054,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute == 1:
             try:
-                if int(option_donate.lower()) == 1:
+                if self.checkBox_donate.isChecked():
                     print('\n' + '%d.开始执行捐赠任务' % run_number)
                     Homepage()  # 主页检查
                     donate()  # 捐赠模块
@@ -922,7 +1067,7 @@ def subject():
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.hour == 1 and now.minute % 5 == 0:
             try:
-                if int(option_donate.lower()) == 1:
+                if self.checkBox_recruit.isChecked():
                     print('\n' + '%d.开始执行招募任务' % run_number)
                     Homepage()
                     recruit()
@@ -1056,6 +1201,7 @@ def save_options():
     config.set('Options', '探险奖励', option_adventure.get())
     config.set('Options', '联盟捐赠', option_donate.get())
     config.set('Options', '英雄招募', option_recruit.get())
+    config.set('Options', '自动扫矿', auto_fighting.get())
     with open('set.ini', 'w') as configfile:
         config.write(configfile)
 
@@ -1130,6 +1276,7 @@ def load_options():
     set_address.set(config.get('Options', '模拟器路径'))
     var.set(config.get('Options', '单项'))
     option_help.set(config.get('Options', '联盟互助'))
+    auto_fighting.set(config.get('Options', '自动扫矿'))
     option_XG.set(config.get('Options', '世界野怪'))
     option_WM.set(config.get('Options', '冰原巨兽'))
     option_npc.set(config.get('Options', '活动雪怪'))
@@ -1445,6 +1592,9 @@ class Ui_MainWindow(object):
         self.checkBox_recruit = QtWidgets.QCheckBox(self.frame_3)
         self.checkBox_recruit.setGeometry(QtCore.QRect(110, 110, 71, 16))
         self.checkBox_recruit.setObjectName("checkBox_recruit")
+        self.auto_fighting = QtWidgets.QCheckBox(self.frame_3)
+        self.auto_fighting.setGeometry(QtCore.QRect(200, 110, 71, 16))
+        self.auto_fighting.setObjectName("auto_fighting")
         #全选
         self.select_all = QtWidgets.QPushButton(self.frame_3)
         self.select_all.setGeometry(QtCore.QRect(90, 150, 75, 23))
@@ -1795,14 +1945,17 @@ class Ui_MainWindow(object):
             self.checkBox_recruit.setChecked(True)
         else:
             self.checkBox_recruit.setChecked(False)
-
+        if auto_fighting.lower() == '1':
+            self.auto_fighting.setChecked(True)
+        else:
+            self.checkBox_recruit.setChecked(False)
     def save_simple(self):
         self.select_stop.show()  # type: ignore
         self.select_start.hide()  # type: ignore
         print("程序开始执行...")
         # 这里放置程序开始时需要执行的代码
         #stop_event.clear()
-        threading.Thread(target=subject).start()  #save_options()
+        threading.Thread(target=lambda:subject(self)).start()  #save_options()
 
     def stop_button(self):
         self.select_start.show()
@@ -1853,6 +2006,7 @@ class Ui_MainWindow(object):
         self.checkBox_adventure.setChecked(True)
         self.checkBox_donate.setChecked(True)
         self.checkBox_recruit.setChecked(True)
+        self.auto_fighting.setChecked(True)
 
     def untoggle_checkbox(self):
         self.checkBox_help.setChecked(False)
@@ -1867,6 +2021,7 @@ class Ui_MainWindow(object):
         self.checkBox_adventure.setChecked(False)
         self.checkBox_donate.setChecked(False)
         self.checkBox_recruit.setChecked(False)
+        self.auto_fighting.setChecked(False)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -1891,6 +2046,7 @@ class Ui_MainWindow(object):
         self.checkBox_bear.setText(_translate("MainWindow", "巨熊活动"))
         self.checkBox_donate.setText(_translate("MainWindow", "联盟捐赠"))
         self.checkBox_recruit.setText(_translate("MainWindow", "英雄招募"))
+        self.auto_fighting.setText(_translate("MainWindow", "自动扫矿"))
         self.select_all.setText(_translate("MainWindow", "全选"))
         self.select_unall.setText(_translate("MainWindow", "取消全选"))
         self.select_stop.setText(_translate("MainWindow", "停止"))
