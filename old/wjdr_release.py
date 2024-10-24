@@ -124,6 +124,9 @@ def Homepage():
                 elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920))):
                     print_space('点击关闭按钮')
                     touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
+                elif exists(Template(r"icon\tpl1729734622180.png", record_pos=(0.381, -0.461), resolution=(1080, 1920))):
+                    print('点击浅色关闭按钮')
+                    touch(Template(r"icon\tpl1729734622180.png", record_pos=(0.381, -0.461), resolution=(1080, 1920)))
                 else:
                     print_space('点击其他区域')
                     touch([500, 600])  # 不在主界面，返回到主页
