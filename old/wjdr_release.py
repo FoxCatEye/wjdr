@@ -125,7 +125,7 @@ def Homepage():
                     print_space('点击关闭按钮')
                     touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
                 elif exists(Template(r"icon\tpl1729734622180.png", record_pos=(0.381, -0.461), resolution=(1080, 1920))):
-                    print('点击浅色关闭按钮')
+                    print_space('点击浅色关闭按钮')
                     touch(Template(r"icon\tpl1729734622180.png", record_pos=(0.381, -0.461), resolution=(1080, 1920)))
                 else:
                     print_space('点击其他区域')
@@ -455,12 +455,11 @@ def Brush_WM():
 def gather():
     print_space('点击采集按钮')
     touch(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920)))
-    if exists(Template(r"icon\tpl1721191349776.png", record_pos=(0.26, 0.798), resolution=(1080, 1920))):  # 有兵力可出征
+    if exists(Template(r"icon\tpl1721191349776.png", record_pos=(0.261, 0.796), resolution=(1080, 1920))):  # 有兵力可出征
         print_space('点击出征按钮')
         touch(Template(r"icon\tpl1721191349776.png",rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
         print_space('出征成功')
         time.sleep(1)
-        touch([14, 823])
     else:  # 判断是否有多余兵力
         print_space('不满足条件，无兵力出征')
 
@@ -618,18 +617,24 @@ def Collection():
         Meat()
     else:
         print_space('已有采肉队伍')
+    Homepage()
+    touch([14, 823])
     if not exists(Template(r"icon\tpl1720766916044.png",threshold=0.7, record_pos=(-0.438, -0.163), resolution=(1080, 1920))):
         print_space('有空闲队伍，执行采木头任务')
         time.sleep(1)
         Wood()
     else:
         print_space('已有采木材队伍')
+    Homepage()
+    touch([14, 823])
     if not exists(Template(r"icon\tpl1720766916045.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
         print_space('有空闲队伍，执行采煤任务')
         time.sleep(1)
         Coal()
     else:
         print_space('已有采煤队伍')
+    Homepage()
+    touch([14, 823])
     if not exists(Template(r"icon\tpl1720766916046.png", rgb=True, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
         print_space('有空闲队伍，执行采铁任务')
         time.sleep(1)
@@ -666,9 +671,9 @@ def donate():
         touch(Template(r"icon\tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
         x = 1
         while x > 0:
-            if not exists(Template(r"icon\tpl1721784579074.png", rgb=True, record_pos=(-0.44, -0.783), resolution=(1080, 1920))):
+            if exists(Template(r"icon\tpl1721784579073.png",rgb=True, record_pos=(0.208, 0.514), resolution=(1080, 1920))):
                 print_space('点击捐献')
-                touch(Template(r"icon\tpl1721784579073.png", record_pos=(-0.44, -0.783), resolution=(1080, 1920)),duration = 2)
+                touch(Template(r"icon\tpl1721784579073.png",rgb=True, record_pos=(0.208, 0.514), resolution=(1080, 1920)),duration = 2)
             else:
                 print_space('无捐献次数，结束任务')
                 x = 0
@@ -701,12 +706,13 @@ def recruit():
         touch(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
         print_space('点击英雄招募')
         touch(Template(r"icon\hero_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
-        if exists(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
+        if exists(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.234, 0.285), scale_max=800, resolution=(1080, 1920))):
             print_space('点击免费招募')
-            touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
+            touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.234, 0.285), scale_max=800, resolution=(1080, 1920)))
             time.sleep(1)
-            touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
+            touch(Template(r"tpl1729741197970.png", record_pos=(-0.441, -0.836), resolution=(1080, 1920)))
             time.sleep(1)
+
         else:
             print_space('无免费招募次数')
         touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
@@ -1093,8 +1099,8 @@ background_button.place(x=50, y=513)'''
 '''提示文本'''
 #prompt_text = tkFont.Font(window,family="Helvetica", size=10, weight=tkFont.NORMAL)
 #tk.Label(window,text='请等待程序停止后再设置相关参数', anchor='center', font=prompt_text).pack()
-tk.Label(text='请等待程序停止后再设置相关参数').pack()
-tk.Label(text='多选和单选不可同时执行').pack()
+tk.Label(text='请等待程序停止后再设置相关参数',foreground="red").pack()
+tk.Label(text='多选和单选不可同时执行',foreground="red").pack()
 '''保存模拟器地址'''
 def save_address():
     if emulator_entry.get() == '':
