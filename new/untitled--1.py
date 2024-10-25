@@ -1334,7 +1334,7 @@ class helplog(QMainWindow, Ui_helpWindow):
 
 '''保存设置'''
 
-
+'''
 def save_options():
     config.set('Options', '单项', var.get())
     config.set('Options', '联盟互助', option_help.get())
@@ -1410,16 +1410,16 @@ def save_simple_set():
             print('设置成功！！！')
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
-        load_options()
+        #load_options()
     else:
         print('-------------间隔时间不能为空-------------')
 
-'''初始化配置解析器和选项变量'''
+#初始化配置解析器和选项变量
 config = ConfigParser()
 config['Options'] = {}
-'''单选'''
+#单选
 var = QSettings()
-'''多选'''
+#多选
 set_ip = QSettings()  #设置模拟器ip
 set_address = QSettings()  #设置模拟器地址
 set_help_time = QSettings()  #互助
@@ -1436,7 +1436,7 @@ set_donate_time = QSettings()  #捐赠
 set_WM_number = QSettings()  #冰原巨兽等级
 set_recruit_time = QSettings()  #招募设置
 set_version = QSettings()  #设置版本号
-'''读取设置'''
+#读取设置
 
 
 def load_options():
@@ -1515,7 +1515,7 @@ def read_save():
         print('No saved options found.')
 
 
-read_save()
+read_save()'''
 
 
 def stop_function():
@@ -2030,9 +2030,29 @@ class Ui_MainWindow(object):
         option1 = settings.value('options/联盟互助', type=bool)
         option2 = settings.value('options/世界野怪', type=bool)
         option3 = settings.value('options/冰原巨兽', type=bool)
+        option4 = settings.value('options/活动雪怪', type=bool)
+        option5 = settings.value('options/训练士兵', type=bool)
+        option6 = settings.value('options/建筑升级', type=bool)
+        option7 = settings.value('options/采集资源', type=bool)
+        option8 = settings.value('options/巨熊活动', type=bool)
+        option9 = settings.value('options/治疗士兵', type=bool)
+        option10 = settings.value('options/探险奖励', type=bool)
+        option11 = settings.value('options/联盟捐赠', type=bool)
+        option12 = settings.value('options/英雄招募', type=bool)
+        option13 = settings.value('options/攻击检测', type=bool)
         self.checkBox_help.setChecked(option1)
         self.checkBox_XG.setChecked(option2)
         self.checkBox_WM.setChecked(option3)
+        self.checkBox_npc.setChecked(option4)
+        self.checkBox_Production.setChecked(option5)
+        self.checkBox_build.setChecked(option6)
+        self.checkBox_Collection.setChecked(option7)
+        self.checkBox_bear.setChecked(option8)
+        self.checkBox_treatment.setChecked(option9)
+        self.checkBox_adventure.setChecked(option10)
+        self.checkBox_donate.setChecked(option11)
+        self.checkBox_recruit.setChecked(option12)
+        #self.checkBox_ming.setChecked(option13)
 
 
     def save_settings(self):#保存设置
@@ -2040,6 +2060,17 @@ class Ui_MainWindow(object):
         settings.setValue('options/联盟互助', self.checkBox_help.isChecked())
         settings.setValue('options/世界野怪', self.checkBox_XG.isChecked())
         settings.setValue('options/冰原巨兽', self.checkBox_WM.isChecked())
+        settings.setValue('options/活动雪怪', self.checkBox_npc.isChecked())
+        settings.setValue('options/训练士兵', self.checkBox_Production.isChecked())
+        settings.setValue('options/建筑升级', self.checkBox_build.isChecked())
+        settings.setValue('options/采集资源', self.checkBox_Collection.isChecked())
+        settings.setValue('options/巨熊活动', self.checkBox_bear.isChecked())
+        settings.setValue('options/治疗士兵', self.checkBox_treatment.isChecked())
+        settings.setValue('options/探险奖励', self.checkBox_adventure.isChecked())
+        settings.setValue('options/联盟捐赠', self.checkBox_donate.isChecked())
+        settings.setValue('options/英雄招募', self.checkBox_recruit.isChecked())
+        #settings.setValue('options/活动雪怪', self.checkBox_npc.isChecked())
+        #settings.setValue('options/活动雪怪', self.checkBox_npc.isChecked())
 
     def select_start_button(self):#多选开始按钮
         self.save_settings()
