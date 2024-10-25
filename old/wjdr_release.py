@@ -29,20 +29,20 @@ current_file_path = os.path.abspath(__file__)
 # 获取当前文件夹的上一级目录的绝对路径(本地）
 #parent_directory_path = os.path.dirname(os.path.dirname(current_file_path))
 # 上一级文件夹中要删除的文件名
-file_to_delete = 'jiaoben-1.2.2.exe'
+file_to_delete = 'jiaoben-1.2.3.exe'
 
 # 构建要删除的文件的绝对路径(本地）
 #file_path_to_delete = os.path.join(current_file_path, file_to_delete)
 
 # 删除文件
 #os.remove(file_path_to_delete)
-if os.path.isfile(file_to_delete):
+'''if os.path.isfile(file_to_delete):
     # 删除文件
     time.sleep(2)
     os.remove(file_to_delete)
     print(f"文件 已被删除。")
 else:
-    print(f"文件 不存在。")
+    print(f"文件 不存在。")'''
 
 '''打开模拟器'''
 
@@ -115,12 +115,15 @@ def Homepage():
             else:
                 a += 1
                 print_space("不在主页，返回上一级")
-                if exists(Template(r"icon\tpl1719198082012.png",rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
+                if exists(Template(r"icon\black_return.png",rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
                     print_space('点击黑色返回按钮')
-                    touch(Template(r"icon\tpl1719198082012.png",rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
+                    touch(Template(r"icon\black_return.png",rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
                 elif exists(Template(r'icon\return.png',rgb=True, record_pos=(-0.44, -0.783), resolution=(1080, 1920))):
                     print_space('点击白色返回按钮')
                     touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
+                elif exists(Template(r"icon\yellow_return.png", record_pos=(-0.442, -0.836), resolution=(1080, 1920))):
+                    print_space('点击黄色返回按钮')
+                    touch(Template(r"icon\yellow_return.png", record_pos=(-0.442, -0.836), resolution=(1080, 1920)))
                 elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920))):
                     print_space('点击关闭按钮')
                     touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
@@ -225,7 +228,7 @@ def Production_soldiers():
         print_space("1跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
-    elif exists(Template(r"icon/tpl1719478488283.png", threshold=0.9,rgb=True, record_pos=(-0.066, -0.111), resolution=(1080, 1920))):
+    elif exists(Template(r"icon/tpl1719478488283.png", threshold=0.85,rgb=True, record_pos=(-0.066, -0.111), resolution=(1080, 1920))):
         print_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
@@ -365,6 +368,8 @@ def NPC():
 def Brush_XG():
     print_space('打野怪时间，开始出征')
     search_main()
+    swipe([600, 1370], vector=[0.4103, 0.0170])  # 滑动
+    time.sleep(1)  # 等待1s
     print_space('点击选择普通野兽')
     touch([120, 1373])  # 点击普通野兽
     time.sleep(1)  # 等待1s
@@ -650,11 +655,11 @@ def treatment():
         print_space("点击治疗图标")
         touch(Template(r"icon\tpl1721191349778.png", threshold=0.8, record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
         print_space('点击治疗按钮')
-        touch(Template(r"icon\tpl1721191349779.png", threshold=0.8, record_pos=(0.29, 0.756), resolution=(1080, 1920)))
+        touch(Template(r"icon\tpl1721191349779.png", threshold=0.8, record_pos=(0.295, 0.765), resolution=(1080, 1920)))
         print_space('点击联盟互助')
         touch(Template(r"icon\tpl1721191349780.png", threshold=0.8, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
         print_space('点击返回按钮')
-        touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
+        touch(Template(r"icon\black_return.png",rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
     else:
         print_space('没有需要治疗的士兵')
 
@@ -719,6 +724,36 @@ def recruit():
         time.sleep(1)
         touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
 
+
+'''攻击检测'''
+def mining_collision():
+    if exists(Template(r"icon\tpl1729833981926.png", record_pos=(0.42, -0.141), resolution=(1080, 1920))):
+        print_space('检测到被攻击，点击预警图标')
+        touch(Template(r"icon\tpl1729833981926.png", record_pos=(0.42, -0.141), resolution=(1080, 1920)))
+        time.sleep(1)
+        print_space('点击前往目标')
+        touch(Template(r"icon\tpl1729834107464.png", record_pos=(0.207, -0.549), resolution=(1080, 1920)))
+        time.sleep(1)
+        print_space('点击目标')
+        touch([540,940])
+        time.sleep(2)
+        if exists(Template(r"icon\tpl1729834163624.png", record_pos=(-0.139, 0.607), resolution=(1080, 1920))):
+            print_space('撞矿检测，点击召回采矿')
+            touch(Template(r"icon\tpl1729834163624.png", record_pos=(-0.139, 0.607), resolution=(1080, 1920)))
+            time.sleep(1)
+            print_space('点击确认召回队伍')
+            touch(Template(r"icon\tpl1729834190986.png", record_pos=(0.212, 0.203), resolution=(1080, 1920)))
+        elif exists(Template(r"icon\tpl1729834914817.png", record_pos=(-0.139, 0.557), resolution=(1080, 1920))):
+            print_space('检测到攻击城堡，点击城堡增益准备开启防护罩')
+            touch(Template(r"icon\tpl1729834914817.png", record_pos=(-0.139, 0.557), resolution=(1080, 1920)))
+            time.sleep(1)
+            print_space('点击防护罩')
+            touch(Template(r"icon\tpl1729834969758.png", record_pos=(-0.372, -0.544), resolution=(1080, 1920)))
+            time.sleep(1)
+            print_space('点击使用')
+            touch(Template(r"icon\tpl1729834989760.png", record_pos=(0.322, -0.336), resolution=(1080, 1920)))
+    else:
+        print_space('未检测到攻击')
 # 设备顶号重连
 def re_connet():
     if exists(Template(r"icon\tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
@@ -759,6 +794,7 @@ def subject():
                     print('\n' + '%d.开始执行互助任务' % run_number)
                     Homepage()  # 主页检查
                     Help()  # 互助模块
+                    mining_collision()#攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         start_button.configure(text='开始', command=save_simple)  # 总功能
@@ -920,10 +956,10 @@ def print_space(variable, spaces=4):
 '''-------------------------------------更新公告-----------------------------------------------'''
 def gonggao():
     print('当前更新内容：')
-    print_space('1.建筑升级优化')
-    print_space('2.训练士兵优化')
-    print_space('3.新增采集等级设置')
-    print_space('4.其他优化')
+    print_space('1.世界野怪优化')
+    print_space('2.新增攻击检测')
+    #print_space('3.')
+    #print_space('4.')
 
 '''-------------------------------------帮助说明-----------------------------------------------'''
 def help_txt():
@@ -1204,9 +1240,9 @@ def save_simple_set():
             number_coal = 0
             number_iron = 0
             Collection_time = entry.get()
-            collection_lv = entry_number.get()
+            get_collection_lv = entry_number.get()
             config.set('Options', '采集资源设置', Collection_time)
-            config.set('Options', '采集等级设置', collection_lv)
+            config.set('Options', '采集等级设置', get_collection_lv)
             print('设置成功！！！')
         elif int(var.get()) == 7:
             bear_time = entry.get()
@@ -1227,6 +1263,10 @@ def save_simple_set():
         elif int(var.get()) == 11:
             recruit_time = entry.get()
             config.set('Options', '英雄招募设置',recruit_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 12:
+            get_mining_collision_time = entry.get()
+            config.set('Options', '攻击检测设置',get_mining_collision_time)
             print('设置成功！！！')
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
@@ -1265,6 +1305,7 @@ def load_options():
     set_WM_number.set(config.get('Options', '冰原巨兽等级设置'))
     set_collection_lv.set(config.get('Options', '采集等级设置'))
     set_recruit_time.set(config.get('Options', '英雄招募设置'))
+    mining_collision_time.set(config.get('Options', '攻击检测设置'))
     set_version.set(config.get('Options', 'version'))
 '''初始化配置解析器和选项变量'''
 config = ConfigParser()
@@ -1300,12 +1341,13 @@ set_donate_time = tk.StringVar()#捐赠
 set_WM_number = tk.StringVar()#冰原巨兽等级
 set_collection_lv = tk.StringVar()#采集等级设置
 set_recruit_time = tk.StringVar() #招募设置
+mining_collision_time = tk.StringVar()#攻击检测
 set_version = tk.StringVar()#设置版本号
 # 尝试加载先前保存的选项
 def read_save():
     # 首次启动时默认选项
     if not config.read('set.ini'):
-        config.set('Options','模拟器ip','127.0.0.1:5037')
+        config.set('Options','模拟器ip','127.0.0.1:5037/emulator-5554')
         config.set('Options', '模拟器路径', 'E:\leidian\LDPlayer9\dnplayer.exe')
         config.set('Options', '单项', '0')
         config.set('Options', '联盟互助', '1')
@@ -1334,6 +1376,7 @@ def read_save():
         config.set('Options', '冰原巨兽等级设置', '6')
         config.set('Options', '采集等级设置', '7')
         config.set('Options', '英雄招募设置', '300')
+        config.set('Options', '攻击检测设置', '300')
         config.set('Options', 'version', '1.2.0')
         with open('set.ini', 'w') as configfile:
             config.write(configfile)
@@ -1478,7 +1521,10 @@ for i in range(1, 12):
     #frame.create_window(328, 105, window=checkbox)
     checkbox.place(x=89, y=290)
     checkboxes.append(checkbox)
-
+for i in range(1,12):
+    checkbox = tk.Checkbutton(window, text='攻击检测', width=6, height=1, variable=option_recruit, command=save_options)
+    checkbox.place(x=169, y=290)
+    checkboxes.append(checkbox)
 '''------------------------------------多选功能区功能按钮------------------------------------'''
 '''创建按钮'''
 select_button = ttk.Button(window, text="全选", command=save_select_all)
@@ -1575,6 +1621,9 @@ def dropdown_changed():
     elif int(var.get()) == 11:
         entry.delete(0,'end')
         entry.insert(0,set_recruit_time.get())
+    elif int(var.get()) == 12:
+        entry.delete(0,'end')
+        entry.insert(0,mining_collision_time.get())
 dropdown_changed()
 '''下拉框'''
 '''combo_box = ttk.Combobox(window,width=8,state='readonly')
@@ -1919,6 +1968,32 @@ def simple_select():
                             time.sleep(10)
             except:
                 print('错误')
+    elif var_value == 12:   #攻击检测
+        while execute:
+            try:
+                Homepage()
+                mining_collision()
+                if stop_event.is_set():
+                    start_button_simple.configure(text='开始', command=save_simple_start_button)  # 停止后按钮变为开始
+                    break
+                mining_collision_time1 = int(mining_collision_time.get())
+                print_space('等待%s秒后再次执行' % mining_collision_time1 + '\n')
+                number = 0
+                mining_collision_number = mining_collision_time1 / 10
+                while number < mining_collision_number:
+                    if stop_event.is_set():
+                        execute = False
+                        start_button_simple.configure(text='开始', command=save_simple_start_button)  # 野怪功能
+                        break
+                    else:
+                        if mining_collision_number < 1:
+                            time.sleep(mining_collision_number)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+            except:
+                print('错误')
     print('任务已结束')
 '''------------------------------------单选项选项------------------------------------'''
 # 创建单选项并添加选项
@@ -1970,6 +2045,10 @@ select_donate.place(x=480,y=180)
 select_recruit = tk.Radiobutton(window,text='英雄招募',width=6,height=1, variable=var,value=11,command=dropdown_changed)
 #frame_simple.create_window(328,105, window=select_recruit)
 select_recruit.place(x=560,y=180)
+'''攻击检测'''
+select_recruit = tk.Radiobutton(window,text='攻击检测',width=6,height=1, variable=var,value=12,command=dropdown_changed)
+#frame_simple.create_window(328,105, window=select_recruit)
+select_recruit.place(x=640,y=180)
 '''开始按钮'''
 start_button_simple = ttk.Button(window, text='开始', command=save_simple_start_button)
 #frame_simple.create_window(200, 135, window=start_button_simple)
