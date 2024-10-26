@@ -797,20 +797,30 @@ def re_connet():
     else:
         print_space('连接正常')
 
-
+# 队列撤回
+def out_queue_back():
+    print("检查是否有队列在外")
+    if exists(Template(r"icon/back_icon.png", record_pos=(-0.188, -0.431),resolution=(1080, 1920))):
+        touch(Template(r"icon/back_icon.png", record_pos=(-0.188, -0.431),resolution=(1080, 1920)))
+        if exists(Template(r"icon/confirm.png", resolution=(1080, 1920))):
+            touch(Template(r"icon/confirm.png", resolution=(1080, 1920)))
+        print("队列撤回")
 
 
 # 自动扫矿
 def auto_fighting_func(self, run_number):
     if self.auto_fighting.isChecked():
+        out_queue_back()
         print('\n' + '%d.开始自动扫矿任务' % run_number)
-        # Homepage()  # 主页检查
         swipe_left()
         cnt = 0
         swipe_dir = 1
-        # (not exists_people()) and
-        while cnt < 100:
+
+        while (not exists_people()) and cnt < 100:
             print("找不到有人挖的矿")
+            if stop_event.is_set():
+                self.select_stop_button()
+                return
             if swipe_dir == 1:
                 swipe_left()
             if swipe_dir == -1:
@@ -821,7 +831,7 @@ def auto_fighting_func(self, run_number):
             cnt += 1
             time.sleep(3)
 
-        '''
+
         if exists(Template(r"icon/m8_used.png",  resolution=(1080, 1920))):
             touch(Template(r"icon/m8_used.png", resolution=(1080, 1920)))
         if exists(Template(r"icon/r8_used.png",  resolution=(1080, 1920))):
@@ -838,6 +848,14 @@ def auto_fighting_func(self, run_number):
             touch(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920)))
         time.sleep(1)
         
+        if exists(Template(r"icon/queue_one.png", resolution=(1080, 1920))):
+            touch(Template(r"icon/queue_one.png", resolution=(1080, 1920)))
+            if exists(Template(r"icon/empty_queue.png",record_pos=(-0.004, -0.364),  resolution=(1080, 1920))):
+                touch(Template(r"icon/queue_two.png", resolution=(1080, 1920)))
+
+        if exists(Template(r"icon/empty_queue.png", resolution=(1080, 1920))):
+            return
+        
         if exists(Template(r"icon/tpl1721784579067.png", resolution=(1080, 1920))):
             touch(Template(r"icon/tpl1721784579067.png", resolution=(1080, 1920)))
             # 点击比例分配
@@ -845,7 +863,7 @@ def auto_fighting_func(self, run_number):
             # 点击确定
             # touch([550,1462])
             # 点击出征
-            touch(Template(r"icon/tpl1729754826546.png", record_pos=(0.261, 0.796), resolution=(1080, 1920)))'''
+            touch(Template(r"icon/tpl1729754826546.png", record_pos=(0.261, 0.796), resolution=(1080, 1920)))
 
 
 def exists_people():
@@ -886,8 +904,8 @@ def subject(self):
                     if stop_event.is_set():
                         self.select_stop_button()
                         break
-            except:
-                print('程序执行异常，结束该任务，执行其他任务')
+            except Exception as e:
+                print('程序执行异常，结束该任务，执行其他任务',str(e))
         if now.minute % 5 == 0 and now.second % 5 == 0 and now.hour != 21:
             try:
                 if self.checkBox_XG.isChecked():
@@ -2205,7 +2223,7 @@ class Ui_MainWindow(object):
         self.select_start.hide()  # type: ignore
         print("程序开始执行...")
         # 这里放置程序开始时需要执行的代码
-        # stop_event.clear()
+        stop_event.clear()
         threading.Thread(target=lambda: subject(self)).start()  # save_options()
 
     def select_stop_button(self):  # 多选停止程序
