@@ -1,14 +1,20 @@
 import logging
-import subprocess
-import sys
-import threading
-from configparser import ConfigParser
-from datetime import datetime
-
 from PyQt5 import QtCore, QtGui, QtWidgets
+import threading
+import time
+from datetime import datetime
+import subprocess
+import os
+import sys
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtGui import QPalette, QBrush, QPixmap
+from configparser import ConfigParser
+from PyQt5.QtCore import QTimer
 from airtest.core.api import *
+from airtest.core.android.android import *
+
+from new.Utils import swipe_left, swipe_right, swipe_down
 
 logging.getLogger('airtest').setLevel(logging.ERROR)
 '''模拟器点击变量'''
@@ -19,32 +25,28 @@ number_brush = 0
 current_file_path = os.path.abspath(__file__)
 
 # 获取当前文件夹的上一级目录的绝对路径(本地）
-#parent_directory_path = os.path.dirname(os.path.dirname(current_file_path))
+# parent_directory_path = os.path.dirname(os.path.dirname(current_file_path))
 # 上一级文件夹中要删除的文件名
 file_to_delete = 'jiaoben-1.2.1.exe'
 
 # 构建要删除的文件的绝对路径(本地）
-#file_path_to_delete = os.path.join(current_file_path, file_to_delete)
+# file_path_to_delete = os.path.join(current_file_path, file_to_delete)
 
 # 删除文件
-#os.remove(file_path_to_delete)
-# if os.path.isfile(file_to_delete):
-#     # 删除文件
-#     time.sleep(2)
-#     os.remove(file_to_delete)
-#     print(f"文件 已被删除。")
-# else:
-#     print(f"文件 不存在。")
+# os.remove(file_path_to_delete)
+if os.path.isfile(file_to_delete):
+    # 删除文件
+    time.sleep(2)
+    os.remove(file_to_delete)
+    print(f"文件 已被删除。")
+else:
+    print(f"文件 不存在。")
 
 # 假设配置文件为config.ini，且其中的选项在[Options]部分
 import configparser
 
 config = configparser.ConfigParser()
-try:
-    config.read('set.ini')
-    print("配置文件读取成功")
-except Exception as e:
-    print(f"读取配置文件出错: {e}")
+config.read('set.ini')
 # 假设需要读取的选项变量名为'my_option'
 option_help = config.get('Options', '联盟互助')
 option_XG = config.get('Options', '世界野怪')
@@ -61,7 +63,7 @@ option_recruit = config.get('Options', '英雄招募')
 auto_fighting = config.get('Options', '自动扫矿')
 
 
-#重写打印
+# 重写打印
 def print_space(variable, spaces=4):
     print(' ' * spaces + str(variable))
 
@@ -74,7 +76,7 @@ def start_exe():
         try:
             print('开始启动雷电模拟器')
             subprocess.Popen('E:\leidian\LDPlayer9\dnplayer.exe')
-            #subprocess.Popen('%s' % set_address.get())
+            # subprocess.Popen('%s' % set_address.get())
             print('启动成功')
             break
         except:
@@ -91,11 +93,11 @@ def cnnect():
         try:
             print('%d.开始尝试连接模拟器' % a)
             os.popen('adb start-server')
-            #print('地址：android:// %s' % str(set_ip.get()))
+            # print('地址：android:// %s' % str(set_ip.get()))
             print('地址：android://127.0.0.1:5037')
-            #connect_device('android://%s'%set_ip.get())
+            # connect_device('android://%s'%set_ip.get())
             connect_device('android://127.0.0.1:5037')
-            #subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
+            # subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
             time.sleep(5)
             print('连接模拟器成功!!!')
             a = 0
@@ -126,7 +128,7 @@ def start_app():
         print_space('游戏已启动!!!')'''
 
 
-def all_start():  #一键启动
+def all_start():  # 一键启动
     start_exe()
     print('等待30s以完成模拟器的启动')
     time.sleep(30)
@@ -136,9 +138,9 @@ def all_start():  #一键启动
     start_app()
 
 
-def start_simple(button_start_id):  #模拟器启动相关
+def start_simple(button_start_id):  # 模拟器启动相关
     if button_start_id == 1:
-        #start_exe_button.configure(text='启动模拟器', command=lambda: start_simple(1))
+        # start_exe_button.configure(text='启动模拟器', command=lambda: start_simple(1))
         # start_exe()
         '''启动模拟器线程'''
         threading.Thread(target=start_exe).start()  # threading.Thread(target=start_exe).join()
@@ -146,7 +148,7 @@ def start_simple(button_start_id):  #模拟器启动相关
         '''连接模拟器线程'''
         threading.Thread(target=cnnect).start()  # threading.Thread(target=cnnect).join()
     elif button_start_id == 3:
-        #start_app_button.configure(text='再次启动app', command=lambda: start_simple(3))
+        # start_app_button.configure(text='再次启动app', command=lambda: start_simple(3))
         # start_app()
         '''启动app线程'''
         threading.Thread(target=start_app).start()  # threading.Thread(target=start_app).join()
@@ -160,17 +162,20 @@ def start_simple(button_start_id):  #模拟器启动相关
 # 主页判断
 def Homepage():
     a = 1
-    #try:
+    # try:
     while a < 4:
-        if exists(Template(r"icon/tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(414, 780))):
+        if exists(Template(r"icon/tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
+                           resolution=(414, 780))):
             print_space("在主页，准备执行任务")  # 在主界面，执行任务
             return
         else:
             a += 1
             print_space("不在主页，返回上一级")
-            if exists(Template(r"icon/tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780))):
+            if exists(Template(r"icon/tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
+                               resolution=(414, 780))):
                 print_space('点击返回按钮')
-                touch(Template(r"icon/tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
+                touch(Template(r"icon/tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783),
+                               resolution=(414, 780)))
             elif exists(Template(r'icon/return.png', threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780))):
                 print_space('点击返回按钮')
                 touch(Template(r"icon/return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
@@ -237,8 +242,9 @@ def train():
         lv_x = 910
         lv_y = 5
         while lv_y > 0:
-            if not exists(Template(r"icon/tpl17217845790633.png", rgb=True, threshold=0.8, record_pos=(0.22, 0.338), resolution=(
-                    1080, 1920))):
+            if not exists(Template(r"icon/tpl17217845790633.png", rgb=True, threshold=0.8, record_pos=(0.22, 0.338),
+                                   resolution=(
+                                           1080, 1920))):
                 lv_x = lv_x - 200
                 touch([lv_x, 1225])  # 点击开始上一级士兵
                 lv_y -= 1
@@ -247,8 +253,10 @@ def train():
         touch([800, 1800])  # 点击开始训练士兵
     time.sleep(2)  # 等待2秒
     print_space("返回上一级")
-    if exists(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920))):
-        touch(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920)))
+    if exists(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835),
+                       resolution=(1080, 1920))):
+        touch(
+            Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920)))
     elif exists(Template(r"icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920))):
         touch(Template(r"icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))  # 关闭当前界面
     else:
@@ -262,37 +270,43 @@ def Production_soldiers():
     time.sleep(1)
     touch([170, 400])
     print('检查盾兵训练是否完成')
-    if exists(Template(r"icon/tpl1719478488282.png", threshold=0.8, rgb=True, record_pos=(-0.189, -0.009), resolution=(1080, 1920))):
+    if exists(Template(r"icon/tpl1719478488282.png", threshold=0.8, rgb=True, record_pos=(-0.189, -0.009),
+                       resolution=(1080, 1920))):
         print_space("1跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
-    elif exists(Template(r"icon/tpl1719478488283.png", threshold=0.9, rgb=True, record_pos=(-0.066, -0.111), resolution=(1080, 1920))):
+    elif exists(Template(r"icon/tpl1719478488283.png", threshold=0.9, rgb=True, record_pos=(-0.066, -0.111),
+                         resolution=(1080, 1920))):
         print_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
         time.sleep(1)  # 等待1秒
         touch([14, 823])
     print('检查矛兵训练是否完成')
-    if exists(Template(r"icon/tpl1719480722195.png", threshold=0.8, rgb=True, record_pos=(-0.189, -0.009), resolution=(1080, 1920))):
+    if exists(Template(r"icon/tpl1719480722195.png", threshold=0.8, rgb=True, record_pos=(-0.189, -0.009),
+                       resolution=(1080, 1920))):
         print_space("1跳转到矛兵兵营...")
         touch([600, 942])  # 点击索引到对应兵营
         train()
         time.sleep(1)  # 等待1秒
         touch([14, 823])
-    elif exists(Template(r"icon/tpl1719480722196.png", threshold=0.8, rgb=True, record_pos=(-0.314, -0.01), resolution=(1080, 1920))):
+    elif exists(Template(r"icon/tpl1719480722196.png", threshold=0.8, rgb=True, record_pos=(-0.314, -0.01),
+                         resolution=(1080, 1920))):
         print_space("跳转到矛兵兵营...")
         touch([600, 942])  # 点击索引到对应兵营
         train()
         time.sleep(1)  # 等待1秒
         touch([14, 823])
     print('检查射手训练是否完成')
-    if exists(Template(r"icon/tpl1719480732965.png", threshold=0.8, rgb=True, record_pos=(-0.192, 0.087), resolution=(1080, 1920))):
+    if exists(Template(r"icon/tpl1719480732965.png", threshold=0.8, rgb=True, record_pos=(-0.192, 0.087),
+                       resolution=(1080, 1920))):
         print_space("1跳转到射手兵营...")
         touch([600, 1060])  # 点击索引到对应兵营
         train()
         time.sleep(1)  # 等待1秒
         touch([14, 823])
-    elif exists(Template(r'icon/tpl1719480732966.png', threshold=0.9, rgb=True, record_pos=(-0.021, -0.003), resolution=(1080, 1920))):
+    elif exists(Template(r'icon/tpl1719480732966.png', threshold=0.9, rgb=True, record_pos=(-0.021, -0.003),
+                         resolution=(1080, 1920))):
         print_space("跳转到射手兵营...")
         touch([600, 1060])  # 点击索引到对应兵营
         train()
@@ -300,7 +314,8 @@ def Production_soldiers():
         touch([14, 823])
     else:
         print_space("没有兵营已完成生产，结束该任务")
-        touch(Template(r"icon/tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+        touch(
+            Template(r"icon/tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
 
 
 # 升级资源检查
@@ -323,21 +338,27 @@ def Build():
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    if exists(Template(r"icon/tpl1719643933714.png", threshold=0.95, record_pos=(-0.306, -0.318), resolution=(449, 842))):
+    if exists(
+            Template(r"icon/tpl1719643933714.png", threshold=0.95, record_pos=(-0.306, -0.318), resolution=(449, 842))):
         print_space('有空闲队列，开始建造')
         touch(Template(r"icon/tpl1719643933714.png", record_pos=(-0.306, -0.318), resolution=(449, 842)))  # 点击跳转到需升级的建筑
-        if exists(Template(r"icon/tpl1719580056417.png", record_pos=(-0.362, 0.238), resolution=(449, 842))):  # 判断是什么建筑升级升级
+        if exists(Template(r"icon/tpl1719580056417.png", record_pos=(-0.362, 0.238),
+                           resolution=(449, 842))):  # 判断是什么建筑升级升级
             print_space('升级资源建筑')
             time.sleep(5)  # 等待5s
-            if not exists(Template(r"icon/tpl1719644932718.png", threshold=0.9, record_pos=(0.308, 0.056), resolution=(449, 842))):
+            if not exists(Template(r"icon/tpl1719644932718.png", threshold=0.9, record_pos=(0.308, 0.056),
+                                   resolution=(449, 842))):
                 print_space('建筑设施未达到升级要求，升级设施')
-                while not exists(Template(r"icon/tpl1719645172814.png", record_pos=(0.248, -0.102), resolution=(449, 842))):
+                while not exists(
+                        Template(r"icon/tpl1719645172814.png", record_pos=(0.248, -0.102), resolution=(449, 842))):
                     touch([900, 1000])
-                    if exists(Template(r"icon/tpl1719645172814.png", record_pos=(0.248, -0.102), resolution=(449, 842))):
+                    if exists(
+                            Template(r"icon/tpl1719645172814.png", record_pos=(0.248, -0.102), resolution=(449, 842))):
                         print_space('达到升级条件，开始升级')
             touch([900, 800])  # 点击升级按钮
             touch([800, 1800])  # 点击升级
-            if exists(Template(r"icon/tpl1719651083870.png", record_pos=(0.001, 0.731), resolution=(449, 842))):  # 判断资源是否充足
+            if exists(Template(r"icon/tpl1719651083870.png", record_pos=(0.001, 0.731),
+                               resolution=(449, 842))):  # 判断资源是否充足
                 print_space("/31资源不足，点击一键补齐")
                 build_main()
             else:
@@ -347,7 +368,8 @@ def Build():
             print_space('升级功能建筑')
             touch([553, 1333])  # 点击升级按钮
             touch(Template(r"icon/tpl1719578558005.png", record_pos=(0.003, -0.045), resolution=(449, 842)))  # 点击升级
-            if exists(Template(r"icon/tpl1719651083870.png", record_pos=(0.001, 0.731), resolution=(449, 842))):  # 判断资源是否充足
+            if exists(Template(r"icon/tpl1719651083870.png", record_pos=(0.001, 0.731),
+                               resolution=(449, 842))):  # 判断资源是否充足
                 print_space('资源不足，点击一键补齐')
                 build_main()
             else:
@@ -355,7 +377,8 @@ def Build():
                 touch(Template(r"icon/tpl1719579273500.png", record_pos=(0.003, -0.045), resolution=(449, 842)))  # 点击求助
     else:
         print_space("没有空闲建筑队列")
-        touch(Template(r"icon/tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+        touch(
+            Template(r"icon/tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
 
 
 # 搜索资源
@@ -378,7 +401,8 @@ def NPC():
     if exists(Template(r"icon/tpl1719376487523.png", record_pos=(0.449, -0.78), resolution=(414, 780))):  # 判断背包是否打开成功
         touch([949, 171])  # 点击其他跳转至该页
         print_space('查看活动道具')
-        if exists(Template(r"icon/tpl1719376586643.png", record_pos=(0.106, -0.476), resolution=(414, 780))):  # 判断是否有该道具
+        if exists(
+                Template(r"icon/tpl1719376586643.png", record_pos=(0.106, -0.476), resolution=(414, 780))):  # 判断是否有该道具
             print_space('使用活动道具')
             touch(Template(r"icon/tpl1719376586643.png", record_pos=(0.106, -0.476), resolution=(414, 780)))  # 点击道具
             touch(Template(r"icon/tpl1719376629723.png", record_pos=(0.0, 0.092), resolution=(414, 780)))  # 点击使用
@@ -390,7 +414,8 @@ def NPC():
             if exists(Template(r"icon/tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):
                 touch(Template(r"icon/tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
                 print_space('体力检查')
-                if exists(Template(r"icon/tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(414, 780))):  # 判断体力是否充足
+                if exists(Template(r"icon/tpl1719376787180.png", record_pos=(0.268, 0.824),
+                                   resolution=(414, 780))):  # 判断体力是否充足
                     energy()
                 else:
                     print_space("体力不足，暂停打怪")
@@ -399,7 +424,8 @@ def NPC():
         else:
             print_space("未找到相关物品，退出任务")
             touch(Template(r"icon/tpl1719198082012.png", threshold=0.5, record_pos=(-0.44, -0.783), resolution=(
-                414, 780))) or touch(Template(r"icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
+                414, 780))) or touch(
+                Template(r"icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
 
 
 # 野兽
@@ -455,10 +481,10 @@ def WM_lv():
     time.sleep(1)
     print_space('删除原本等级')
     keyevent('KEYCODE_DEL')
-    time.sleep(1)  #等待1秒
+    time.sleep(1)  # 等待1秒
     print_space('输入新的等级')
     text('5')
-    #text(set_WM_number.get())
+    # text(set_WM_number.get())
     print_space('点击确定按钮')
     touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))
 
@@ -485,7 +511,8 @@ def Brush_WM():
     time.sleep(1)  # 等待1s
     if exists(Template(r"icon/tpl1719376776844.png", record_pos=(0.0, 0.326), resolution=(414, 780))):
         print_space('点击发起集结')
-        touch(Template(r"icon/tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(414, 780)))  # 点击发起集结
+        touch(
+            Template(r"icon/tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(414, 780)))  # 点击发起集结
         time.sleep(1)  # 等待0.5s
         if exists(Template(r"icon/tpl1719376787180.png", record_pos=(0.268, 0.824), resolution=(414, 780))):  # 有兵力可出征
             print_space('点击出征按钮')
@@ -502,7 +529,8 @@ def gather():
     touch(Template(r"icon/tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920)))
     if exists(Template(r"icon/tpl1721191349776.png", record_pos=(0.26, 0.798), resolution=(1080, 1920))):  # 有兵力可出征
         print_space('点击出征按钮')
-        touch(Template(r"icon/tpl1721191349776.png", rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
+        touch(
+            Template(r"icon/tpl1721191349776.png", rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
         print_space('出征成功')
         time.sleep(1)
         touch([14, 823])
@@ -614,6 +642,7 @@ def Iron():
     else:
         print_space('未搜索到铁矿资源，结束该任务')
 
+
 # 自动采集
 def Collection():
     if not exists(Template(r"icon/tpl1720145326019.png", record_pos=(-0.191, -0.169), resolution=(1080, 1920))):
@@ -644,7 +673,8 @@ def Collection():
         Coal()
     else:
         print_space('已有采煤队伍')
-    if not exists(Template(r"icon/tpl1720766916046.png", rgb=True, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+    if not exists(
+            Template(r"icon/tpl1720766916046.png", rgb=True, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
         print_space('有空闲队伍，执行采铁任务')
         time.sleep(1)
         Iron()
@@ -657,11 +687,13 @@ def Collection():
 def treatment():
     if exists(Template(r"icon/tpl1721191349778.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
         print_space("点击治疗图标")
-        touch(Template(r"icon/tpl1721191349778.png", threshold=0.8, record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+        touch(
+            Template(r"icon/tpl1721191349778.png", threshold=0.8, record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
         print_space('点击治疗按钮')
         touch(Template(r"icon/tpl1721191349779.png", threshold=0.8, record_pos=(0.29, 0.756), resolution=(461, 851)))
         print_space('点击联盟互助')
-        touch(Template(r"icon/tpl1721191349780.png", threshold=0.8, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+        touch(
+            Template(r"icon/tpl1721191349780.png", threshold=0.8, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
         print_space('点击返回按钮')
         touch(Template(r"icon/tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
     else:
@@ -680,9 +712,11 @@ def donate():
         touch(Template(r"icon/tpl1721784579072.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
         x = 1
         while x > 0:
-            if not exists(Template(r"icon/tpl1721784579074.png", rgb=True, record_pos=(-0.44, -0.783), resolution=(414, 780))):
+            if not exists(Template(r"icon/tpl1721784579074.png", rgb=True, record_pos=(-0.44, -0.783),
+                                   resolution=(414, 780))):
                 print_space('点击捐献')
-                touch(Template(r"icon/tpl1721784579073.png", record_pos=(-0.44, -0.783), resolution=(414, 780)), duration=2)
+                touch(Template(r"icon/tpl1721784579073.png", record_pos=(-0.44, -0.783), resolution=(414, 780)),
+                      duration=2)
             else:
                 print_space('无捐献次数，结束任务')
                 x = 0
@@ -694,17 +728,21 @@ def donate():
 # 探险
 def adventure():
     print_space('点击探险')
-    touch(Template(r"icon/tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
+    touch(Template(r"icon/tpl1719198809581.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
+                   resolution=(1080, 1920)))
     time.sleep(1)
     print_space('点击宝箱')
     touch([910, 1250])
-    if exists(Template(r'icon/tpl1721784579076.png', threshold=0.8, record_pos=(-0.398, 0.819), resolution=(1080, 1920))):
+    if exists(
+            Template(r'icon/tpl1721784579076.png', threshold=0.8, record_pos=(-0.398, 0.819), resolution=(1080, 1920))):
         print_space('点击领取奖励')
-        touch(Template(r'icon/tpl1721784579076.png', threshold=0.8, record_pos=(-0.398, 0.819), resolution=(1080, 1920)))
+        touch(
+            Template(r'icon/tpl1721784579076.png', threshold=0.8, record_pos=(-0.398, 0.819), resolution=(1080, 1920)))
         time.sleep(1)
         print_space('回到主页')
         touch([500, 500])
-        touch(Template(r"icon/tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
+        touch(
+            Template(r"icon/tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
     else:
         print_space('没有可领取奖励')
 
@@ -713,14 +751,19 @@ def adventure():
 
 
 def recruit():
-    if exists(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
+    if exists(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
+                       resolution=(1080, 1920))):
         print_space('点击英雄')
-        touch(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
+        touch(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800,
+                       resolution=(1080, 1920)))
         print_space('点击英雄招募')
-        touch(Template(r"icon\hero_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
-        if exists(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
+        touch(Template(r"icon\hero_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800,
+                       resolution=(1080, 1920)))
+        if exists(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800,
+                           resolution=(1080, 1920))):
             print_space('点击免费招募')
-            touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
+            touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800,
+                           resolution=(1080, 1920)))
             time.sleep(1)
             touch(Template(r"icon/return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(414, 780)))
             time.sleep(1)
@@ -742,7 +785,8 @@ def re_connet():
             while re > 0:
                 touch(Template(r"icon/tpl1720766916047.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
                 time.sleep(10)
-                if exists(Template(r"icon/tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+                if exists(Template(r"icon/tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088),
+                                   resolution=(1080, 1920))):
                     print('重新连接失败，等待1分钟继续尝试')
                     time.sleep(60)
                 else:
@@ -753,109 +797,47 @@ def re_connet():
     else:
         print_space('连接正常')
 
+
+
+
 # 自动扫矿
-def auto_fighting_func(self,run_number):
+def auto_fighting_func(self, run_number):
     if self.auto_fighting.isChecked():
-        print('\n' + '%d.开始自动扫矿任务'% run_number)
+        print('\n' + '%d.开始自动扫矿任务' % run_number)
         # Homepage()  # 主页检查
-        # 获取当前手机设备
-        dev = device()
-        if exists(Template(r"icon/tpl1729739717241.png", record_pos=(0.406, 0.796), resolution=(1080, 1920))):
-            touch(Template(r"icon/tpl1729739717241.png", record_pos=(0.406, 0.796), resolution=(1080, 1920)))
-        time.sleep(1)
-        if exists(Template(r"icon/outside.png", record_pos=(0.404, 0.8), resolution=(1080, 1920))):
-            touch((Template(r"icon/outside.png", record_pos=(0.404, 0.8), resolution=(1080, 1920))))
-        time.sleep(3)
-
-        print('开始缩放')
-        # 从[550, 1100]，按半个屏幕的0.4倍向外放大，持续3秒，分3步
-        dev.touch_proxy.pinch(center=[550, 1100], percent=0.4, duration=3, steps=3, in_or_out='in')
-        touch([40,270])
-        cnt=0
-        while (not exists_people()) and cnt<10:
+        swipe_left()
+        cnt = 0
+        swipe_dir = 1
+        # (not exists_people()) and
+        while cnt < 100:
             print("找不到有人挖的矿")
-            swipe([200,1000], [800,600],vector=[0.2718, -0.1938])
-            cnt+=1
-            time.sleep(0.5)
+            if swipe_dir == 1:
+                swipe_left()
+            if swipe_dir == -1:
+                swipe_right()
+            if cnt % 10 == 0:
+                swipe_down()
+                swipe_dir *= -1
+            cnt += 1
+            time.sleep(3)
+
+        '''
+        if exists(Template(r"icon/m8_used.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/m8_used.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/r8_used.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/r8_used.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/t8_used.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/t8_used.png", resolution=(1080, 1920)))
+        if exists(Template(r"icon/m8_used.png",  resolution=(1080, 1920))):
+            touch(Template(r"icon/m8_used.png", resolution=(1080, 1920)))
 
 
-        if exists(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920))):
-            touch(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920)))
-            if exists(Template(r"icon/tpl1721784579067.png", resolution=(1080, 1920))):
-                touch(Template(r"icon/tpl1721784579067.png", resolution=(1080, 1920)))
-                # 点击比例分配
-                # touch([500,1800])
-                # 点击确定
-                # touch([550,1462])
-                # 点击出征
-                touch(Template(r"icon/tpl1729754826546.png", record_pos=(0.261, 0.796), resolution=(1080, 1920)))
-                return
-
-        if exists(Template(r"icon/tpl1729746328189.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/tpl1729746328189.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/mu8.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/mu8.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/tie8.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/tie8.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/rou8.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/rou8.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/mei8.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/mei8.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/tpl1729755056716.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/tpl1729755056716.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/tpl1729757241738.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/tpl1729757241738.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/tpl1729757248375.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/tpl1729757248375.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/tpl1729757256644.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/tpl1729757256644.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/tpl1729757271728.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/tpl1729757271728.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/tpl1729757289457.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/tpl1729757289457.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729751296834.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/tpl1729755669715.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/tpl1729755669715.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/tpl1729755729802.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/tpl1729755729802.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/tpl1729755760325.png",  resolution=(1080, 1920))):
-            touch(Template(r"icon/tpl1729755760325.png", resolution=(1080, 1920)))
-            time.sleep(1)
-            touch(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920)))
-
-        # 点击资源
-        if exists(Template(r"icon/tpl1729751856412.png", resolution=(1080, 1920))):
-            print("点击资源")
-            touch(Template(r"icon/tpl1729751856412.png", resolution=(1080, 1920)))
         if exists(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920))):
             # 点击出征
             print("点击出征")
             touch(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920)))
+        time.sleep(1)
+        
         if exists(Template(r"icon/tpl1721784579067.png", resolution=(1080, 1920))):
             touch(Template(r"icon/tpl1721784579067.png", resolution=(1080, 1920)))
             # 点击比例分配
@@ -863,24 +845,15 @@ def auto_fighting_func(self,run_number):
             # 点击确定
             # touch([550,1462])
             # 点击出征
-            touch(Template(r"icon/tpl1729754826546.png", record_pos=(0.261, 0.796), resolution=(1080, 1920)))
+            touch(Template(r"icon/tpl1729754826546.png", record_pos=(0.261, 0.796), resolution=(1080, 1920)))'''
+
 
 def exists_people():
     templates = [
-        "icon/tpl1729746328189.png",
-        "icon/mu8.png",
-        "icon/tie8.png",
-        "icon/rou8.png",
-        "icon/mei8.png",
-        "icon/tpl1729755056716.png",
-        "icon/tpl1729755669715.png",
-        "icon/tpl1729755729802.png",
-        "icon/tpl1729755760325.png",
-        "icon/tpl1729757241738.png",
-        "icon/tpl1729757248375.png",
-        "icon/tpl1729757256644.png",
-        "icon/tpl1729757271728.png",
-        "icon/tpl1729757289457.png",
+        "icon/mu8_used.png",
+        "icon/t8_used.png",
+        "icon/r8_used.png",
+        "icon/m8_used.png"
     ]
     return any(exists(Template(path, resolution=(1080, 1920))) for path in templates)
 
@@ -895,14 +868,13 @@ def subject(self):
     run_number = 1
     while True:
         now = datetime.now()
-        if now.second%10==0 and self.auto_fighting.isChecked():
+        if now.second % 10 == 0 and self.auto_fighting.isChecked():
             Homepage()  # 主页检查
             try:
-                auto_fighting_func(self,run_number)
+                auto_fighting_func(self, run_number)
             except Exception as e:
-                print('程序执行异常，结束该任务，执行其他任务',str(e))
+                print('程序执行异常，结束该任务，执行其他任务', str(e))
                 Homepage()  # 主页检查
-
 
         if now.second % 2 == 0:
             try:
@@ -919,7 +891,6 @@ def subject(self):
         if now.minute % 5 == 0 and now.second % 5 == 0 and now.hour != 21:
             try:
                 if self.checkBox_XG.isChecked():
-
                     print('\n' + '%d.开始执行野怪任务' % run_number)
                     Homepage()  # 主页检查
                     Brush_XG()  # 野怪
@@ -973,7 +944,6 @@ def subject(self):
         if now.minute % 2 == 0:
             try:
                 if self.checkBox_build.isChecked():
-
                     print('\n' + '%d.开始执行建造任务' % run_number)
                     Homepage()  # 主页检查
                     Build()  # 建造模块
@@ -1067,6 +1037,7 @@ def subject(self):
             break
     print('结束任务')
 
+
 # 单选主体代码
 def simple_select(self):
     if emulator_click == 0:
@@ -1098,7 +1069,7 @@ def simple_select(self):
                     self.simple_stop_button()  # 野怪功能
                     break
                 XG_time = int(set_XG_time.get())
-                print_space('等待%s秒后再次执行'%XG_time+'\n')
+                print_space('等待%s秒后再次执行' % XG_time + '\n')
                 number = 0
                 XG_number = XG_time / 10
                 while XG_number > number:
@@ -1115,7 +1086,7 @@ def simple_select(self):
                             time.sleep(10)
             except:
                 print('错误')
-    elif self.radioButton_WM.isChecked():   #冰原巨兽
+    elif self.radioButton_WM.isChecked():  # 冰原巨兽
         while execute:
             try:
                 Homepage()
@@ -1124,7 +1095,7 @@ def simple_select(self):
                     self.simple_stop_button()  # 停止后按钮变为开始
                     break
                 WM_time = int(set_WM_time.get())
-                print_space('等待%s秒后再次执行'%WM_time+'\n')
+                print_space('等待%s秒后再次执行' % WM_time + '\n')
                 number = 0
                 WM_number = WM_time / 10
                 while number < WM_number:
@@ -1150,7 +1121,7 @@ def simple_select(self):
                     self.simple_stop_button()  # 停止后按钮变为开始
                     break
                 npc_time = int(set_XG_time.get())
-                print_space('等待%s秒后再次执行'%npc_time+'\n')
+                print_space('等待%s秒后再次执行' % npc_time + '\n')
                 number = 0
                 npc_number = npc_time / 10
                 while number < npc_number:
@@ -1167,7 +1138,7 @@ def simple_select(self):
                             time.sleep(10)
             except:
                 print('错误')
-    elif self.radioButton_Production.isChecked():                             #训练士兵
+    elif self.radioButton_Production.isChecked():  # 训练士兵
         while execute:
             try:
                 Homepage()
@@ -1176,7 +1147,7 @@ def simple_select(self):
                     self.simple_start_button()  # 停止后按钮变为开始
                     break
                 Production_time = int(set_Production_time.get())
-                print_space('等待%s秒后再次执行'%Production_time+'\n')
+                print_space('等待%s秒后再次执行' % Production_time + '\n')
                 Production_number = Production_time / 10
                 number = 0
                 while number < Production_number:
@@ -1271,7 +1242,7 @@ def simple_select(self):
                             time.sleep(10)
             except:
                 print('错误')
-    elif self.radioButton_treatment.isChecked():       #治疗
+    elif self.radioButton_treatment.isChecked():  # 治疗
         while execute:
             try:
                 Homepage()
@@ -1376,7 +1347,10 @@ def simple_select(self):
             except:
                 print('错误')
     print('任务已结束')
+
+
 '''-------------------------------------更新公告-----------------------------------------------'''
+
 
 class Ui_NoticeWindow(object):
     def setupUi(self, noticewindow):
@@ -1396,16 +1370,17 @@ class Ui_NoticeWindow(object):
     def retranslateUi(self, NoticeWindow):
         _translate = QtCore.QCoreApplication.translate
         NoticeWindow.setWindowTitle(_translate("NoticeWindow", "更新公告"))
-        self.textEdit.setHtml(_translate("NoticeWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-                                                         "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-                                                         "p, li { white-space: pre-wrap; }\n"
-                                                         "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-                                                         "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px;\">更新公告</p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">1.UI界面重构</p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\"></p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\"></p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\"></p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\"></p></body></html>"))
+        self.textEdit.setHtml(_translate("NoticeWindow",
+                                         "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                         "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                         "p, li { white-space: pre-wrap; }\n"
+                                         "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+                                         "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px;\">更新公告</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">1.UI界面重构</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\"></p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\"></p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\"></p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\"></p></body></html>"))
         self.textEdit.setReadOnly(True)
 
 
@@ -1436,34 +1411,35 @@ class Ui_helpWindow(object):
     def retranslateUi(self, helpWindow):
         _translate = QtCore.QCoreApplication.translate
         helpWindow.setWindowTitle(_translate("helpWindow", "帮助文档"))
-        self.textEdit.setHtml(_translate("helpWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-                                                       "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-                                                       "p, li { white-space: pre-wrap; }\n"
-                                                       "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">模拟器路径：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    电脑模拟器安装地址，以exe结尾，启动模拟器功能需要，地址错误时无法启动模拟器，只能手动启动</p>\n\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">模拟器ip：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    连接模拟器需要，由本地地址＋端口号组成，ip错误将无法连接模拟器，影响使用</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">启动游戏：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    启动无尽冬日游戏</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">一键启动：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    包含启动模拟器、连接模拟器、启动游戏功能</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">多选：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    可一次性选择多选功能同时执行</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    互助：每2秒检测一次</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    野怪：分钟与秒是5的倍数是检测一次，21点不检测</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    冰原巨兽：分钟是6的倍数且秒数在0-20s时检查一次，21点不检测，等级可在单选内设置</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    活动雪怪：分钟是6的倍数时检测一次，21点不检测</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    训练士兵：分钟数是5的倍数时检测</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    建筑升级：分钟数是2的倍数时检测</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    采集资源：凌晨3点检测每一种资源是否有采集，每种只会采集一队</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    巨熊活动：21点时检测</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    治疗士兵：分钟数为21时检测，相当于每过一小时就检查</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    探险奖励：分钟数为25时检测，相当于每过一小时就检查</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    联盟捐赠：分钟数为1时检测，相当于每过一小时就检查</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    英雄招募：凌晨1点时分钟数为5的倍数时会检查</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">单选：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    每次只能执行单个功能，可设置单个功能执行间隔，冰原巨兽可设置等级，设置的等级多选可用</p></body></html>"))
+        self.textEdit.setHtml(_translate("helpWindow",
+                                         "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                         "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                         "p, li { white-space: pre-wrap; }\n"
+                                         "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">模拟器路径：</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    电脑模拟器安装地址，以exe结尾，启动模拟器功能需要，地址错误时无法启动模拟器，只能手动启动</p>\n\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">模拟器ip：</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    连接模拟器需要，由本地地址＋端口号组成，ip错误将无法连接模拟器，影响使用</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">启动游戏：</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    启动无尽冬日游戏</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">一键启动：</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    包含启动模拟器、连接模拟器、启动游戏功能</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">多选：</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    可一次性选择多选功能同时执行</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    互助：每2秒检测一次</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    野怪：分钟与秒是5的倍数是检测一次，21点不检测</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    冰原巨兽：分钟是6的倍数且秒数在0-20s时检查一次，21点不检测，等级可在单选内设置</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    活动雪怪：分钟是6的倍数时检测一次，21点不检测</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    训练士兵：分钟数是5的倍数时检测</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    建筑升级：分钟数是2的倍数时检测</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    采集资源：凌晨3点检测每一种资源是否有采集，每种只会采集一队</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    巨熊活动：21点时检测</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    治疗士兵：分钟数为21时检测，相当于每过一小时就检查</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    探险奖励：分钟数为25时检测，相当于每过一小时就检查</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    联盟捐赠：分钟数为1时检测，相当于每过一小时就检查</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    英雄招募：凌晨1点时分钟数为5的倍数时会检查</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">单选：</p>\n"
+                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    每次只能执行单个功能，可设置单个功能执行间隔，冰原巨兽可设置等级，设置的等级多选可用</p></body></html>"))
         self.textEdit.setReadOnly(True)
 
 
@@ -1668,6 +1644,8 @@ def stop_function():
     global stop_event
     stop_event.set()  # 设置事件，通知线程结束运行
     print("------------等待当前任务完成或10s左右结束任务------------")
+
+
 stop_event = threading.Event()
 
 
@@ -1692,18 +1670,18 @@ class Ui_MainWindow(object):
         self.centralwidget.setEnabled(True)
         self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
-        #模拟器参数设置区域
+        # 模拟器参数设置区域
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(10, 60, 461, 41))
-        #self.frame.setStyleSheet("#frame{border:1px solid rgb(0,255,0)}")
+        # self.frame.setStyleSheet("#frame{border:1px solid rgb(0,255,0)}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        #下拉框
+        # 下拉框
         self.comboBox = QtWidgets.QComboBox(self.frame)
         self.comboBox.setGeometry(QtCore.QRect(10, 10, 91, 22))
         self.comboBox.setAutoFillBackground(False)
-        #self.comboBox.setStyleSheet("background: transparent;")
+        # self.comboBox.setStyleSheet("background: transparent;")
         self.comboBox.setStyleSheet("QComboBox {\n"
                                     "    background-color: rgba(0, 0, 0, 0); /* 白色背景，150为透明度 */\n"
                                     "    border: 1px solid rgba(0, 255, 0); /* 边框样式 */\n"
@@ -1716,20 +1694,21 @@ class Ui_MainWindow(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
 
-        self.lineEdit = QtWidgets.QLineEdit(self.frame)  #模拟器地址输入框
+        self.lineEdit = QtWidgets.QLineEdit(self.frame)  # 模拟器地址输入框
         self.lineEdit.setEnabled(True)
         self.lineEdit.setGeometry(QtCore.QRect(130, 10, 221, 21))
         self.lineEdit.setMouseTracking(True)
         self.lineEdit.setAcceptDrops(True)
         self.lineEdit.setToolTip("")
         self.lineEdit.setAutoFillBackground(False)
-        self.lineEdit.setStyleSheet("QLineEdit {\n""    background: transparent;\n""    border: 1px solid rgba(0, 255, 0); /* 边框样式 */\n""}")
+        self.lineEdit.setStyleSheet(
+            "QLineEdit {\n""    background: transparent;\n""    border: 1px solid rgba(0, 255, 0); /* 边框样式 */\n""}")
         self.lineEdit.setFrame(True)
         self.lineEdit.setDragEnabled(False)
         self.lineEdit.setReadOnly(False)
         self.lineEdit.setClearButtonEnabled(False)
         self.lineEdit.setObjectName("lineEdit")
-        #模拟器地址/ip保存按钮
+        # 模拟器地址/ip保存按钮
         self.save_simulator = QtWidgets.QPushButton(self.frame)
         self.save_simulator.setEnabled(True)
         self.save_simulator.setGeometry(QtCore.QRect(380, 10, 75, 23))
@@ -1765,13 +1744,13 @@ class Ui_MainWindow(object):
         self.frame_2.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         self.frame_2.setAcceptDrops(False)
         self.frame_2.setAutoFillBackground(False)
-        #self.frame_2.setStyleSheet("#frame_2{border:1px solid rgb(0,255,0)}")
+        # self.frame_2.setStyleSheet("#frame_2{border:1px solid rgb(0,255,0)}")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setLineWidth(1)
         self.frame_2.setMidLineWidth(0)
         self.frame_2.setObjectName("frame_2")
-        #启动模拟器
+        # 启动模拟器
         self.start_simulator = QtWidgets.QPushButton(self.frame_2)
         self.start_simulator.setGeometry(QtCore.QRect(10, 10, 75, 23))
         self.start_simulator.setFlat(True)
@@ -1784,7 +1763,7 @@ class Ui_MainWindow(object):
                                            "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                            "}\n")
         self.start_simulator.setObjectName("start_simulator")
-        #连接模拟器
+        # 连接模拟器
         self.connect_simulator = QtWidgets.QPushButton(self.frame_2)
         self.connect_simulator.setGeometry(QtCore.QRect(130, 10, 75, 23))
         self.connect_simulator.setFlat(True)
@@ -1797,7 +1776,7 @@ class Ui_MainWindow(object):
                                              "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                              "}\n")
         self.connect_simulator.setObjectName("connect_simulator")
-        #启动游戏
+        # 启动游戏
         self.start_game = QtWidgets.QPushButton(self.frame_2)
         self.start_game.setGeometry(QtCore.QRect(260, 10, 75, 23))
         self.start_game.setAutoDefault(False)
@@ -1812,7 +1791,7 @@ class Ui_MainWindow(object):
                                       "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                       "}\n")
         self.start_game.setObjectName("start_game")
-        #一键启动
+        # 一键启动
         self.simulator_start_all = QtWidgets.QPushButton(self.frame_2)
         self.simulator_start_all.setGeometry(QtCore.QRect(380, 10, 75, 23))
         self.simulator_start_all.setAutoDefault(False)
@@ -1829,14 +1808,14 @@ class Ui_MainWindow(object):
         self.simulator_start_all.setObjectName("simulator_start_all")
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
         self.frame_3.setGeometry(QtCore.QRect(10, 270, 461, 191))
-        #self.frame_3.setStyleSheet("#frame_3{border:1px solid rgb(0,255,0)}")
+        # self.frame_3.setStyleSheet("#frame_3{border:1px solid rgb(0,255,0)}")
         self.frame_3.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
         self.select_text = QtWidgets.QLabel(self.frame_3)
         self.select_text.setGeometry(QtCore.QRect(10, 0, 81, 16))
         self.select_text.setObjectName("select_text")
-        self.checkBox_help = QtWidgets.QCheckBox(self.frame_3)  #互助
+        self.checkBox_help = QtWidgets.QCheckBox(self.frame_3)  # 互助
         self.checkBox_help.setGeometry(QtCore.QRect(20, 30, 71, 16))
         self.checkBox_help.setAutoFillBackground(False)
         '''self.checkBox_help.setStyleSheet("QCheckBox:indicator:checked {background-color: transparent;border:1px solid rgb(0,255,0)}"
@@ -1845,17 +1824,17 @@ class Ui_MainWindow(object):
         self.checkBox_help.setAutoExclusive(False)
         self.checkBox_help.setTristate(False)
         self.checkBox_help.setObjectName("checkBox_help")
-        self.checkBox_XG = QtWidgets.QCheckBox(self.frame_3)  #野怪
+        self.checkBox_XG = QtWidgets.QCheckBox(self.frame_3)  # 野怪
         self.checkBox_XG.setGeometry(QtCore.QRect(110, 30, 71, 16))
         self.checkBox_XG.setObjectName("checkBox_XG")
         self.checkBox_XG.setStyleSheet("background-color: transparent")
-        self.checkBox_WM = QtWidgets.QCheckBox(self.frame_3)  #冰原巨兽
+        self.checkBox_WM = QtWidgets.QCheckBox(self.frame_3)  # 冰原巨兽
         self.checkBox_WM.setGeometry(QtCore.QRect(200, 30, 71, 16))
         self.checkBox_WM.setObjectName("checkBox_WM")
-        self.checkBox_npc = QtWidgets.QCheckBox(self.frame_3)  #活动雪怪
+        self.checkBox_npc = QtWidgets.QCheckBox(self.frame_3)  # 活动雪怪
         self.checkBox_npc.setGeometry(QtCore.QRect(290, 30, 71, 16))
         self.checkBox_npc.setObjectName("checkBox_npc")
-        self.checkBox_Production = QtWidgets.QCheckBox(self.frame_3)  #训练士兵
+        self.checkBox_Production = QtWidgets.QCheckBox(self.frame_3)  # 训练士兵
         self.checkBox_Production.setGeometry(QtCore.QRect(380, 30, 71, 16))
         self.checkBox_Production.setObjectName("checkBox_Production")
         self.checkBox_adventure = QtWidgets.QCheckBox(self.frame_3)
@@ -1887,7 +1866,7 @@ class Ui_MainWindow(object):
         self.auto_fighting = QtWidgets.QCheckBox(self.frame_3)
         self.auto_fighting.setGeometry(QtCore.QRect(200, 110, 71, 16))
         self.auto_fighting.setObjectName("auto_fighting")
-        #全选
+        # 全选
         self.select_all = QtWidgets.QPushButton(self.frame_3)
         self.select_all.setGeometry(QtCore.QRect(90, 150, 75, 23))
         self.select_all.setFlat(True)
@@ -1900,7 +1879,7 @@ class Ui_MainWindow(object):
                                       "QPushButton:pressed {\n"
                                       "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                       "}\n")
-        #取消全选
+        # 取消全选
         self.select_unall = QtWidgets.QPushButton(self.frame_3)
         self.select_unall.setGeometry(QtCore.QRect(290, 150, 75, 23))
         self.select_unall.setFlat(True)
@@ -1913,7 +1892,7 @@ class Ui_MainWindow(object):
                                         "QPushButton:pressed {\n"
                                         "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                         "}\n")
-        #停止按钮
+        # 停止按钮
         self.select_stop = QtWidgets.QPushButton(self.frame_3)
         self.select_stop.setEnabled(True)
         self.select_stop.setGeometry(QtCore.QRect(190, 150, 75, 23))
@@ -1928,7 +1907,7 @@ class Ui_MainWindow(object):
                                        "QPushButton:pressed {\n"
                                        "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                        "}\n")
-        #多选开始按钮
+        # 多选开始按钮
         self.select_start = QtWidgets.QPushButton(self.frame_3)
         self.select_start.setEnabled(True)
         self.select_start.setGeometry(QtCore.QRect(190, 150, 75, 23))
@@ -1954,7 +1933,7 @@ class Ui_MainWindow(object):
         self.listView.setObjectName("listView")
         self.frame_4 = QtWidgets.QFrame(self.centralwidget)
         self.frame_4.setGeometry(QtCore.QRect(490, 60, 461, 191))
-        #self.frame_4.setStyleSheet("#frame_4{border:1px solid rgb(0,255,0)}")
+        # self.frame_4.setStyleSheet("#frame_4{border:1px solid rgb(0,255,0)}")
         self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_4.setObjectName("frame_4")
@@ -2005,7 +1984,7 @@ class Ui_MainWindow(object):
         self.radioButton_recruit = QtWidgets.QRadioButton(self.frame_4)
         self.radioButton_recruit.setGeometry(QtCore.QRect(110, 110, 71, 16))
         self.radioButton_recruit.setObjectName("radioButton_recruit")
-        #单项停止
+        # 单项停止
         self.simple_stop = QtWidgets.QPushButton(self.frame_4)
         self.simple_stop.setEnabled(True)
         self.simple_stop.setVisible(False)
@@ -2022,7 +2001,7 @@ class Ui_MainWindow(object):
                                        "QPushButton:pressed {\n"
                                        "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                        "}\n")
-        #单项开始
+        # 单项开始
         self.simple_start = QtWidgets.QPushButton(self.frame_4)
         self.simple_start.setEnabled(True)
         self.simple_start.setGeometry(QtCore.QRect(190, 150, 75, 23))
@@ -2038,11 +2017,11 @@ class Ui_MainWindow(object):
                                         "QPushButton:pressed {\n"
                                         "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                         "}\n")
-        #执行间隔文本
+        # 执行间隔文本
         self.label_3 = QtWidgets.QLabel(self.frame_4)
         self.label_3.setGeometry(QtCore.QRect(110, 0, 81, 21))
         self.label_3.setObjectName("label_3")
-        #间隔时间输入
+        # 间隔时间输入
         self.lineEdit_2 = QtWidgets.QLineEdit(self.frame_4)
         self.lineEdit_2.setGeometry(QtCore.QRect(190, 1, 51, 21))
         self.lineEdit_2.setObjectName("lineEdit_2")
@@ -2050,11 +2029,11 @@ class Ui_MainWindow(object):
                                       "background: transparent;\n"
                                       "border: 1px solid rgba(0, 255, 0)"
                                       "}")
-        #等级文本
+        # 等级文本
         self.label_4 = QtWidgets.QLabel(self.frame_4)
         self.label_4.setGeometry(QtCore.QRect(270, 0, 54, 21))
         self.label_4.setObjectName("label_4")
-        #等级输入
+        # 等级输入
         self.lineEdit_3 = QtWidgets.QLineEdit(self.frame_4)
         self.lineEdit_3.setGeometry(QtCore.QRect(300, 1, 31, 21))
         self.lineEdit_3.setObjectName("lineEdit_3")
@@ -2062,7 +2041,7 @@ class Ui_MainWindow(object):
                                       "background: transparent;\n"
                                       "border: 1px solid rgba(0, 255, 0)"
                                       "}")
-        #单项保存按钮
+        # 单项保存按钮
         self.pushButton_9 = QtWidgets.QPushButton(self.frame_4)
         self.pushButton_9.setGeometry(QtCore.QRect(380, 0, 75, 21))
         self.pushButton_9.setObjectName("pushButton_9")
@@ -2077,7 +2056,7 @@ class Ui_MainWindow(object):
                                         "}\n")
         self.frame_5 = QtWidgets.QFrame(self.centralwidget)
         self.frame_5.setGeometry(QtCore.QRect(490, 270, 461, 241))
-        #self.frame_5.setStyleSheet("#frame_5{border:1px solid rgb(0,255,0)}")
+        # self.frame_5.setStyleSheet("#frame_5{border:1px solid rgb(0,255,0)}")
         self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_5.setObjectName("frame_5")
@@ -2098,7 +2077,7 @@ class Ui_MainWindow(object):
         self.textEdit_out.setReadOnly(True)
         self.textEdit_out.setOverwriteMode(False)
         self.textEdit_out.setAcceptRichText(True)
-        #self.textEdit_out.setLineSpacing(1)
+        # self.textEdit_out.setLineSpacing(1)
         self.textEdit_out.setObjectName("textBrowser")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(890, 520, 71, 20))
@@ -2150,7 +2129,7 @@ class Ui_MainWindow(object):
         self.textEdit.raise_()
         self.hide_UI.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
-        #按钮点击触发响应
+        # 按钮点击触发响应
         self.retranslateUi(MainWindow)
         # 多选开始
         self.select_start.clicked.connect(self.select_start_button)  # type: ignore
@@ -2173,7 +2152,7 @@ class Ui_MainWindow(object):
         self.help = helplog()
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def load_settings(self):#读取设置
+    def load_settings(self):  # 读取设置
         settings = QSettings('mycompany', 'myapp')
         option1 = settings.value('options/联盟互助', type=bool)
         option2 = settings.value('options/世界野怪', type=bool)
@@ -2200,10 +2179,9 @@ class Ui_MainWindow(object):
         self.checkBox_adventure.setChecked(option10)
         self.checkBox_donate.setChecked(option11)
         self.checkBox_recruit.setChecked(option12)
-        #self.checkBox_ming.setChecked(option13)
+        # self.checkBox_ming.setChecked(option13)
 
-
-    def save_settings(self):#保存设置
+    def save_settings(self):  # 保存设置
         settings = QSettings('mycompany', 'myapp')
         settings.setValue('options/联盟互助', self.checkBox_help.isChecked())
         settings.setValue('options/世界野怪', self.checkBox_XG.isChecked())
@@ -2217,38 +2195,33 @@ class Ui_MainWindow(object):
         settings.setValue('options/探险奖励', self.checkBox_adventure.isChecked())
         settings.setValue('options/联盟捐赠', self.checkBox_donate.isChecked())
         settings.setValue('options/英雄招募', self.checkBox_recruit.isChecked())
-        #settings.setValue('options/活动雪怪', self.checkBox_npc.isChecked())
-        #settings.setValue('options/活动雪怪', self.checkBox_npc.isChecked())
+        settings.setValue('options/自动扫矿', self.auto_fighting.isChecked())
+        # settings.setValue('options/活动雪怪', self.checkBox_npc.isChecked())
+        # settings.setValue('options/活动雪怪', self.checkBox_npc.isChecked())
 
-        if option_recruit.lower() == '1':
-            self.checkBox_recruit.setChecked(True)
-        else:
-            self.checkBox_recruit.setChecked(False)
-        if auto_fighting.lower() == '1':
-            self.auto_fighting.setChecked(True)
-        else:
-            self.checkBox_recruit.setChecked(False)
-    def save_simple(self):
+    def select_start_button(self):  # 多选开始按钮
+        self.save_settings()
         self.select_stop.show()  # type: ignore
         self.select_start.hide()  # type: ignore
         print("程序开始执行...")
         # 这里放置程序开始时需要执行的代码
-        #stop_event.clear()
-        threading.Thread(target=lambda:subject(self)).start()  #save_options()
+        # stop_event.clear()
+        threading.Thread(target=lambda: subject(self)).start()  # save_options()
 
-    def select_stop_button(self):#多选停止程序
+    def select_stop_button(self):  # 多选停止程序
         self.select_start.show()
         self.select_stop.hide()
-    def simple_start_button(self):#单选开始按钮
+
+    def simple_start_button(self):  # 单选开始按钮
         self.simple_stop.show()  # type: ignore
         self.simple_start.hide()  # type: ignore
         print("程序开始执行...")
         stop_event.clear()
-        threading.Thread(target=lambda:simple_select(self)).start()
-    def simple_stop_button(self):#单选停止程序
+        threading.Thread(target=lambda: simple_select(self)).start()
+
+    def simple_stop_button(self):  # 单选停止程序
         self.select_start.show()
         self.select_stop.hide()
-
 
     def open_noticeable(self):
         self.notice.show()
@@ -2256,7 +2229,7 @@ class Ui_MainWindow(object):
     def open_helpline(self):
         self.help.show()
 
-    def on_combobox_changed(self, index):#模拟器地址响应
+    def on_combobox_changed(self, index):  # 模拟器地址响应
         if index == 0:
             self.lineEdit.setText(set_address)
         if index == 1:
@@ -2310,6 +2283,7 @@ class Ui_MainWindow(object):
         self.checkBox_adventure.setChecked(False)
         self.checkBox_donate.setChecked(False)
         self.checkBox_recruit.setChecked(False)
+        self.auto_fighting.setChecked(False)
         # 根据读取的配置值来更新界面元素
         # 假设界面上有一个QCheckBox名为self.checkBox_help
         if self.checkBox_help.isChecked():
@@ -2371,7 +2345,6 @@ class Ui_MainWindow(object):
             self.checkBox_recruit.setChecked(True)
         else:
             self.checkBox_recruit.setChecked(False)
-        self.auto_fighting.setChecked(False)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -2424,17 +2397,17 @@ class Ui_MainWindow(object):
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.notice_button.setText(_translate("MainWindow", "更新公告"))
         self.help_button.setText(_translate("MainWindow", "帮助文档"))
-        self.textEdit.setHtml(_translate("MainWindow", "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; \">请等待程序停止后再设置相关参数</span></p>\n"
-                                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; \">多选和单选不可同时执行</span></p></body>"))
+        self.textEdit.setHtml(_translate("MainWindow",
+                                         "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; \">请等待程序停止后再设置相关参数</span></p>\n"
+                                         "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; \">多选和单选不可同时执行</span></p></body>"))
         self.textEdit.setReadOnly(True)
         self.hide_UI.setText(_translate("MainWindow", "隐藏UI"))
-
-
 
     def write(self, text):
         # 将text写入textEdit
         self.textEdit_out.insertPlainText(text)
         self.textEdit_out.moveCursor(self.textEdit_out.textCursor().End)  # 移动光标到文本末尾
+
 
 class MyApp(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
