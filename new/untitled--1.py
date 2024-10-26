@@ -72,8 +72,8 @@ def print_space(variable, spaces=4):
 def start_exe():
     while True:
         try:
-            print('开始启动模拟器')
-            subprocess.Popen(r"D:\Program Files\Netease\MuMu Player 12\shell\MuMuPlayer.exe")
+            print('开始启动雷电模拟器')
+            subprocess.Popen('E:\leidian\LDPlayer9\dnplayer.exe')
             #subprocess.Popen('%s' % set_address.get())
             print('启动成功')
             break
@@ -92,9 +92,9 @@ def cnnect():
             print('%d.开始尝试连接模拟器' % a)
             os.popen('adb start-server')
             #print('地址：android:// %s' % str(set_ip.get()))
-            print('地址：android://127.0.0.1:16384')
+            print('地址：android://127.0.0.1:5037')
             #connect_device('android://%s'%set_ip.get())
-            connect_device('android://127.0.0.1:16384')
+            connect_device('android://127.0.0.1:5037')
             #subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
             time.sleep(5)
             print('连接模拟器成功!!!')
@@ -178,16 +178,8 @@ def Homepage():
                 print_space('点击关闭按钮')
                 touch(Template(r"icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(414, 780)))
             else:
-                if exists(Template(r"icon/tpl1729739717241.png", record_pos=(0.406, 0.796), resolution=(1080, 1920))):
-                    touch(Template(r"icon/tpl1729739717241.png", record_pos=(0.406, 0.796), resolution=(1080, 1920)))
-                time.sleep(1)
-                if exists(Template(r"icon/outside.png", record_pos=(0.404, 0.8), resolution=(1080, 1920))):
-                    touch((Template(r"icon/outside.png", record_pos=(0.404, 0.8), resolution=(1080, 1920))))
                 print_space('点击其他区域')
                 touch([500, 600])  # 不在主界面，返回到主页
-        if stop_event.is_set():
-            main_class = Ui_MainWindow()
-            main_class.stop_button()
     '''except:
         print('执行错误')
     if a == 4:
@@ -196,8 +188,7 @@ def Homepage():
 
 # 互助功能
 def Help():
-    result = exists(Template(r"icon/tpl1718936896202.png", record_pos=(0.248, 0.735), resolution=(449, 842)))
-    if result:  # 判断是否有盟员求助
+    if exists(Template(r"icon\tpl1718936896202.png", record_pos=(0.248, 0.735), resolution=(449, 842))):  # 判断是否有盟员求助
         print_space("有盟员求助，需点击援助按钮")
         touch([800, 1700])
         print_space("点击援助按钮成功，等待1s进行下一个任务")
@@ -902,7 +893,6 @@ def subject(self):
         time.sleep(1)
         cnnect()
     run_number = 1
-    global option_help
     while True:
         now = datetime.now()
         if now.second%10==0 and self.auto_fighting.isChecked():
@@ -922,8 +912,7 @@ def subject(self):
                     Help()  # 互助模块
                     run_number += 1
                     if stop_event.is_set():
-                        main_class = Ui_MainWindow()
-                        main_class.stop_button()
+                        self.select_stop_button()
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -936,8 +925,7 @@ def subject(self):
                     Brush_XG()  # 野怪
                     run_number += 1
                     if stop_event.is_set():
-                        main_class = Ui_MainWindow()
-                        main_class.stop_button()  # 总功能
+                        self.select_stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -950,8 +938,7 @@ def subject(self):
                     Brush_WM()  # 冰原巨兽
                     run_number += 1
                     if stop_event.is_set():
-                        main_class = Ui_MainWindow()
-                        main_class.stop_button()
+                        self.select_stop_button()
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -964,8 +951,8 @@ def subject(self):
                     NPC()  # 活动雪怪
                     run_number += 1
                     if stop_event.is_set():
-                        main_class = Ui_MainWindow()
-                        main_class.stop_button()
+                        self = Ui_MainWindow()
+                        self.select_stop_button()
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -978,8 +965,8 @@ def subject(self):
                     Production_soldiers()  # 训练模块
                     run_number += 1
                     if stop_event.is_set():
-                        main_class = Ui_MainWindow()
-                        main_class.stop_button()  # 总功能
+                        self = Ui_MainWindow()
+                        self.select_stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -992,8 +979,8 @@ def subject(self):
                     Build()  # 建造模块
                     run_number += 1
                     if stop_event.is_set():
-                        main_class = Ui_MainWindow()
-                        main_class.stop_button()  # 总功能
+                        self = Ui_MainWindow()
+                        self.select_stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -1006,8 +993,8 @@ def subject(self):
                     Collection()  # 采集资源模块
                     run_number += 1
                     if stop_event.is_set():
-                        main_class = Ui_MainWindow()
-                        main_class.stop_button()  # 总功能
+                        self = Ui_MainWindow()
+                        self.select_stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -1020,8 +1007,8 @@ def subject(self):
                     bear()  # 巨熊模块
                     run_number += 1
                     if stop_event.is_set():
-                        main_class = Ui_MainWindow()
-                        main_class.stop_button()  # 总功能
+                        self = Ui_MainWindow()
+                        self.select_stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -1034,22 +1021,20 @@ def subject(self):
                     treatment()  # 治疗模块
                     run_number += 1
                     if stop_event.is_set():
-                        main_class = Ui_MainWindow()
-                        main_class.stop_button()  # 总功能
+                        self = Ui_MainWindow()
+                        self.select_stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
         if now.minute == 25:
             try:
                 if self.checkBox_adventure.isChecked():
-
                     print('\n' + '%d.开始执行探险任务' % run_number)
                     Homepage()  # 主页检查
                     adventure()  # 探险
                     run_number += 1
                     if stop_event.is_set():
-                        main_class = Ui_MainWindow()
-                        main_class.stop_button()  # 总功能
+                        self.select_stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -1061,8 +1046,7 @@ def subject(self):
                     donate()  # 捐赠模块
                     run_number += 1
                     if stop_event.is_set():
-                        main_class = Ui_MainWindow()
-                        main_class.stop_button()  # 总功能
+                        self.select_stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
@@ -1074,18 +1058,324 @@ def subject(self):
                     recruit()
                     run_number += 1
                     if stop_event.is_set():
-                        main_class = Ui_MainWindow()
-                        main_class.stop_button()  # 总功能
+                        self.select_stop_button()  # 总功能
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
         if stop_event.is_set():
-            main_class = Ui_MainWindow()
-            main_class.stop_button()  # 总功能
+            self.select_stop_button()  # 总功能
             break
     print('结束任务')
 
-
+# 单选主体代码
+def simple_select(self):
+    if emulator_click == 0:
+        time.sleep(1)
+        print('未连接模拟器')
+        time.sleep(1)
+        cnnect()
+    execute = True
+    if self.radioButton_help.isChecked():
+        while True:
+            try:
+                Homepage()
+                Help()
+                if stop_event.is_set():
+                    self.simple_stop_button()  # 互助功能
+                    break
+                '''help_time = set_help_time.get()
+                print_space('等待%s秒后继续执行任务'%help_time+'\n')
+                XG_number = int(help_time)
+                time.sleep(XG_number)'''
+            except:
+                print('错误')
+    elif self.radioButton_XG.isChecked():
+        while execute:
+            try:
+                Homepage()
+                Brush_XG()
+                if stop_event.is_set():
+                    self.simple_stop_button()  # 野怪功能
+                    break
+                XG_time = int(set_XG_time.get())
+                print_space('等待%s秒后再次执行'%XG_time+'\n')
+                number = 0
+                XG_number = XG_time / 10
+                while XG_number > number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()  # 野怪功能
+                        break
+                    else:
+                        if XG_number < 1:
+                            time.sleep(XG_time)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+            except:
+                print('错误')
+    elif self.radioButton_WM.isChecked():   #冰原巨兽
+        while execute:
+            try:
+                Homepage()
+                Brush_WM()
+                if stop_event.is_set():
+                    self.simple_stop_button()  # 停止后按钮变为开始
+                    break
+                WM_time = int(set_WM_time.get())
+                print_space('等待%s秒后再次执行'%WM_time+'\n')
+                number = 0
+                WM_number = WM_time / 10
+                while number < WM_number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()  # 野怪功能
+                        break
+                    else:
+                        if WM_number < 1:
+                            time.sleep(WM_time)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+            except:
+                print('错误')
+    elif self.radioButton_npc.isChecked():
+        while execute:
+            try:
+                Homepage()
+                NPC()
+                if stop_event.is_set():
+                    self.simple_stop_button()  # 停止后按钮变为开始
+                    break
+                npc_time = int(set_XG_time.get())
+                print_space('等待%s秒后再次执行'%npc_time+'\n')
+                number = 0
+                npc_number = npc_time / 10
+                while number < npc_number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()
+                        break
+                    else:
+                        if npc_number < 1:
+                            time.sleep(npc_time)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+            except:
+                print('错误')
+    elif self.radioButton_Production.isChecked():                             #训练士兵
+        while execute:
+            try:
+                Homepage()
+                Production_soldiers()
+                if stop_event.is_set():
+                    self.simple_start_button()  # 停止后按钮变为开始
+                    break
+                Production_time = int(set_Production_time.get())
+                print_space('等待%s秒后再次执行'%Production_time+'\n')
+                Production_number = Production_time / 10
+                number = 0
+                while number < Production_number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()
+                        break
+                    else:
+                        if Production_number < 1:
+                            time.sleep(Production_time)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+            except:
+                print('错误')
+    elif self.radioButton_build.isChecked():
+        while execute:
+            try:
+                Homepage()
+                Build()
+                if stop_event.is_set():
+                    self.simple_stop_button()  # 停止后按钮变为开始
+                    break
+                build_time = int(set_build_time.get())
+                print_space('等待%s秒后再次执行' % build_time + '\n')
+                build_number = build_time / 10
+                number = 0
+                while number < build_number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()
+                        break
+                    else:
+                        if build_number < 1:
+                            time.sleep(build_time)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+            except:
+                print('错误')
+    elif self.radioButton_Collection.isChecked():
+        while execute:
+            try:
+                Homepage()
+                Collection()
+                if stop_event.is_set():
+                    self.simple_stop_button()  # 停止后按钮变为开始
+                    break
+                Collection_time = int(set_Collection_time.get())
+                print_space('等待%s秒后再次执行' % Collection_time + '\n')
+                number = 0
+                Collection_number = Collection_time / 10
+                while number < Collection_number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()
+                        break
+                    else:
+                        if Collection_number < 1:
+                            time.sleep(Collection_time)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+            except:
+                print('错误')
+    elif self.radioButton_bear.isChecked():
+        while execute:
+            try:
+                Homepage()
+                bear()
+                if stop_event.is_set():
+                    self.simple_stop_button()  # 停止后按钮变为开始
+                    break
+                bear_time = int(set_bear_time.get())
+                print_space('等待%s秒后再次执行' % bear_time + '\n')
+                number = 0
+                bear_number = bear_time / 10
+                while number < bear_number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()  # 野怪功能
+                        break
+                    else:
+                        if bear_number < 1:
+                            time.sleep(bear_time)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+            except:
+                print('错误')
+    elif self.radioButton_treatment.isChecked():       #治疗
+        while execute:
+            try:
+                Homepage()
+                treatment()
+                if stop_event.is_set():
+                    self.simple_stop_button()  # 停止后按钮变为开始
+                    break
+                treatment_time = int(set_treatment_time.get())
+                print_space('等待%s秒后再次执行' % treatment_time + '\n')
+                number = 0
+                treatment_number = treatment_time / 10
+                while number < treatment_number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()
+                        break
+                    else:
+                        if treatment_number < 1:
+                            time.sleep(treatment_time)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+            except:
+                print('错误')
+    elif self.radioButton_adventure.isChecked():
+        while execute:
+            try:
+                Homepage()
+                adventure()
+                if stop_event.is_set():
+                    self.simple_stop_button()  # 停止后按钮变为开始
+                    break
+                adventure_time = int(set_adventure_time.get())
+                print_space('等待%s秒后再次执行' % adventure_time + '\n')
+                number = 0
+                adventure_number = adventure_time / 10
+                while number < adventure_number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()  # 野怪功能
+                        break
+                    else:
+                        if adventure_number < 1:
+                            time.sleep(adventure_time)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+            except:
+                print('错误')
+    elif self.radioButton_donate.isChecked():
+        while execute:
+            try:
+                Homepage()
+                donate()
+                if stop_event.is_set():
+                    self.simple_stop_button()  # 停止后按钮变为开始
+                    break
+                donate_time = int(set_donate_time.get())
+                print_space('等待%s秒后再次执行' % donate_time + '\n')
+                number = 0
+                donate_number = donate_time / 10
+                while number < donate_number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()  # 野怪功能
+                        break
+                    else:
+                        if donate_number < 1:
+                            time.sleep(donate_time)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+            except:
+                print('错误')
+    elif self.radioButton_recruit.isChecked():
+        while execute:
+            try:
+                Homepage()
+                recruit()
+                if stop_event.is_set():
+                    self.simple_stop_button()  # 停止后按钮变为开始
+                    break
+                recruit_time = int(set_recruit_time.get())
+                print_space('等待%s秒后再次执行' % recruit_time + '\n')
+                number = 0
+                recruit_number = recruit_time / 10
+                while number < recruit_number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()  # 野怪功能
+                        break
+                    else:
+                        if recruit_number < 1:
+                            time.sleep(recruit_time)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+            except:
+                print('错误')
+    print('任务已结束')
 '''-------------------------------------更新公告-----------------------------------------------'''
 
 class Ui_NoticeWindow(object):
@@ -1187,7 +1477,7 @@ class helplog(QMainWindow, Ui_helpWindow):
 
 '''保存设置'''
 
-
+'''
 def save_options():
     config.set('Options', '单项', var.get())
     config.set('Options', '联盟互助', option_help.get())
@@ -1207,8 +1497,90 @@ def save_options():
         config.write(configfile)
 
 
+def save_simple_set():
+    global number_brush
+    if entry.get() != '':
+        config.set('Options', '单项', var.get())
+        if int(var.get()) == 0:
+            help_time = entry.get()
+            config.set('Options', '联盟互助设置', help_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 1:
+            XG_time = entry.get()
+            config.set('Options', '世界野怪设置', XG_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 2:
+            number_brush = 0
+            WM_time = entry.get()
+            WM_number = entry_number.get()
+            config.set('Options', '冰原巨兽设置', WM_time)
+            config.set('Options', '冰原巨兽等级设置', WM_number)
+            print('设置成功！！！')
+        elif int(var.get()) == 3:
+            npc_time = entry.get()
+            config.set('Options', '活动雪怪设置', npc_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 4:
+            Production_time = entry.get()
+            config.set('Options', '训练士兵设置', Production_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 5:
+            build_time = entry.get()
+            config.set('Options', '建筑升级设置', build_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 6:
+            Collection_time = entry.get()
+            config.set('Options', '采集资源设置', Collection_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 7:
+            bear_time = entry.get()
+            config.set('Options', '巨熊活动设置', bear_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 8:
+            treatment_time = entry.get()
+            config.set('Options', '治疗士兵设置', treatment_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 9:
+            adventure_time = entry.get()
+            config.set('Options', '探险奖励设置', adventure_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 10:
+            donate_time = entry.get()
+            config.set('Options', '联盟捐赠设置', donate_time)
+            print('设置成功！！！')
+        elif int(var.get()) == 11:
+            recruit_time = entry.get()
+            config.set('Options', '英雄招募设置', recruit_time)
+            print('设置成功！！！')
+        with open('set.ini', 'w') as configfile:
+            config.write(configfile)
+        #load_options()
+    else:
+        print('-------------间隔时间不能为空-------------')
 
-'''读取设置'''
+#初始化配置解析器和选项变量
+config = ConfigParser()
+config['Options'] = {}
+#单选
+var = QSettings()
+#多选
+set_ip = QSettings()  #设置模拟器ip
+set_address = QSettings()  #设置模拟器地址
+set_help_time = QSettings()  #互助
+set_XG_time = QSettings()  #野怪
+set_WM_time = QSettings()  #巨兽
+set_npc_time = QSettings()  #雪怪
+set_Production_time = QSettings()  #士兵
+set_build_time = QSettings()  #建筑
+set_Collection_time = QSettings()  #采集
+set_bear_time = QSettings()  #巨熊
+set_treatment_time = QSettings()  #治疗
+set_adventure_time = QSettings()  #探险
+set_donate_time = QSettings()  #捐赠
+set_WM_number = QSettings()  #冰原巨兽等级
+set_recruit_time = QSettings()  #招募设置
+set_version = QSettings()  #设置版本号
+#读取设置
 
 
 def load_options():
@@ -1244,28 +1616,6 @@ def load_options():
     set_version.set(config.get('Options', 'version'))
 
 
-'''初始化配置解析器和选项变量'''
-config = ConfigParser()
-config['Options'] = {}
-'''单选'''
-var = QSettings()
-'''多选'''
-set_ip = QSettings()  #设置模拟器ip
-set_address = QSettings()  #设置模拟器地址
-set_help_time = QSettings()  #互助
-set_XG_time = QSettings()  #野怪
-set_WM_time = QSettings()  #巨兽
-set_npc_time = QSettings()  #雪怪
-set_Production_time = QSettings()  #士兵
-set_build_time = QSettings()  #建筑
-set_Collection_time = QSettings()  #采集
-set_bear_time = QSettings()  #巨熊
-set_treatment_time = QSettings()  #治疗
-set_adventure_time = QSettings()  #探险
-set_donate_time = QSettings()  #捐赠
-set_WM_number = QSettings()  #冰原巨兽等级
-set_recruit_time = QSettings()  #招募设置
-set_version = QSettings()  #设置版本号
 
 
 # 尝试加载先前保存的选项
@@ -1310,7 +1660,7 @@ def read_save():
         print('No saved options found.')
 
 
-read_save()
+read_save()'''
 
 
 def stop_function():
@@ -1323,6 +1673,7 @@ stop_event = threading.Event()
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        super().__init__()
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
         MainWindow.resize(960, 540)
@@ -1336,6 +1687,7 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet("")
         MainWindow.setAnimated(False)
         MainWindow.setDocumentMode(False)
+
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setEnabled(True)
         self.centralwidget.setStyleSheet("")
@@ -1576,7 +1928,7 @@ class Ui_MainWindow(object):
                                        "QPushButton:pressed {\n"
                                        "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                        "}\n")
-        #开始按钮
+        #多选开始按钮
         self.select_start = QtWidgets.QPushButton(self.frame_3)
         self.select_start.setEnabled(True)
         self.select_start.setGeometry(QtCore.QRect(190, 150, 75, 23))
@@ -1613,8 +1965,6 @@ class Ui_MainWindow(object):
         self.radioButton_help.setGeometry(QtCore.QRect(20, 30, 71, 16))
         self.radioButton_help.setAutoFillBackground(False)
         self.radioButton_help.setStyleSheet("")
-        self.radioButton_help.setCheckable(True)
-        self.radioButton_help.setChecked(False)
         self.radioButton_help.setAutoRepeat(False)
         self.radioButton_help.setAutoExclusive(True)
         self.radioButton_help.setObjectName("radioButton_help")
@@ -1630,33 +1980,31 @@ class Ui_MainWindow(object):
         self.radioButton_Production = QtWidgets.QRadioButton(self.frame_4)
         self.radioButton_Production.setGeometry(QtCore.QRect(380, 30, 71, 16))
         self.radioButton_Production.setObjectName("radioButton_Production")
-        self.radioButton_11 = QtWidgets.QRadioButton(self.frame_4)
-        self.radioButton_11.setGeometry(QtCore.QRect(380, 70, 71, 16))
-        self.radioButton_11.setObjectName("radioButton_11")
-        self.radioButton_12 = QtWidgets.QRadioButton(self.frame_4)
-        self.radioButton_12.setGeometry(QtCore.QRect(290, 70, 71, 16))
-        self.radioButton_12.setMouseTracking(True)
-        self.radioButton_12.setTabletTracking(False)
-        self.radioButton_12.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.radioButton_12.setStyleSheet("")
-        self.radioButton_12.setCheckable(False)
-        self.radioButton_12.setChecked(False)
-        self.radioButton_12.setObjectName("radioButton_12")
+        self.radioButton_adventure = QtWidgets.QRadioButton(self.frame_4)
+        self.radioButton_adventure.setGeometry(QtCore.QRect(380, 70, 71, 16))
+        self.radioButton_adventure.setObjectName("radioButton_adventure")
+        self.radioButton_treatment = QtWidgets.QRadioButton(self.frame_4)
+        self.radioButton_treatment.setGeometry(QtCore.QRect(290, 70, 71, 16))
+        self.radioButton_treatment.setMouseTracking(True)
+        self.radioButton_treatment.setTabletTracking(False)
+        self.radioButton_treatment.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.radioButton_treatment.setStyleSheet("")
+        self.radioButton_treatment.setObjectName("radioButton_treatment")
         self.radioButton_build = QtWidgets.QRadioButton(self.frame_4)
         self.radioButton_build.setGeometry(QtCore.QRect(20, 70, 71, 16))
         self.radioButton_build.setObjectName("radioButton_build")
-        self.radioButton_16 = QtWidgets.QRadioButton(self.frame_4)
-        self.radioButton_16.setGeometry(QtCore.QRect(110, 70, 71, 16))
-        self.radioButton_16.setObjectName("radioButton_16")
-        self.radioButton_17 = QtWidgets.QRadioButton(self.frame_4)
-        self.radioButton_17.setGeometry(QtCore.QRect(200, 70, 71, 16))
-        self.radioButton_17.setObjectName("radioButton_17")
-        self.radioButton_18 = QtWidgets.QRadioButton(self.frame_4)
-        self.radioButton_18.setGeometry(QtCore.QRect(20, 110, 71, 16))
-        self.radioButton_18.setObjectName("radioButton_18")
-        self.radioButton_ = QtWidgets.QRadioButton(self.frame_4)
-        self.radioButton_.setGeometry(QtCore.QRect(110, 110, 71, 16))
-        self.radioButton_.setObjectName("radioButton_")
+        self.radioButton_Collection = QtWidgets.QRadioButton(self.frame_4)
+        self.radioButton_Collection.setGeometry(QtCore.QRect(110, 70, 71, 16))
+        self.radioButton_Collection.setObjectName("radioButton_Collection")
+        self.radioButton_bear = QtWidgets.QRadioButton(self.frame_4)
+        self.radioButton_bear.setGeometry(QtCore.QRect(200, 70, 71, 16))
+        self.radioButton_bear.setObjectName("radioButton_bear")
+        self.radioButton_donate = QtWidgets.QRadioButton(self.frame_4)
+        self.radioButton_donate.setGeometry(QtCore.QRect(20, 110, 71, 16))
+        self.radioButton_donate.setObjectName("radioButton_18")
+        self.radioButton_recruit = QtWidgets.QRadioButton(self.frame_4)
+        self.radioButton_recruit.setGeometry(QtCore.QRect(110, 110, 71, 16))
+        self.radioButton_recruit.setObjectName("radioButton_recruit")
         #单项停止
         self.simple_stop = QtWidgets.QPushButton(self.frame_4)
         self.simple_stop.setEnabled(True)
@@ -1804,12 +2152,12 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         #按钮点击触发响应
         self.retranslateUi(MainWindow)
-        self.select_start.clicked.connect(self.save_simple)  # type: ignore
-        self.select_stop.clicked.connect(stop_function)  # type: ignore
-        self.simple_start.clicked.connect(self.simple_start.hide)  # type: ignore
-        self.simple_start.clicked.connect(self.simple_stop.show)  # type: ignore
-        self.simple_stop.clicked.connect(self.simple_start.show)  # type: ignore
-        self.simple_stop.clicked.connect(self.simple_stop.hide)  # type: ignore
+        # 多选开始
+        self.select_start.clicked.connect(self.select_start_button)  # type: ignore
+        # 多选停止
+        self.select_stop.clicked.connect(stop_function)  # 多选停止
+        self.simple_start.clicked.connect(self.simple_start_button)  # 单选开始
+        self.simple_stop.clicked.connect(stop_function)  # 单选停止
         self.hide_UI.clicked.connect(self.hide_ui)  # type: ignore
         self.show_UI.clicked.connect(self.show_ui)  # type: ignore
         self.start_simulator.clicked.connect(lambda: start_simple(1))
@@ -1824,62 +2172,53 @@ class Ui_MainWindow(object):
         self.help_button.clicked.connect(self.open_helpline)
         self.help = helplog()
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        # 根据读取的配置值来更新界面元素
-        # 假设界面上有一个QCheckBox名为self.checkBox_help
-        if option_help.lower() == '1':
-            self.checkBox_help.setChecked(True)
-        else:
-            self.checkBox_help.setChecked(False)
 
-        if option_XG.lower() == '1':
-            self.checkBox_XG.setChecked(True)
-        else:
-            self.checkBox_XG.setChecked(False)
+    def load_settings(self):#读取设置
+        settings = QSettings('mycompany', 'myapp')
+        option1 = settings.value('options/联盟互助', type=bool)
+        option2 = settings.value('options/世界野怪', type=bool)
+        option3 = settings.value('options/冰原巨兽', type=bool)
+        option4 = settings.value('options/活动雪怪', type=bool)
+        option5 = settings.value('options/训练士兵', type=bool)
+        option6 = settings.value('options/建筑升级', type=bool)
+        option7 = settings.value('options/采集资源', type=bool)
+        option8 = settings.value('options/巨熊活动', type=bool)
+        option9 = settings.value('options/治疗士兵', type=bool)
+        option10 = settings.value('options/探险奖励', type=bool)
+        option11 = settings.value('options/联盟捐赠', type=bool)
+        option12 = settings.value('options/英雄招募', type=bool)
+        option13 = settings.value('options/攻击检测', type=bool)
+        self.checkBox_help.setChecked(option1)
+        self.checkBox_XG.setChecked(option2)
+        self.checkBox_WM.setChecked(option3)
+        self.checkBox_npc.setChecked(option4)
+        self.checkBox_Production.setChecked(option5)
+        self.checkBox_build.setChecked(option6)
+        self.checkBox_Collection.setChecked(option7)
+        self.checkBox_bear.setChecked(option8)
+        self.checkBox_treatment.setChecked(option9)
+        self.checkBox_adventure.setChecked(option10)
+        self.checkBox_donate.setChecked(option11)
+        self.checkBox_recruit.setChecked(option12)
+        #self.checkBox_ming.setChecked(option13)
 
-        if option_WM.lower() == '1':
-            self.checkBox_WM.setChecked(True)
-        else:
-            self.checkBox_WM.setChecked(False)
 
-        if option_npc.lower() == '1':
-            self.checkBox_npc.setChecked(True)
-        else:
-            self.checkBox_npc.setChecked(False)
-
-        if option_Production.lower() == '1':
-            self.checkBox_Production.setChecked(True)
-        else:
-            self.checkBox_Production.setChecked(False)
-
-        if option_build.lower() == '1':
-            self.checkBox_build.setChecked(True)
-        else:
-            self.checkBox_build.setChecked(False)
-
-        if option_Collection.lower() == '1':
-            self.checkBox_Collection.setChecked(True)
-        else:
-            self.checkBox_Collection.setChecked(False)
-
-        if option_bear.lower() == '1':
-            self.checkBox_bear.setChecked(True)
-        else:
-            self.checkBox_bear.setChecked(False)
-
-        if option_treatment.lower() == '1':
-            self.checkBox_treatment.setChecked(True)
-        else:
-            self.checkBox_treatment.setChecked(False)
-
-        if option_adventure.lower() == '1':
-            self.checkBox_adventure.setChecked(True)
-        else:
-            self.checkBox_adventure.setChecked(False)
-
-        if option_donate.lower() == '1':
-            self.checkBox_donate.setChecked(True)
-        else:
-            self.checkBox_donate.setChecked(False)
+    def save_settings(self):#保存设置
+        settings = QSettings('mycompany', 'myapp')
+        settings.setValue('options/联盟互助', self.checkBox_help.isChecked())
+        settings.setValue('options/世界野怪', self.checkBox_XG.isChecked())
+        settings.setValue('options/冰原巨兽', self.checkBox_WM.isChecked())
+        settings.setValue('options/活动雪怪', self.checkBox_npc.isChecked())
+        settings.setValue('options/训练士兵', self.checkBox_Production.isChecked())
+        settings.setValue('options/建筑升级', self.checkBox_build.isChecked())
+        settings.setValue('options/采集资源', self.checkBox_Collection.isChecked())
+        settings.setValue('options/巨熊活动', self.checkBox_bear.isChecked())
+        settings.setValue('options/治疗士兵', self.checkBox_treatment.isChecked())
+        settings.setValue('options/探险奖励', self.checkBox_adventure.isChecked())
+        settings.setValue('options/联盟捐赠', self.checkBox_donate.isChecked())
+        settings.setValue('options/英雄招募', self.checkBox_recruit.isChecked())
+        #settings.setValue('options/活动雪怪', self.checkBox_npc.isChecked())
+        #settings.setValue('options/活动雪怪', self.checkBox_npc.isChecked())
 
         if option_recruit.lower() == '1':
             self.checkBox_recruit.setChecked(True)
@@ -1897,9 +2236,19 @@ class Ui_MainWindow(object):
         #stop_event.clear()
         threading.Thread(target=lambda:subject(self)).start()  #save_options()
 
-    def stop_button(self):
+    def select_stop_button(self):#多选停止程序
         self.select_start.show()
         self.select_stop.hide()
+    def simple_start_button(self):#单选开始按钮
+        self.simple_stop.show()  # type: ignore
+        self.simple_start.hide()  # type: ignore
+        print("程序开始执行...")
+        stop_event.clear()
+        threading.Thread(target=lambda:simple_select(self)).start()
+    def simple_stop_button(self):#单选停止程序
+        self.select_start.show()
+        self.select_stop.hide()
+
 
     def open_noticeable(self):
         self.notice.show()
@@ -1907,11 +2256,11 @@ class Ui_MainWindow(object):
     def open_helpline(self):
         self.help.show()
 
-    def on_combobox_changed(self, index):
+    def on_combobox_changed(self, index):#模拟器地址响应
         if index == 0:
-            self.lineEdit.setText('模拟器地址')
+            self.lineEdit.setText(set_address)
         if index == 1:
-            self.lineEdit.setText('模拟器ip')
+            self.lineEdit.setText(set_ip)
 
     def hide_ui(self):
         self.frame.setVisible(False)
@@ -1961,6 +2310,67 @@ class Ui_MainWindow(object):
         self.checkBox_adventure.setChecked(False)
         self.checkBox_donate.setChecked(False)
         self.checkBox_recruit.setChecked(False)
+        # 根据读取的配置值来更新界面元素
+        # 假设界面上有一个QCheckBox名为self.checkBox_help
+        if self.checkBox_help.isChecked():
+            self.checkBox_help.setChecked(True)
+        else:
+            self.checkBox_help.setChecked(False)
+
+        if self.checkBox_XG.isChecked():
+            self.checkBox_XG.setChecked(True)
+        else:
+            self.checkBox_XG.setChecked(False)
+
+        if self.checkBox_WM.isChecked():
+            self.checkBox_WM.setChecked(True)
+        else:
+            self.checkBox_WM.setChecked(False)
+
+        if self.checkBox_npc.isChecked():
+            self.checkBox_npc.setChecked(True)
+        else:
+            self.checkBox_npc.setChecked(False)
+
+        if self.checkBox_Production.isChecked():
+            self.checkBox_Production.setChecked(True)
+        else:
+            self.checkBox_Production.setChecked(False)
+
+        if self.checkBox_build.isChecked():
+            self.checkBox_build.setChecked(True)
+        else:
+            self.checkBox_build.setChecked(False)
+
+        if self.checkBox_Collection.isChecked():
+            self.checkBox_Collection.setChecked(True)
+        else:
+            self.checkBox_Collection.setChecked(False)
+
+        if self.checkBox_bear.isChecked():
+            self.checkBox_bear.setChecked(True)
+        else:
+            self.checkBox_bear.setChecked(False)
+
+        if self.checkBox_treatment.isChecked():
+            self.checkBox_treatment.setChecked(True)
+        else:
+            self.checkBox_treatment.setChecked(False)
+
+        if self.checkBox_adventure.isChecked():
+            self.checkBox_adventure.setChecked(True)
+        else:
+            self.checkBox_adventure.setChecked(False)
+
+        if self.checkBox_donate.isChecked():
+            self.checkBox_donate.setChecked(True)
+        else:
+            self.checkBox_donate.setChecked(False)
+
+        if self.checkBox_recruit.isChecked():
+            self.checkBox_recruit.setChecked(True)
+        else:
+            self.checkBox_recruit.setChecked(False)
         self.auto_fighting.setChecked(False)
 
     def retranslateUi(self, MainWindow):
@@ -1997,13 +2407,13 @@ class Ui_MainWindow(object):
         self.radioButton_WM.setText(_translate("MainWindow", "冰原巨兽"))
         self.radioButton_npc.setText(_translate("MainWindow", "活动雪怪"))
         self.radioButton_Production.setText(_translate("MainWindow", "训练士兵"))
-        self.radioButton_11.setText(_translate("MainWindow", "探险奖励"))
-        self.radioButton_12.setText(_translate("MainWindow", "治疗士兵"))
+        self.radioButton_adventure.setText(_translate("MainWindow", "探险奖励"))
+        self.radioButton_treatment.setText(_translate("MainWindow", "治疗士兵"))
         self.radioButton_build.setText(_translate("MainWindow", "建筑升级"))
-        self.radioButton_16.setText(_translate("MainWindow", "采集资源"))
-        self.radioButton_17.setText(_translate("MainWindow", "巨熊活动"))
-        self.radioButton_18.setText(_translate("MainWindow", "联盟捐赠"))
-        self.radioButton_.setText(_translate("MainWindow", "英雄招募"))
+        self.radioButton_Collection.setText(_translate("MainWindow", "采集资源"))
+        self.radioButton_bear.setText(_translate("MainWindow", "巨熊活动"))
+        self.radioButton_donate.setText(_translate("MainWindow", "联盟捐赠"))
+        self.radioButton_recruit.setText(_translate("MainWindow", "英雄招募"))
         self.simple_stop.setText(_translate("MainWindow", "停止"))
         self.simple_start.setText(_translate("MainWindow", "开始"))
         self.label_3.setText(_translate("MainWindow", "执行间隔(秒):"))
@@ -2019,11 +2429,12 @@ class Ui_MainWindow(object):
         self.textEdit.setReadOnly(True)
         self.hide_UI.setText(_translate("MainWindow", "隐藏UI"))
 
+
+
     def write(self, text):
         # 将text写入textEdit
         self.textEdit_out.insertPlainText(text)
         self.textEdit_out.moveCursor(self.textEdit_out.textCursor().End)  # 移动光标到文本末尾
-
 
 class MyApp(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -2034,8 +2445,9 @@ class MyApp(QMainWindow, Ui_MainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     mainWindow = MyApp()
+    mainWindow.load_settings()
     # 重定向stdout和stderr
-    #sys.stdout = mainWindow
-    #sys.stderr = mainWindow
+    sys.stdout = mainWindow
+    sys.stderr = mainWindow
     mainWindow.show()
     sys.exit(app.exec_())
