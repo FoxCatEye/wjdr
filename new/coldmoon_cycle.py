@@ -1,20 +1,16 @@
 import logging
-from PyQt5 import QtCore, QtGui, QtWidgets
-import threading
-import time
-from datetime import datetime
 import subprocess
-import os
 import sys
+import threading
+from datetime import datetime
+
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtGui import QPalette, QBrush, QPixmap
-from configparser import ConfigParser
-from PyQt5.QtCore import QTimer
-from airtest.core.api import *
 from airtest.core.android.android import *
+from airtest.core.api import *
 
-from new.Utils import swipe_left, swipe_right, swipe_down
+from Utils import swipe_left, swipe_right, swipe_down
 
 logging.getLogger('airtest').setLevel(logging.ERROR)
 '''模拟器点击变量'''
@@ -193,7 +189,7 @@ def Homepage():
 
 # 互助功能
 def Help():
-    if exists(Template(r"icon\tpl1718936896202.png", record_pos=(0.248, 0.735), resolution=(449, 842))):  # 判断是否有盟员求助
+    if exists(Template(r"icon/help_icon.png", record_pos=(0.248, 0.735), resolution=(449, 842))):  # 判断是否有盟员求助
         print_space("有盟员求助，需点击援助按钮")
         touch([800, 1700])
         print_space("点击援助按钮成功，等待1s进行下一个任务")
@@ -797,11 +793,12 @@ def re_connet():
     else:
         print_space('连接正常')
 
+
 # 队列撤回
 def out_queue_back():
     print("检查是否有队列在外")
-    if exists(Template(r"icon/back_icon.png", record_pos=(-0.188, -0.431),resolution=(1080, 1920))):
-        touch(Template(r"icon/back_icon.png", record_pos=(-0.188, -0.431),resolution=(1080, 1920)))
+    if exists(Template(r"icon/back_icon.png", record_pos=(-0.188, -0.431), resolution=(1080, 1920))):
+        touch(Template(r"icon/back_icon.png", record_pos=(-0.188, -0.431), resolution=(1080, 1920)))
         if exists(Template(r"icon/confirm.png", resolution=(1080, 1920))):
             touch(Template(r"icon/confirm.png", resolution=(1080, 1920)))
         print("队列撤回")
@@ -831,31 +828,29 @@ def auto_fighting_func(self, run_number):
             cnt += 1
             time.sleep(3)
 
-
-        if exists(Template(r"icon/m8_used.png",  resolution=(1080, 1920))):
+        if exists(Template(r"icon/m8_used.png", resolution=(1080, 1920))):
             touch(Template(r"icon/m8_used.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/r8_used.png",  resolution=(1080, 1920))):
+        if exists(Template(r"icon/r8_used.png", resolution=(1080, 1920))):
             touch(Template(r"icon/r8_used.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/t8_used.png",  resolution=(1080, 1920))):
+        if exists(Template(r"icon/t8_used.png", resolution=(1080, 1920))):
             touch(Template(r"icon/t8_used.png", resolution=(1080, 1920)))
-        if exists(Template(r"icon/m8_used.png",  resolution=(1080, 1920))):
+        if exists(Template(r"icon/m8_used.png", resolution=(1080, 1920))):
             touch(Template(r"icon/m8_used.png", resolution=(1080, 1920)))
-
 
         if exists(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920))):
             # 点击出征
             print("点击出征")
             touch(Template(r"icon/tpl1729752526913.png", resolution=(1080, 1920)))
         time.sleep(1)
-        
+
         if exists(Template(r"icon/queue_one.png", resolution=(1080, 1920))):
             touch(Template(r"icon/queue_one.png", resolution=(1080, 1920)))
-            if exists(Template(r"icon/empty_queue.png",record_pos=(-0.004, -0.364),  resolution=(1080, 1920))):
+            if exists(Template(r"icon/empty_queue.png", record_pos=(-0.004, -0.364), resolution=(1080, 1920))):
                 touch(Template(r"icon/queue_two.png", resolution=(1080, 1920)))
 
         if exists(Template(r"icon/empty_queue.png", resolution=(1080, 1920))):
             return
-        
+
         if exists(Template(r"icon/tpl1721784579067.png", resolution=(1080, 1920))):
             touch(Template(r"icon/tpl1721784579067.png", resolution=(1080, 1920)))
             # 点击比例分配
@@ -886,7 +881,22 @@ def subject(self):
     run_number = 1
     while True:
         now = datetime.now()
-        if now.second % 10 == 0 and self.auto_fighting.isChecked():
+
+        if now.second==10:
+            try:
+                if self.checkBox_treatment.isChecked():
+
+                    print('\n' + '%d.开始执行治疗任务' % run_number)
+                    Homepage()  # 主页检查
+                    treatment()  # 治疗模块
+                    run_number += 1
+                    if stop_event.is_set():
+                        self = Ui_MainWindow()
+                        self.select_stop_button()  # 总功能
+                        break
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+        if now.second % 9 == 0 and self.auto_fighting.isChecked():
             Homepage()  # 主页检查
             try:
                 auto_fighting_func(self, run_number)
@@ -894,7 +904,7 @@ def subject(self):
                 print('程序执行异常，结束该任务，执行其他任务', str(e))
                 Homepage()  # 主页检查
 
-        if now.second % 2 == 0:
+        if now.second % 3 == 0:
             try:
                 if self.checkBox_help.isChecked():
                     print('\n' + '%d.开始执行互助任务' % run_number)
@@ -905,7 +915,7 @@ def subject(self):
                         self.select_stop_button()
                         break
             except Exception as e:
-                print('程序执行异常，结束该任务，执行其他任务',str(e))
+                print('程序执行异常，结束该任务，执行其他任务', str(e))
         if now.minute % 5 == 0 and now.second % 5 == 0 and now.hour != 21:
             try:
                 if self.checkBox_XG.isChecked():
@@ -1000,7 +1010,7 @@ def subject(self):
                         break
             except:
                 print('程序执行异常，结束该任务，执行其他任务')
-        if now.minute == 21:
+        if now.second==10:
             try:
                 if self.checkBox_treatment.isChecked():
 
