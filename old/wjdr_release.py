@@ -988,7 +988,6 @@ def help_txt():
     print('单选：')
     print_space('每次只能执行单个功能，可设置单个功能执行间隔，冰原巨兽可设置等级，设置的等级多选可用')
 # --distpath
-
 # pyinstaller  -w  --onefile --name "无尽冬日" --icon "E:\测试文件\测试工具\版本控制\Wjdr\main_icon.ico" --add-data "E:\测试文件\测试工具\AirtestIDE\airtest:airtest" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\icon:icon" --add-data "E:\测试文件\测试工具\版本控制\Wjdr\wjdr.py:." E:\测试文件\测试工具\版本控制\Wjdr\wjdrwjdr_release.py
 # pip install numpy==1.21.1
 #pyi-makespec  -w  --hidden-import=six --name "main" --icon "E:\测试文件\测试工具\版本控制\Wjdr\old\icon\log.png" --add-data "E:\测试文件\测试工具\AirtestIDE\airtest:airtest"  E:\测试文件\测试工具\版本控制\Wjdr\old\wjdr_release.py

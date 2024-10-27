@@ -1,10 +1,20 @@
 # -*- encoding=utf8 -*-
 __author__ = "猫耳小刻晴"
 
+import os
+from datetime import datetime
+from logging import exception
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 import threading
 import time
 import subprocess
+
+from airtest.core.api import *
+from airtest.core.android.android import *
+
+
+
 def start_exe():    #启动模拟器
     while True:
         try:
@@ -23,9 +33,9 @@ def cnnect():   #连接模拟器
     while a > 0:  # 连接模拟器
         print('%d.开始尝试连接模拟器' % a)
         #os.popen('adb start-server')
-        print('地址：android:// 127.0.0.1:5037')
+        print('地址：android:// 127.0.0.1:16928')
         # print('地址：android:// %s' % str(set_ip.get()))
-        connect_device('android://127.0.0.1:5037')
+        connect_device('android://127.0.0.1:16928')
         # connect_device('android://%s'%set_ip.get())
         #subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
         time.sleep(5)
@@ -34,9 +44,9 @@ def cnnect():   #连接模拟器
         try:
             print('%d.开始尝试连接模拟器' % a)
             #os.popen('adb start-server')
-            print('地址：android:// 127.0.0.1:5037')
+            print('地址：android:// 127.0.0.1:16928')
             #print('地址：android:// %s' % str(set_ip.get()))
-            connect_device('android://127.0.0.1:5037')
+            connect_device('android://127.0.0.1:16928')
             #connect_device('android://%s'%set_ip.get())
             #subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
             time.sleep(5)
@@ -55,10 +65,10 @@ def start_app():    #启动APP
     while True:
         try:
             print('开始尝试启动游戏')
-            '''if exists(Template(r"icon\tpl1719196072757.png", threshold=0.8, record_pos=(0.112, -0.519),
+            '''if exists(Template("icon/tpl1719196072757.png", threshold=0.8, record_pos=(0.112, -0.519),
                            resolution=(414, 780))):
             print('游戏未启动，点击启动')'''
-            touch(Template(r"icon\tpl1719196072757.png", record_pos=(0.112, -0.519), resolution=(414, 780)))
+            touch(Template("icon/tpl1719196072757.png", record_pos=(0.112, -0.519), resolution=(414, 780)))
             print("启动成功，等待30秒启动时间...")
             time.sleep(30)
             print('启动完成')
@@ -83,7 +93,7 @@ def start_simple(button_start_id):      #模拟器启动相关
         '''连接模拟器线程'''
         threading.Thread(target=cnnect).start()  # threading.Thread(target=cnnect).join()
     elif button_start_id == 3:
-        start_app_button.configure(text='再次启动app', command=lambda: start_simple(3))
+        # start_app_button.configure(text='再次启动app', command=lambda: start_simple(3))
         # start_app()
         '''启动app线程'''
         threading.Thread(target=start_app).start()  # threading.Thread(target=start_app).join()
@@ -416,7 +426,7 @@ class Ui_MainWindow(object):
         self.textBrowser.setAcceptRichText(True)
         self.textBrowser.setOpenExternalLinks(False)
         self.textBrowser.setOpenLinks(True)
-        self.textBrowser.setObjectName("textBrowser")
+        self.textBrowser.setObjectName("textBrowse")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(890, 520, 71, 20))
         self.label_2.setObjectName("label_2")
@@ -472,6 +482,9 @@ class Ui_MainWindow(object):
         self.select_stop.clicked.connect(self.select_start.show) # type: ignore
         self.select_start.clicked.connect(self.select_stop.show) # type: ignore
         self.select_start.clicked.connect(self.select_start.hide) # type: ignore
+        # 绑定事件 3: 打印日志信息
+        self.select_start.clicked.connect(lambda: print("select_start button clicked!"))
+        self.select_start.clicked.connect(lambda: subject(self))
         self.select_stop.clicked.connect(self.select_stop.hide) # type: ignore
         self.simple_start.clicked.connect(self.simple_start.hide) # type: ignore
         self.simple_start.clicked.connect(self.simple_stop.show) # type: ignore
@@ -565,6 +578,7 @@ class Ui_MainWindow(object):
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'宋体\',\'monospace\'; font-size:10pt; color:#000000;\">请等待程序停止后再设置相关参数</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'宋体\',\'monospace\'; font-size:10pt; color:#000000;\">多选和单选不可同时执行</span></p></body></html>"))
         self.hide_UI.setText(_translate("MainWindow", "隐藏UI"))
+
 import icon_rc
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
@@ -574,6 +588,303 @@ class MyApp(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MyApp, self).__init__(parent)
         self.setupUi(self)
+'''停止复选功能主线程'''
+def stop_function():
+    # 这里放置程序停止时需要执行的代码
+    global stop_event
+    stop_event.set()  # 设置事件，通知线程结束运行
+    print("------------等待当前任务完成或10s左右结束任务------------")
+
+
+stop_event = threading.Event()
+
+
+# 设备顶号重连
+def re_connet():
+    if exists(Template("icon/tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+        print('在其他设备登录，等待5分钟后重新连接')
+        time.sleep(300)
+        try:
+            print_space('点击重新连接')
+            re = 1
+            while re > 0:
+                touch(Template("icon/tpl1720766916047.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+                time.sleep(10)
+                if exists(Template("icon/tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+                    print('重新连接失败，等待1分钟继续尝试')
+                    time.sleep(60)
+                else:
+                    print_space('重新连接成功')
+                    re = 0
+        except:
+            print('重新连接失败，稍后尝试')
+    else:
+        print_space('连接正常')
+
+
+# 主体代码
+
+# 主页判断
+def Homepage():
+    a = 1
+    try:
+        while a < 4:
+            if exists(Template("icon/tpl1719198809581.png", record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
+                print_space("在主页，准备执行任务")  # 在主界面，执行任务
+                return
+            else:
+                a += 1
+                print_space("不在主页，返回上一级")
+                if exists(Template("icon/tpl1719198082012.png",rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
+                    print_space('点击黑色返回按钮')
+                    touch(Template("icon/tpl1719198082012.png",rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
+                elif exists(Template(r'icon/return.png',rgb=True, record_pos=(-0.44, -0.783), resolution=(1080, 1920))):
+                    print_space('点击白色返回按钮')
+                    touch(Template("icon/return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
+                elif exists(Template("icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920))):
+                    print_space('点击关闭按钮')
+                    touch(Template("icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
+                else:
+                    print_space('点击其他区域')
+                    touch([500, 600])  # 不在主界面，返回到主页
+
+    except exception as e:
+        print('执行主页错误',str(e))
+    if a == 4:
+        re_connet()
+
+# 互助功能
+def Help():
+    result = exists(Template("icon/tpl1718936896202.png", record_pos=(0.248, 0.735), resolution=(1080, 1920)))
+    if result:  # 判断是否有盟员求助
+        print_space("有盟员求助，需点击援助按钮")
+        #touch([800, 1700])
+        touch(Template("icon/tpl1718936896202.png", record_pos=(0.248, 0.735), resolution=(1080, 1920)))
+        #print_space("点击援助按钮成功，等待1s进行下一个任务")
+        #time.sleep(1)
+    else:
+        print_space("无盟员求助，进行下一个任务")
+        #time.sleep(1)
+
+# 搜索资源
+def search_main():
+    if not exists(Template(r"icon/tpl1720145326019.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
+        print_space('不在世界，点击去往世界')
+        touch([950, 1850])  # 点击野外
+        time.sleep(5)
+    print_space('点击搜索图标')
+    touch([63, 1314])  # 点击搜索图标
+    time.sleep(1)  # 等待1s
+
+# 打怪出兵
+def energy():
+    touch(Template(r"icon/tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920)))  # 点击出征
+    time.sleep(1)
+    if exists(Template(r"icon/tpl1720264632282.png", record_pos=(0.301, -0.33), resolution=(1080, 1920))):  # 判断是否有体力
+        print_space("体力不足，不满足出征条件，开始回到主页")
+        print_space('关闭补充体力界面')
+        touch(Template(r"icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
+        print_space('关闭出征界面')
+        touch(Template(r"icon/tpl1719198082012.png", threshold=0.5, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
+    elif exists(Template(r"icon/tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):
+        touch(Template(r"icon/tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920)))  # 点击出征
+        print_space('出征成功')
+    else:
+        print_space("出征成功")
+
+# 野兽
+def Brush_XG():
+    print_space('打野怪时间，开始出征')
+    search_main()
+    print_space('点击选择普通野兽')
+    touch([120, 1373])  # 点击普通野兽
+    time.sleep(1)  # 等待1s
+    '''print_space('点击等级')
+    touch([651, 1573])  # 点击等级3
+    time.sleep(1)  # 等待1s'''
+    print_space('点击搜索按钮')
+    touch([534, 1821])  # 点击搜索
+    time.sleep(1)  # 等待1s
+    print_space('点击攻击按钮')
+    print_space(Template("icon/攻击.png", record_pos=(0.4, 0.5), resolution=(1080, 1920)))
+    touch(Template("icon/攻击.png", record_pos=(0.002, 0.705), resolution=(1080, 1920)))  # 点击出征怪物
+    time.sleep(1)  # 等待1s
+    if exists(Template(r"icon/tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):  # 判断是否有兵力
+        if exists(Template(r"icon/出征.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):  # 判断体力是否充足
+            energy()
+        else:
+            print_space("体力不足，暂停打野怪")
+    else:
+        print_space('兵力不足，暂停打野怪')
+
+
+
+# 主体代码
+def subject(self):
+    if emulator_click == 0:
+        time.sleep(1)
+        print('未连接模拟器')
+        time.sleep(1)
+        cnnect()
+    run_number = 1
+    while True:
+        now = datetime.now()
+        if now.second % 2 == 0:
+            try:
+                if self.checkBox_help.isChecked():
+                    print('\n' + '%d.开始执行互助任务' % run_number)
+                    Homepage()  # 主页检查
+                    Help()  # 互助模块
+                    run_number += 1
+                    # else:  #     print_space('不执行互助任务')  #     if stop_event.is_set():  #         start_button.configure(text='开始', command=simle)  # 总功能  #         break
+            except Exception as e:
+                print('程序执行异常，结束该任务，执行其他任务',str(e))
+        if now.second % 5 == 0 and now.hour != 21:
+            try:
+                if self.checkBox_XG.isChecked():
+
+                    print('\n' + '%d.开始执行野怪任务' % run_number)
+                    # Homepage()  # 主页检查
+                    Brush_XG()  # 野怪
+                    run_number += 1
+            except:
+                print('程序执行异常，结束该任务，执行其他任务')
+        # if now.minute % 6 == 0 and 0 < now.second < 20 and now.hour != 21:
+        #     try:
+        #         if int(option_WM.get()) == 1:
+        #
+        #             print('\n' + '%d.开始执行冰原巨兽任务' % run_number)
+        #             Homepage()  # 主页检查
+        #             Brush_WM()  # 冰原巨兽
+        #             run_number += 1
+        #             if stop_event.is_set():
+        #                 start_button.configure(text='开始', command=save_simple)  # 总功能
+        #                 break
+        #     except:
+        #         print('程序执行异常，结束该任务，执行其他任务')
+        # if now.minute % 6 == 0 and now.hour != 21:
+        #     try:
+        #         if int(option_npc.get()) == 1:
+        #
+        #             print('\n' + '%d.开始执行活动雪怪任务' % run_number)
+        #             Homepage()  # 主页检查
+        #             NPC()  # 活动雪怪
+        #             run_number += 1
+        #             if stop_event.is_set():
+        #                 start_button.configure(text='开始', command=save_simple)  # 总功能
+        #                 break
+        #     except:
+        #         print('程序执行异常，结束该任务，执行其他任务')
+        # if now.minute % 5 == 0:
+        #     try:
+        #         if int(option_Production.get()) == 1:
+        #
+        #             print('\n' + '%d.开始执行训练任务' % run_number)
+        #             Homepage()  # 主页检查
+        #             Production_soldiers()  # 训练模块
+        #             run_number += 1
+        #             if stop_event.is_set():
+        #                 start_button.configure(text='开始', command=save_simple)  # 总功能
+        #                 break
+        #     except:
+        #         print('程序执行异常，结束该任务，执行其他任务')
+        # if now.minute % 2 == 0:
+        #     try:
+        #         if int(option_build.get()) == 1:
+        #             print('\n' + '%d.开始执行建造任务' % run_number)
+        #             Homepage()  # 主页检查
+        #             Build()  # 建造模块
+        #             run_number += 1
+        #             if stop_event.is_set():
+        #                 start_button.configure(text='开始', command=save_simple)  # 总功能
+        #                 break
+        #     except:
+        #         print('程序执行异常，结束该任务，执行其他任务')
+        # if now.hour == 3:
+        #     try:
+        #         if int(option_Collection.get()) == 1:
+        #
+        #             print('\n' + '%d.开始执行采集任务' % run_number)
+        #             Homepage()  # 主页检查
+        #             Collection()  # 采集资源模块
+        #             run_number += 1
+        #             if stop_event.is_set():
+        #                 start_button.configure(text='开始', command=save_simple)  # 总功能
+        #                 break
+        #     except:
+        #         print('程序执行异常，结束该任务，执行其他任务')
+        # if now.hour == 21:
+        #     try:
+        #         if int(option_bear.get()) == 1:
+        #
+        #             print_space('当前时间：%s,巨熊活动进行中' % now.strftime("%H:%M:%S"))
+        #             Homepage()  # 主页检查
+        #             bear()  # 巨熊模块
+        #             run_number += 1
+        #             if stop_event.is_set():
+        #                 start_button.configure(text='开始', command=save_simple)  # 总功能
+        #                 break
+        #     except:
+        #         print('程序执行异常，结束该任务，执行其他任务')
+        # if now.minute == 21:
+        #     try:
+        #         if int(option_treatment.get()) == 1:
+        #
+        #             print('\n' + '%d.开始执行治疗任务' % run_number)
+        #             Homepage()  # 主页检查
+        #             treatment()  # 治疗模块
+        #             run_number += 1
+        #             if stop_event.is_set():
+        #                 start_button.configure(text='开始', command=save_simple)  # 总功能
+        #                 break
+        #     except:
+        #         print('程序执行异常，结束该任务，执行其他任务')
+        # if now.minute == 25:
+        #     try:
+        #         if int(option_adventure.get()) == 1:
+        #
+        #             print('\n' + '%d.开始执行探险任务' % run_number)
+        #             Homepage()  # 主页检查
+        #             adventure()  # 探险
+        #             run_number += 1
+        #             if stop_event.is_set():
+        #                 start_button.configure(text='开始', command=save_simple)  # 总功能
+        #                 break
+        #     except:
+        #         print('程序执行异常，结束该任务，执行其他任务')
+        # if now.minute == 1:
+        #     try:
+        #         if int(option_donate.get()) == 1:
+        #             print('\n' + '%d.开始执行捐赠任务' % run_number)
+        #             Homepage()  # 主页检查
+        #             donate()  # 捐赠模块
+        #             run_number += 1
+        #             if stop_event.is_set():
+        #                 start_button.configure(text='开始', command=save_simple)  # 总功能
+        #                 break
+        #     except:
+        #         print('程序执行异常，结束该任务，执行其他任务')
+        # if now.hour == 1 and now.minute % 5 == 0:
+        #     try:
+        #         if int(option_donate.get()) == 1:
+        #             print('\n' + '%d.开始执行招募任务' % run_number)
+        #             Homepage()
+        #             recruit()
+        #             run_number += 1
+        #             if stop_event.is_set():
+        #                 start_button.configure(text='开始', command=save_simple)  # 总功能
+        #                 break
+        #     except:
+        #         print('程序执行异常，结束该任务，执行其他任务')
+        # if stop_event.is_set():
+        #     start_button.configure(text='开始', command=save_simple)  # 总功能
+        #     break
+    print('结束任务')
+
+
+def print_space(variable, spaces=4):
+    print(' ' * spaces + str(variable))
+
 
 
 if __name__ == '__main__':
