@@ -77,6 +77,7 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         #下拉框
+        # noinspection PyAttributeOutsideInit
         self.comboBox = QtWidgets.QComboBox(self.frame)
         self.comboBox.setGeometry(QtCore.QRect(10, 10, 91, 22))
         #self.comboBox.setAutoFillBackground(False)
@@ -686,7 +687,8 @@ class Ui_MainWindow(object):
         self.notice_button.setText(_translate("MainWindow", "版本日志"))
         self.help_button.setText(_translate("MainWindow", "帮助文档"))
         self.textEdit.setText(_translate("MainWindow", "<font color=\"#FF0000\"><p align=\"center\"  style=\" margin-top:0px; margin-bottom:5px; \">请等待程序停止后再设置相关参数</p>"
-                                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; \">多选和单选不可同时执行</p></font>"))
+                                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; "
+                                                       "\">多选和单选不可同时执行</p></font>"))
         self.hide_UI.setText(_translate("MainWindow", "隐藏UI"))
 
     @pyqtSlot()

@@ -6,7 +6,7 @@ import time
 from datetime import datetime
 from airtest.core.api import connect_device
 from main_function import *
-from Window_UI import settings , Ui_MainWindow
+from Window_UI import settings
 
 '''打开模拟器'''
 emulator_click = 0
