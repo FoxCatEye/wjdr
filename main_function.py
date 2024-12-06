@@ -6,17 +6,13 @@ from airtest.core.android.android import *
 from numpy import random
 from Window_UI import settings
 
-number_brush = 0
-number_meat = 0
-number_wood = 0
-number_coal = 0
-number_iron = 0
+
 
 
 # 重写打印
 def print_space(variable, spaces=4):
     # print(' ' * spaces + str(variable), flush=True)
-    print(' ' * spaces + str(variable), end=' ')
+    print(' ' * spaces + str(variable))
 
 
 # 主页判断
@@ -372,15 +368,14 @@ def WM_lv():  #冰原巨兽等级输入
     #value = settings.value('options/冰原巨兽等级设置', type=str)
     #print(value)
     time.sleep(1)
-    text(settings.value('options/冰原巨兽等级设置', type=str))
+    text(settings.value('options/冰原巨兽等级设置', 5, type=str))
     print_space('点击确定按钮')
     time.sleep(1)
     touch(Template(r"icon/sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))
 
 
 # 冰原巨兽
-def Brush_WM():
-    global number_brush
+def Brush_WM(self):
     search_main()
     swipe([600, 1370], vector=[0.4103, 0.0170])  # 滑动
     time.sleep(1)  # 等待1s
@@ -388,8 +383,8 @@ def Brush_WM():
     touch([365, 1373])  # 点击冰原巨兽
     time.sleep(1)  # 等待1s
     '''判断本次是否需要执行选择等级'''
-    if number_brush == 0:
-        number_brush = 1
+    if settings.value('冰原巨兽等级设置更新', type=bool):
+        settings.setValue('冰原巨兽等级设置更新', 0)
         WM_lv()
         time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
@@ -403,6 +398,9 @@ def Brush_WM():
         touch(Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(1080, 1920)))  # 点击发起集结
         time.sleep(1)  # 等待0.5s
         if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):  # 有兵力可出征
+            if self.checkBox_ty_simple.isChecked():  # 判断该选项是否被勾选
+                print_space('点击阵列1')
+                touch(Template(r"icon\Array_1.png", record_pos=(-0.412, -0.719), resolution=(1080, 1920)))  # 点击阵容1
             print_space('点击出征按钮')
             energy()
         else:  # 判断是否有多余兵力
@@ -412,11 +410,12 @@ def Brush_WM():
 
 
 # 采集出兵
-def gather():
+def gather(self):
     print_space('点击采集按钮')
     touch(Template(r"icon/tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920)))
     if exists(Template(r"icon/tpl1721191349776.png", record_pos=(0.26, 0.798), resolution=(1080, 1920))):  # 有兵力可出征
-        touch([357, 389])  # 点击删除英雄
+        if self.checkBox_ty_un.isChecked():
+            touch([357, 389])  # 点击删除英雄
         print_space('点击出征按钮')
         touch(Template(r"icon/tpl1721191349776.png", rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
         print_space('出征成功')
@@ -456,9 +455,9 @@ def collection_lv():
     time.sleep(1)  #等待1秒
     print_space('输入新的等级')
     time.sleep(1)
-    #print(set_collection_lv.get())
-    print(settings.value('options/采集等级设置', type=str))
-    text(settings.value('options/采集等级设置', type=str))
+    # print(set_collection_lv.get())
+    # print(settings.value('options/采集等级设置', type=str))
+    text(settings.value('options/采集等级设置', 7, type=str))
     time.sleep(1)
     print_space('点击确定按钮')
     #time.sleep(1)
@@ -477,8 +476,8 @@ def Meat():
     touch([240, 1373])  # 点击选择肉
     time.sleep(1)  # 等待1s
     '''判断本次是否需要执行选择等级'''
-    if number_meat == 0:
-        number_meat = 1
+    if settings.value('肉采集等级设置更新', type=bool):
+        settings.setValue('肉采集等级设置更新', 0)
         collection_lv()
         time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
@@ -502,8 +501,8 @@ def Wood():
     touch([476, 1373])  # 点击选择木材
     time.sleep(1)  # 等待1s
     '''判断本次是否需要执行选择等级'''
-    if number_wood == 0:
-        number_wood = 1
+    if settings.value('木头采集等级设置更新', type=bool):
+        settings.setValue('木头采集等级设置更新', 0)
         collection_lv()
         time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
@@ -527,8 +526,8 @@ def Coal():
     touch([710, 1373])  # 点击选择煤矿
     time.sleep(1)  # 等待1s
     '''判断本次是否需要执行选择等级'''
-    if number_coal == 0:
-        number_coal = 1
+    if settings.value('煤矿采集等级设置更新', type=bool):
+        settings.setValue('煤矿采集等级设置更新', 0)
         collection_lv()
         time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
@@ -552,8 +551,8 @@ def Iron():
     touch([950, 1373])  # 点击选择铁矿
     time.sleep(1)  # 等待1s
     '''判断本次是否需要执行选择等级'''
-    if number_iron == 0:
-        number_iron = 1
+    if settings.value('铁矿采集等级设置更新', type=bool):
+        settings.setValue('铁矿采集等级设置更新', 0)
         collection_lv()
         time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
@@ -712,6 +711,7 @@ def mining_collision():
             time.sleep(1)
             print_space('点击确认召回队伍')
             touch(Template(r"icon\tpl1729834190986.png", record_pos=(0.212, 0.203), resolution=(1080, 1920)))
+            print_space('撤回队伍成功')
         elif exists(Template(r"icon\tpl1729834914817.png", record_pos=(-0.139, 0.557), resolution=(1080, 1920))):
             print_space('检测到攻击城堡，点击城堡增益准备开启防护罩')
             touch(Template(r"icon\tpl1729834914817.png", record_pos=(-0.139, 0.557), resolution=(1080, 1920)))
@@ -721,3 +721,6 @@ def mining_collision():
             time.sleep(1)
             print_space('点击使用')
             touch(Template(r"icon\tpl1729834989760.png", record_pos=(0.322, -0.336), resolution=(1080, 1920)))
+            print_space('开启防护罩成功')
+    else:
+        print_space('未检测的攻击')

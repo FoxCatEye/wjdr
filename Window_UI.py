@@ -13,7 +13,9 @@ from PyQt5.QtGui import QPalette, QBrush, QPixmap, QFont, QGuiApplication
 from second_window import *
 
 logging.getLogger('airtest').setLevel(logging.ERROR)
-settings = QSettings('set.ini', 'myapp')
+settings = QSettings("game_set.ini", QSettings.IniFormat)
+settings.setIniCodec('UTF-8')  # 设置ini文件编码为 UTF-8
+
 
 # 获取当前文件的绝对路径(本地）
 # current_file_path = os.path.abspath(__file__)
@@ -72,7 +74,7 @@ class Ui_MainWindow(object):
         #模拟器参数设置区域
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(10, 60, 461, 41))
-        # self.frame.setStyleSheet("#frame{border:1px solid rgb(0,255,0)}")
+        self.frame.setStyleSheet("#frame{border:1px solid rgb(0,255,0)}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -133,7 +135,7 @@ class Ui_MainWindow(object):
         self.save_simulator.clicked.connect(self.save_simulator_settings)  #type: ignore
         '''模拟器区域'''
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(10, 160, 461, 41))
+        self.frame_2.setGeometry(QtCore.QRect(10, 110, 461, 41))
         self.frame_2.setMinimumSize(QtCore.QSize(0, 0))
         self.frame_2.setSizeIncrement(QtCore.QSize(0, 0))
         self.frame_2.setBaseSize(QtCore.QSize(0, 0))
@@ -142,7 +144,7 @@ class Ui_MainWindow(object):
         self.frame_2.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)  #type: ignore
         self.frame_2.setAcceptDrops(False)
         self.frame_2.setAutoFillBackground(False)
-        #self.frame_2.setStyleSheet("#frame_2{border:1px solid rgb(0,255,0)}")
+        self.frame_2.setStyleSheet("#frame_2{border:1px solid rgb(0,255,0)}")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setLineWidth(1)
@@ -205,16 +207,16 @@ class Ui_MainWindow(object):
                                                "}\n")
         self.simulator_start_all.setObjectName("simulator_start_all")
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_3.setGeometry(QtCore.QRect(10, 260, 461, 191))
-        #self.frame_3.setStyleSheet("#frame_3{border:1px solid rgb(0,255,0)}")
+        self.frame_3.setGeometry(QtCore.QRect(10, 160, 461, 191))
+        self.frame_3.setStyleSheet("#frame_3{border:1px solid rgb(0,255,0)}")
         self.frame_3.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
         self.select_text = QtWidgets.QLabel(self.frame_3)
-        self.select_text.setGeometry(QtCore.QRect(10, 0, 81, 16))
+        self.select_text.setGeometry(QtCore.QRect(10, 5, 81, 16))
         self.select_text.setObjectName("select_text")
-        self.select_time = QtWidgets.QCheckBox(self.frame_3)  #固定时间选项
-        self.select_time.setGeometry(QtCore.QRect(110, 0, 100, 16))
+        self.select_time = QtWidgets.QCheckBox(self.frame_3)  # 固定时间选项
+        self.select_time.setGeometry(QtCore.QRect(110, 5, 100, 16))
         self.select_time.setObjectName("select_time")
         self.select_time.setStyleSheet("background-color: transparent")
         self.checkBox_help = QtWidgets.QCheckBox(self.frame_3)  #互助
@@ -333,6 +335,76 @@ class Ui_MainWindow(object):
         self.listView.setAutoFillBackground(False)
         self.listView.setStyleSheet("background-image: url(icon/11.png)")
         self.listView.setObjectName("listView")
+
+        self.frame_ty = QtWidgets.QFrame(self.centralwidget)
+        self.frame_ty.setGeometry(QtCore.QRect(10, 360, 461, 140))
+        self.frame_ty.setStyleSheet("#frame_ty{border:1px solid rgb(0,255,0)}")
+        self.frame_ty.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_ty.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_ty.setObjectName("frame_ty")
+        self.ty_title = QtWidgets.QLabel(self.frame_ty)
+        self.ty_title.setGeometry(QtCore.QRect(10, 0, 81, 21))
+        self.ty_title.setObjectName("simple_title")
+        # 采集文本
+        self.label_caiji = QtWidgets.QLabel(self.frame_ty)
+        self.label_caiji.setGeometry(QtCore.QRect(20, 20, 54, 21))  # 显示等级文本
+        self.label_caiji.setObjectName("资源采集")
+        #self.label_caiji.setVisible(False)
+        # 采集无英雄选项
+        self.checkBox_ty_un = QtWidgets.QCheckBox(self.frame_ty)
+        self.checkBox_ty_un.setGeometry(QtCore.QRect(80, 23, 71, 16))
+        self.checkBox_ty_un.setObjectName("无英雄")
+        # 采集等级文本
+        self.label_4 = QtWidgets.QLabel(self.frame_ty)
+        self.label_4.setGeometry(QtCore.QRect(270, 20, 54, 21))  # 显示等级文本
+        self.label_4.setObjectName("label_4")
+        #self.label_4.setVisible(False)
+        # 采集等级输入
+        self.lineEdit_3 = QtWidgets.QLineEdit(self.frame_ty)
+        self.lineEdit_3.setGeometry(QtCore.QRect(300, 20, 31, 21))  # 显示等级输入框
+        self.lineEdit_3.setObjectName("lineEdit_3")
+        self.lineEdit_3.setStyleSheet("QLineEdit {\n"
+                                      "background: transparent;\n"
+                                      "border: 1px solid rgba(0, 255, 0)"
+                                      "}")
+        #self.lineEdit_3.setVisible(False)
+        # 冰原巨兽文本
+        self.label_WM = QtWidgets.QLabel(self.frame_ty)
+        self.label_WM.setGeometry(QtCore.QRect(20, 40, 54, 21))  # 显示等级文本
+        self.label_WM.setObjectName("采集文本")
+        #self.label_WM.setVisible(False)
+        # 冰原巨兽单兵选项
+        self.checkBox_ty_simple = QtWidgets.QCheckBox(self.frame_ty)
+        self.checkBox_ty_simple.setGeometry(QtCore.QRect(80, 43, 71, 16))
+        self.checkBox_ty_simple.setObjectName("checkBox_ty_simple")
+        # 冰原巨兽等级文本
+        self.label_WM_lv = QtWidgets.QLabel(self.frame_ty)
+        self.label_WM_lv.setGeometry(QtCore.QRect(270, 40, 54, 21))  # 显示等级文本
+        self.label_WM_lv.setObjectName("label_WM_lv")
+        #self.label_WM_lv.setVisible(False)
+        # 冰原巨兽输入
+        self.lineEdit_WM = QtWidgets.QLineEdit(self.frame_ty)
+        self.lineEdit_WM.setGeometry(QtCore.QRect(300, 40, 31, 21))  # 显示等级输入框
+        self.lineEdit_WM.setObjectName("lineEdit_WM")
+        self.lineEdit_WM.setStyleSheet("QLineEdit {\n"
+                                      "background: transparent;\n"
+                                      "border: 1px solid rgba(0, 255, 0)"
+                                      "}")
+        #self.lineEdit_3.setVisible(False)
+        # 通用设置按钮
+        self.ty_set = QtWidgets.QPushButton(self.frame_ty)
+        self.ty_set.setGeometry(QtCore.QRect(190, 100, 75, 21))
+        self.ty_set.setObjectName("ty_set")
+        self.ty_set.setFlat(True)
+        self.ty_set.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
+                                      "}"
+                                      "QPushButton:hover {\n"
+                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                      "}\n"
+                                      "QPushButton:pressed {\n"
+                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                      "}\n")
+        # 单项内容
         self.frame_4 = QtWidgets.QFrame(self.centralwidget)
         self.frame_4.setGeometry(QtCore.QRect(490, 60, 461, 191))
         #self.frame_4.setStyleSheet("#frame_4{border:1px solid rgb(0,255,0)}")
@@ -342,6 +414,19 @@ class Ui_MainWindow(object):
         self.simple_title = QtWidgets.QLabel(self.frame_4)
         self.simple_title.setGeometry(QtCore.QRect(10, 0, 81, 21))
         self.simple_title.setObjectName("simple_title")
+        # 单项设置按钮
+        self.simple_set = QtWidgets.QPushButton(self.frame_4)
+        self.simple_set.setGeometry(QtCore.QRect(350, 0, 75, 21))
+        self.simple_set.setObjectName("simple_set")
+        self.simple_set.setFlat(True)
+        self.simple_set.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
+                                      "}"
+                                      "QPushButton:hover {\n"
+                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                      "}\n"
+                                      "QPushButton:pressed {\n"
+                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                      "}\n")
         self.radioButton_help = QtWidgets.QRadioButton(self.frame_4)
         self.radioButton_help.setGeometry(QtCore.QRect(20, 30, 71, 16))
         self.radioButton_help.setAutoFillBackground(False)
@@ -450,33 +535,8 @@ class Ui_MainWindow(object):
                                       "background: transparent;\n"
                                       "border: 1px solid rgba(0, 255, 0)"
                                       "}")
-        #等级文本
-        self.label_4 = QtWidgets.QLabel(self.frame_4)
-        self.label_4.setGeometry(QtCore.QRect(270, 0, 54, 21))  #显示等级文本
-        self.label_4.setObjectName("label_4")
-        self.label_4.setVisible(False)
-        #等级输入
-        self.lineEdit_3 = QtWidgets.QLineEdit(self.frame_4)
-        self.lineEdit_3.setGeometry(QtCore.QRect(300, 1, 31, 21))  #显示等级输入框
-        self.lineEdit_3.setObjectName("lineEdit_3")
-        self.lineEdit_3.setStyleSheet("QLineEdit {\n"
-                                      "background: transparent;\n"
-                                      "border: 1px solid rgba(0, 255, 0)"
-                                      "}")
-        self.lineEdit_3.setVisible(False)
-        #单项设置按钮
-        self.simple_set = QtWidgets.QPushButton(self.frame_4)
-        self.simple_set.setGeometry(QtCore.QRect(380, 0, 75, 21))
-        self.simple_set.setObjectName("simple_set")
-        self.simple_set.setFlat(True)
-        self.simple_set.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n")
+
+
         self.frame_5 = QtWidgets.QFrame(self.centralwidget)
         self.frame_5.setGeometry(QtCore.QRect(490, 270, 461, 241))
         #self.frame_5.setStyleSheet("#frame_5{border:1px solid rgb(0,255,0)}")
@@ -495,15 +555,12 @@ class Ui_MainWindow(object):
         self.textEdit_out.setToolTip("")
         self.textEdit_out.setAutoFillBackground(False)
         self.textEdit_out.setStyleSheet("background: transparent;border:1px solid rgb(0,255,0)")
-        #self.textEdit_out.setTabChangesFocus(False)
-        #self.textEdit_out.setUndoRedoEnabled(False)
         self.textEdit_out.setReadOnly(True)
+
+        #self.textEdit_out.ensureCursorVisible()
         #self.textEdit_out.setOverwriteMode(False)
         #self.textEdit_out.ensureCursorVisible()
         self.textEdit_out.setObjectName("textBrowser")
-        # 当文本内容长度超过文本框的高度时，会出现滑条，滑条始终在最底端
-        #self.textEdit_out.verticalScrollBar().setValue(self.textEdit_out.verticalScrollBar().maximum())
-        #self.textEdit_out.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(890, 520, 71, 20))
         self.label_2.setObjectName("label_2")
@@ -544,6 +601,9 @@ class Ui_MainWindow(object):
         self.frame.raise_()
         self.frame_2.raise_()
         self.frame_3.raise_()
+        self.frame_ty.raise_()
+        self.checkBox_ty_simple.raise_()
+        self.checkBox_ty_un.raise_()
         self.frame_4.raise_()
         self.frame_5.raise_()
         self.label_2.raise_()
@@ -560,7 +620,8 @@ class Ui_MainWindow(object):
         # 多选开始
         self.select_start.clicked.connect(self.select_start_button)  # type: ignore
         self.select_stop.clicked.connect(stop_function)  #type: ignore# 多选停止
-        self.simple_set.clicked.connect(self.save_simple_set)  #type: ignore#单选设置
+        self.ty_set.clicked.connect(self.save_ty_setting)  # type: ignore#通用设置
+        self.simple_set.clicked.connect(self.save_simple_set)  # type: ignore#单选设置
         self.simple_start.clicked.connect(self.simple_start_button)  #type: ignore# 单选开始
         self.simple_stop.clicked.connect(stop_function)  #type: ignore# 单选停止
         self.hide_UI.clicked.connect(self.hide_ui)  # type: ignore
@@ -578,8 +639,13 @@ class Ui_MainWindow(object):
         #sys.stdout = RedirectText(self.textEdit_out)
         # 捕获标准输出和错误
         sys.stdout = self
-        # 连接textSignal到textEdit的append方法
-        self.textSignal.connect(self.textEdit_out.append)  #type: ignore
+
+        def insert_text(text):
+            self.textEdit_out.insertPlainText(text)  # 将打印的内容插入到textEdit中
+            self.textEdit_out.ensureCursorVisible()  # 将光标移动到可见区域（底部）
+
+        # 连接textSignal到insert_text方法
+        self.textSignal.connect(insert_text)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def set_font(self):  #设置界面文本大小，保证不同分辨率情况下显示正常
@@ -626,6 +692,11 @@ class Ui_MainWindow(object):
         self.simple_start.setFont(font)
         self.label_3.setFont(font)
         self.label_4.setFont(font)
+        self.label_caiji.setFont(font)
+        self.label_WM.setFont(font)
+        self.ty_set.setFont(font)
+        self.checkBox_ty_simple.setFont(font)
+        self.checkBox_ty_un.setFont(font)
         self.simple_set.setFont(font)
         self.label.setFont(font)
         self.label_2.setFont(font)
@@ -679,10 +750,16 @@ class Ui_MainWindow(object):
         self.simple_stop.setText(_translate("MainWindow", "停止"))
         self.simple_start.setText(_translate("MainWindow", "开始"))
         self.label_3.setText(_translate("MainWindow", "执行间隔(秒):"))
+        self.label_caiji.setText(_translate("MainWindow", "资源采集:"))
+        self.checkBox_ty_un.setText(_translate("MainWindow", "无英雄"))
         self.label_4.setText(_translate("MainWindow", "等级:"))
+        self.label_WM.setText(_translate("MainWindow", "冰原巨兽:"))
+        self.checkBox_ty_simple.setText(_translate("MainWindow", "单兵集结"))
+        self.label_WM_lv.setText(_translate("MainWindow", "等级:"))
+        self.ty_set.setText(_translate("MainWindow", "设置"))
         self.simple_set.setText(_translate("MainWindow", "设置"))
         self.label.setText(_translate("MainWindow", "输出："))
-        self.label_2.setText(_translate("MainWindow", "版本:2.0.4"))
+        self.label_2.setText(_translate("MainWindow", "版本:2.0.5"))
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.notice_button.setText(_translate("MainWindow", "版本日志"))
         self.help_button.setText(_translate("MainWindow", "帮助文档"))
@@ -690,24 +767,25 @@ class Ui_MainWindow(object):
                                                        "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; "
                                                        "\">多选和单选不可同时执行</p></font>"))
         self.hide_UI.setText(_translate("MainWindow", "隐藏UI"))
+        self.ty_title.setText(_translate("MainWindow", "通用"))
 
     @pyqtSlot()
     def load_settings(self):  # 读取设置
         simulator_settings = settings.value('options/下拉框', 1, type=int)
-        option_time = settings.value('options/固定时间', type=bool)
-        option1 = settings.value('options/联盟互助', type=bool)
-        option2 = settings.value('options/世界野怪', type=bool)
-        option3 = settings.value('options/冰原巨兽', type=bool)
-        option4 = settings.value('options/活动雪怪', type=bool)
-        option5 = settings.value('options/训练士兵', type=bool)
-        option6 = settings.value('options/建筑升级', type=bool)
-        option7 = settings.value('options/采集资源', type=bool)
-        option8 = settings.value('options/巨熊活动', type=bool)
-        option9 = settings.value('options/治疗士兵', type=bool)
-        option10 = settings.value('options/探险奖励', type=bool)
-        option11 = settings.value('options/联盟捐赠', type=bool)
-        option12 = settings.value('options/英雄招募', type=bool)
-        option13 = settings.value('options/攻击检测', type=bool)
+        option_time = settings.value('options/固定时间', 1, type=bool)
+        option1 = settings.value('options/联盟互助', 1, type=bool)
+        option2 = settings.value('options/世界野怪', 1, type=bool)
+        option3 = settings.value('options/冰原巨兽', 1, type=bool)
+        option4 = settings.value('options/活动雪怪', 1, type=bool)
+        option5 = settings.value('options/训练士兵', 1, type=bool)
+        option6 = settings.value('options/建筑升级', 1, type=bool)
+        option7 = settings.value('options/采集资源', 1, type=bool)
+        option8 = settings.value('options/巨熊活动', 1, type=bool)
+        option9 = settings.value('options/治疗士兵', 1, type=bool)
+        option10 = settings.value('options/探险奖励', 1, type=bool)
+        option11 = settings.value('options/联盟捐赠', 1, type=bool)
+        option12 = settings.value('options/英雄招募', 1, type=bool)
+        option13 = settings.value('options/攻击检测', 1, type=bool)
         option = settings.value('options/radio_option', 1, type=int)
         self.comboBox.setCurrentIndex(simulator_settings)
         self.radioButton_group.button(option).setChecked(True)
@@ -725,9 +803,35 @@ class Ui_MainWindow(object):
         self.checkBox_donate.setChecked(option11)
         self.checkBox_recruit.setChecked(option12)
         self.checkBox_collision.setChecked(option13)
+    def read_ty_setting(self):  # 读取通用设置
+        global number_brush, number_iron, number_wood, number_meat, number_coal
+        option_WM = settings.value('options/冰原巨兽等级设置', 5, type=str)
+        option_lv = settings.value('options/采集资源等级设置', 7, type=str)
+        option_ty_un = settings.value('options/无英雄', 1, type=bool)
+        option_ty_sim = settings.value('options/单兵集结', 1, type=bool)
+        settings.setValue('冰原巨兽等级设置更新', 1)
+        settings.setValue('肉采集等级设置更新', 1)
+        settings.setValue('木头采集等级设置更新', 1)
+        settings.setValue('煤矿采集等级设置更新', 1)
+        settings.setValue('铁矿采集等级设置更新', 1)
+        self.lineEdit_3.setText(option_lv)
+        self.lineEdit_WM.setText(option_WM)
+        self.checkBox_ty_un.setChecked(option_ty_un)
+        self.checkBox_ty_simple.setChecked(option_ty_sim)
+    def save_ty_setting(self):   # 保存通用设置
+        option_WM = self.lineEdit_WM.text()
+        option_lv = self.lineEdit_3.text()
+        settings.setValue('options/冰原巨兽等级设置', option_WM)
+        settings.setValue('options/采集资源等级设置', option_lv)
+        settings.setValue('options/无英雄', self.checkBox_ty_un.isChecked())
+        settings.setValue('options/单兵集结', self.checkBox_ty_simple.isChecked())
+        print_space('通用设置成功！！！')
+        self.read_ty_setting()
+
+
 
     @pyqtSlot()
-    def save_simulator_settings(self):  #保存模拟器设置
+    def save_simulator_settings(self):  # 保存模拟器设置
         value = self.lineEdit.text()
         index = self.comboBox.currentIndex()
         settings.setValue('options/下拉框', index)
@@ -739,129 +843,119 @@ class Ui_MainWindow(object):
             print('模拟器ip地址：%s' % value)
 
     @pyqtSlot()
-    def updateLineEdit(self):  #读取保存的模拟器设置
-        #获取下拉框当前选中的值
+    def updateLineEdit(self):  # 读取保存的模拟器设置
+        # 获取下拉框当前选中的值
         currentText = self.comboBox.currentIndex()
         if currentText == 0:
-            itemData_1 = settings.value('options/模拟器地址', type=str)
+            itemData_1 = settings.value('options/模拟器地址', 'E:\leidian\LDPlayer9\dnplayer.exe', type=str)
             self.lineEdit.setText(itemData_1)
         elif currentText == 1:
-            itemData_2 = settings.value('options/模拟器ip', type=str)
-            self.lineEdit.setText(itemData_2)  # 获取当前选中项的数据  #itemData = self.comboBox.itemData(index)  # 在输入框中显示内容  #self.lineEdit.setText(itemData)
+            itemData_2 = settings.value('options/模拟器ip', '127.0.0.1:5037', type=str)
+            self.lineEdit.setText(itemData_2)  # 获取当前选中项的数据  itemData = self.comboBox.itemData(index)   在输入框中显示内容  self.lineEdit.setText(itemData)
 
     @pyqtSlot()
     def read_simple_set(self):  # 读取单项设置
-        global number_brush, number_iron, number_wood, number_meat, number_coal
+
         settings.setValue('options/radio_option', self.radioButton_group.checkedId())
         simple_index = self.radioButton_group.checkedId()
-        self.lineEdit_3.setVisible(False)
-        self.label_4.setVisible(False)
         if simple_index == 1:
-            option = settings.value('options/联盟互助设置', type=str)
+            option = settings.value('options/联盟互助设置', 20, type=str)
             self.lineEdit_2.setText(option)
         elif simple_index == 2:
-            option = settings.value('options/世界野怪设置', type=str)
+            option = settings.value('options/世界野怪设置', 20, type=str)
             self.lineEdit_2.setText(option)
         elif simple_index == 3:
-            self.lineEdit_3.setVisible(True)
-            self.label_4.setVisible(True)
-            option = settings.value('options/冰原巨兽设置', type=str)
-            option1 = settings.value('options/冰原巨兽等级设置', type=str)
+            option = settings.value('options/冰原巨兽设置', 20, type=str)
             self.lineEdit_2.setText(option)
-            self.lineEdit_3.setText(option1)
         elif simple_index == 4:
-            option = settings.value('options/活动雪怪设置', type=str)
+            option = settings.value('options/活动雪怪设置', 20, type=str)
             self.lineEdit_2.setText(option)
         elif simple_index == 5:
-            option = settings.value('options/训练士兵设置', type=str)
+            option = settings.value('options/训练士兵设置', 20, type=str)
             self.lineEdit_2.setText(option)
         elif simple_index == 6:
-            option = settings.value('options/建筑升级设置', type=str)
+            option = settings.value('options/建筑升级设置', 20, type=str)
             self.lineEdit_2.setText(option)
         elif simple_index == 7:
-            self.lineEdit_3.setVisible(True)
-            self.label_4.setVisible(True)
-            option = settings.value('options/采集资源设置', type=str)
-            option_lv = settings.value('options/采集资源等级设置', type=str)
+            option = settings.value('options/采集资源设置', 20, type=str)
             self.lineEdit_2.setText(option)
-            self.lineEdit_3.setText(option_lv)
         elif simple_index == 8:
-            option = settings.value('options/巨熊活动设置', type=str)
+            option = settings.value('options/巨熊活动设置', 20, type=str)
             self.lineEdit_2.setText(option)
         elif simple_index == 9:
-            option = settings.value('options/治疗士兵设置', type=str)
+            option = settings.value('options/治疗士兵设置', 20, type=str)
             self.lineEdit_2.setText(option)
         elif simple_index == 10:
-            option = settings.value('options/探险奖励设置', type=str)
+            option = settings.value('options/探险奖励设置', 20, type=str)
             self.lineEdit_2.setText(option)
         elif simple_index == 11:
-            option = settings.value('options/联盟捐赠设置', type=str)
+            option = settings.value('options/联盟捐赠设置', 20, type=str)
             self.lineEdit_2.setText(option)
         elif simple_index == 12:
-            option = settings.value('options/英雄招募设置', type=str)
+            option = settings.value('options/英雄招募设置', 20, type=str)
             self.lineEdit_2.setText(option)
         elif simple_index == 13:
-            option = settings.value('options/攻击检测设置', type=str)
+            option = settings.value('options/攻击检测设置', 20, type=str)
             self.lineEdit_2.setText(option)
 
     @pyqtSlot()
-    def save_simple_set(self):  #保存单项时间、等级设置
+    def save_simple_set(self):  # 保存单项时间设置
         global number_brush, number_iron, number_wood, number_meat, number_coal
         simple_set_time_value = self.lineEdit_2.text()
         simple_index = self.radioButton_group.checkedId()
         if simple_index == 1:
             settings.setValue('options/联盟互助设置', simple_set_time_value)
-            print('设置成功！！！')
+            print('间隔时间设置成功！！！')
         elif simple_index == 2:
             settings.setValue('options/世界野怪设置', simple_set_time_value)
-            print('设置成功！！！')
+            print('间隔时间设置成功！！！')
         elif simple_index == 3:
             brush_lv_set_value = self.lineEdit_3.text()
             settings.setValue('options/冰原巨兽设置', simple_set_time_value)
-            settings.setValue('options/冰原巨兽等级设置', brush_lv_set_value)
-            number_brush = 0  #重置该功能运行次数，下次运行走输入等级流程
-            print('设置成功！！！')
+            # settings.setValue('options/冰原巨兽等级设置', brush_lv_set_value)
+            # number_brush = 0  # 重置该功能运行次数，下次运行走输入等级流程
+            print('间隔时间设置成功！！！')
         elif simple_index == 4:
             settings.setValue('options/活动雪怪设置', simple_set_time_value)
-            print('设置成功！！！')
+            print('间隔时间设置成功！！！')
         elif simple_index == 5:
             settings.setValue('options/训练士兵设置', simple_set_time_value)
-            print('设置成功！！！')
+            print('间隔时间设置成功！！！')
         elif simple_index == 6:
             settings.setValue('options/建筑升级设置', simple_set_time_value)
-            print('设置成功！！！')
+            print('间隔时间设置成功！！！')
         elif simple_index == 7:
-            collection_lv_set_value = self.lineEdit_3.text()
+            # collection_lv_set_value = self.lineEdit_3.text()
             settings.setValue('options/采集资源设置', simple_set_time_value)
-            settings.setValue('options/采集资源等级设置', collection_lv_set_value)
-            number_meat = 0  #重置该功能运行次数，下次运行走输入等级流程
-            number_wood = 0
-            number_coal = 0
-            number_iron = 0
-            print('设置成功！！！')
+            # settings.setValue('options/采集资源等级设置', collection_lv_set_value)
+            # number_meat = 0  # 重置该功能运行次数，下次运行走输入等级流程
+            # number_wood = 0
+            # number_coal = 0
+            # number_iron = 0
+            print('间隔时间设置成功！！！')
         elif simple_index == 8:
             settings.setValue('options/巨熊活动设置', simple_set_time_value)
-            print('设置成功！！！')
+            print('间隔时间设置成功！！！')
         elif simple_index == 9:
             settings.setValue('options/治疗士兵设置', simple_set_time_value)
-            print('设置成功！！！')
+            print('间隔时间设置成功！！！')
         elif simple_index == 10:
             settings.setValue('options/探险奖励设置', simple_set_time_value)
-            print('设置成功！！！')
+            print('间隔时间设置成功！！！')
         elif simple_index == 11:
             settings.setValue('options/联盟捐赠设置', simple_set_time_value)
-            print('设置成功！！！')
+            print('间隔时间设置成功！！！')
         elif simple_index == 12:
             settings.setValue('options/英雄招募设置', simple_set_time_value)
-            print('设置成功！！！')
+            print('间隔时间设置成功！！！')
         elif simple_index == 13:
             settings.setValue('options/攻击检测设置', simple_set_time_value)
-            print('设置成功！！！')
-        #settings.setValue('options/radio_option', self.radioButton_group.checkedId())
+            print('间隔时间设置成功！！！')
+        # settings.setValue('options/radio_option', self.radioButton_group.checkedId())
         self.read_simple_set()
 
     @pyqtSlot()
-    def save_settings(self):  #保存多项设置
+    def save_settings(self):  # 保存多项设置
         # settings.setValue('options/下拉框', self.comboBox.index())
         settings.setValue('options/固定时间', self.select_time.isChecked())
         settings.setValue('options/联盟互助', self.checkBox_help.isChecked())
@@ -879,14 +973,14 @@ class Ui_MainWindow(object):
         settings.setValue('options/攻击检测', self.checkBox_collision.isChecked())  #settings.setValue('options/活动雪怪', self.checkBox_npc.isChecked())
 
     @pyqtSlot()
-    def select_start_button(self):  #多选开始按钮
+    def select_start_button(self):  # 多选开始按钮
         self.save_settings()
         self.select_stop.show()  # type: ignore
         self.select_start.hide()  # type: ignore
         print("程序开始执行...")
         # 这里放置程序开始时需要执行的代码
         stop_event.clear()
-        threading.Thread(target=lambda: subject(self)).start()  #save_options()
+        threading.Thread(target=lambda: subject(self)).start()  # save_options()
 
     @pyqtSlot()
     def select_stop_button(self):  #多选停止程序
@@ -903,7 +997,7 @@ class Ui_MainWindow(object):
         threading.Thread(target=lambda: simple_select(self)).start()
 
     @pyqtSlot()
-    def simple_stop_button(self):  #单选停止程序
+    def simple_stop_button(self):  # 单选停止程序
         self.simple_start.show()
         self.simple_stop.hide()
 
@@ -982,9 +1076,10 @@ class MyApp(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MyApp, self).__init__(parent)
         self.setupUi(self)
-        self.load_settings()  #读取所有设置
-        self.read_simple_set()  #读取单项设置
-        self.updateLineEdit()  #读取模拟器设置  # 重定向print函数到text_edit  #sys.stdout = RedirectText(self.textEdit_out)  #sys.stderr = RedirectText(self.textEdit_out)
+        self.load_settings()  # 读取所有设置
+        self.read_simple_set()  # 读取单项设置
+        self.read_ty_setting()  # 读取通用设置
+        #self.updateLineEdit()  # 读取模拟器设置  # 重定向print函数到text_edit  #sys.stdout = RedirectText(self.textEdit_out)  #sys.stderr = RedirectText(self.textEdit_out)
 
 
 if __name__ == '__main__':
