@@ -148,7 +148,7 @@ def subject(self):
                 try:
                     print('%d.开始执行冰原巨兽任务' % run_number)
                     Homepage()  # 主页检查
-                    Brush_WM()  # 冰原巨兽
+                    Brush_WM(self)  # 冰原巨兽
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()
@@ -192,7 +192,7 @@ def subject(self):
                 try:
                     print('%d.开始执行采集任务' % run_number)
                     Homepage()  # 主页检查
-                    Collection()  # 采集资源模块
+                    Collection(self)  # 采集资源模块
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -297,7 +297,7 @@ def subject(self):
                 try:
                     print('%d.开始执行冰原巨兽任务' % run_number)
                     Homepage()  # 主页检查
-                    Brush_WM()  # 冰原巨兽
+                    Brush_WM(self)  # 冰原巨兽
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()
@@ -341,7 +341,7 @@ def subject(self):
                 try:
                     print('%d.开始执行采集任务' % run_number)
                     Homepage()  # 主页检查
-                    Collection()  # 采集资源模块
+                    Collection(self)  # 采集资源模块
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -582,7 +582,7 @@ def simple_select(self):
         while execute:
             try:
                 Homepage()
-                Collection()
+                Collection(self)
                 if stop_event.is_set():
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始
@@ -765,6 +765,9 @@ def simple_select(self):
                         else:
                             number += 1
                             time.sleep(10)
+                if stop_event.is_set():
+                    execute = False
+                    self.simple_stop_button()  # 停止后按钮变为开始
             except:
                 print('错误')
     print('任务已结束')

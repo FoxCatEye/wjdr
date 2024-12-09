@@ -349,7 +349,6 @@ class Ui_MainWindow(object):
         self.label_caiji = QtWidgets.QLabel(self.frame_ty)
         self.label_caiji.setGeometry(QtCore.QRect(20, 20, 54, 21))  # 显示等级文本
         self.label_caiji.setObjectName("资源采集")
-        #self.label_caiji.setVisible(False)
         # 采集无英雄选项
         self.checkBox_ty_un = QtWidgets.QCheckBox(self.frame_ty)
         self.checkBox_ty_un.setGeometry(QtCore.QRect(80, 23, 71, 16))
@@ -361,36 +360,32 @@ class Ui_MainWindow(object):
         #self.label_4.setVisible(False)
         # 采集等级输入
         self.lineEdit_3 = QtWidgets.QLineEdit(self.frame_ty)
-        self.lineEdit_3.setGeometry(QtCore.QRect(300, 20, 31, 21))  # 显示等级输入框
+        self.lineEdit_3.setGeometry(QtCore.QRect(330, 20, 31, 21))  # 显示等级输入框
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.lineEdit_3.setStyleSheet("QLineEdit {\n"
                                       "background: transparent;\n"
                                       "border: 1px solid rgba(0, 255, 0)"
                                       "}")
-        #self.lineEdit_3.setVisible(False)
         # 冰原巨兽文本
         self.label_WM = QtWidgets.QLabel(self.frame_ty)
-        self.label_WM.setGeometry(QtCore.QRect(20, 40, 54, 21))  # 显示等级文本
+        self.label_WM.setGeometry(QtCore.QRect(20, 50, 54, 21))  # 显示等级文本
         self.label_WM.setObjectName("采集文本")
-        #self.label_WM.setVisible(False)
         # 冰原巨兽单兵选项
         self.checkBox_ty_simple = QtWidgets.QCheckBox(self.frame_ty)
-        self.checkBox_ty_simple.setGeometry(QtCore.QRect(80, 43, 71, 16))
+        self.checkBox_ty_simple.setGeometry(QtCore.QRect(80, 53, 71, 16))
         self.checkBox_ty_simple.setObjectName("checkBox_ty_simple")
         # 冰原巨兽等级文本
         self.label_WM_lv = QtWidgets.QLabel(self.frame_ty)
-        self.label_WM_lv.setGeometry(QtCore.QRect(270, 40, 54, 21))  # 显示等级文本
+        self.label_WM_lv.setGeometry(QtCore.QRect(270, 50, 54, 21))  # 显示等级文本
         self.label_WM_lv.setObjectName("label_WM_lv")
-        #self.label_WM_lv.setVisible(False)
         # 冰原巨兽输入
         self.lineEdit_WM = QtWidgets.QLineEdit(self.frame_ty)
-        self.lineEdit_WM.setGeometry(QtCore.QRect(300, 40, 31, 21))  # 显示等级输入框
+        self.lineEdit_WM.setGeometry(QtCore.QRect(330, 50, 31, 21))  # 显示等级输入框
         self.lineEdit_WM.setObjectName("lineEdit_WM")
         self.lineEdit_WM.setStyleSheet("QLineEdit {\n"
                                       "background: transparent;\n"
                                       "border: 1px solid rgba(0, 255, 0)"
                                       "}")
-        #self.lineEdit_3.setVisible(False)
         # 通用设置按钮
         self.ty_set = QtWidgets.QPushButton(self.frame_ty)
         self.ty_set.setGeometry(QtCore.QRect(190, 100, 75, 21))
@@ -752,10 +747,10 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "执行间隔(秒):"))
         self.label_caiji.setText(_translate("MainWindow", "资源采集:"))
         self.checkBox_ty_un.setText(_translate("MainWindow", "无英雄"))
-        self.label_4.setText(_translate("MainWindow", "等级:"))
+        self.label_4.setText(_translate("MainWindow", "等级设置:"))
         self.label_WM.setText(_translate("MainWindow", "冰原巨兽:"))
         self.checkBox_ty_simple.setText(_translate("MainWindow", "单兵集结"))
-        self.label_WM_lv.setText(_translate("MainWindow", "等级:"))
+        self.label_WM_lv.setText(_translate("MainWindow", "等级设置:"))
         self.ty_set.setText(_translate("MainWindow", "设置"))
         self.simple_set.setText(_translate("MainWindow", "设置"))
         self.label.setText(_translate("MainWindow", "输出："))
