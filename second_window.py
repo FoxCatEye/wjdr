@@ -10,7 +10,7 @@ class Ui_NoticeWindow(object):
         noticewindow.resize(371, 262)
         noticewindow.setFixedSize(noticewindow.width(), noticewindow.height())  # 设置窗口大小固定
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("log.png"))
+        icon.addPixmap(QtGui.QPixmap("icon/log.png"))
         noticewindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(noticewindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -78,7 +78,7 @@ class Ui_helpWindow(object):
         helpwindow.resize(400, 300)
         helpwindow.setFixedSize(helpwindow.width(), helpwindow.height())  # 设置窗口大小固定
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("log.png"))
+        icon.addPixmap(QtGui.QPixmap("icon/log.png"))
         helpwindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(helpwindow)
         self.centralwidget.setObjectName("centralwidget")
