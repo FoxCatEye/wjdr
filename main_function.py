@@ -699,6 +699,9 @@ def recruit():
             print_space('点击免费招募')
             touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.234, 0.285), scale_max=800, resolution=(1080, 1920)))
             time.sleep(1)
+            if not exists(Template(r"icon\tpl1729741197970.png", record_pos=(-0.441, -0.836), resolution=(1080, 1920))):
+                # 如果没找到返回按钮，随机点击一个位置（考虑抽到英雄的情况）
+                touch([500, 500])
             touch(Template(r"icon\tpl1729741197970.png", record_pos=(-0.441, -0.836), resolution=(1080, 1920)))
             time.sleep(1)
         else:

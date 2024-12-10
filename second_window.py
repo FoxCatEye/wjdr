@@ -55,7 +55,7 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.训练逻辑优化：完成一个兵种训练后回到下一个兵种检查界面</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.训练检查本页时一直卡在检查</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.攻击检测优化（优化多个攻击时无法检测）</p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    9.优化英雄招募招募到英雄后返回逻辑</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"
                                                          ))
