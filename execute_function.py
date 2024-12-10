@@ -16,7 +16,7 @@ def start_exe():
         try:
             print('开始启动模拟器')
             # subprocess.Popen('E:\leidian\LDPlayer9\dnplayer.exe')
-            subprocess.Popen(settings.value('options/模拟器地址', 'E:\leidian\LDPlayer9\dnplayer.exe', type=str))
+            subprocess.Popen(settings.value('模拟器地址', 'E:\leidian\LDPlayer9\dnplayer.exe', type=str))
             print('启动成功')
             break
         except:
@@ -33,7 +33,7 @@ def cnnect():
         try:
             print('%d.开始尝试连接模拟器' % a)
             os.popen('adb start-server')
-            connect_ip = settings.value('options/模拟器ip', '127.0.0.1:5037', type=str)
+            connect_ip = settings.value('模拟器ip', '127.0.0.1:5037', type=str)
             print('地址：android:// %s' % connect_ip)
             # print('地址：android://127.0.0.1:5037')
             connect_device('android://%s' % connect_ip)
@@ -104,7 +104,7 @@ def stop_function():
     # 这里放置停止需要的代码
     global stop_event
     stop_event.set()  # 设置事件，通知线程结束
-    print('-----------当前任务结束或10s后结束任务-----------')
+    print('-------------当前任务结束或10s后结束任务-------------')
 
 
 stop_event = threading.Event()
@@ -437,7 +437,7 @@ def simple_select(self):
                 if stop_event.is_set():
                     self.simple_stop_button()  # 互助功能
                     break
-                help_time = settings.value('options/联盟互助设置', 20, type=str)
+                help_time = settings.value('联盟互助设置', 20, type=str)
                 print_space('等待%s秒后继续执行任务' % help_time)
                 XG_number = int(help_time)
                 time.sleep(XG_number)
@@ -452,7 +452,7 @@ def simple_select(self):
                     execute = False
                     self.simple_stop_button()  # 野怪功能
                     break
-                XG_time = int(settings.value('options/世界野怪设置', 20, type=str))
+                XG_time = int(settings.value('世界野怪设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % XG_time)
                 number = 0
                 XG_number = XG_time / 10
@@ -479,7 +479,7 @@ def simple_select(self):
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始
                     break
-                WM_time = int(settings.value('options/冰原巨兽设置', 20, type=str))
+                WM_time = int(settings.value('冰原巨兽设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % WM_time)
                 number = 0
                 WM_number = WM_time / 10
@@ -506,7 +506,7 @@ def simple_select(self):
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始
                     break
-                npc_time = int(settings.value('options/活动雪怪设置', 20, type=str))
+                npc_time = int(settings.value('活动雪怪设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % npc_time)
                 number = 0
                 npc_number = npc_time / 10
@@ -524,7 +524,7 @@ def simple_select(self):
                             time.sleep(10)
             except:
                 print('错误')
-    elif self.radioButton_Production.isChecked():  #训练士兵
+    elif self.radioButton_Production.isChecked():  # 训练士兵
         while execute:
             try:
                 Homepage()
@@ -533,7 +533,7 @@ def simple_select(self):
                     execute = False
                     self.simple_start_button()  # 停止后按钮变为开始
                     break
-                production_time = int(settings.value('options/训练士兵设置', 20, type=str))
+                production_time = int(settings.value('训练士兵设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % production_time)
                 production_number = production_time / 10
                 number = 0
@@ -560,7 +560,7 @@ def simple_select(self):
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始
                     break
-                build_time = int(settings.value('options/建筑升级设置', 20, type=str))
+                build_time = int(settings.value('建筑升级设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % build_time)
                 build_number = build_time / 10
                 number = 0
@@ -587,7 +587,7 @@ def simple_select(self):
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始
                     break
-                Collection_time = int(settings.value('options/采集资源设置', 20, type=str))
+                Collection_time = int(settings.value('采集资源设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % Collection_time)
                 number = 0
                 Collection_number = Collection_time / 10
@@ -614,7 +614,7 @@ def simple_select(self):
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始
                     break
-                bear_time = int(settings.value('options/巨熊活动设置', 20, type=str))
+                bear_time = int(settings.value('巨熊活动设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % bear_time)
                 number = 0
                 bear_number = bear_time / 10
@@ -641,7 +641,7 @@ def simple_select(self):
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始
                     break
-                treatment_time = int(settings.value('options/治疗士兵设置', 20, type=str))
+                treatment_time = int(settings.value('治疗士兵设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % treatment_time)
                 number = 0
                 treatment_number = treatment_time / 10
@@ -668,7 +668,7 @@ def simple_select(self):
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始
                     break
-                adventure_time = int(settings.value('options/探险奖励设置', 20, type=str))
+                adventure_time = int(settings.value('探险奖励设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % adventure_time)
                 number = 0
                 adventure_number = adventure_time / 10
@@ -695,7 +695,7 @@ def simple_select(self):
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始
                     break
-                donate_time = int(settings.value('options/联盟捐赠设置', 20, type=str))
+                donate_time = int(settings.value('联盟捐赠设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % donate_time)
                 number = 0
                 donate_number = donate_time / 10
@@ -722,7 +722,7 @@ def simple_select(self):
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始
                     break
-                recruit_time = int(settings.value('options/英雄招募设置', 20, type=str))
+                recruit_time = int(settings.value('英雄招募设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % recruit_time)
                 number = 0
                 recruit_number = recruit_time / 10
@@ -740,7 +740,7 @@ def simple_select(self):
                             time.sleep(10)
             except:
                 print('错误')
-    elif self.radioButton_collision.isChecked():  #攻击检测
+    elif self.radioButton_collision.isChecked():  # 攻击检测
         while execute:
             try:
                 Homepage()
@@ -749,7 +749,7 @@ def simple_select(self):
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始
                     break
-                mining_collision_time1 = int(settings.value('options/攻击检测设置', 20, type=str))
+                mining_collision_time1 = int(settings.value('攻击检测设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % mining_collision_time1)
                 number = 0
                 mining_collision_number = mining_collision_time1 / 10

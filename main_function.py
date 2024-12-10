@@ -76,7 +76,7 @@ def re_connet():
 def Help():
     if exists(Template(r"icon\tpl1718936896202.png", record_pos=(0.248, 0.735), resolution=(1080, 1920))):  # 判断是否有盟员求助
         print_space("有盟员求助，需点击援助按钮")
-        random_number = random.randint(0, 5)  #随机数
+        random_number = random.randint(0, 5)  # 随机数
         print_space('随机等待时间：%s秒' % random_number)
         time.sleep(random_number)  # 等待随机时间后
         record = random.randint(1, 9)
@@ -180,12 +180,14 @@ def Production_soldiers():
         print_space("1跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
+        Homepage()  # 返回主页
         time.sleep(1)  # 等待1秒
         touch([14, 823])
     elif exists(Template(r"icon/tpl1719478488283.png", threshold=0.9, rgb=True, record_pos=(-0.066, -0.111), resolution=(1080, 1920))):
         print_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train()
+        Homepage()  # 返回主页
         time.sleep(1)  # 等待1秒
         touch([14, 823])
     print_space('检查矛兵训练是否完成')
@@ -193,12 +195,14 @@ def Production_soldiers():
         print_space("1跳转到矛兵兵营...")
         touch([600, 942])  # 点击索引到对应兵营
         train()
+        Homepage()  # 返回主页
         time.sleep(1)  # 等待1秒
         touch([14, 823])
     elif exists(Template(r"icon/tpl1719480722196.png", threshold=0.8, rgb=True, record_pos=(-0.314, -0.01), resolution=(1080, 1920))):
         print_space("跳转到矛兵兵营...")
         touch([600, 942])  # 点击索引到对应兵营
         train()
+        Homepage()  # 返回主页
         time.sleep(1)  # 等待1秒
         touch([14, 823])
     print_space('检查射手训练是否完成')
@@ -358,7 +362,7 @@ def bear():
         print_space('未找到活动图标')
 
 
-def WM_lv():  #冰原巨兽等级输入
+def WM_lv():  # 冰原巨兽等级输入
     print_space('首次启动或数据有更新，重新输入等级')
     print_space('点击等级输入框')
     touch([900, 1573])
@@ -367,10 +371,10 @@ def WM_lv():  #冰原巨兽等级输入
     keyevent('KEYCODE_DEL')
     time.sleep(1)  #等待1秒
     print_space('输入新的等级')
-    #value = settings.value('options/冰原巨兽等级设置', type=str)
+    #value = settings.value('冰原巨兽等级设置', type=str)
     #print(value)
     time.sleep(1)
-    text(settings.value('options/冰原巨兽等级设置', 5, type=str))
+    text(settings.value('冰原巨兽等级设置', 5, type=str))
     print_space('点击确定按钮')
     time.sleep(1)
     touch(Template(r"icon/sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))
@@ -457,7 +461,7 @@ def energy():
         print_space("出征成功")
 
 
-#采集等级设置
+# 采集等级设置
 def collection_lv():
     print_space('首次启动或数据有更新，重新输入等级')
     print_space('点击等级输入框')
@@ -469,8 +473,8 @@ def collection_lv():
     print_space('输入新的等级')
     time.sleep(1)
     # print(set_collection_lv.get())
-    # print(settings.value('options/采集等级设置', type=str))
-    text(settings.value('options/采集等级设置', 7, type=str))
+    # print(settings.value('采集等级设置', type=str))
+    text(settings.value('采集等级设置', 7, type=str))
     time.sleep(1)
     print_space('点击确定按钮')
     #time.sleep(1)
@@ -718,7 +722,7 @@ def mining_collision():
             print_space('点击前往目标')
             # touch(results[1]['result']) # 点击字典内第一个坐标，但第一个坐标不一定是排在第一个的目标，废弃
             # touch(Template(r"icon\tpl1729834107464.png", record_pos=(0.207, -0.549), resolution=(1080, 1920)))
-            touch([xxx, xxx])  # 使用绝对坐标，点击第一个目标
+            touch([xxx, xxx])  # 使用绝对坐标，点击列表内第一个目标
             time.sleep(1)
             print_space('点击跳转到的目标')
             touch([540, 940])
@@ -742,5 +746,6 @@ def mining_collision():
                 print_space('点击使用')
                 touch(Template(r"icon\tpl1729834989760.png", record_pos=(0.322, -0.336), resolution=(1080, 1920)))
                 print_space('开启防护罩成功')
+            touch(Template(r"icon\tpl1729833981926.png", record_pos=(0.42, -0.141), resolution=(1080, 1920)))  # 回到攻击列表
     else:
         print_space('未检测的攻击')

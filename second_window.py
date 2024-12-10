@@ -30,8 +30,8 @@ class Ui_NoticeWindow(object):
                                                          "p, li { white-space: pre-wrap; }\n"
                                                          "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; "
                                                          "font-weight:400; font-style:normal;\">\n"
-                                                         "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px;\">版本日志</p>\n"
-                                                         "<p style=\" margin-bottom:0px;\">V2.0.0</p>\n"
+                                                         "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px;\">版本日志</p>"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">V2.0.0</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.UI界面重构</p>\n"
                                                          "<p style=\" margin-bottom:0px;\">V2.0.1</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.修复模拟器设置保存导致崩溃问题</p>\n"
@@ -46,6 +46,16 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.尝试修复只训练6级兵bug</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.优化：训练增加识别当前界面可晋升士兵逻辑</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.优化：采集部队不派遣英雄</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.0.5</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.修复设置冰原巨兽、采集等级后，设置未立即生效</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.修复日志输出空白行问题</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.修复配置文件无法找到</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.新增采集队自由选择是否带英雄（带默认英雄）</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.新增巨兽单兵集结功能</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.训练逻辑优化：完成一个兵种训练后回到下一个兵种检查界面</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.训练检查本页时一直卡在检查</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.攻击检测优化（优化多个攻击时无法检测）</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"
                                                          ))
@@ -64,7 +74,7 @@ class noticelog(QMainWindow, Ui_NoticeWindow):
 class Ui_helpWindow(object):
     def setupUi(self, helpwindow):
         helpwindow.setObjectName("helpWindow")
-        helpwindow.resize(371, 262)
+        helpwindow.resize(400, 300)
         helpwindow.setFixedSize(helpwindow.width(), helpwindow.height())  # 设置窗口大小固定
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("log.png"))
@@ -72,7 +82,7 @@ class Ui_helpWindow(object):
         self.centralwidget = QtWidgets.QWidget(helpwindow)
         self.centralwidget.setObjectName("centralwidget")
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(0, 0, 371, 262))
+        self.textEdit.setGeometry(QtCore.QRect(0, 0, 400, 300))
         self.textEdit.setObjectName("textEdit")
         helpwindow.setCentralWidget(self.centralwidget)
 
@@ -86,30 +96,43 @@ class Ui_helpWindow(object):
                                                        "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
                                                        "p, li { white-space: pre-wrap; }\n"
                                                        "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">模拟器路径：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    电脑模拟器安装地址，以exe结尾，启动模拟器功能需要，地址错误时无法启动模拟器，只能手动启动</p>\n\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">模拟器ip：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    连接模拟器需要，由本地地址＋端口号组成，ip错误将无法连接模拟器，影响使用</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">启动游戏：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    启动无尽冬日游戏</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">一键启动：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    包含启动模拟器、连接模拟器、启动游戏功能</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">多选：可一次性选择多选功能同时执行</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    固定时间：勾选后多选项功能只会在特定时间执行，未勾选，不会有时间判定，执行完一个功能立马执行下一个</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    互助：每2秒检测一次</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    野怪：分钟与秒是5的倍数是检测一次，21点不检测</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    冰原巨兽：分钟是6的倍数且秒数在0-20s时检查一次，21点不检测，等级可在单选内设置</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    活动雪怪：分钟是6的倍数时检测一次，21点不检测</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    训练士兵：分钟数是5的倍数时检测</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    建筑升级：分钟数是2的倍数时检测</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    采集资源：凌晨3点检测每一种资源是否有采集，每种只会采集一队</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    巨熊活动：21点时检测</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    治疗士兵：分钟数为21时检测，相当于每过一小时就检查</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    探险奖励：分钟数为25时检测，相当于每过一小时就检查</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    联盟捐赠：分钟数为1时检测，相当于每过一小时就检查</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    英雄招募：凌晨1点时分钟数为5的倍数时会检查</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">单选：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    每次只能执行单个功能，可设置单个功能执行间隔，冰原巨兽可设置等级，设置的等级多选可用</p></body></html>"))
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">一.模拟器设置：</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.模拟器路径：电脑模拟器安装地址，以exe结尾，启动模拟器功能需要，地址错误时无法启动模拟器，只能手动启动</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.模拟器ip：连接模拟器需要，由本地地址＋端口号组成，ip错误将无法连接模拟器，影响使用</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\"> </p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">二.模拟器按钮：</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.启动模拟器：启动模拟器路径内设置的模拟器</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.连接模拟器：使用adb连接模拟器IP地址对应的模拟器</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.启动游戏：启动无尽冬日游戏</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.一键启动：包含启动模拟器、连接模拟器、启动游戏功能</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\"> </p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">三.多选：</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    介绍：可一次性选择多选功能同时执行</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.固定时间：勾选后多选项功能只会在特定时间（下面介绍的时间）执行，未勾选，不会有时间判定，执行完一个功能立马执行下一个</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.互助：每2秒检测一次</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.野怪：分钟与秒是5的倍数是检测一次，21点不检测</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.冰原巨兽：分钟是6的倍数且秒数在0-20s时检查一次，21点不检测，等级可在单选内设置</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.活动雪怪：分钟是6的倍数时检测一次，21点不检测</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.训练士兵：分钟数是5的倍数时检测</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.建筑升级：分钟数是2的倍数时检测</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.采集资源：凌晨3点检测每一种资源是否有采集，每种只会采集一队</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    9.巨熊活动：21点时检测</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    10.治疗士兵：分钟数为21时检测，相当于每过一小时就检查</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    11.探险奖励：分钟数为25时检测，相当于每过一小时就检查</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    12.联盟捐赠：分钟数为1时检测，相当于每过一小时就检查</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    13.英雄招募：凌晨1点时分钟数为5的倍数时会检查是否有免费次数</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\"> </p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">四.通用：</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    介绍：通用设置内的设置同时适用于单项和多选</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.资源采集：</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.无英雄：采集队伍出发时不带英雄</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.等级设置：设置全局采集资源的等级</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.冰原巨兽：</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.单兵集结：集结巨兽时只上一个兵（英雄正常上）</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.等级设置：设置全局集结冰原巨兽的等级</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\"> </p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">五.单选：</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    每次只能执行单个功能，可设置单个功能执行完成后下一次执行的间隔时间</p></body></html>"))
         self.textEdit.setReadOnly(True)
 
 
