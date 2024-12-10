@@ -1,6 +1,6 @@
 # 功能逻辑
 import time
-from airtest.core.api import exists, touch, swipe, text, keyevent
+from airtest.core.api import exists, touch, swipe, text, keyevent, find_all
 from airtest.core.cv import Template
 from airtest.core.android.android import *
 from numpy import random
@@ -715,30 +715,40 @@ def recruit():
 
 
 def mining_collision():
+    """print('开始查找')
+    results = find_all(Template(r"icon\tpl1733817589308.png", resolution=(1080, 1920)))
+    print('获取长度')
+    number_len = len(results)
+    print(number_len)
+    for i in range(0, number_len):
+        touch([920, 947])
+        time.sleep(1.0)
+    """
     if exists(Template(r"icon\tpl1729833981926.png", record_pos=(0.42, -0.141), resolution=(1080, 1920))):
         print_space('检测到被攻击，点击预警图标')
         touch(Template(r"icon\tpl1729833981926.png", record_pos=(0.42, -0.141), resolution=(1080, 1920)))
-        time.sleep(1)
         find_result = find_all(Template(r"icon\tpl1729834107464.png", record_pos=(0.207, -0.549), resolution=(1080, 1920)))
         length = len(find_result)
-        for i in range(0, length):
+        print('被攻击列表数：%s' % length)
+        # for i in range(0, length):
+        while length > 0:
             print_space('点击前往目标')
+            time.sleep(1)
             # touch(results[1]['result']) # 点击字典内第一个坐标，但第一个坐标不一定是排在第一个的目标，废弃
             # touch(Template(r"icon\tpl1729834107464.png", record_pos=(0.207, -0.549), resolution=(1080, 1920)))
-            touch([xxx, xxx])  # 使用绝对坐标，点击列表内第一个目标
+            touch([755, 356])  # 使用绝对坐标，点击列表内第一个目标
             time.sleep(1)
             print_space('点击跳转到的目标')
-            touch([540, 940])
+            touch([540, 890])
             time.sleep(2)
-            if exists(Template(r"icon\tpl1729834163624.png", record_pos=(-0.139, 0.607), resolution=(1080, 1920))):
+            if exists(Template(r"icon\tpl1729834163624.png", rgb=True, record_pos=(-0.139, 0.607), resolution=(1080, 1920))):
                 print_space('撞矿检测，点击召回采矿')
                 touch(Template(r"icon\tpl1729834163624.png", record_pos=(-0.139, 0.607), resolution=(1080, 1920)))
                 time.sleep(1)
                 print_space('点击确认召回队伍')
                 touch(Template(r"icon\tpl1729834190986.png", record_pos=(0.212, 0.203), resolution=(1080, 1920)))
                 print_space('撤回队伍成功')
-                touch(Template(r"icon\tpl1729833981926.png", record_pos=(0.42, -0.141), resolution=(1080, 1920)))  # 再次点击被攻击图标
-                time.sleep(1)
+                length -= 1  # 循环次数减1
             elif exists(Template(r"icon\tpl1729834914817.png", record_pos=(-0.139, 0.557), resolution=(1080, 1920))):
                 print_space('检测到攻击城堡，点击城堡增益准备开启防护罩')
                 touch(Template(r"icon\tpl1729834914817.png", record_pos=(-0.139, 0.557), resolution=(1080, 1920)))
@@ -749,6 +759,16 @@ def mining_collision():
                 print_space('点击使用')
                 touch(Template(r"icon\tpl1729834989760.png", record_pos=(0.322, -0.336), resolution=(1080, 1920)))
                 print_space('开启防护罩成功')
-            touch(Template(r"icon\tpl1729833981926.png", record_pos=(0.42, -0.141), resolution=(1080, 1920)))  # 回到攻击列表
+                length -= 1  # 循环次数减1
+                if exists(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
+                    # 防御罩开启后，检查是否在主页
+                    print_space('点击黑色返回按钮')
+                    touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
+            if exists(Template(r"icon\tpl1729833981926.png", record_pos=(0.42, -0.141), resolution=(1080, 1920))):
+                print_space('再次回到攻击列表')
+                time.sleep(1)
+                touch(Template(r"icon\tpl1729833981926.png", record_pos=(0.42, -0.141), resolution=(1080, 1920)))  # 回到攻击列表
+            if length <= 0:
+                break
     else:
         print_space('未检测的攻击')

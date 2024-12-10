@@ -531,7 +531,7 @@ def simple_select(self):
                 Production_soldiers()
                 if stop_event.is_set():
                     execute = False
-                    self.simple_start_button()  # 停止后按钮变为开始
+                    self.simple_stop_button()  # 停止后按钮变为开始
                     break
                 production_time = int(settings.value('训练士兵设置', 20, type=str))
                 print_space('等待%s秒后再次执行' % production_time)
@@ -729,7 +729,7 @@ def simple_select(self):
                 while number < recruit_number:
                     if stop_event.is_set():
                         execute = False
-                        self.simple_stop_button()  # 野怪功能
+                        self.simple_stop_button()  # 停止后按钮变为开始
                         break
                     else:
                         if recruit_number < 1:
