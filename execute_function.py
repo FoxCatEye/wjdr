@@ -247,7 +247,7 @@ def subject(self):
                 try:
                     print('%d.开始执行招募任务' % run_number)
                     Homepage()
-                    recruit()  #英雄招募
+                    recruit()  # 英雄招募
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
