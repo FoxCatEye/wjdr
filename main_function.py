@@ -760,10 +760,10 @@ def mining_collision():
                 touch(Template(r"icon\tpl1729834989760.png", record_pos=(0.322, -0.336), resolution=(1080, 1920)))
                 print_space('开启防护罩成功')
                 length -= 1  # 循环次数减1
-                if exists(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
+                if exists(Template(r"icon\tpl1733823336248.png", record_pos=(-0.335, -0.838), resolution=(1080, 1920))):
                     # 防御罩开启后，检查是否在主页
                     print_space('点击黑色返回按钮')
-                    touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
+                    touch(Template(r"icon\tpl1733823336248.png", target_pos=4, record_pos=(-0.335, -0.838), resolution=(1080, 1920)))
             if exists(Template(r"icon\tpl1729833981926.png", record_pos=(0.42, -0.141), resolution=(1080, 1920))):
                 print_space('再次回到攻击列表')
                 time.sleep(1)
