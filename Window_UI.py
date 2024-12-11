@@ -754,7 +754,7 @@ class Ui_MainWindow(object):
         self.ty_set.setText(_translate("MainWindow", "设置"))
         self.simple_set.setText(_translate("MainWindow", "设置"))
         self.label.setText(_translate("MainWindow", "输出："))
-        self.label_2.setText(_translate("MainWindow", "版本:2.0.5"))
+        self.label_2.setText(_translate("MainWindow", "版本:2.1.1"))
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.notice_button.setText(_translate("MainWindow", "版本日志"))
         self.help_button.setText(_translate("MainWindow", "帮助文档"))

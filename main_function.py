@@ -474,7 +474,7 @@ def collection_lv():
     time.sleep(1)
     # print(set_collection_lv.get())
     # print(settings.value('采集等级设置', type=str))
-    text(settings.value('采集等级设置', 7, type=str))
+    text(settings.value('采集资源等级设置', 7, type=str))
     time.sleep(1)
     print_space('点击确定按钮')
     #time.sleep(1)
