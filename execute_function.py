@@ -170,7 +170,7 @@ def subject(self):
                 try:
                     print('%d.开始执行训练任务' % run_number)
                     Homepage()  # 主页检查
-                    Production_soldiers()  # 训练模块
+                    Production_soldiers(self)  # 训练模块
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -319,7 +319,7 @@ def subject(self):
                 try:
                     print('%d.开始执行训练任务' % run_number)
                     Homepage()  # 主页检查
-                    Production_soldiers()  # 训练模块
+                    Production_soldiers(self)  # 训练模块
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -528,7 +528,7 @@ def simple_select(self):
         while execute:
             try:
                 Homepage()
-                Production_soldiers()
+                Production_soldiers(self)
                 if stop_event.is_set():
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始

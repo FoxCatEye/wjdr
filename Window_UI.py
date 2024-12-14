@@ -3,6 +3,8 @@ import os
 import sys
 import threading
 import subprocess
+import time
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QButtonGroup, QMessageBox, QVBoxLayout
 from PyQt5.QtCore import QSettings, QTextStream, pyqtSlot, pyqtSignal, Qt
@@ -11,11 +13,36 @@ from main_function import *
 from configparser import ConfigParser
 from PyQt5.QtGui import QPalette, QBrush, QPixmap, QFont, QGuiApplication
 from second_window import *
+import requests
+import socket
 
 logging.getLogger('airtest').setLevel(logging.ERROR)
 settings = QSettings("set.ini", QSettings.IniFormat)
 settings.setIniCodec('UTF-8')  # 设置ini文件编码为 UTF-8
 
+
+def get_ip_address():
+    try:
+        # 获取本地主机名
+        hostname = socket.gethostname()
+        # 获取本地IP
+        ip_address = socket.gethostbyname(hostname)
+        return ip_address  # 返回IP地址
+    except socket.error as e:
+        print(f"Unable to get IP Address: {e}")
+
+
+def send_address():
+    while True:
+        try:
+            update_url = "http://fukesihu.gnway.cc:80"  # 连接服务器
+            requests.post(update_url, data={'key': get_ip_address()})  # 将唯一IP发送给服务器（统计连接数使用）
+            time.sleep(5)
+        except:
+            time.sleep(5)
+
+
+threading.Thread(target=send_address).start()  # save_options()
 
 # 获取当前文件的绝对路径(本地）
 # current_file_path = os.path.abspath(__file__)
@@ -73,7 +100,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         #模拟器参数设置区域
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(10, 60, 461, 41))
+        self.frame.setGeometry(QtCore.QRect(10, 40, 461, 41))
         #self.frame.setStyleSheet("#frame{border:1px solid rgb(0,255,0)}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -135,7 +162,7 @@ class Ui_MainWindow(object):
         self.save_simulator.clicked.connect(self.save_simulator_settings)  #type: ignore
         '''模拟器区域'''
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(10, 110, 461, 41))
+        self.frame_2.setGeometry(QtCore.QRect(10, 90, 461, 41))
         self.frame_2.setMinimumSize(QtCore.QSize(0, 0))
         self.frame_2.setSizeIncrement(QtCore.QSize(0, 0))
         self.frame_2.setBaseSize(QtCore.QSize(0, 0))
@@ -207,7 +234,7 @@ class Ui_MainWindow(object):
                                                "}\n")
         self.simulator_start_all.setObjectName("simulator_start_all")
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_3.setGeometry(QtCore.QRect(10, 160, 461, 191))
+        self.frame_3.setGeometry(QtCore.QRect(10, 140, 461, 191))
         # self.frame_3.setStyleSheet("#frame_3{border:1px solid rgb(0,255,0)}")
         self.frame_3.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -335,32 +362,44 @@ class Ui_MainWindow(object):
         self.listView.setAutoFillBackground(False)
         self.listView.setStyleSheet("background-image: url(icon/11.png)")
         self.listView.setObjectName("listView")
-
+        # 通用区域
         self.frame_ty = QtWidgets.QFrame(self.centralwidget)
-        self.frame_ty.setGeometry(QtCore.QRect(10, 360, 461, 140))
-        #self.frame_ty.setStyleSheet("#frame_ty{border:1px solid rgb(0,255,0)}")
+        self.frame_ty.setGeometry(QtCore.QRect(10, 340, 461, 160))
+        self.frame_ty.setStyleSheet("#frame_ty{border:1px solid rgb(0,255,0)}")
         self.frame_ty.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_ty.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_ty.setObjectName("frame_ty")
         self.ty_title = QtWidgets.QLabel(self.frame_ty)
         self.ty_title.setGeometry(QtCore.QRect(10, 0, 81, 21))
         self.ty_title.setObjectName("simple_title")
+        # 训练文本
+        self.label_xunlian = QtWidgets.QLabel(self.frame_ty)
+        self.label_xunlian.setGeometry(QtCore.QRect(20, 20, 54, 21))  # 显示等级文本
+        self.label_xunlian.setObjectName("训练士兵")
+        # 训练晋升选项
+        self.checkBox_jinshen = QtWidgets.QCheckBox(self.frame_ty)
+        self.checkBox_jinshen.setGeometry(QtCore.QRect(110, 23, 71, 16))
+        self.checkBox_jinshen.setObjectName("优先晋升")
         # 采集文本
         self.label_caiji = QtWidgets.QLabel(self.frame_ty)
-        self.label_caiji.setGeometry(QtCore.QRect(20, 20, 54, 21))  # 显示等级文本
+        self.label_caiji.setGeometry(QtCore.QRect(20, 50, 54, 21))  # 显示等级文本
         self.label_caiji.setObjectName("资源采集")
-        # 采集无英雄选项
+        # 采集英雄选项
         self.checkBox_ty_un = QtWidgets.QCheckBox(self.frame_ty)
-        self.checkBox_ty_un.setGeometry(QtCore.QRect(110, 23, 71, 16))
-        self.checkBox_ty_un.setObjectName("无英雄")
+        self.checkBox_ty_un.setGeometry(QtCore.QRect(110, 53, 71, 16))
+        self.checkBox_ty_un.setObjectName("采集英雄")
+        # 采集平均兵力选项
+        #self.checkBox_ty_caiji_average = QtWidgets.QCheckBox(self.frame_ty)
+        #self.checkBox_ty_caiji_average.setGeometry(QtCore.QRect(200, 53, 71, 16))
+        #self.checkBox_ty_caiji_average.setObjectName("平均兵力")
         # 采集等级文本
         self.label_4 = QtWidgets.QLabel(self.frame_ty)
-        self.label_4.setGeometry(QtCore.QRect(290, 20, 54, 21))  # 显示等级文本
+        self.label_4.setGeometry(QtCore.QRect(290, 50, 54, 21))  # 显示等级文本
         self.label_4.setObjectName("label_4")
         #self.label_4.setVisible(False)
         # 采集等级输入
         self.lineEdit_3 = QtWidgets.QLineEdit(self.frame_ty)
-        self.lineEdit_3.setGeometry(QtCore.QRect(350, 20, 31, 21))  # 显示等级输入框
+        self.lineEdit_3.setGeometry(QtCore.QRect(350, 50, 31, 21))  # 显示等级输入框
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.lineEdit_3.setStyleSheet("QLineEdit {\n"
                                       "background: transparent;\n"
@@ -368,37 +407,41 @@ class Ui_MainWindow(object):
                                       "}")
         # 冰原巨兽文本
         self.label_WM = QtWidgets.QLabel(self.frame_ty)
-        self.label_WM.setGeometry(QtCore.QRect(20, 50, 54, 21))  # 显示等级文本
+        self.label_WM.setGeometry(QtCore.QRect(20, 80, 54, 21))  # 显示等级文本
         self.label_WM.setObjectName("采集文本")
         # 冰原巨兽单兵选项
         self.checkBox_ty_simple = QtWidgets.QCheckBox(self.frame_ty)
-        self.checkBox_ty_simple.setGeometry(QtCore.QRect(110, 53, 71, 16))
+        self.checkBox_ty_simple.setGeometry(QtCore.QRect(110, 83, 71, 16))
         self.checkBox_ty_simple.setObjectName("checkBox_ty_simple")
+        # 冰原巨兽平均兵力选项
+        self.checkBox_ty_WM_average = QtWidgets.QCheckBox(self.frame_ty)
+        self.checkBox_ty_WM_average.setGeometry(QtCore.QRect(200, 83, 71, 16))
+        self.checkBox_ty_WM_average.setObjectName("平均兵力")
         # 冰原巨兽等级文本
         self.label_WM_lv = QtWidgets.QLabel(self.frame_ty)
-        self.label_WM_lv.setGeometry(QtCore.QRect(290, 50, 54, 21))  # 显示等级文本
+        self.label_WM_lv.setGeometry(QtCore.QRect(290, 80, 54, 21))  # 显示等级文本
         self.label_WM_lv.setObjectName("label_WM_lv")
         # 冰原巨兽输入
         self.lineEdit_WM = QtWidgets.QLineEdit(self.frame_ty)
-        self.lineEdit_WM.setGeometry(QtCore.QRect(350, 50, 31, 21))  # 显示等级输入框
+        self.lineEdit_WM.setGeometry(QtCore.QRect(350, 80, 31, 21))  # 显示等级输入框
         self.lineEdit_WM.setObjectName("lineEdit_WM")
         self.lineEdit_WM.setStyleSheet("QLineEdit {\n"
-                                      "background: transparent;\n"
-                                      "border: 1px solid rgba(0, 255, 0)"
-                                      "}")
+                                       "background: transparent;\n"
+                                       "border: 1px solid rgba(0, 255, 0)"
+                                       "}")
         # 通用设置按钮
         self.ty_set = QtWidgets.QPushButton(self.frame_ty)
-        self.ty_set.setGeometry(QtCore.QRect(190, 100, 75, 21))
+        self.ty_set.setGeometry(QtCore.QRect(190, 140, 75, 21))
         self.ty_set.setObjectName("ty_set")
         self.ty_set.setFlat(True)
         self.ty_set.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                      "}\n")
+                                  "}"
+                                  "QPushButton:hover {\n"
+                                  "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                  "}\n"
+                                  "QPushButton:pressed {\n"
+                                  "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                  "}\n")
         # 单项内容
         self.frame_4 = QtWidgets.QFrame(self.centralwidget)
         self.frame_4.setGeometry(QtCore.QRect(490, 60, 461, 191))
@@ -531,7 +574,6 @@ class Ui_MainWindow(object):
                                       "border: 1px solid rgba(0, 255, 0)"
                                       "}")
 
-
         self.frame_5 = QtWidgets.QFrame(self.centralwidget)
         self.frame_5.setGeometry(QtCore.QRect(490, 270, 461, 241))
         #self.frame_5.setStyleSheet("#frame_5{border:1px solid rgb(0,255,0)}")
@@ -598,7 +640,11 @@ class Ui_MainWindow(object):
         self.frame_3.raise_()
         self.frame_ty.raise_()
         self.checkBox_ty_simple.raise_()
+        self.checkBox_ty_WM_average.raise_()
         self.checkBox_ty_un.raise_()
+        #self.checkBox_ty_caiji_average.raise_()
+        self.label_xunlian.raise_()
+        self.checkBox_jinshen.raise_()
         self.frame_4.raise_()
         self.frame_5.raise_()
         self.label_2.raise_()
@@ -690,8 +736,12 @@ class Ui_MainWindow(object):
         self.label_caiji.setFont(font)
         self.label_WM.setFont(font)
         self.ty_set.setFont(font)
+        self.label_xunlian.setFont(font)
+        self.checkBox_jinshen.setFont(font)
         self.checkBox_ty_simple.setFont(font)
+        self.checkBox_ty_WM_average.setFont(font)
         self.checkBox_ty_un.setFont(font)
+        #self.checkBox_ty_caiji_average.setFont(font)
         self.simple_set.setFont(font)
         self.label.setFont(font)
         self.label_2.setFont(font)
@@ -745,11 +795,15 @@ class Ui_MainWindow(object):
         self.simple_stop.setText(_translate("MainWindow", "停止"))
         self.simple_start.setText(_translate("MainWindow", "开始"))
         self.label_3.setText(_translate("MainWindow", "执行间隔(秒):"))
+        self.label_xunlian.setText(_translate("MainWindow", "训练士兵:"))
+        self.checkBox_jinshen.setText(_translate("MainWindow", "优先晋升"))
         self.label_caiji.setText(_translate("MainWindow", "资源采集:"))
-        self.checkBox_ty_un.setText(_translate("MainWindow", "无英雄"))
+        self.checkBox_ty_un.setText(_translate("MainWindow", "采集英雄"))
+        #self.checkBox_ty_caiji_average.setText(_translate("MainWindow", "平均兵力"))
         self.label_4.setText(_translate("MainWindow", "等级设置:"))
         self.label_WM.setText(_translate("MainWindow", "冰原巨兽:"))
         self.checkBox_ty_simple.setText(_translate("MainWindow", "单兵集结"))
+        self.checkBox_ty_WM_average.setText(_translate("MainWindow", "平均兵力"))
         self.label_WM_lv.setText(_translate("MainWindow", "等级设置:"))
         self.ty_set.setText(_translate("MainWindow", "设置"))
         self.simple_set.setText(_translate("MainWindow", "设置"))
@@ -758,7 +812,8 @@ class Ui_MainWindow(object):
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.notice_button.setText(_translate("MainWindow", "版本日志"))
         self.help_button.setText(_translate("MainWindow", "帮助文档"))
-        self.textEdit.setText(_translate("MainWindow", "<font color=\"#FF0000\"><p align=\"center\"  style=\" margin-top:0px; margin-bottom:5px; \">请等待程序停止后再设置相关参数</p>"
+        self.textEdit.setText(_translate("MainWindow", "<font color=\"#FF0000\"><p align=\"center\"  style=\" margin-top:0px; "
+                                                       "margin-bottom:5px; \">请等待程序停止后再设置相关参数</p>"
                                                        "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; "
                                                        "\">多选和单选不可同时执行</p></font>"))
         self.hide_UI.setText(_translate("MainWindow", "隐藏UI"))
@@ -798,32 +853,38 @@ class Ui_MainWindow(object):
         self.checkBox_donate.setChecked(option11)
         self.checkBox_recruit.setChecked(option12)
         self.checkBox_collision.setChecked(option13)
+
     def read_ty_setting(self):  # 读取通用设置
         global number_brush, number_iron, number_wood, number_meat, number_coal
+        option_jinshen = settings.value('优先晋升', 1, type=bool)
         option_WM = settings.value('冰原巨兽等级设置', 5, type=str)
         option_lv = settings.value('采集资源等级设置', 7, type=str)
-        option_ty_un = settings.value('无英雄', 1, type=bool)
+        option_ty_un = settings.value('采集英雄', 1, type=bool)
         option_ty_sim = settings.value('单兵集结', 1, type=bool)
+        option_ty_WM_average = settings.value('冰原巨兽平均兵力', 0, type=bool)
         settings.setValue('冰原巨兽等级设置更新', 1)
         settings.setValue('肉采集等级设置更新', 1)
         settings.setValue('木头采集等级设置更新', 1)
         settings.setValue('煤矿采集等级设置更新', 1)
         settings.setValue('铁矿采集等级设置更新', 1)
+        self.checkBox_jinshen.setChecked(option_jinshen)
         self.lineEdit_3.setText(option_lv)
         self.lineEdit_WM.setText(option_WM)
         self.checkBox_ty_un.setChecked(option_ty_un)
         self.checkBox_ty_simple.setChecked(option_ty_sim)
-    def save_ty_setting(self):   # 保存通用设置
+        self.checkBox_ty_WM_average.setChecked(option_ty_WM_average)
+
+    def save_ty_setting(self):  # 保存通用设置
         option_WM = self.lineEdit_WM.text()
         option_lv = self.lineEdit_3.text()
+        settings.setValue('优先晋升', self.checkBox_jinshen.isChecked())
         settings.setValue('冰原巨兽等级设置', option_WM)
         settings.setValue('采集资源等级设置', option_lv)
-        settings.setValue('无英雄', self.checkBox_ty_un.isChecked())
+        settings.setValue('采集英雄', self.checkBox_ty_un.isChecked())
         settings.setValue('单兵集结', self.checkBox_ty_simple.isChecked())
+        settings.setValue('冰原巨兽平均兵力', self.checkBox_ty_WM_average.isChecked())
         print_space('通用设置成功！！！')
         self.read_ty_setting()
-
-
 
     @pyqtSlot()
     def save_simulator_settings(self):  # 保存模拟器设置
@@ -1075,8 +1136,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.load_settings()  # 读取所有设置
         self.read_simple_set()  # 读取单项设置
-        self.read_ty_setting()  # 读取通用设置
-        #self.updateLineEdit()  # 读取模拟器设置  # 重定向print函数到text_edit  #sys.stdout = RedirectText(self.textEdit_out)  #sys.stderr = RedirectText(self.textEdit_out)
+        self.read_ty_setting()  # 读取通用设置  #self.updateLineEdit()  # 读取模拟器设置  # 重定向print函数到text_edit  #sys.stdout = RedirectText(self.textEdit_out)  #sys.stderr = RedirectText(self.textEdit_out)
 
 
 if __name__ == '__main__':
