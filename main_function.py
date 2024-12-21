@@ -117,11 +117,11 @@ def train(self):
             lv_y = 1  # 更新初始循环次数,不会进入可训练士兵检查
         else:
             print_space("上一页没有可晋升低级士兵，检查本页是否有可晋升士兵")
-            swipe([950, 1225], vector=[-0.8, 0.0170])  # 滑动训练兵种
+            # swipe([950, 1225], vector=[-0.8, 0.0170])  # 滑动训练兵种（不滑动，预防当前页面不在最高级页面
             time.sleep(1)
-            touch([710, 1225])  # 点击九级兵
-            lv_x = 710  # 设置初始x坐标
-            lv_y = 4  # 设置初始循环次数
+            touch([910, 1225])  # 点击最右边兵
+            lv_x = 910  # 设置初始x坐标
+            lv_y = 5  # 设置初始循环次数
             while lv_y > 0:
                 if exists(Template(r"icon/tpl1721784547262.png", rgb=True, record_pos=(0.399, 0.019), resolution=(1080, 1920))):  # 找到晋升图案
                     print_space('点击晋升图标')
@@ -134,6 +134,8 @@ def train(self):
                     touch([lv_x, 1225])  # 点击开始上一级士兵
                     lv_y -= 1
     if lv_y == 0:  # 当ly_y循环次数为0时，进行训练士兵检查
+        swipe([950, 1225], vector=[-0.8, 0.0170])  # 滑动训练兵种至最高级界面
+        time.sleep(1)
         touch([910, 1225])  # 点击十级兵
         lv_x_1 = 910  # 设置点击初始x坐标
         lv_y_1 = 10  # 设置初始循环次数

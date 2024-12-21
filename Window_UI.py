@@ -911,7 +911,6 @@ class Ui_MainWindow(object):
 
     @pyqtSlot()
     def read_simple_set(self):  # 读取单项设置
-
         settings.setValue('单选选择', self.radioButton_group.checkedId())
         simple_index = self.radioButton_group.checkedId()
         if simple_index == 1:
