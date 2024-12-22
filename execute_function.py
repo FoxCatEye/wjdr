@@ -137,7 +137,7 @@ def subject(self):
                 try:
                     print('%d.开始执行野怪任务' % run_number)
                     Homepage()  # 主页检查
-                    Brush_XG()  # 野怪
+                    Brush_XG(self)  # 野怪
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -250,7 +250,7 @@ def subject(self):
                     recruit()  # 英雄招募
                     run_number += 1
                     if stop_event.is_set():
-                        self.select_stop_button()  # 总功能
+                        self.select_stop_button()  # 停止
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
@@ -261,7 +261,29 @@ def subject(self):
                     mining_collision()  #攻击检测
                     run_number += 1
                     if stop_event.is_set():
-                        self.select_stop_button()  # 总功能
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_mail.isChecked() and now.minute == 30 and now.second % 20 == 0:
+                try:
+                    print('%d.开始执行邮件领取任务' % run_number)
+                    Homepage()
+                    mail_function()    # 邮件领取
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_Treasure_Chest.isChecked() and now.minute == 50 and now.second % 20 == 0:
+                try:
+                    print('%d.开始执行联盟宝箱领取任务' % run_number)
+                    Homepage()
+                    union_Treasure_Chest()    # 联盟宝箱
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
@@ -286,7 +308,7 @@ def subject(self):
                 try:
                     print('%d.开始执行野怪任务' % run_number)
                     Homepage()  # 主页检查
-                    Brush_XG()  # 野怪
+                    Brush_XG(self)  # 野怪
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -414,6 +436,28 @@ def subject(self):
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_mail.isChecked():
+                try:
+                    print('%d.开始执行邮件领取任务' % run_number)
+                    Homepage()
+                    mail_function()    # 邮件领取
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_Treasure_Chest.isChecked():
+                try:
+                    print('%d.开始执行联盟宝箱领取任务' % run_number)
+                    Homepage()
+                    union_Treasure_Chest()    # 联盟宝箱
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
             if stop_event.is_set():
                 self.select_stop_button()  # 总功能
                 break
@@ -447,7 +491,7 @@ def simple_select(self):
         while execute:
             try:
                 Homepage()
-                Brush_XG()
+                Brush_XG(self)
                 if stop_event.is_set():
                     execute = False
                     self.simple_stop_button()  # 野怪功能
@@ -761,6 +805,66 @@ def simple_select(self):
                     else:
                         if mining_collision_number < 1:
                             time.sleep(mining_collision_number)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+                if stop_event.is_set():
+                    execute = False
+                    self.simple_stop_button()  # 停止后按钮变为开始
+            except:
+                print('错误')
+    elif self.radioButton_mail.isChecked():  # 邮件领取
+        while execute:
+            try:
+                Homepage()
+                mail_function()
+                if stop_event.is_set():
+                    execute = False
+                    self.simple_stop_button()  # 停止后按钮变为开始
+                    break
+                mail_function_time = int(settings.value('邮件领取设置', 20, type=str))
+                print_space('等待%s秒后再次执行' % mail_function_time)
+                number = 0
+                mail_function_number = mail_function_time / 10
+                while number < mail_function_number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()  # 停止后按钮变为开始
+                        break
+                    else:
+                        if mail_function_number < 1:
+                            time.sleep(mail_function_number)
+                            break
+                        else:
+                            number += 1
+                            time.sleep(10)
+                if stop_event.is_set():
+                    execute = False
+                    self.simple_stop_button()  # 停止后按钮变为开始
+            except:
+                print('错误')
+    elif self.radioButton_Treasure_Chest.isChecked():  # 联盟宝箱
+        while execute:
+            try:
+                Homepage()
+                union_Treasure_Chest()
+                if stop_event.is_set():
+                    execute = False
+                    self.simple_stop_button()  # 停止后按钮变为开始
+                    break
+                Treasure_Chest_time = int(settings.value('联盟宝箱设置', 20, type=str))
+                print_space('等待%s秒后再次执行' % Treasure_Chest_time)
+                number = 0
+                Treasure_Chest_number = Treasure_Chest_time / 10
+                while number < Treasure_Chest_number:
+                    if stop_event.is_set():
+                        execute = False
+                        self.simple_stop_button()  # 停止后按钮变为开始
+                        break
+                    else:
+                        if Treasure_Chest_number < 1:
+                            time.sleep(Treasure_Chest_number)
                             break
                         else:
                             number += 1

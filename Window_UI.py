@@ -297,7 +297,13 @@ class Ui_MainWindow(object):
         self.checkBox_collision = QtWidgets.QCheckBox(self.frame_3)
         self.checkBox_collision.setGeometry(QtCore.QRect(200, 110, 71, 16))
         self.checkBox_collision.setObjectName("checkBox_collision")
-        #全选
+        self.checkBox_mail = QtWidgets.QCheckBox(self.frame_3)
+        self.checkBox_mail.setGeometry(QtCore.QRect(290, 110, 71, 16))
+        self.checkBox_mail.setObjectName("checkBox_mail")
+        self.checkBox_Treasure_Chest = QtWidgets.QCheckBox(self.frame_3)
+        self.checkBox_Treasure_Chest.setGeometry(QtCore.QRect(380, 110, 71, 16))
+        self.checkBox_Treasure_Chest.setObjectName("checkBox_Treasure_Chest")
+        # 全选
         self.select_all = QtWidgets.QPushButton(self.frame_3)
         self.select_all.setGeometry(QtCore.QRect(90, 150, 75, 23))
         self.select_all.setFlat(True)
@@ -364,8 +370,8 @@ class Ui_MainWindow(object):
         self.listView.setObjectName("listView")
         # 通用区域
         self.frame_ty = QtWidgets.QFrame(self.centralwidget)
-        self.frame_ty.setGeometry(QtCore.QRect(10, 340, 461, 160))
-        self.frame_ty.setStyleSheet("#frame_ty{border:1px solid rgb(0,255,0)}")
+        self.frame_ty.setGeometry(QtCore.QRect(10, 340, 461, 180))
+        # self.frame_ty.setStyleSheet("#frame_ty{border:1px solid rgb(0,255,0)}")
         self.frame_ty.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_ty.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_ty.setObjectName("frame_ty")
@@ -408,7 +414,7 @@ class Ui_MainWindow(object):
         # 冰原巨兽文本
         self.label_WM = QtWidgets.QLabel(self.frame_ty)
         self.label_WM.setGeometry(QtCore.QRect(20, 80, 54, 21))  # 显示等级文本
-        self.label_WM.setObjectName("采集文本")
+        self.label_WM.setObjectName("冰原巨兽文本")
         # 冰原巨兽单兵选项
         self.checkBox_ty_simple = QtWidgets.QCheckBox(self.frame_ty)
         self.checkBox_ty_simple.setGeometry(QtCore.QRect(110, 83, 71, 16))
@@ -426,6 +432,26 @@ class Ui_MainWindow(object):
         self.lineEdit_WM.setGeometry(QtCore.QRect(350, 80, 31, 21))  # 显示等级输入框
         self.lineEdit_WM.setObjectName("lineEdit_WM")
         self.lineEdit_WM.setStyleSheet("QLineEdit {\n"
+                                       "background: transparent;\n"
+                                       "border: 1px solid rgba(0, 255, 0)"
+                                       "}")
+        # 世界野怪文本
+        self.label_XG = QtWidgets.QLabel(self.frame_ty)
+        self.label_XG.setGeometry(QtCore.QRect(20, 110, 54, 21))  # 显示等级文本
+        self.label_XG.setObjectName("世界野怪文本")
+        # 世界野怪平均兵力选项
+        self.checkBox_XG_average = QtWidgets.QCheckBox(self.frame_ty)
+        self.checkBox_XG_average.setGeometry(QtCore.QRect(200, 110, 71, 16))
+        self.checkBox_XG_average.setObjectName("平均兵力")
+        # 世界野怪文本
+        self.label_XG_lv = QtWidgets.QLabel(self.frame_ty)
+        self.label_XG_lv.setGeometry(QtCore.QRect(290, 110, 54, 21))  # 显示等级文本
+        self.label_XG_lv.setObjectName("label_XG_lv")
+        # 世界野怪输入
+        self.lineEdit_XG = QtWidgets.QLineEdit(self.frame_ty)
+        self.lineEdit_XG.setGeometry(QtCore.QRect(350, 110, 31, 21))  # 显示等级输入框
+        self.lineEdit_XG.setObjectName("lineEdit_XG")
+        self.lineEdit_XG.setStyleSheet("QLineEdit {\n"
                                        "background: transparent;\n"
                                        "border: 1px solid rgba(0, 255, 0)"
                                        "}")
@@ -512,6 +538,12 @@ class Ui_MainWindow(object):
         self.radioButton_collision = QtWidgets.QRadioButton(self.frame_4)
         self.radioButton_collision.setGeometry(QtCore.QRect(200, 110, 71, 16))
         self.radioButton_collision.setObjectName("radioButton_collision")
+        self.radioButton_mail = QtWidgets.QRadioButton(self.frame_4)
+        self.radioButton_mail.setGeometry(QtCore.QRect(290, 110, 71, 16))
+        self.radioButton_mail.setObjectName("radioButton_mail")
+        self.radioButton_Treasure_Chest = QtWidgets.QRadioButton(self.frame_4)
+        self.radioButton_Treasure_Chest.setGeometry(QtCore.QRect(380, 110, 71, 16))
+        self.radioButton_Treasure_Chest.setObjectName("radioButton_Treasure_Chest")
         #将单选按钮添加至组
         self.radioButton_group = QButtonGroup(self.frame_4)  #创建按钮组
         self.radioButton_group.addButton(self.radioButton_help, 1)  #将单选项加入到按钮组
@@ -527,6 +559,8 @@ class Ui_MainWindow(object):
         self.radioButton_group.addButton(self.radioButton_donate, 11)
         self.radioButton_group.addButton(self.radioButton_recruit, 12)
         self.radioButton_group.addButton(self.radioButton_collision, 13)
+        self.radioButton_group.addButton(self.radioButton_mail, 14)
+        self.radioButton_group.addButton(self.radioButton_Treasure_Chest, 15)
         self.radioButton_group.buttonClicked.connect(self.read_simple_set)  #type: ignore #监听按钮点击事件
         #单项停止
         self.simple_stop = QtWidgets.QPushButton(self.frame_4)
@@ -712,6 +746,8 @@ class Ui_MainWindow(object):
         self.checkBox_donate.setFont(font)
         self.checkBox_recruit.setFont(font)
         self.checkBox_collision.setFont(font)
+        self.checkBox_mail.setFont(font)
+        self.checkBox_Treasure_Chest.setFont(font)
         self.select_all.setFont(font)
         self.select_unall.setFont(font)
         self.select_stop.setFont(font)
@@ -729,6 +765,8 @@ class Ui_MainWindow(object):
         self.radioButton_donate.setFont(font)
         self.radioButton_recruit.setFont(font)
         self.radioButton_collision.setFont(font)
+        self.radioButton_mail.setFont(font)
+        self.radioButton_Treasure_Chest.setFont(font)
         self.simple_stop.setFont(font)
         self.simple_start.setFont(font)
         self.label_3.setFont(font)
@@ -741,6 +779,10 @@ class Ui_MainWindow(object):
         self.checkBox_ty_simple.setFont(font)
         self.checkBox_ty_WM_average.setFont(font)
         self.checkBox_ty_un.setFont(font)
+        self.label_XG.setFont(font)
+        self.checkBox_XG_average.setFont(font)
+        self.label_XG_lv.setFont(font)
+        self.lineEdit_XG.setFont(font)
         #self.checkBox_ty_caiji_average.setFont(font)
         self.simple_set.setFont(font)
         self.label.setFont(font)
@@ -774,6 +816,8 @@ class Ui_MainWindow(object):
         self.checkBox_donate.setText(_translate("MainWindow", "联盟捐赠"))
         self.checkBox_recruit.setText(_translate("MainWindow", "英雄招募"))
         self.checkBox_collision.setText(_translate("MainWindow", "攻击检测"))
+        self.checkBox_mail.setText(_translate("MainWindow", "邮件领取"))
+        self.checkBox_Treasure_Chest.setText(_translate("MainWindow", "联盟宝箱"))
         self.select_all.setText(_translate("MainWindow", "全选"))
         self.select_unall.setText(_translate("MainWindow", "取消全选"))
         self.select_stop.setText(_translate("MainWindow", "停止"))
@@ -792,6 +836,8 @@ class Ui_MainWindow(object):
         self.radioButton_donate.setText(_translate("MainWindow", "联盟捐赠"))
         self.radioButton_recruit.setText(_translate("MainWindow", "英雄招募"))
         self.radioButton_collision.setText(_translate("MainWindow", "攻击检测"))
+        self.radioButton_mail.setText(_translate("MainWindow", "邮件领取"))
+        self.radioButton_Treasure_Chest.setText(_translate("MainWindow", "联盟宝箱"))
         self.simple_stop.setText(_translate("MainWindow", "停止"))
         self.simple_start.setText(_translate("MainWindow", "开始"))
         self.label_3.setText(_translate("MainWindow", "执行间隔(秒):"))
@@ -805,10 +851,13 @@ class Ui_MainWindow(object):
         self.checkBox_ty_simple.setText(_translate("MainWindow", "单兵集结"))
         self.checkBox_ty_WM_average.setText(_translate("MainWindow", "平均兵力"))
         self.label_WM_lv.setText(_translate("MainWindow", "等级设置:"))
+        self.label_XG.setText(_translate("MainWindow", "世界野怪:"))
+        self.checkBox_XG_average.setText(_translate("MainWindow", "平均兵力"))
+        self.label_XG_lv.setText(_translate("MainWindow", "等级设置:"))
         self.ty_set.setText(_translate("MainWindow", "设置"))
         self.simple_set.setText(_translate("MainWindow", "设置"))
         self.label.setText(_translate("MainWindow", "输出："))
-        self.label_2.setText(_translate("MainWindow", "版本:2.1.1"))
+        self.label_2.setText(_translate("MainWindow", "版本:2.2.0"))
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.notice_button.setText(_translate("MainWindow", "版本日志"))
         self.help_button.setText(_translate("MainWindow", "帮助文档"))
@@ -836,6 +885,8 @@ class Ui_MainWindow(object):
         option11 = settings.value('联盟捐赠', 1, type=bool)
         option12 = settings.value('英雄招募', 1, type=bool)
         option13 = settings.value('攻击检测', 1, type=bool)
+        option14 = settings.value('邮件领取', 1, type=bool)
+        option15 = settings.value('联盟宝箱', 1, type=bool)
         option = settings.value('单选选择', 1, type=int)
         self.comboBox.setCurrentIndex(simulator_settings)
         self.radioButton_group.button(option).setChecked(True)
@@ -853,36 +904,46 @@ class Ui_MainWindow(object):
         self.checkBox_donate.setChecked(option11)
         self.checkBox_recruit.setChecked(option12)
         self.checkBox_collision.setChecked(option13)
+        self.checkBox_mail.setChecked(option14)
+        self.checkBox_Treasure_Chest.setChecked(option15)
 
     def read_ty_setting(self):  # 读取通用设置
         global number_brush, number_iron, number_wood, number_meat, number_coal
         option_jinshen = settings.value('优先晋升', 1, type=bool)
         option_WM = settings.value('冰原巨兽等级设置', 5, type=str)
         option_lv = settings.value('采集资源等级设置', 7, type=str)
+        option_XG_lv = settings.value('世界野怪等级设置', 10, type=str)
         option_ty_un = settings.value('采集英雄', 1, type=bool)
         option_ty_sim = settings.value('单兵集结', 1, type=bool)
         option_ty_WM_average = settings.value('冰原巨兽平均兵力', 0, type=bool)
+        option_ty_XG_average = settings.value('世界野怪平均兵力', 0, type=bool)
         settings.setValue('冰原巨兽等级设置更新', 1)
         settings.setValue('肉采集等级设置更新', 1)
         settings.setValue('木头采集等级设置更新', 1)
         settings.setValue('煤矿采集等级设置更新', 1)
         settings.setValue('铁矿采集等级设置更新', 1)
+        settings.setValue('世界野怪等级设置更新', 1)
         self.checkBox_jinshen.setChecked(option_jinshen)
         self.lineEdit_3.setText(option_lv)
         self.lineEdit_WM.setText(option_WM)
+        self.lineEdit_XG.setText(option_XG_lv)
         self.checkBox_ty_un.setChecked(option_ty_un)
         self.checkBox_ty_simple.setChecked(option_ty_sim)
         self.checkBox_ty_WM_average.setChecked(option_ty_WM_average)
+        self.checkBox_XG_average.setChecked(option_ty_XG_average)
 
     def save_ty_setting(self):  # 保存通用设置
         option_WM = self.lineEdit_WM.text()
         option_lv = self.lineEdit_3.text()
+        option_XG_lv = self.lineEdit_XG.text()
         settings.setValue('优先晋升', self.checkBox_jinshen.isChecked())
         settings.setValue('冰原巨兽等级设置', option_WM)
         settings.setValue('采集资源等级设置', option_lv)
+        settings.setValue('世界野怪等级设置', option_XG_lv)
         settings.setValue('采集英雄', self.checkBox_ty_un.isChecked())
         settings.setValue('单兵集结', self.checkBox_ty_simple.isChecked())
         settings.setValue('冰原巨兽平均兵力', self.checkBox_ty_WM_average.isChecked())
+        settings.setValue('世界野怪平均兵力', self.checkBox_XG_average.isChecked())
         print_space('通用设置成功！！！')
         self.read_ty_setting()
 
@@ -952,6 +1013,12 @@ class Ui_MainWindow(object):
         elif simple_index == 13:
             option = settings.value('攻击检测设置', 20, type=str)
             self.lineEdit_2.setText(option)
+        elif simple_index == 14:
+            option = settings.value('邮件领取设置', 20, type=str)
+            self.lineEdit_2.setText(option)
+        elif simple_index == 15:
+            option = settings.value('联盟宝箱设置', 20, type=str)
+            self.lineEdit_2.setText(option)
 
     @pyqtSlot()
     def save_simple_set(self):  # 保存单项时间设置
@@ -965,7 +1032,7 @@ class Ui_MainWindow(object):
             settings.setValue('世界野怪设置', simple_set_time_value)
             print('间隔时间设置成功！！！')
         elif simple_index == 3:
-            brush_lv_set_value = self.lineEdit_3.text()
+            # brush_lv_set_value = self.lineEdit_3.text()
             settings.setValue('冰原巨兽设置', simple_set_time_value)
             # settings.setValue('冰原巨兽等级设置', brush_lv_set_value)
             # number_brush = 0  # 重置该功能运行次数，下次运行走输入等级流程
@@ -1006,6 +1073,12 @@ class Ui_MainWindow(object):
         elif simple_index == 13:
             settings.setValue('攻击检测设置', simple_set_time_value)
             print('间隔时间设置成功！！！')
+        elif simple_index == 14:
+            settings.setValue('邮件领取设置', simple_set_time_value)
+            print('间隔时间设置成功！！！')
+        elif simple_index == 15:
+            settings.setValue('联盟宝箱设置', simple_set_time_value)
+            print('间隔时间设置成功！！！')
         # settings.setValue('单选选择', self.radioButton_group.checkedId())
         self.read_simple_set()
 
@@ -1025,7 +1098,9 @@ class Ui_MainWindow(object):
         settings.setValue('探险奖励', self.checkBox_adventure.isChecked())
         settings.setValue('联盟捐赠', self.checkBox_donate.isChecked())
         settings.setValue('英雄招募', self.checkBox_recruit.isChecked())
-        settings.setValue('攻击检测', self.checkBox_collision.isChecked())  #settings.setValue('活动雪怪', self.checkBox_npc.isChecked())
+        settings.setValue('攻击检测', self.checkBox_collision.isChecked())
+        settings.setValue('邮件领取', self.checkBox_mail.isChecked())
+        settings.setValue('联盟宝箱', self.checkBox_Treasure_Chest.isChecked())
 
     @pyqtSlot()
     def select_start_button(self):  # 多选开始按钮
@@ -1088,7 +1163,7 @@ class Ui_MainWindow(object):
         self.show_UI.setVisible(False)
         self.textEdit.setVisible(True)
 
-    @pyqtSlot()
+    @pyqtSlot()  # 全选
     def toggle_checkbox(self):
         self.checkBox_help.setChecked(True)
         self.checkBox_XG.setChecked(True)
@@ -1103,9 +1178,11 @@ class Ui_MainWindow(object):
         self.checkBox_donate.setChecked(True)
         self.checkBox_recruit.setChecked(True)
         self.checkBox_collision.setChecked(True)
+        self.checkBox_mail.setChecked(True)
+        self.checkBox_Treasure_Chest.setChecked(True)
         self.save_settings()
 
-    @pyqtSlot()
+    @pyqtSlot()  # 取消全选
     def untoggle_checkbox(self):
         self.checkBox_help.setChecked(False)
         self.checkBox_XG.setChecked(False)
@@ -1120,6 +1197,8 @@ class Ui_MainWindow(object):
         self.checkBox_donate.setChecked(False)
         self.checkBox_recruit.setChecked(False)
         self.checkBox_collision.setChecked(False)
+        self.checkBox_mail.setChecked(False)
+        self.checkBox_Treasure_Chest.setChecked(False)
         self.save_settings()
 
     #@pyqtSlot()

@@ -317,8 +317,24 @@ def NPC():
                 1080, 1920))) or touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
 
 
+# 野兽等级输入
+def XG_lv():
+    print_space('首次启动或数据有更新，重新输入等级')
+    print_space('点击等级输入框')
+    touch([900, 1573])
+    time.sleep(1)
+    print_space('删除原本等级')
+    keyevent('KEYCODE_DEL')  # 每次只能删除一个数字
+    keyevent('KEYCODE_DEL')
+    time.sleep(1)  # 等待1秒
+    print_space('输入新的等级')
+    time.sleep(1)
+    text(settings.value('世界野怪等级设置', 10, type=str))
+    print_space('点击确定按钮')
+    time.sleep(1)
+    touch(Template(r"icon/sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))
 # 野兽
-def Brush_XG():
+def Brush_XG(self):
     print_space('打野怪时间，开始出征')
     search_main()
     swipe([600, 1370], vector=[0.4103, 0.0170])  # 滑动
@@ -326,6 +342,11 @@ def Brush_XG():
     print_space('点击选择普通野兽')
     touch([120, 1373])  # 点击普通野兽
     time.sleep(1)  # 等待1s
+    '''判断本次是否需要执行选择等级'''
+    if settings.value('世界野怪等级设置更新', type=bool):
+        settings.setValue('世界野怪等级设置更新', 0)
+        XG_lv()
+        time.sleep(1)  # 等待1s
     print_space('点击搜索按钮')
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
@@ -333,10 +354,10 @@ def Brush_XG():
     touch(Template(r"icon\tpl1721191349775.png", rgb=False, record_pos=(0.002, 0.705), resolution=(1080, 1920)))  # 点击出征怪物
     time.sleep(1)  # 等待1s
     if exists(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):  # 判断是否有兵力
-        if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):  # 判断体力是否充足
-            energy()
-        else:
-            print_space("体力不足，暂停打野怪")
+        if self.checkBox_XG_average.isChecked():  # 平均兵力选项
+            print_space('点击平均配置')
+            touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
+        energy()
     else:
         print_space('兵力不足，暂停打野怪')
 
@@ -403,7 +424,7 @@ def Brush_WM(self):
         touch(Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(1080, 1920)))  # 点击发起集结
         time.sleep(1)  # 等待0.5s
         if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):  # 有兵力可出征
-            if self.checkBox_ty_WM_average:  # 平均兵力选项
+            if self.checkBox_ty_WM_average.isChecked():  # 平均兵力选项
                 touch(Template(r"icon/tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
             elif self.checkBox_ty_simple.isChecked():  # 单兵集结
                 print_space('点击全部撤回')
@@ -431,12 +452,12 @@ def gather(self):
     print_space('点击采集按钮')
     touch(Template(r"icon/tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920)))
     if exists(Template(r"icon/tpl1721191349776.png", record_pos=(0.26, 0.798), resolution=(1080, 1920))):  # 有兵力可出征
-        if self.checkBox_ty_un.isChecked():   # 采集英雄选项
+        if self.checkBox_ty_un.isChecked():  # 采集英雄选项
             print_space('删除所有英雄')
             # touch([357, 389])  # 点击删除第一个英雄
             touch([640, 389])  # 点击删除第二个英雄
             touch([920, 389])  # 点击删除第三个英雄
-        if self.checkBox_ty_caiji_average.isChecked():   # 平均兵力选项
+        if self.checkBox_ty_caiji_average.isChecked():  # 平均兵力选项
             touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
         print_space('点击出征按钮')
         touch(Template(r"icon/tpl1721191349776.png", rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
@@ -768,3 +789,59 @@ def mining_collision():
                 break
     else:
         print_space('未检测的攻击')
+
+
+# 邮件领取功能逻辑
+def mail_function():
+    print_space('点击邮件图案')
+    touch([993, 1582])  # 邮件图案坐标
+    print_space('点击联盟邮件')
+    touch([333, 180])  # 联盟图案坐标
+    print_space('点击一键领取')
+    touch([858, 1865])  # 一键领取坐标
+    time.sleep(1)  # 等待1秒
+    touch([858, 1865])  # 再次点击以关闭奖励弹窗
+    print_space('点击系统邮件')
+    touch([540, 180])  # 系统图案坐标
+    print_space('点击一键领取')
+    touch([858, 1865])  # 一键领取坐标
+    time.sleep(1)  # 等待1秒
+    touch([858, 1865])  # 再次点击以关闭奖励弹窗
+    print_space('点击报告邮件')
+    touch([740, 180])  # 系统图案坐标
+    print_space('点击一键领取')
+    touch([858, 1865])  # 一键领取坐标
+    time.sleep(1)  # 等待1秒
+    touch([858, 1865])  # 再次点击以关闭奖励弹窗
+    touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))  # 点击返回按钮
+
+
+# 联盟宝箱领取功能
+def union_Treasure_Chest():
+    print_space('点击联盟图案')
+    touch(Template(r"icon\tpl1721784579070.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+    print('点击联盟宝箱')
+    if exists(Template(r"icon\tpl1734838173842.png", record_pos=(0.214, 0.036), resolution=(1080, 1920))):
+        touch(Template(r"icon\tpl1734838173842.png", record_pos=(0.214, 0.036), resolution=(1080, 1920)))
+        print_space('点击战利品宝箱')
+        touch([290, 600])  # 点击战利品宝箱区域
+        if exists(Template(r"icon\tpl1734838244122.png", threshold=0.8, rgb=True, record_pos=(0.005, 0.789), resolution=(1080, 1920))):
+            touch(Template(r"icon\tpl1734838244122.png", record_pos=(0.005, 0.789), resolution=(1080, 1920)))
+            print_space('领取成功')
+            time.sleep(1)  # 等待1s
+            touch([540, 1810])  # 点击关闭奖励界面
+        else:
+            print_space('未找到一键领取按钮，等待下次检查')
+        print('点击盟友赠礼')
+        touch([790, 600])
+        if exists(Template(r"icon\tpl1734838244122.png", record_pos=(0.005, 0.789), resolution=(1080, 1920))):
+            touch(Template(r"icon\tpl1734838244122.png", record_pos=(0.005, 0.789), resolution=(1080, 1920)))
+            print_space('领取成功')
+            touch([540, 1810])  # 点击关闭奖励界面
+        else:
+            print_space('未找到一键领取按钮，等待下次检查')
+        touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))  # 点击返回按钮
+
+    else:
+        print_space('未找到联盟宝箱图案，请检查游戏界面或自主修复')
+    touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))  # 点击返回按钮
