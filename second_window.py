@@ -66,8 +66,8 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.联盟宝箱领取</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.野怪等级设置</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.野怪平均兵力出征</p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    9.待定</p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    10.待定</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.2.1</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.修复采集出征时报错导致无法出征</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"
                                                          ))
