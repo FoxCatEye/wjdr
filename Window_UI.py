@@ -4,7 +4,6 @@ import sys
 import threading
 import subprocess
 import time
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QButtonGroup, QMessageBox, QVBoxLayout
 from PyQt5.QtCore import QSettings, QTextStream, pyqtSlot, pyqtSignal, Qt
@@ -20,7 +19,7 @@ logging.getLogger('airtest').setLevel(logging.ERROR)
 settings = QSettings("set.ini", QSettings.IniFormat)
 settings.setIniCodec('UTF-8')  # 设置ini文件编码为 UTF-8
 
-
+close_number = 1
 def get_ip_address():
     try:
         # 获取本地主机名
@@ -33,16 +32,23 @@ def get_ip_address():
 
 
 def send_address():
-    while True:
+    while close_number == 1:
         try:
             update_url = "http://fukesihu.gnway.cc:80"  # 连接服务器
             requests.post(update_url, data={'key': get_ip_address()})  # 将唯一IP发送给服务器（统计连接数使用）
-            time.sleep(5)
+            wait_time = 600
+            while wait_time > 0:
+                time.sleep(2)
+                wait_time -= 2
+                # print(wait_time)
+                if close_number == 0:
+                    break
         except:
             time.sleep(5)
 
 
-threading.Thread(target=send_address).start()  # save_options()
+thread1 = threading.Thread(target=send_address)  # save_options()
+thread1.start()
 
 # 获取当前文件的绝对路径(本地）
 # current_file_path = os.path.abspath(__file__)
@@ -1206,6 +1212,12 @@ class Ui_MainWindow(object):
         # 将text写入textEdit
         #self.textEdit_out.insertPlainText(text)
         self.textSignal.emit(text)  #type: ignore#self.textEdit_out.moveCursor(self.textEdit_out.textCursor().End)  # 移动光标到文本末尾  # 当写入时触发信号
+
+    def closeEvent(self, event):
+        # 当窗口关闭时调用
+        var = close_number == 0  # 通知服务器发送信息函数程序已停止，终止发送连接请求
+        event.accept()
+
 
 
 class MyApp(QMainWindow, Ui_MainWindow):
