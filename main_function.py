@@ -453,12 +453,12 @@ def gather(self):
     touch(Template(r"icon/tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920)))
     if exists(Template(r"icon/tpl1721191349776.png", record_pos=(0.26, 0.798), resolution=(1080, 1920))):  # 有兵力可出征
         if self.checkBox_ty_un.isChecked():  # 采集英雄选项
-            print_space('删除所有英雄')
+            print_space('删除英雄')
             # touch([357, 389])  # 点击删除第一个英雄
             touch([640, 389])  # 点击删除第二个英雄
             touch([920, 389])  # 点击删除第三个英雄
-        if self.checkBox_ty_caiji_average.isChecked():  # 平均兵力选项
-            touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
+        '''if self.checkBox_ty_caiji_average.isChecked():  # 平均兵力选项
+            touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))'''  # 启用该功能
         print_space('点击出征按钮')
         touch(Template(r"icon/tpl1721191349776.png", rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
         print_space('出征成功')
