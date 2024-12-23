@@ -41,8 +41,10 @@ def Homepage():
                     touch(Template(r"icon\tpl1729734622180.png", record_pos=(0.381, -0.461), resolution=(1080, 1920)))
                 else:
                     print_space('点击其他区域')
-                    touch([500,
-                           600])  # 不在主界面，返回到主页  #if stop_event.is_set():  #start_button_simple.configure(text='开始', command=save_simple_start_button)  #break
+                    touch([500, 600])
+            if stop_event.is_set():
+                self.select_stop_button()
+                break
     except:
         print('执行错误')
     if a == 4:
@@ -458,7 +460,7 @@ def gather(self):
             touch([640, 389])  # 点击删除第二个英雄
             touch([920, 389])  # 点击删除第三个英雄
         '''if self.checkBox_ty_caiji_average.isChecked():  # 平均兵力选项
-            touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))'''  # 启用该功能
+            touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))'''  # 弃用该功能
         print_space('点击出征按钮')
         touch(Template(r"icon/tpl1721191349776.png", rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
         print_space('出征成功')
@@ -687,11 +689,15 @@ def donate():
                 print_space('点击捐献')
                 touch(Template(r"icon\tpl1721784579073.png", rgb=True, record_pos=(0.208, 0.514), resolution=(1080, 1920)), duration=2)
             else:
-                print_space('无捐献次数，结束任务')
+                print_space('无捐献次数，结束任务并返回至主页')
+                touch([956, 299])  # 点击关闭按钮x
+                touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))  # 点击黑色返回按钮
+                touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))  # 点击黑色返回按钮
                 x = 0
     else:
         print_space('无大拇指指引，返回主页')
-        touch(Template(r"icon\tpl1719198082012.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
+        touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))  # 点击黑色返回按钮
+        touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))  # 点击黑色返回按钮
 
 
 # 探险
@@ -788,7 +794,7 @@ def mining_collision():
             if length <= 0:
                 break
     else:
-        print_space('未检测的攻击')
+        print_space('未检测到攻击')
 
 
 # 邮件领取功能逻辑
