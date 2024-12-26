@@ -20,6 +20,8 @@ settings = QSettings("set.ini", QSettings.IniFormat)
 settings.setIniCodec('UTF-8')  # 设置ini文件编码为 UTF-8
 
 close_number = 1
+version = '2.2.3'  # 当前版本
+
 def get_ip_address():
     try:
         # 获取本地主机名
@@ -29,6 +31,27 @@ def get_ip_address():
         return ip_address  # 返回IP地址
     except socket.error as e:
         print(f"Unable to get IP Address: {e}")
+
+
+def check_update():
+    global version
+    # 首次启动时默认选项
+    version_url = "http://fukesihu.gnway.cc:80/version.txt"
+    response = requests.get(version_url)
+    # print(response)
+    get_version = response.text.strip()
+    print(get_version)
+    last_version = get_version.replace('version = ', '')
+    if response.status_code == 200:
+        if last_version != version:
+            # print('当前版本:%s' % version)
+            # print("有新版本:%s" % last_version)
+            return 1
+        else:
+            return 0
+
+
+# check_update()
 
 
 def send_address():
@@ -242,7 +265,7 @@ class Ui_MainWindow(object):
         # 功能区
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
         self.frame_3.setGeometry(QtCore.QRect(10, 140, 461, 181))
-        self.frame_3.setStyleSheet("#frame_3{border:1px solid rgb(0,255,0)}")
+        # self.frame_3.setStyleSheet("#frame_3{border:1px solid rgb(0,255,0)}")
         self.frame_3.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
@@ -378,7 +401,7 @@ class Ui_MainWindow(object):
         # 通用区域
         self.frame_ty = QtWidgets.QFrame(self.centralwidget)
         self.frame_ty.setGeometry(QtCore.QRect(10, 330, 461, 190))
-        self.frame_ty.setStyleSheet("#frame_ty{border:1px solid rgb(0,255,0)}")
+        # self.frame_ty.setStyleSheet("#frame_ty{border:1px solid rgb(0,255,0)}")
         self.frame_ty.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_ty.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_ty.setObjectName("frame_ty")
@@ -456,7 +479,7 @@ class Ui_MainWindow(object):
         self.label_XG.setObjectName("世界野怪文本")
         # 世界野怪平均兵力选项
         self.checkBox_XG_average = QtWidgets.QCheckBox(self.frame_ty)
-        self.checkBox_XG_average.setGeometry(QtCore.QRect(200, 140, 71, 16))
+        self.checkBox_XG_average.setGeometry(QtCore.QRect(110, 140, 71, 16))
         self.checkBox_XG_average.setObjectName("平均兵力")
         # 世界野怪文本
         self.label_XG_lv = QtWidgets.QLabel(self.frame_ty)
@@ -650,6 +673,14 @@ class Ui_MainWindow(object):
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(890, 520, 71, 20))
         self.label_2.setObjectName("label_2")
+        self.label_Version_prompt = QtWidgets.QLabel(self.centralwidget)  # 版本提示
+        self.label_Version_prompt.setGeometry(QtCore.QRect(700, 520, 300, 20))
+        return_value = check_update()
+        if return_value == 1:
+            self.label_Version_prompt.setVisible(True)
+        elif return_value == 0:
+            self.label_Version_prompt.setVisible(False)
+        self.label_Version_prompt.setObjectName("label_Version_prompt")
         self.show_UI = QtWidgets.QPushButton(self.centralwidget)
         self.show_UI.setGeometry(QtCore.QRect(190, 520, 51, 23))
         self.show_UI.setFlat(True)
@@ -704,6 +735,7 @@ class Ui_MainWindow(object):
         self.help_button.raise_()
         self.textEdit.raise_()
         self.hide_UI.raise_()
+        self.label_Version_prompt.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         #按钮点击触发响应
         self.retranslateUi(MainWindow)
@@ -803,6 +835,7 @@ class Ui_MainWindow(object):
         #self.checkBox_ty_caiji_average.setFont(font)
         self.simple_set.setFont(font)
         self.label.setFont(font)
+        self.label_Version_prompt.setFont(font)
         self.label_2.setFont(font)
         self.show_UI.setFont(font)
         self.notice_button.setFont(font)
@@ -877,7 +910,8 @@ class Ui_MainWindow(object):
         self.ty_set.setText(_translate("MainWindow", "设置"))
         self.simple_set.setText(_translate("MainWindow", "设置"))
         self.label.setText(_translate("MainWindow", "输出："))
-        self.label_2.setText(_translate("MainWindow", "版本:2.2.1"))
+        self.label_Version_prompt.setText(_translate("MainWindow", "<font color=\"#FF0000\" ><p>有新版本，请于群内下载新版本</p></font>"))
+        self.label_2.setText(_translate("MainWindow", "版本:"+version))
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.notice_button.setText(_translate("MainWindow", "版本日志"))
         self.help_button.setText(_translate("MainWindow", "帮助文档"))
@@ -885,7 +919,6 @@ class Ui_MainWindow(object):
                                                        "margin-bottom:5px; \">请等待程序停止后再设置相关参数</p>"
                                                        "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px\" >多选和单选不可同时执行</p></font>"))
         self.hide_UI.setText(_translate("MainWindow", "隐藏UI"))
-
 
     @pyqtSlot()
     def load_settings(self):  # 读取设置
@@ -1135,7 +1168,7 @@ class Ui_MainWindow(object):
         threading.Thread(target=lambda: subject(self)).start()  # save_options()
 
     @pyqtSlot()
-    def select_stop_button(self):  #多选停止程序
+    def select_stop_button(self):  # 多选停止程序
         self.select_start.show()
         self.select_stop.hide()
 
@@ -1233,7 +1266,6 @@ class Ui_MainWindow(object):
         # 当窗口关闭时调用
         var = close_number == 0  # 通知服务器发送信息函数程序已停止，终止发送连接请求
         event.accept()
-
 
 
 class MyApp(QMainWindow, Ui_MainWindow):

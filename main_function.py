@@ -5,8 +5,8 @@ from airtest.core.cv import Template
 from airtest.core.android.android import *
 from numpy import random
 from Window_UI import settings
-
-
+import threading
+stop_event = threading.Event()
 # 重写打印
 def print_space(variable, spaces=4):
     # print(' ' * spaces + str(variable), flush=True)
@@ -20,7 +20,7 @@ def Homepage():
         while a < 4:
             if exists(Template(r"icon\tpl1719198809581.png", record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
                 print_space("在主页，准备执行任务")  # 在主界面，执行任务
-                return
+                a = 4
             else:
                 a += 1
                 print_space("不在主页，返回上一级")
@@ -692,12 +692,12 @@ def donate():
             else:
                 print_space('无捐献次数，结束任务并返回至主页')
                 touch([956, 299])  # 点击关闭按钮x
-                touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))  # 点击黑色返回按钮
+                touch([60, 60])  # 点击黑色返回按钮
                 touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))  # 点击黑色返回按钮
                 x = 0
     else:
         print_space('无大拇指指引，返回主页')
-        touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))  # 点击黑色返回按钮
+        touch([60, 60])  # 点击黑色返回按钮
         touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))  # 点击黑色返回按钮
 
 

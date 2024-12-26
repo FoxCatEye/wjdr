@@ -1,7 +1,7 @@
 '''模拟器点击变量'''
 import os
 import subprocess
-import threading
+
 import time
 from datetime import datetime
 from airtest.core.api import connect_device
@@ -107,7 +107,6 @@ def stop_function():
     print('-------------当前任务结束或10s后结束任务-------------')
 
 
-stop_event = threading.Event()
 
 
 # 多选主体代码
@@ -514,7 +513,7 @@ def simple_select(self):
                             time.sleep(10)
             except:
                 print('错误')
-    elif self.radioButton_WM.isChecked():  #冰原巨兽
+    elif self.radioButton_WM.isChecked():  # 冰原巨兽
         while execute:
             try:
                 Homepage()
@@ -530,7 +529,7 @@ def simple_select(self):
                 while number < WM_number:
                     if stop_event.is_set():
                         execute = False
-                        self.simple_stop_button()  # 野怪功能
+                        self.simple_stop_button()  # 停止
                         break
                     else:
                         if WM_number < 1:
@@ -665,7 +664,7 @@ def simple_select(self):
                 while number < bear_number:
                     if stop_event.is_set():
                         execute = False
-                        self.simple_stop_button()  # 野怪功能
+                        self.simple_stop_button()  # 停止后按钮变为开始
                         break
                     else:
                         if bear_number < 1:
@@ -676,7 +675,7 @@ def simple_select(self):
                             time.sleep(10)
             except:
                 print('错误')
-    elif self.radioButton_treatment.isChecked():  #治疗
+    elif self.radioButton_treatment.isChecked():  # 治疗
         while execute:
             try:
                 Homepage()
@@ -719,7 +718,7 @@ def simple_select(self):
                 while number < adventure_number:
                     if stop_event.is_set():
                         execute = False
-                        self.simple_stop_button()  # 野怪功能
+                        self.simple_stop_button()  # 停止后按钮变为开始
                         break
                     else:
                         if adventure_number < 1:
@@ -746,7 +745,7 @@ def simple_select(self):
                 while number < donate_number:
                     if stop_event.is_set():
                         execute = False
-                        self.simple_stop_button()  # 野怪功能
+                        self.simple_stop_button()  # 停止后按钮变为开始
                         break
                     else:
                         if donate_number < 1:
