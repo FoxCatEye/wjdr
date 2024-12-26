@@ -75,12 +75,13 @@ def re_connet():
 
 
 # 互助功能
-def Help():
+def Help(self):
     if exists(Template(r"icon\tpl1718936896202.png", record_pos=(0.248, 0.735), resolution=(1080, 1920))):  # 判断是否有盟员求助
         print_space("有盟员求助，需点击援助按钮")
-        random_number = random.randint(0, 5)  # 随机数
-        print_space('随机等待时间：%s秒' % random_number)
-        time.sleep(random_number)  # 等待随机时间后
+        if self.checkBox_Random_time.isChecked():
+            random_number = random.randint(0, 5)  # 随机数
+            print_space('随机等待时间：%s秒' % random_number)
+            time.sleep(random_number)  # 等待随机时间后
         record = random.randint(1, 9)
         print_space('随机点击位置：%s' % record)
         touch(Template(r"icon\tpl1718936896202.png", target_pos=record, record_pos=(0.248, 0.735), resolution=(1080, 1920)))

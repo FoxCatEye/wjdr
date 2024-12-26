@@ -126,7 +126,7 @@ def subject(self):
                 try:
                     print('%d.开始执行互助任务' % run_number)
                     Homepage()  # 主页检查
-                    Help()  # 互助模块
+                    Help(self)  # 互助模块
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()
@@ -297,7 +297,7 @@ def subject(self):
                 try:
                     print('%d.开始执行互助任务' % run_number)
                     Homepage()  # 主页检查
-                    Help()  # 互助模块
+                    Help(self)  # 互助模块
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()
@@ -477,7 +477,7 @@ def simple_select(self):
         while True:
             try:
                 Homepage()
-                Help()
+                Help(self)
                 if stop_event.is_set():
                     self.simple_stop_button()  # 互助功能
                     break
