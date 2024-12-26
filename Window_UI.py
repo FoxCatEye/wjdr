@@ -867,10 +867,9 @@ class Ui_MainWindow(object):
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.notice_button.setText(_translate("MainWindow", "版本日志"))
         self.help_button.setText(_translate("MainWindow", "帮助文档"))
-        self.textEdit.setText(_translate("MainWindow", "<font color=\"#FF0000\"><p align=\"center\"  style=\" margin-top:0px; "
+        self.textEdit.setText(_translate("MainWindow", "<font color=\"#FF0000\" size=4><p align=\"center\"  style=\" margin-top:0px; "
                                                        "margin-bottom:5px; \">请等待程序停止后再设置相关参数</p>"
-                                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; "
-                                                       "\">多选和单选不可同时执行</p></font>"))
+                                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px\" >多选和单选不可同时执行</p></font>"))
         self.hide_UI.setText(_translate("MainWindow", "隐藏UI"))
         self.ty_title.setText(_translate("MainWindow", "通用"))
 
