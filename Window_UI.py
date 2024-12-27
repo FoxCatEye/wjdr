@@ -40,26 +40,35 @@ def check_update():
     response = requests.get(version_url)
     # print(response)
     get_version = response.text.strip()
-    print(get_version)
+    # print(get_version)
     last_version = get_version.replace('version = ', '')
-    if response.status_code == 200:
-        if last_version != version:
+    # print(last_version)
+    body = '</body>'
+    if response.status_code == 200:  # 如果连接到服务器
+        if last_version != version:   # 如果版本不一致，返回1
             # print('当前版本:%s' % version)
-            # print("有新版本:%s" % last_version)
+            #print("有新版本:%s" % last_version)
+            # print('5555555555555')
             return 1
-        else:
+        else:  # 否则返回0
+            # print('4444444444444')
             return 0
+    elif body in get_version:   # 如果没连接到服务器，返回0
+        # print('1')
+        return 0
 
 
 # check_update()
 
 
 def send_address():
-    while close_number == 1:
+    send_number = 4   # 设置发送次数
+    while close_number == 1 and send_number > 0:
         try:
             update_url = "http://fukesihu.gnway.cc:80"  # 连接服务器
             requests.post(update_url, data={'key': get_ip_address()})  # 将唯一IP发送给服务器（统计连接数使用）
-            wait_time = 600
+            wait_time = 600   # 设置发送时间，每10分钟发送一次
+            send_number -= 1   # 发送一次后，次数减1
             while wait_time > 0:
                 time.sleep(2)
                 wait_time -= 2
