@@ -22,6 +22,7 @@ settings.setIniCodec('UTF-8')  # 设置ini文件编码为 UTF-8
 close_number = 1
 version = '2.2.3'  # 当前版本
 
+
 def get_ip_address():
     try:
         # 获取本地主机名
@@ -45,7 +46,7 @@ def check_update():
     # print(last_version)
     body = '</body>'
     if response.status_code == 200:  # 如果连接到服务器
-        if last_version != version:   # 如果版本不一致，返回1
+        if last_version != version:  # 如果版本不一致，返回1
             # print('当前版本:%s' % version)
             #print("有新版本:%s" % last_version)
             # print('5555555555555')
@@ -53,7 +54,7 @@ def check_update():
         else:  # 否则返回0
             # print('4444444444444')
             return 0
-    elif body in get_version:   # 如果没连接到服务器，返回0
+    elif body in get_version:  # 如果没连接到服务器，返回0
         # print('1')
         return 0
 
@@ -62,13 +63,13 @@ def check_update():
 
 
 def send_address():
-    send_number = 4   # 设置发送次数
+    send_number = 4  # 设置发送次数
     while close_number == 1 and send_number > 0:
         try:
             update_url = "http://fukesihu.gnway.cc:80"  # 连接服务器
             requests.post(update_url, data={'key': get_ip_address()})  # 将唯一IP发送给服务器（统计连接数使用）
-            wait_time = 600   # 设置发送时间，每10分钟发送一次
-            send_number -= 1   # 发送一次后，次数减1
+            wait_time = 600  # 设置发送时间，每10分钟发送一次
+            send_number -= 1  # 发送一次后，次数减1
             while wait_time > 0:
                 time.sleep(2)
                 wait_time -= 2
@@ -920,7 +921,7 @@ class Ui_MainWindow(object):
         self.simple_set.setText(_translate("MainWindow", "设置"))
         self.label.setText(_translate("MainWindow", "输出："))
         self.label_Version_prompt.setText(_translate("MainWindow", "<font color=\"#FF0000\" ><p>有新版本，请于群内下载新版本</p></font>"))
-        self.label_2.setText(_translate("MainWindow", "版本:"+version))
+        self.label_2.setText(_translate("MainWindow", "版本:" + version))
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.notice_button.setText(_translate("MainWindow", "版本日志"))
         self.help_button.setText(_translate("MainWindow", "帮助文档"))
@@ -1273,7 +1274,8 @@ class Ui_MainWindow(object):
 
     def closeEvent(self, event):
         # 当窗口关闭时调用
-        var = close_number == 0  # 通知服务器发送信息函数程序已停止，终止发送连接请求
+        global close_number
+        close_number = 0  # 通知发送信息函数程序已停止，终止发送连接请求
         event.accept()
 
 
