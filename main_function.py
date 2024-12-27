@@ -5,8 +5,7 @@ from airtest.core.cv import Template
 from airtest.core.android.android import *
 from numpy import random
 from Window_UI import settings
-import threading
-stop_event = threading.Event()
+
 # 重写打印
 def print_space(variable, spaces=4):
     # print(' ' * spaces + str(variable), flush=True)
@@ -20,7 +19,7 @@ def Homepage():
         while a < 4:
             if exists(Template(r"icon\tpl1719198809581.png", record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
                 print_space("在主页，准备执行任务")  # 在主界面，执行任务
-                a = 4
+                break
             else:
                 a += 1
                 print_space("不在主页，返回上一级")
@@ -42,9 +41,9 @@ def Homepage():
                 else:
                     print_space('点击其他区域')
                     touch([500, 600])
-            if stop_event.is_set():
+            '''if stop_event.is_set():
                 self.select_stop_button()
-                break
+                break'''
     except:
         print('执行错误')
     if a == 4:

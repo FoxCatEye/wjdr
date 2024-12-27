@@ -1,12 +1,12 @@
 '''模拟器点击变量'''
 import os
 import subprocess
-
 import time
 from datetime import datetime
 from airtest.core.api import connect_device
 from main_function import *
-
+import threading
+stop_event = threading.Event()
 '''打开模拟器'''
 emulator_click = 0
 
