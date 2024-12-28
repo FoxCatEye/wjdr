@@ -20,7 +20,7 @@ settings = QSettings("set.ini", QSettings.IniFormat)
 settings.setIniCodec('UTF-8')  # 设置ini文件编码为 UTF-8
 
 close_number = 1
-version = '2.2.3'  # 当前版本
+version = '2.2.4'  # 当前版本
 
 
 def get_ip_address():
@@ -63,12 +63,12 @@ def check_update():
 
 
 def send_address():
-    send_number = 4  # 设置发送次数
+    send_number = 3  # 设置发送次数
     while close_number == 1 and send_number > 0:
         try:
             update_url = "http://fukesihu.gnway.cc:80"  # 连接服务器
             requests.post(update_url, data={'key': get_ip_address()})  # 将唯一IP发送给服务器（统计连接数使用）
-            wait_time = 600  # 设置发送时间，每10分钟发送一次
+            wait_time = 300  # 设置发送时间，每5分钟发送一次
             send_number -= 1  # 发送一次后，次数减1
             while wait_time > 0:
                 time.sleep(2)
@@ -684,7 +684,7 @@ class Ui_MainWindow(object):
         self.label_2.setGeometry(QtCore.QRect(890, 520, 71, 20))
         self.label_2.setObjectName("label_2")
         self.label_Version_prompt = QtWidgets.QLabel(self.centralwidget)  # 版本提示
-        self.label_Version_prompt.setGeometry(QtCore.QRect(700, 520, 300, 20))
+        self.label_Version_prompt.setGeometry(QtCore.QRect(650, 520, 300, 20))
         return_value = check_update()
         if return_value == 1:
             self.label_Version_prompt.setVisible(True)
@@ -920,7 +920,7 @@ class Ui_MainWindow(object):
         self.ty_set.setText(_translate("MainWindow", "设置"))
         self.simple_set.setText(_translate("MainWindow", "设置"))
         self.label.setText(_translate("MainWindow", "输出："))
-        self.label_Version_prompt.setText(_translate("MainWindow", "<font color=\"#FF0000\" ><p>有新版本，请于群内下载新版本</p></font>"))
+        self.label_Version_prompt.setText(_translate("MainWindow", "<font color=\"#FF0000\" ><p>检查到新版本，请于群内下载最新版本</p></font>"))
         self.label_2.setText(_translate("MainWindow", "版本:" + version))
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.notice_button.setText(_translate("MainWindow", "版本日志"))
@@ -1269,8 +1269,8 @@ class Ui_MainWindow(object):
     #@pyqtSlot()
     def write(self, text):
         # 将text写入textEdit
-        #self.textEdit_out.insertPlainText(text)
-        self.textSignal.emit(text)  #type: ignore#self.textEdit_out.moveCursor(self.textEdit_out.textCursor().End)  # 移动光标到文本末尾  # 当写入时触发信号
+        # self.textEdit_out.insertPlainText(text)
+        self.textSignal.emit(text)  # type: ignore#self.textEdit_out.moveCursor(self.textEdit_out.textCursor().End)  # 移动光标到文本末尾  # 当写入时触发信号
 
     def closeEvent(self, event):
         # 当窗口关闭时调用
@@ -1291,7 +1291,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
 if __name__ == '__main__':
 
     # 解决不同电脑不同缩放比例问题
-    QGuiApplication.setAttribute(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)  #type: ignore
+    QGuiApplication.setAttribute(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)  # type: ignore
     app = QApplication(sys.argv)
     mainWindow = MyApp()
     # 重定向stdout和stderr

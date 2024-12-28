@@ -162,6 +162,7 @@ def train(self):
                     break  # 退出该循环
     time.sleep(2)  # 等待2秒
     print_space("返回上一级")
+    touch([20, 20])    # 使用坐标点击，防止识别错误
     if exists(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920))):
         touch(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920)))
     elif exists(Template(r"icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920))):
@@ -173,6 +174,10 @@ def train(self):
 
 # 训练检查
 def Production_soldiers(self):
+    if exists(Template(r"icon/tpl1720145326019.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):  # 判断是否在城镇，防止队列影响按钮
+        print_space('不在城镇，点击去往城镇')
+        touch([950, 1850])  # 点击野外
+        time.sleep(5)
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
