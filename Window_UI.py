@@ -35,7 +35,7 @@ def get_ip_address():
 
 
 def check_update():
-    global version
+    global version, last_version
     # 首次启动时默认选项
     version_url = "http://fukesihu.gnway.cc:80/version.txt"
     response = requests.get(version_url)
@@ -920,7 +920,7 @@ class Ui_MainWindow(object):
         self.ty_set.setText(_translate("MainWindow", "设置"))
         self.simple_set.setText(_translate("MainWindow", "设置"))
         self.label.setText(_translate("MainWindow", "输出："))
-        self.label_Version_prompt.setText(_translate("MainWindow", "<font color=\"#FF0000\" ><p>检查到新版本，请于群内下载最新版本</p></font>"))
+        self.label_Version_prompt.setText(_translate("MainWindow", "<font color=\"#FF0000\" ><p>检查到新版本，请于群内下载最新版本</p></font>"+last_version))
         self.label_2.setText(_translate("MainWindow", "版本:" + version))
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.notice_button.setText(_translate("MainWindow", "版本日志"))

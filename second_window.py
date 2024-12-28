@@ -81,6 +81,7 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.新版本提醒优化：增加连接不上服务器判断</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.主页检查优化：注释测试代码及取消主页检查时停止判断（无用）</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.基础功能优化：程序关闭时终止线程信号</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.训练优化：检查前回到城镇</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"
                                                          ))
