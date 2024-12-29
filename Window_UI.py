@@ -49,8 +49,7 @@ def check_update():
     if response.status_code == 200:  # 如果连接到服务器
         if version_online in get_version and last_version != version:  # 如果有版本信息且版本不一致，返回1
             # print('当前版本:%s' % version)
-            #print("有新版本:%s" % last_version)
-            # print('5555555555555')
+            # print("新版本:%s" % last_version)
             return 1
         else:  # 否则返回0
             # print('4444444444444')
