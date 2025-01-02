@@ -85,6 +85,8 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-bottom:0px;\">V2.2.5</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.优化版本提醒：服务器本地未开启时，不会有新版本提醒</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.修复联盟宝箱-盟友赠礼报错</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.优化联盟捐赠：时间修改为2小时检查一次</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.优化：补充未检测到图案时打印提示</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"
                                                          ))
