@@ -41,5 +41,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='脚本2.2.4',
+    name='脚本2.2.5',
 )

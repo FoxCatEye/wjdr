@@ -59,7 +59,7 @@ def re_connet():
             print_space('点击重新连接')
             re = 1
             while re > 0:
-                touch(Template(r"icon/tpl1720766916047.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+                touch(Template(r"icon/tpl1720766916047.png", rgb=False , record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
                 time.sleep(10)
                 if exists(Template(r"icon/tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
                     print('重新连接失败，等待1分钟继续尝试')
@@ -85,7 +85,7 @@ def Help(self):
         print_space('随机点击位置：%s' % record)
         touch(Template(r"icon\tpl1718936896202.png", target_pos=record, record_pos=(0.248, 0.735), resolution=(1080, 1920)))
     else:
-        print_space("无盟员求助，进行下一个任务")
+        print_space("未找到求助按钮，进行下一个任务")
 
 
 # 生产士兵
@@ -286,6 +286,8 @@ def search_main():
         print_space('不在世界，点击去往世界')
         touch([950, 1850])  # 点击野外
         time.sleep(5)
+    else:
+        print_space('找到城镇图案，在世界')
     print_space('点击搜索图标')
     touch([63, 1314])  # 点击搜索图标
     time.sleep(1)  # 等待1s
@@ -358,7 +360,10 @@ def Brush_XG(self):
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
     print_space('点击攻击按钮')
-    touch(Template(r"icon\tpl1721191349775.png", rgb=False, record_pos=(0.002, 0.705), resolution=(1080, 1920)))  # 点击出征怪物
+    if exists(Template(r"icon\tpl1721191349775.png", rgb=False, record_pos=(0.002, 0.705), resolution=(1080, 1920))):
+        touch(Template(r"icon\tpl1721191349775.png", rgb=False, record_pos=(0.002, 0.705), resolution=(1080, 1920)))  # 点击出征怪物
+    else:
+        print_space('未找到攻击按钮图案，如游戏内有，请检查模拟器和游戏相关设置')
     time.sleep(1)  # 等待1s
     if exists(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):  # 判断是否有兵力
         if self.checkBox_XG_average.isChecked():  # 平均兵力选项
@@ -388,7 +393,7 @@ def bear():
     else:
         print_space('未找到活动图标')
 
-
+# 巨兽等级
 def WM_lv():  # 冰原巨兽等级输入
     print_space('首次启动或数据有更新，重新输入等级')
     print_space('点击等级输入框')
@@ -449,9 +454,9 @@ def Brush_WM(self):
             print_space('点击出征按钮')
             energy()
         else:  # 判断是否有多余兵力
-            print_space('不满足条件，无兵力出征')
+            print_space('未找到出征按钮，不满足条件，无兵力出征')
     else:
-        print_space('队伍数不足，无法出征')
+        print_space('未找到发起集结按钮，队伍数不足，无法出征')
 
 
 # 采集出兵
@@ -536,7 +541,7 @@ def Meat(self):
     if exists(Template(r"icon\tpl1720675061569.png", rgb=True, record_pos=(0.002, -0.015), resolution=(1080, 1920))):
         gather(self)
     else:
-        print_space('未搜索到生肉资源，结束该任务')
+        print_space('未找到采集按钮，未搜索到生肉资源，结束该任务')
 
 
 # 木材
@@ -561,7 +566,7 @@ def Wood(self):
     if exists(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920))):
         gather(self)
     else:
-        print_space('未搜索到对应资源，结束该任务')
+        print_space('未找到采集按钮，未搜索到生肉资源，结束该任务')
 
 
 # 煤矿
@@ -586,7 +591,7 @@ def Coal(self):
     if exists(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920))):
         gather(self)
     else:
-        print_space('未搜索到煤矿资源，结束该任务')
+        print_space('未找到采集按钮，未搜索到生肉资源，结束该任务')
 
 
 # 铁矿
@@ -611,7 +616,7 @@ def Iron(self):
     if exists(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920))):
         gather(self)
     else:
-        print_space('未搜索到铁矿资源，结束该任务')
+        print_space('未找到采集按钮，未搜索到生肉资源，结束该任务')
 
 
 # 自动采集
@@ -723,9 +728,7 @@ def adventure():
         print_space('没有可领取奖励')
 
 
-'''招募英雄'''
-
-
+# 招募英雄
 def recruit():
     if exists(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920))):
         print_space('点击英雄')
@@ -748,9 +751,7 @@ def recruit():
         touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
 
 
-'''攻击检测'''
-
-
+# 攻击检测
 def mining_collision():
     if exists(Template(r"icon\tpl1729833981926.png", record_pos=(0.42, -0.141), resolution=(1080, 1920))):
         print_space('检测到被攻击，点击预警图标')
