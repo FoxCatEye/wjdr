@@ -20,7 +20,7 @@ settings = QSettings("set.ini", QSettings.IniFormat)
 settings.setIniCodec('UTF-8')  # 设置ini文件编码为 UTF-8
 
 close_number = 1
-version = '2.2.4'  # 当前版本
+version = '2.2.5'  # 当前版本
 
 
 def get_ip_address():
@@ -35,7 +35,7 @@ def get_ip_address():
 
 
 def check_update():
-    global version, last_version
+    global version
     # 首次启动时默认选项
     version_url = "http://fukesihu.gnway.cc:80/version.txt"
     response = requests.get(version_url)

@@ -82,6 +82,9 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.主页检查优化：注释测试代码及取消主页检查时停止判断（无用）</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.基础功能优化：程序关闭时终止线程信号</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.训练优化：检查前回到城镇</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.2.5</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.优化版本提醒：服务器本地未开启时，不会有新版本提醒</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.修复联盟宝箱-盟友赠礼报错</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"
                                                          ))
