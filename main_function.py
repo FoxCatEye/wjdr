@@ -162,13 +162,15 @@ def train(self):
                     break  # 退出该循环
     time.sleep(2)  # 等待2秒
     print_space("返回上一级")
-    touch([20, 20])    # 使用坐标点击，防止识别错误
-    if exists(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920))):
+    touch([66, 66])    # 使用坐标点击，防止识别错误
+    '''if exists(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920))):
         touch(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920)))
     elif exists(Template(r"icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920))):
         touch(Template(r"icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))  # 关闭当前界面
+        if exists(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920)))
     else:
-        print_space('未找到对应图案')
+        print_space('未找到对应图案')'''
     print_space('训练完成')
 
 
