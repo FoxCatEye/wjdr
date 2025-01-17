@@ -444,9 +444,9 @@ def Brush_WM(self):
         touch(Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(1080, 1920)))  # 点击发起集结
         time.sleep(1)  # 等待0.5s
         if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):  # 有兵力可出征
-            if self.checkBox_ty_WM_average.isChecked():  # 平均兵力选项
+            if self.checkBox_WM_average.isChecked():  # 平均兵力选项
                 touch(Template(r"icon/tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
-            elif self.checkBox_ty_simple.isChecked():  # 单兵集结
+            elif self.checkBox_WM_simple.isChecked():  # 单兵集结
                 print_space('点击全部撤回')
                 touch(Template(r"icon\all_withdraw.png", record_pos=(-0.406, 0.781), resolution=(1080, 1920)))  # 点击全部撤回
                 touch([714, 894])  # 点击盾兵数量输入框
@@ -472,7 +472,7 @@ def gather(self):
     print_space('点击采集按钮')
     touch(Template(r"icon/tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920)))
     if exists(Template(r"icon/tpl1721191349776.png", record_pos=(0.26, 0.798), resolution=(1080, 1920))):  # 有兵力可出征
-        if self.checkBox_ty_un.isChecked():  # 采集英雄选项
+        if self.checkBox_Collection_hero.isChecked():  # 采集英雄选项
             print_space('删除英雄')
             # touch([357, 389])  # 点击删除第一个英雄
             touch([640, 389])  # 点击删除第二个英雄
