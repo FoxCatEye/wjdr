@@ -1,10 +1,13 @@
 # 功能逻辑
 import time
-from airtest.core.api import exists, touch, swipe, text, keyevent, find_all
+from airtest.core.api import exists, touch, swipe, text, keyevent, find_all, sleep
 from airtest.core.cv import Template
 from airtest.core.android.android import *
 from numpy import random
 from Window_UI import settings
+from datetime import datetime
+
+number_physical_strength = 0
 
 # 重写打印
 def print_space(variable, spaces=4):
@@ -59,7 +62,7 @@ def re_connet():
             print_space('点击重新连接')
             re = 1
             while re > 0:
-                touch(Template(r"icon/tpl1720766916047.png", rgb=False , record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+                touch(Template(r"icon/tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
                 time.sleep(10)
                 if exists(Template(r"icon/tpl1720766916047.png", rgb=False, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
                     print('重新连接失败，等待1分钟继续尝试')
@@ -162,7 +165,7 @@ def train(self):
                     break  # 退出该循环
     time.sleep(2)  # 等待2秒
     print_space("返回上一级")
-    touch([66, 66])    # 使用坐标点击，防止识别错误
+    touch([66, 66])  # 使用坐标点击，防止识别错误
     '''if exists(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920))):
         touch(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920)))
     elif exists(Template(r"icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920))):
@@ -344,6 +347,8 @@ def XG_lv():
     print_space('点击确定按钮')
     time.sleep(1)
     touch(Template(r"icon/sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))
+
+
 # 野兽
 def Brush_XG(self):
     print_space('打野怪时间，开始出征')
@@ -394,6 +399,7 @@ def bear():
             print_space('集结中')
     else:
         print_space('未找到活动图标')
+
 
 # 巨兽等级
 def WM_lv():  # 冰原巨兽等级输入
@@ -858,3 +864,41 @@ def union_Treasure_Chest():
     else:
         print_space('未找到联盟宝箱图案，请检查游戏界面或自主修复')
     touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))  # 点击返回按钮
+
+
+# 仓库补给
+def warehouse():
+    global number_physical_strength
+    now_time = datetime.now()
+    if exists(Template(r"icon/tpl1720145326019.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
+        print_space('不在城镇，点击去往城镇')
+        touch([950, 1850])  # 点击城镇
+        time.sleep(5)
+    touch([14, 823])  # 点击左侧打开隐藏栏
+    sleep(1)
+    touch([170, 400])  # 点击城镇列表
+    sleep(1)
+    swipe([340, 1280], [330, 450])  # 滑动至底部
+    sleep(1)
+    if exists(Template(r"icon/tpl1737088915389.png", record_pos=(-0.436, 0.106), resolution=(1080, 1920))):
+        print_space('有可领取补给，点击前往')
+        touch(Template(r"icon/tpl1737088915389.png", record_pos=(-0.436, 0.106), resolution=(1080, 1920)))
+        sleep(1)
+        print_space('点击领取')
+        touch([540, 870])  # 点击领取补给
+        sleep(1)
+        touch([660, 300])  # 关闭奖励弹窗
+        if now_time.hour == 12 or now_time.hour == 18 or number_physical_strength == 0:  # 判定是否是刷新时间或本次启动首次执行
+            number_physical_strength = 1
+            print_space('首次执行任务或体力刷新时间，检查是否有体力可领取')
+            if exists(Template(r"icon/tpl1737094428928.png", record_pos=(0.002, -0.094), resolution=(1080, 1920))):
+                print_space('点击仓库')
+                touch([540, 870])  # 再次点击领取体力
+                sleep(1)
+                print_space('点击领取按钮')
+                touch([540, 1430])  # 点击领取按钮
+                touch([540, 870])  # 关闭奖励弹窗
+            else:
+                print('未找到体力罐头')
+    else:
+        print('未找到仓库补给')

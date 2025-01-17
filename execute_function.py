@@ -2,7 +2,7 @@
 import os
 import subprocess
 import time
-from datetime import datetime
+
 from airtest.core.api import connect_device
 from main_function import *
 import threading
@@ -69,7 +69,7 @@ def start_app():
         print_space('游戏已启动!!!')'''
 
 
-def all_start():  #一键启动
+def all_start():  # 一键启动
     start_exe()
     print('等待30s以完成模拟器的启动')
     time.sleep(30)
@@ -79,13 +79,14 @@ def all_start():  #一键启动
     start_app()
 
 
-def start_simple(button_start_id):  #模拟器启动相关
+def start_simple(button_start_id):  # 模拟器启动相关
     if button_start_id == 1:
         # start_exe_button.configure(text='启动模拟器', command=lambda: start_simple(1))
         # start_exe()
         '''启动模拟器线程'''
         threading.Thread(target=start_exe).start()  # threading.Thread(target=start_exe).join()
     elif button_start_id == 2:
+        # cnnect()
         '''连接模拟器线程'''
         threading.Thread(target=cnnect).start()  # threading.Thread(target=cnnect).join()
     elif button_start_id == 3:
@@ -94,6 +95,7 @@ def start_simple(button_start_id):  #模拟器启动相关
         '''启动app线程'''
         threading.Thread(target=start_app).start()  # threading.Thread(target=start_app).join()
     elif button_start_id == 4:
+        # all_start()
         '''一键启动线程'''
         threading.Thread(target=all_start).start()
     else:
@@ -286,6 +288,17 @@ def subject(self):
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_warehouse.isChecked() and now.minute % 5 == 0:
+                try:
+                    print('%d.开始执行仓库补给领取任务' % run_number)
+                    Homepage()
+                    warehouse()    # 仓库补给
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
             if stop_event.is_set():
                 self.select_stop_button()  # 总功能
                 break
@@ -457,13 +470,40 @@ def subject(self):
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_warehouse.isChecked():
+                try:
+                    print('%d.开始执行仓库补给任务' % run_number)
+                    Homepage()
+                    warehouse()  # 仓库补给
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
             if stop_event.is_set():
                 self.select_stop_button()  # 总功能
                 break
+            wait_time = int(settings.value('循环时间设置', 0, type=str))
+            print_space('等待%s秒后开始下一循环' % wait_time)
+            wait_number_start = 0
+            wait_number = wait_time / 10
+            while wait_number > wait_number_start:
+                if stop_event.is_set():
+                    #execute = False
+                    self.simple_stop_button()  # 停止
+                    break
+                else:
+                    if wait_time < 10:
+                        time.sleep(wait_time)
+                        break
+                    else:
+                        wait_number_start += 1
+                        time.sleep(10)
     print('结束任务')
 
 
-# 单选主体代码
+# 单选主体代码  （已废弃）
 def simple_select(self):
     global emulator_click, stop_event
     if emulator_click == 0:
@@ -502,7 +542,7 @@ def simple_select(self):
                 while XG_number > number:
                     if stop_event.is_set():
                         execute = False
-                        self.simple_stop_button()  # 野怪功能
+                        self.simple_stop_button()  # 停止
                         break
                     else:
                         if XG_number < 1:
