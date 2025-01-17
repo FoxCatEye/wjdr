@@ -1077,7 +1077,7 @@ class Ui_MainWindow(object):
         option_lv = settings.value('采集资源等级设置', 7, type=str)
         option_XG_lv = settings.value('世界野怪等级设置', 10, type=str)
         option_ty_un = settings.value('采集英雄', 1, type=bool)
-        option_ty_sim = settings.value('单兵集结', 1, type=bool)
+        option_ty_sim = settings.value('单兵集结', 0, type=bool)
         option_ty_WM_average = settings.value('冰原巨兽平均兵力', 0, type=bool)
         option_ty_XG_average = settings.value('世界野怪平均兵力', 0, type=bool)
         option_cycle_time = settings.value('循环时间设置', 0, type=str)
