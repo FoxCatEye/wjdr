@@ -678,15 +678,16 @@ def treatment():
         print_space('不在世界，点击去往世界')
         touch([950, 1850])  # 点击野外
         time.sleep(5)
-    if exists(Template(r"icon\tpl1721191349778.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+    if exists(Template(r"icon/tpl1738728068288.png", record_pos=(0.273, 0.434), resolution=(1080, 1920))):
         print_space("点击治疗图标")
-        touch(Template(r"icon\tpl1721191349778.png", threshold=0.8, record_pos=(-0.168, -0.088), resolution=(1080, 1920)))
+        touch(Template(r"icon/tpl1738728068288.png", record_pos=(0.273, 0.434), resolution=(1080, 1920)))
         print_space('点击治疗按钮')
-        touch(Template(r"icon\tpl1721191349779.png", threshold=0.8, record_pos=(0.295, 0.765), resolution=(1080, 1920)))
+        touch(Template(r"icon/tpl1738728101302.png", record_pos=(0.219, 0.382), resolution=(1080, 1920)))
         print_space('点击联盟互助')
-        touch(Template(r"icon\tpl1721191349780.png", threshold=0.8, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+        touch(Template(r"icon/tpl1738728129307.png", record_pos=(0.219, 0.412), resolution=(1080, 1920)))
+        time.sleep(1)
         print_space('点击返回按钮')
-        touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
+        touch([900, 299])
     else:
         print_space('没有需要治疗的士兵')
 
@@ -749,7 +750,7 @@ def recruit():
             time.sleep(1)
             if not exists(Template(r"icon\tpl1729741197970.png", record_pos=(-0.441, -0.836), resolution=(1080, 1920))):
                 # 如果没找到返回按钮，随机点击一个位置（考虑抽到英雄的情况）
-                touch([500, 500])
+                touch([200, 200])
             touch(Template(r"icon\tpl1729741197970.png", record_pos=(-0.441, -0.836), resolution=(1080, 1920)))
             time.sleep(1)
         else:

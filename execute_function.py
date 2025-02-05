@@ -490,11 +490,11 @@ def subject(self):
             wait_number = wait_time / 10
             while wait_number > wait_number_start:
                 if stop_event.is_set():
-                    #execute = False
+                    # execute = False
                     self.simple_stop_button()  # 停止
                     break
                 else:
-                    if wait_time < 10:
+                    if wait_number < 1:
                         time.sleep(wait_time)
                         break
                     else:
