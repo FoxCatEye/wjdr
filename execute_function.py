@@ -486,19 +486,24 @@ def subject(self):
                 break
             wait_time = int(settings.value('循环时间设置', 0, type=str))
             print_space('等待%s秒后开始下一循环' % wait_time)
-            wait_number_start = 0
-            wait_number = wait_time / 10
-            while wait_number > wait_number_start:
-                if stop_event.is_set():
+            wait_number_start = 0  # 设置循环开始条件
+            wait_number = wait_time / 10  # 设置循环次数
+            while wait_number > wait_number_start:  # 如果循环次数大于开始条件，则执行循环
+                time.sleep(1)  # 等待1s
+                if stop_event.is_set():   # 如果点击了停止
                     # execute = False
                     self.simple_stop_button()  # 停止
                     break
                 else:
-                    if wait_number < 1:
-                        time.sleep(wait_time)
+                    if wait_number < 1:  # 如果循环次数小于1次
+                        remaining_time = wait_time % 10  # 获取循环时间除于10后的余数
+                        # print('剩余等待时间：%ss' % remaining_time)
+                        time.sleep(remaining_time)
                         break
-                    else:
-                        wait_number_start += 1
+                    else:  # 如果循环次数大于1次
+                        wait_number -= 1
+                        # print(wait_number)
+                        # print('等待10s')
                         time.sleep(10)
     print('结束任务')
 

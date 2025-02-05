@@ -881,7 +881,7 @@ def warehouse():
     sleep(1)
     swipe([340, 1280], [330, 450])  # 滑动至底部
     sleep(1)
-    if exists(Template(r"icon/tpl1737088915389.png", record_pos=(-0.436, 0.106), resolution=(1080, 1920))):
+    if exists(Template(r"icon/tpl1737088915389.png", threshold=0.8, record_pos=(-0.436, 0.106), resolution=(1080, 1920))):
         print_space('有可领取补给，点击前往')
         touch(Template(r"icon/tpl1737088915389.png", record_pos=(-0.436, 0.106), resolution=(1080, 1920)))
         sleep(1)

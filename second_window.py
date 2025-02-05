@@ -97,7 +97,7 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.更新治疗功能</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.更新版本日志</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.更新使用说明</p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.优化循环逻辑</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"
                                                          ))
