@@ -479,7 +479,7 @@ class Ui_MainWindow(object):
         self.label_build.setObjectName("XXXX")
         # 开关选项
         self.checkBox_build = QtWidgets.QCheckBox(self.frame_task)  # 建筑升级
-        self.checkBox_build.setGeometry(QtCore.QRect(80, 170, 71, 21))
+        self.checkBox_build.setGeometry(QtCore.QRect(80, 170, 200, 21))
         self.checkBox_build.setObjectName("checkBox_build")
 
         # 采集文本
@@ -971,7 +971,7 @@ class Ui_MainWindow(object):
         self.label_treatment.setText(_translate("MainWindow", "治疗士兵："))
         self.checkBox_treatment.setText(_translate("MainWindow", "启用"))
         self.label_build.setText(_translate("MainWindow", "建筑升级："))
-        self.checkBox_build.setText(_translate("MainWindow", "启用"))
+        self.checkBox_build.setText(_translate("MainWindow", "启用（暂不可用）"))
         self.label_Collection.setText(_translate("MainWindow", "采集资源："))
         self.checkBox_Collection.setText(_translate("MainWindow", "启用"))
         self.checkBox_Collection_hero.setText(_translate("MainWindow", "采集英雄"))

@@ -482,7 +482,7 @@ def subject(self):
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
             if stop_event.is_set():
-                self.select_stop_button()  # 总功能
+                self.select_stop_button()  # 停止
                 break
             wait_time = int(settings.value('循环时间设置', 0, type=str))
             print_space('等待%s秒后开始下一循环' % wait_time)
