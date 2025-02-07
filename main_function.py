@@ -7,50 +7,73 @@ from numpy import random
 from Window_UI import settings
 from datetime import datetime
 
+
 number_physical_strength = 0
+
 
 # 重写打印
 def print_space(variable, spaces=4):
-    # print(' ' * spaces + str(variable), flush=True)
+    """
+    打印带有指定空格缩进的字符串。
+
+    :param variable: 要打印的变量或字符串。
+    :param spaces: 缩进的空格数，默认为4。
+    """
+    # 使用指定数量的空格进行缩进，并将变量转换为字符串后打印
     print(' ' * spaces + str(variable))
 
 
 # 主页判断
 def Homepage():
-    a = 1
+    """
+    主页判断函数，用于判断当前是否在游戏主页，并根据情况执行相应操作。
+
+    该函数通过检查特定图标是否存在来判断当前是否在主页。如果不在主页，
+    则尝试点击不同颜色的返回按钮或关闭按钮，直到达到最大尝试次数或成功返回主页。
+    如果达到最大尝试次数，则调用 `re_connet` 函数进行设备顶号重连。
+
+    :return: 无返回值
+    """
+    a = 1  # 初始化变量 a 为 1，用于控制循环次数
     try:
-        while a < 4:
+        while a < 4:  # 循环最多执行 3 次
+            # 判断是否存在特定图标，如果存在则打印信息并跳出循环
             if exists(Template(r"icon\tpl1719198809581.png", record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
                 print_space("在主页，准备执行任务")  # 在主界面，执行任务
                 break
             else:
-                a += 1
+                a += 1  # 增加 a 的值
                 print_space("不在主页，返回上一级")
+                # 判断是否存在黑色返回按钮，如果存在则点击
                 if exists(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
                     print_space('点击黑色返回按钮')
                     touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
+                # 判断是否存在白色返回按钮，如果存在则点击
                 elif exists(Template(r'icon\return.png', rgb=True, record_pos=(-0.44, -0.783), resolution=(1080, 1920))):
                     print_space('点击白色返回按钮')
                     touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
+                # 判断是否存在黄色返回按钮，如果存在则点击
                 elif exists(Template(r"icon\yellow_return.png", record_pos=(-0.442, -0.836), resolution=(1080, 1920))):
                     print_space('点击黄色返回按钮')
                     touch(Template(r"icon\yellow_return.png", record_pos=(-0.442, -0.836), resolution=(1080, 1920)))
+                # 判断是否存在关闭按钮，如果存在则点击
                 elif exists(Template(r"icon\tpl1719198103804.png", rgb=True, record_pos=(0.442, -0.35), resolution=(1080, 1920))):
                     print_space('点击关闭按钮')
                     touch(Template(r"icon\tpl1719198103804.png", rgb=True, record_pos=(0.442, -0.35), resolution=(1080, 1920)))
+                # 判断是否存在浅色关闭按钮，如果存在则点击
                 elif exists(Template(r"icon\tpl1729734622180.png", rgb=True, record_pos=(0.381, -0.461), resolution=(1080, 1920))):
                     print_space('点击浅色关闭按钮')
                     touch(Template(r"icon\tpl1729734622180.png", rgb=True, record_pos=(0.381, -0.461), resolution=(1080, 1920)))
                 else:
                     print_space('点击其他区域')
-                    touch([500, 600])
+                    touch([500, 600])  # 点击屏幕上的其他区域
             '''if stop_event.is_set():
                 self.select_stop_button()
                 break'''
     except:
-        print('执行错误')
-    if a == 4:
-        re_connet()
+        print('执行错误')  # 捕获异常并打印错误信息
+    if a == 4:  # 如果 a 的值达到 4
+        re_connet()  # 调用 re_connet 函数进行设备顶号重连
 
 
 # 设备顶号重连
