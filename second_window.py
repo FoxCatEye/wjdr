@@ -168,7 +168,6 @@ class Ui_helpWindow(object):
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩⑥.仓库补给：分钟数是5的倍数时检测，体力检测会在首次启动或体力刷新时间内进行</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.循环时间：当前列表内任务完成一次循环（不在时间内未执行也算），下一次循环开始的间隔时间</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">四.功能介绍：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    介绍：通用设置内的设置同时适用于单项和多选</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.联盟互助：</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.随机时间：识别到互助按钮后随机时间点击（防系统检测）</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.世界野怪：</p>\n"

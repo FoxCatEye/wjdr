@@ -35,12 +35,12 @@ def Homepage():
                 elif exists(Template(r"icon\yellow_return.png", record_pos=(-0.442, -0.836), resolution=(1080, 1920))):
                     print_space('点击黄色返回按钮')
                     touch(Template(r"icon\yellow_return.png", record_pos=(-0.442, -0.836), resolution=(1080, 1920)))
-                elif exists(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920))):
+                elif exists(Template(r"icon\tpl1719198103804.png", rgb=True, record_pos=(0.442, -0.35), resolution=(1080, 1920))):
                     print_space('点击关闭按钮')
-                    touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
-                elif exists(Template(r"icon\tpl1729734622180.png", record_pos=(0.381, -0.461), resolution=(1080, 1920))):
+                    touch(Template(r"icon\tpl1719198103804.png", rgb=True, record_pos=(0.442, -0.35), resolution=(1080, 1920)))
+                elif exists(Template(r"icon\tpl1729734622180.png", rgb=True, record_pos=(0.381, -0.461), resolution=(1080, 1920))):
                     print_space('点击浅色关闭按钮')
-                    touch(Template(r"icon\tpl1729734622180.png", record_pos=(0.381, -0.461), resolution=(1080, 1920)))
+                    touch(Template(r"icon\tpl1729734622180.png", rgb=True, record_pos=(0.381, -0.461), resolution=(1080, 1920)))
                 else:
                     print_space('点击其他区域')
                     touch([500, 600])
@@ -876,18 +876,18 @@ def warehouse():
         touch([950, 1850])  # 点击城镇
         time.sleep(5)
     touch([14, 823])  # 点击左侧打开隐藏栏
-    sleep(1)
+    time.sleep(1)
     touch([170, 400])  # 点击城镇列表
-    sleep(1)
+    time.sleep(1)
     swipe([340, 1280], [330, 450])  # 滑动至底部
-    sleep(1)
-    if exists(Template(r"icon/tpl1737088915389.png", threshold=0.8, record_pos=(-0.436, 0.106), resolution=(1080, 1920))):
+    time.sleep(1)
+    if exists(Template(r"icon/tpl1737088915389.png", threshold=0.9, record_pos=(-0.436, 0.106), resolution=(1080, 1920))):
         print_space('有可领取补给，点击前往')
         touch(Template(r"icon/tpl1737088915389.png", record_pos=(-0.436, 0.106), resolution=(1080, 1920)))
-        sleep(1)
+        time.sleep(1)
         print_space('点击领取')
         touch([540, 870])  # 点击领取补给
-        sleep(1)
+        time.sleep(1)
         touch([660, 300])  # 关闭奖励弹窗
         if now_time.hour == 12 or now_time.hour == 18 or number_physical_strength == 0:  # 判定是否是刷新时间或本次启动首次执行
             number_physical_strength = 1
@@ -895,7 +895,7 @@ def warehouse():
             if exists(Template(r"icon/tpl1737094428928.png", record_pos=(0.002, -0.094), resolution=(1080, 1920))):
                 print_space('点击仓库')
                 touch([540, 870])  # 再次点击领取体力
-                sleep(1)
+                time.sleep(1)
                 print_space('点击领取按钮')
                 touch([540, 1430])  # 点击领取按钮
                 touch([540, 870])  # 关闭奖励弹窗
