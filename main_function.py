@@ -10,7 +10,6 @@ from datetime import datetime
 
 number_physical_strength = 0
 
-
 # 重写打印
 def print_space(variable, spaces=4):
     """
