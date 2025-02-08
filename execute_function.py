@@ -6,6 +6,7 @@ import time
 from airtest.core.api import connect_device
 from main_function import *
 import threading
+
 stop_event = threading.Event()
 '''打开模拟器'''
 emulator_click = 0
@@ -89,7 +90,7 @@ def start_simple(button_start_id):  # 模拟器启动相关
     elif button_start_id == 2:
         # cnnect()
         '''连接模拟器线程'''
-        connect_thread = threading.Thread(target=cnnect) # threading.Thread(target=cnnect).join()
+        connect_thread = threading.Thread(target=cnnect)  # threading.Thread(target=cnnect).join()
         connect_thread.start()
     elif button_start_id == 3:
         # start_app_button.configure(text='再次启动app', command=lambda: start_simple(3))
@@ -110,8 +111,6 @@ def stop_function():
     global stop_event
     stop_event.set()  # 设置事件，通知线程结束
     print('-------------当前任务结束或10s后结束任务-------------')
-
-
 
 
 # 多选主体代码
@@ -273,7 +272,7 @@ def subject(self):
                 try:
                     print('%d.开始执行邮件领取任务' % run_number)
                     Homepage()
-                    mail_function()    # 邮件领取
+                    mail_function()  # 邮件领取
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -284,7 +283,7 @@ def subject(self):
                 try:
                     print('%d.开始执行联盟宝箱领取任务' % run_number)
                     Homepage()
-                    union_Treasure_Chest()    # 联盟宝箱
+                    union_Treasure_Chest()  # 联盟宝箱
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -295,7 +294,7 @@ def subject(self):
                 try:
                     print('%d.开始执行仓库补给领取任务' % run_number)
                     Homepage()
-                    warehouse()    # 仓库补给
+                    warehouse()  # 仓库补给
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -455,7 +454,7 @@ def subject(self):
                 try:
                     print('%d.开始执行邮件领取任务' % run_number)
                     Homepage()
-                    mail_function()    # 邮件领取
+                    mail_function()  # 邮件领取
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -466,7 +465,7 @@ def subject(self):
                 try:
                     print('%d.开始执行联盟宝箱领取任务' % run_number)
                     Homepage()
-                    union_Treasure_Chest()    # 联盟宝箱
+                    union_Treasure_Chest()  # 联盟宝箱
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -493,7 +492,7 @@ def subject(self):
             wait_number = wait_time / 10  # 设置循环次数
             while wait_number > wait_number_start:  # 如果循环次数大于开始条件，则执行循环
                 time.sleep(1)  # 等待1s
-                if stop_event.is_set():   # 如果点击了停止
+                if stop_event.is_set():  # 如果点击了停止
                     # execute = False
                     self.select_stop_button()  # 停止
                     break

@@ -45,7 +45,6 @@ def check_update():
     last_version = get_version.replace('version = ', '')
     # print(last_version)
     version_online = 'version'
-    body = '</body>'
     if response.status_code == 200:  # 如果连接到服务器
         if version_online in get_version and last_version != version:  # 如果有版本信息且版本不一致，返回1
             # print('当前版本:%s' % version)
@@ -148,8 +147,8 @@ class Ui_MainWindow(object):
         # noinspection PyAttributeOutsideInit
         self.comboBox = QtWidgets.QComboBox(self.frame)
         self.comboBox.setGeometry(QtCore.QRect(10, 10, 91, 22))
-        #self.comboBox.setAutoFillBackground(False)
-        #self.comboBox.setStyleSheet("background: transparent;")
+        # self.comboBox.setAutoFillBackground(False)
+        # self.comboBox.setStyleSheet("background: transparent;")
         self.comboBox.setStyleSheet("QComboBox {\n"
                                     "    background-color: rgba(0, 0, 0, 0); /* 白色背景，150为透明度 */\n"
                                     "    border: 1px solid rgba(0, 255, 0); /* 边框样式 */\n"
@@ -171,7 +170,7 @@ class Ui_MainWindow(object):
         self.lineEdit.setReadOnly(False)
         self.lineEdit.setClearButtonEnabled(False)
         self.lineEdit.setObjectName("lineEdit")
-        #模拟器地址/ip保存按钮
+        # 模拟器地址/ip保存按钮
         self.save_simulator = QtWidgets.QPushButton(self.frame)
         self.save_simulator.setEnabled(True)
         self.save_simulator.setGeometry(QtCore.QRect(380, 10, 75, 23))
@@ -196,7 +195,7 @@ class Ui_MainWindow(object):
                                           "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                           "}\n")
         self.save_simulator.setObjectName("pushButton")
-        self.save_simulator.clicked.connect(self.save_simulator_settings)  #type: ignore
+        self.save_simulator.clicked.connect(self.save_simulator_settings)  # type: ignore
         '''模拟器区域'''
         '''self.frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.frame_2.setGeometry(QtCore.QRect(490, 90, 461, 41))
@@ -925,8 +924,8 @@ class Ui_MainWindow(object):
         self.checkBox_XG_average.setFont(font)
         self.label_XG_lv.setFont(font)
         self.lineEdit_XG.setFont(font)
-        #self.checkBox_ty_caiji_average.setFont(font)
-        #self.simple_set.setFont(font)
+        # self.checkBox_ty_caiji_average.setFont(font)
+        # self.simple_set.setFont(font)
         self.label.setFont(font)
         self.label_Version_prompt.setFont(font)
         self.label_2.setFont(font)
@@ -1070,7 +1069,6 @@ class Ui_MainWindow(object):
         self.checkBox_warehouse.setChecked(option16)
 
     def read_ty_setting(self):  # 读取通用设置
-        global number_brush, number_iron, number_wood, number_meat, number_coal
         option_Random_time = settings.value('随机时间', 1, type=bool)
         option_jinshen = settings.value('优先晋升', 1, type=bool)
         option_WM = settings.value('冰原巨兽等级设置', 5, type=str)
@@ -1191,7 +1189,6 @@ class Ui_MainWindow(object):
 
     @pyqtSlot()
     def save_simple_set(self):  # 保存单项时间设置  （已废弃）
-        global number_brush, number_iron, number_wood, number_meat, number_coal
         simple_set_time_value = self.lineEdit_cycle_time.text()
         simple_index = self.radioButton_group.checkedId()
         if simple_index == 1:
@@ -1384,10 +1381,7 @@ class Ui_MainWindow(object):
         global close_number
         close_number = 0  # 通知发送信息函数程序已停止，终止发送连接请求
         event.accept()
-        thread1.join()  # 等待线程结束
-        # start_app_thread.join()  # 等待线程结束
-        # connect_thread.join()  # 等待线程结束
-        # start_exe_thread.join()  # 等待线程结束
+        thread1.join()  # 等待线程结束  # start_app_thread.join()  # 等待线程结束  # connect_thread.join()  # 等待线程结束  # start_exe_thread.join()  # 等待线程结束
 
 
 class MyApp(QMainWindow, Ui_MainWindow):

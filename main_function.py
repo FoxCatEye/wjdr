@@ -551,7 +551,6 @@ def collection_lv():
 
 # 生肉
 def Meat(self):
-    global number_meat
     print_space('准备采集生肉资源')
     print_space('点击搜索图标')
     touch([63, 1314])  # 点击搜索图标
@@ -576,7 +575,6 @@ def Meat(self):
 
 # 木材
 def Wood(self):
-    global number_wood
     print_space('准备采集木材资源')
     print_space('点击搜索图标')
     touch([63, 1314])  # 点击搜索图标
@@ -601,7 +599,6 @@ def Wood(self):
 
 # 煤矿
 def Coal(self):
-    global number_coal
     print_space('准备采集煤矿资源')
     print_space('点击搜索图标')
     touch([63, 1314])  # 点击搜索图标
@@ -626,7 +623,6 @@ def Coal(self):
 
 # 铁矿
 def Iron(self):
-    global number_iron
     print_space('准备采集铁矿资源')
     print_space('点击搜索图标')
     touch([63, 1314])  # 点击搜索图标
@@ -915,8 +911,7 @@ def warehouse():
         print_space('未找到仓库补给，关闭左侧栏')
         touch(Template(r"icon/tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
     # 判定是否是刷新时间或本次启动首次执行
-    # if now_time.hour == 12 or now_time.hour == 17 or number_physical_strength == 0:
-    if True:
+    if now_time.hour == 12 or now_time.hour == 17 or number_physical_strength == 0:
         number_physical_strength = 1
         print_space('首次执行任务或体力刷新时间，检查是否有体力可领取')
         time.sleep(1)
