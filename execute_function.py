@@ -495,19 +495,23 @@ def subject(self):
                 time.sleep(1)  # 等待1s
                 if stop_event.is_set():   # 如果点击了停止
                     # execute = False
-                    self.simple_stop_button()  # 停止
+                    self.select_stop_button()  # 停止
                     break
                 else:
                     if wait_number < 1:  # 如果循环次数小于1次
                         remaining_time = wait_time % 10  # 获取循环时间除于10后的余数
-                        # print('剩余等待时间：%ss' % remaining_time)
+                        print('剩余等待时间：%ss' % remaining_time)
                         time.sleep(remaining_time)
                         break
                     else:  # 如果循环次数大于1次
                         wait_number -= 1
-                        # print(wait_number)
-                        # print('等待10s')
+                        print(wait_number)
+                        print('等待10s')
                         time.sleep(10)
+                        if stop_event.is_set():  # 如果点击了停止
+                            # execute = False
+                            self.select_stop_button()  # 停止
+                            break
     print('结束任务')
 
 
