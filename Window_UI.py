@@ -1284,7 +1284,7 @@ class Ui_MainWindow(object):
         self.select_start.show()
         self.select_stop.hide()
 
-    @pyqtSlot()
+
     def simple_start_button(self):  # 单选开始按钮  （已废弃）
         settings.setValue('单选选择', self.radioButton_group.checkedId())
         self.simple_stop.show()  # type: ignore
@@ -1310,9 +1310,9 @@ class Ui_MainWindow(object):
     def hide_ui(self):  # 隐藏界面
         self.frame_task.setVisible(False)
         self.frame.setVisible(False)
-        self.frame_2.setVisible(False)
+        # self.frame_2.setVisible(False)
         # self.frame_3.setVisible(False)
-        self.frame_4.setVisible(False)
+        # self.frame_4.setVisible(False)
         self.frame_out.setVisible(False)
         self.hide_UI.setVisible(False)
         self.show_UI.setVisible(True)
@@ -1322,9 +1322,9 @@ class Ui_MainWindow(object):
     def show_ui(self):  # 显示界面
         self.frame_task.setVisible(True)
         self.frame.setVisible(True)
-        self.frame_2.setVisible(True)
+        # self.frame_2.setVisible(True)
         # self.frame_3.setVisible(True)
-        self.frame_4.setVisible(True)
+        # self.frame_4.setVisible(True)
         self.frame_out.setVisible(True)
         self.hide_UI.setVisible(True)
         self.show_UI.setVisible(False)
@@ -1378,10 +1378,11 @@ class Ui_MainWindow(object):
 
     def closeEvent(self, event):
         # 当窗口关闭时调用
-        global close_number
+        global close_number, thread1
         close_number = 0  # 通知发送信息函数程序已停止，终止发送连接请求
         event.accept()
-        thread1.join()  # 等待线程结束  # start_app_thread.join()  # 等待线程结束  # connect_thread.join()  # 等待线程结束  # start_exe_thread.join()  # 等待线程结束
+        thread1.join()  # 等待线程结束
+        stop_event.set()  # 通知所有线程停止
 
 
 class MyApp(QMainWindow, Ui_MainWindow):

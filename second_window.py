@@ -98,9 +98,15 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.更新版本日志</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.更新使用说明</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.优化循环逻辑</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.3.1</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.bug修复：循环时间等待中停止不生效</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.bug修复：体力概率未领取</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.bug修复：隐藏UI崩溃问题</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.优化：野怪，联盟宝箱，仓库执行时间优化（重复）</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.优化：仓库未检查到时未关闭左侧弹窗</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.优化：主页检查未识别到图案时，点击固定坐标位置的点位</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"
-                                                         ))
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"))
         self.textEdit.setReadOnly(True)
 
 

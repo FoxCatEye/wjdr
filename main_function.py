@@ -6,7 +6,7 @@ from airtest.core.android.android import *
 from numpy import random
 from Window_UI import settings
 from datetime import datetime
-
+import subprocess
 
 number_physical_strength = 0
 
@@ -43,7 +43,7 @@ def Homepage():
             else:
                 a += 1  # 增加 a 的值
                 print_space("不在主页，返回上一级")
-                # 判断是否存在黑色返回按钮，如果存在则点击
+                '''# 判断是否存在黑色返回按钮，如果存在则点击
                 if exists(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
                     print_space('点击黑色返回按钮')
                     touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
@@ -65,7 +65,10 @@ def Homepage():
                     touch(Template(r"icon\tpl1729734622180.png", rgb=True, record_pos=(0.381, -0.461), resolution=(1080, 1920)))
                 else:
                     print_space('点击其他区域')
-                    touch([536, 1210])  # 点击屏幕上的其他区域
+                    touch([536, 1210])  # 点击屏幕上的其他区域'''
+                # 模拟按下手机的返回键
+                keyevent('BACK')
+                print_space("成功调用手机的返回按钮")
             '''if stop_event.is_set():
                 self.select_stop_button()
                 break'''

@@ -1,6 +1,6 @@
 '''模拟器点击变量'''
 import os
-import subprocess
+
 import time
 
 from airtest.core.api import connect_device
@@ -10,6 +10,7 @@ import threading
 stop_event = threading.Event()
 '''打开模拟器'''
 emulator_click = 0
+run_1 = True
 
 
 def start_exe():
@@ -23,6 +24,9 @@ def start_exe():
         except:
             print_space('未找到模拟器，5s后重新尝试启动')
             time.sleep(5)
+            if stop_event.is_set():
+                print_space('停止启动模拟器')
+                break
 
 
 # 连接模拟器
@@ -47,6 +51,9 @@ def cnnect():
             a += 1
             print('未连接到模拟器，5s后尝试重新连接')
             time.sleep(5)
+            if stop_event.is_set():
+                print_space('停止连接模拟器')
+                break
 
 
 # 启动APP
@@ -66,6 +73,9 @@ def start_app():
             break
         except:
             print('启动失败，再次尝试')
+            if stop_event.is_set():
+                print_space('停止启动游戏')
+                break
         '''else:
         print_space('游戏已启动!!!')'''
 
@@ -115,13 +125,14 @@ def stop_function():
 
 # 多选主体代码
 def subject(self):
-    global emulator_click, stop_event
+    global emulator_click, stop_event, run_1
     if emulator_click == 0:
         time.sleep(1)
         print('未连接模拟器')
         time.sleep(1)
         cnnect()
     run_number = 1
+    run_1 = True  # 初始化run_1以用于程序执行
     if self.select_time.isChecked():
         while True:
             now = datetime.now()
@@ -305,7 +316,7 @@ def subject(self):
                 self.select_stop_button()  # 总功能
                 break
     else:
-        while True:
+        while run_1:
             now = datetime.now()
             if self.checkBox_help.isChecked():
                 try:
@@ -493,23 +504,23 @@ def subject(self):
             while wait_number > wait_number_start:  # 如果循环次数大于开始条件，则执行循环
                 time.sleep(1)  # 等待1s
                 if stop_event.is_set():  # 如果点击了停止
-                    # execute = False
                     self.select_stop_button()  # 停止
+                    run_1 = False
                     break
                 else:
                     if wait_number < 1:  # 如果循环次数小于1次
                         remaining_time = wait_time % 10  # 获取循环时间除于10后的余数
-                        print('剩余等待时间：%ss' % remaining_time)
+                        # print('剩余等待时间：%ss' % remaining_time)
                         time.sleep(remaining_time)
                         break
                     else:  # 如果循环次数大于1次
+                        # print(wait_number)
                         wait_number -= 1
-                        print(wait_number)
-                        print('等待10s')
+                        # print('等待10s')
                         time.sleep(10)
                         if stop_event.is_set():  # 如果点击了停止
-                            # execute = False
                             self.select_stop_button()  # 停止
+                            run_1 = False
                             break
     print('结束任务')
 
