@@ -65,7 +65,7 @@ def Homepage():
                     touch(Template(r"icon\tpl1729734622180.png", rgb=True, record_pos=(0.381, -0.461), resolution=(1080, 1920)))
                 else:
                     print_space('点击其他区域')
-                    touch([500, 600])  # 点击屏幕上的其他区域
+                    touch([536, 1210])  # 点击屏幕上的其他区域
             '''if stop_event.is_set():
                 self.select_stop_button()
                 break'''
@@ -911,18 +911,29 @@ def warehouse():
         touch([540, 870])  # 点击领取补给
         time.sleep(1)
         touch([660, 300])  # 关闭奖励弹窗
-        if now_time.hour == 12 or now_time.hour == 18 or number_physical_strength == 0:  # 判定是否是刷新时间或本次启动首次执行
-            number_physical_strength = 1
-            print_space('首次执行任务或体力刷新时间，检查是否有体力可领取')
-            if exists(Template(r"icon/tpl1737094428928.png", record_pos=(0.002, -0.094), resolution=(1080, 1920))):
-                print_space('点击仓库')
-                touch([540, 870])  # 再次点击领取体力
-                time.sleep(1)
-                print_space('点击领取按钮')
-                touch([540, 1430])  # 点击领取按钮
-                touch([540, 870])  # 关闭奖励弹窗
-            else:
-                print('未找到体力罐头')
     else:
-        print('未找到仓库补给，关闭左侧栏')
+        print_space('未找到仓库补给，关闭左侧栏')
         touch(Template(r"icon/tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+    # 判定是否是刷新时间或本次启动首次执行
+    # if now_time.hour == 12 or now_time.hour == 17 or number_physical_strength == 0:
+    if True:
+        number_physical_strength = 1
+        print_space('首次执行任务或体力刷新时间，检查是否有体力可领取')
+        time.sleep(1)
+        touch([14, 823])  # 点击左侧打开隐藏栏
+        time.sleep(1)
+        touch([70, 1230])  # 点击科技研究
+        time.sleep(1)
+        swipe([500, 1000], vector=[0.2, 0.0017])  # 向左滑动
+        time.sleep(1)
+        if exists(Template(r"icon/tpl1737094428928.png", record_pos=(0.002, -0.094), resolution=(1080, 1920))):
+            print_space('点击体力罐头')
+            touch(Template(r"icon/tpl1737094428928.png", record_pos=(0.002, -0.094), resolution=(1080, 1920)))  # 点击体力罐头
+            time.sleep(1)
+            print_space('点击领取按钮')
+            touch([540, 1430])  # 点击领取按钮
+            time.sleep(1)
+            touch([150, 1300])  # 关闭奖励弹窗
+            print_space('领取成功')
+        else:
+            print_space('未找到体力罐头')
