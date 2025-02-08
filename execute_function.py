@@ -137,7 +137,7 @@ def subject(self):
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_XG.isChecked() and now.minute % 5 == 0 and now.second % 5 == 0 and now.hour != 21:
+            if self.checkBox_XG.isChecked() and now.minute % 4 == 0 and now.second % 10 == 0 and now.hour != 21:
                 try:
                     print('%d.开始执行野怪任务' % run_number)
                     Homepage()  # 主页检查
@@ -262,7 +262,7 @@ def subject(self):
                 try:
                     print('%d.开始执行攻击检测任务' % run_number)
                     Homepage()
-                    mining_collision()  #攻击检测
+                    mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -280,7 +280,7 @@ def subject(self):
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_Treasure_Chest.isChecked() and now.minute == 50 and now.second % 20 == 0:
+            if self.checkBox_Treasure_Chest.isChecked() and now.minute == 49 and now.second % 20 == 0:
                 try:
                     print('%d.开始执行联盟宝箱领取任务' % run_number)
                     Homepage()
