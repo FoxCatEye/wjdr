@@ -20,7 +20,7 @@ settings = QSettings("set.ini", QSettings.IniFormat)
 settings.setIniCodec('UTF-8')  # 设置ini文件编码为 UTF-8
 
 close_number = 1
-version = '2.3.0'  # 当前版本
+version = '2.3.1'  # 当前版本
 
 
 def get_ip_address():
