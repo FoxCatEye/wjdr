@@ -1308,19 +1308,17 @@ def Iron(self):
 @goHomepage
 @catch_exceptions
 def Collection(self):
-    if not exists(
+    if not check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1720145326019.png"),
-            record_pos=(-0.191, -0.169),
+            os.path.join("icon", r"tpl1739024627263.png"),
+            record_pos=(0.396, 0.788),
             resolution=(1080, 1920),
-        )
+            threshold=0.9,
+        ),
+        "检查到在城镇,去野外采集",
     ):
-        print_space("不在世界，点击去往世界")
-        touch([950, 1850])  # 点击野外
-        time.sleep(5)  # 等待5秒
-    else:
-        print_space("在野外，执行采集任务")
-        time.sleep(3)
+        print_space("检查到在野外,准备采集")
+    sleep(3)
     touch([14, 823])
     time.sleep(1)
     touch([500, 400])
