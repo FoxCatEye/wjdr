@@ -81,8 +81,8 @@ def Homepage():
         # 判断是否在城镇,面板是否回收,
         if exists(
             Template(
-                os.path.join("icon", r"tpl1739008721692.png"),
-                record_pos=(0.403, 0.815),
+                os.path.join("icon", r"tpl1739024627263.png"),
+                record_pos=(0.396, 0.788),
                 resolution=(1080, 1920),
                 threshold=0.9,
             )
@@ -131,8 +131,8 @@ def Homepage():
                 continue
             if check_and_touch(
                 Template(
-                    os.path.join("icon", r"tpl1739024627263.png"),
-                    record_pos=(0.396, 0.788),
+                    os.path.join("icon", r"tpl1739008721692.png"),
+                    record_pos=(0.403, 0.815),
                     resolution=(1080, 1920),
                     threshold=0.9,
                 ),
