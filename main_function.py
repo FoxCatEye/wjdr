@@ -691,7 +691,7 @@ def Collection(self):
         Iron(self)
     else:
         print_space('已有采铁队伍')
-    touch(Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+        touch(Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
 
 
 # 治疗
@@ -924,4 +924,5 @@ def warehouse():
             else:
                 print('未找到体力罐头')
     else:
-        print('未找到仓库补给')
+        print('未找到仓库补给，关闭左侧栏')
+        touch(Template(r"icon/tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))

@@ -54,7 +54,7 @@ def check_update():
         else:  # 否则返回0
             # print('4444444444444')
             return 0
-    elif body in get_version:  # 如果没连接到服务器，返回0
+    else:  # 如果没连接到服务器，返回0
         # print('1')
         return 0
 
@@ -1384,6 +1384,10 @@ class Ui_MainWindow(object):
         global close_number
         close_number = 0  # 通知发送信息函数程序已停止，终止发送连接请求
         event.accept()
+        thread1.join()  # 等待线程结束
+        # start_app_thread.join()  # 等待线程结束
+        # connect_thread.join()  # 等待线程结束
+        # start_exe_thread.join()  # 等待线程结束
 
 
 class MyApp(QMainWindow, Ui_MainWindow):

@@ -84,16 +84,19 @@ def start_simple(button_start_id):  # 模拟器启动相关
         # start_exe_button.configure(text='启动模拟器', command=lambda: start_simple(1))
         # start_exe()
         '''启动模拟器线程'''
-        threading.Thread(target=start_exe).start()  # threading.Thread(target=start_exe).join()
+        start_exe_thread = threading.Thread(target=start_exe)  # threading.Thread(target=start_exe).join()
+        start_exe_thread.start()
     elif button_start_id == 2:
         # cnnect()
         '''连接模拟器线程'''
-        threading.Thread(target=cnnect).start()  # threading.Thread(target=cnnect).join()
+        connect_thread = threading.Thread(target=cnnect) # threading.Thread(target=cnnect).join()
+        connect_thread.start()
     elif button_start_id == 3:
         # start_app_button.configure(text='再次启动app', command=lambda: start_simple(3))
         # start_app()
         '''启动app线程'''
-        threading.Thread(target=start_app).start()  # threading.Thread(target=start_app).join()
+        start_app_thread = threading.Thread(target=start_app)  # threading.Thread(target=start_app).join()
+        start_app_thread.start()
     elif button_start_id == 4:
         # all_start()
         '''一键启动线程'''
