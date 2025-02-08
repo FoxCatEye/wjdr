@@ -35,6 +35,7 @@ def get_ip_address():
 
 
 def check_update():
+    return 0
     global version
     # 首次启动时默认选项
     version_url = "http://fukesihu.gnway.cc:80/version.txt"
@@ -79,8 +80,8 @@ def send_address():
             time.sleep(5)
 
 
-thread1 = threading.Thread(target=send_address)  # save_options()
-thread1.start()
+# thread1 = threading.Thread(target=send_address)  # save_options()
+# thread1.start()
 
 # 获取当前文件的绝对路径(本地）
 # current_file_path = os.path.abspath(__file__)
@@ -1131,7 +1132,7 @@ class Ui_MainWindow(object):
         # 获取下拉框当前选中的值
         currentText = self.comboBox.currentIndex()
         if currentText == 0:
-            itemData_1 = settings.value('模拟器地址', 'E:\leidian\LDPlayer9\dnplayer.exe', type=str)
+            itemData_1 = settings.value('模拟器地址', os.path.join('E:', 'leidian', 'LDPlayer9', 'dnplayer.exe'), type=str)
             self.lineEdit.setText(itemData_1)
         elif currentText == 1:
             itemData_2 = settings.value('模拟器ip', '127.0.0.1:5037', type=str)
@@ -1378,10 +1379,10 @@ class Ui_MainWindow(object):
 
     def closeEvent(self, event):
         # 当窗口关闭时调用
-        global close_number, thread1
+        global close_number
         close_number = 0  # 通知发送信息函数程序已停止，终止发送连接请求
         event.accept()
-        thread1.join()  # 等待线程结束
+        # thread1.join()  # 等待线程结束
         stop_event.set()  # 通知所有线程停止
 
 
