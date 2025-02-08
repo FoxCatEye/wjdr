@@ -99,6 +99,16 @@ def Homepage():
         else:
             if check_and_touch(
                 Template(
+                    os.path.join("icon", r"tpl1739008721692.png"),
+                    record_pos=(0.403, 0.815),
+                    resolution=(1080, 1920),
+                    threshold=0.9,
+                ),
+                "检查到在野外并点击去往城镇",
+            ):
+                continue
+            if check_and_touch(
+                Template(
                     os.path.join("icon", r"tpl1739012192856.png"),
                     record_pos=(-0.444, -0.844),
                     resolution=(1080, 1920),
@@ -129,16 +139,7 @@ def Homepage():
                 [50, 50],
             ):
                 continue
-            if check_and_touch(
-                Template(
-                    os.path.join("icon", r"tpl1739008721692.png"),
-                    record_pos=(0.403, 0.815),
-                    resolution=(1080, 1920),
-                    threshold=0.9,
-                ),
-                "检查到在野外并点击去往城镇",
-            ):
-                continue
+
             print_space("未知情况，固定点击返回")
             touch([50, 50])
             sleep(0.5)
