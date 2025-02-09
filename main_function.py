@@ -1934,24 +1934,9 @@ def union_Treasure_Chest():
             touch([540, 1810])  # 点击关闭奖励界面
         else:
             print_space("未找到一键领取按钮，等待下次检查")
-        touch(
-            Template(
-                os.path.join("icon", r"black_return.png"),
-                rgb=True,
-                record_pos=(-0.441, -0.839),
-                resolution=(1080, 1920),
-            )
-        )  # 点击返回按钮
     else:
         print_space("未找到联盟宝箱图案，请检查游戏界面或自主修复")
-    touch(
-        Template(
-            os.path.join("icon", r"black_return.png"),
-            rgb=True,
-            record_pos=(-0.441, -0.839),
-            resolution=(1080, 1920),
-        )
-    )  # 点击返回按钮
+    touch([50, 50])  # 点击返回按钮
 
 
 # 仓库补给
