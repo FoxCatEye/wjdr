@@ -1077,10 +1077,12 @@ def Brush_WM(self):
                 )
             print_space("点击出征按钮")
             energy()
+            return
         else:  # 判断是否有多余兵力
             print_space("未找到出征按钮，不满足条件，无兵力出征")
     else:
         print_space("未找到发起集结按钮，队伍数不足，无法出征")
+    touch([50, 50])
 
 
 # 采集出兵
