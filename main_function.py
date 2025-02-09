@@ -19,6 +19,20 @@ sys.stdout = open(sys.stdout.fileno(), mode="w", encoding="utf-8", buffering=1)
 sys.stderr = open(sys.stderr.fileno(), mode="w", encoding="utf-8", buffering=1)
 
 
+def check_stop_event(func):
+    if stop_event.is_set():
+        return
+
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception as e:
+            print(f"执行错误: {e}")
+
+    return wrapper
+
+
+@check_stop_event
 def catch_exceptions(func):
     def wrapper(*args, **kwargs):
         try:
@@ -26,19 +40,15 @@ def catch_exceptions(func):
         except Exception as e:
             print(f"执行错误: {e}")
 
-    if stop_event.is_set():
-        return
-
     return wrapper
 
 
+@check_stop_event
 def goHomepage(func):
     def wrapper(*args, **kwargs):
         Homepage()
         return func(*args, **kwargs)
 
-    if stop_event.is_set():
-        return
     return wrapper
 
 
@@ -54,6 +64,25 @@ def check_and_touch(templateObj, message="", target_pos=None):
         sleep(0.5)
         return True
     return False
+
+
+@check_stop_event
+def check_and_go_outside(func):
+    def wrapper(*args, **kwargs):
+        print_space("检查是否在城镇,去野外")
+        check_and_touch(
+            Template(
+                os.path.join("icon", r"tpl1739024627263.png"),
+                record_pos=(0.396, 0.788),
+                resolution=(1080, 1920),
+                threshold=0.9,
+            ),
+            "检查到在城镇,去野外",
+        )
+        sleep(3)
+        return func(*args, **kwargs)
+
+    return wrapper
 
 
 number_physical_strength = 0
@@ -194,8 +223,8 @@ def re_connet():
 
 
 # 互助功能
-@goHomepage
 @catch_exceptions
+@goHomepage
 def Help(self):
     if exists(
         Template(
@@ -556,8 +585,8 @@ def build_main():
 
 
 # 自动建筑升级
-@goHomepage
 @catch_exceptions
+@goHomepage
 def Build():
     touch([14, 823])
     time.sleep(1)
@@ -693,8 +722,8 @@ def search_main():
 
 
 # 打雪怪功能
-@goHomepage
 @catch_exceptions
+@goHomepage
 def NPC():
     print_space("打雪怪时间，开始集结雪怪")
     print_space("打开背包")
@@ -819,8 +848,8 @@ def XG_lv():
 
 
 # 野兽
-@goHomepage
 @catch_exceptions
+@goHomepage
 def Brush_XG(self):
     print_space("打野怪时间，开始出征")
     search_main()
@@ -879,8 +908,8 @@ def Brush_XG(self):
 
 
 # 巨熊活动
-@goHomepage
 @catch_exceptions
+@goHomepage
 def bear():
     if exists(
         Template(
@@ -963,8 +992,8 @@ def WM_lv():  # 冰原巨兽等级输入
 
 
 # 冰原巨兽
-@goHomepage
 @catch_exceptions
+@goHomepage
 def Brush_WM(self):
     search_main()
     swipe([600, 1370], vector=[0.4103, 0.0170])  # 滑动
@@ -1181,6 +1210,8 @@ def collection_lv():
 
 # 生肉
 @catch_exceptions
+@goHomepage
+@check_and_go_outside
 def Meat(self):
     print_space("准备采集生肉资源")
     print_space("点击搜索图标")
@@ -1213,6 +1244,8 @@ def Meat(self):
 
 # 木材
 @catch_exceptions
+@goHomepage
+@check_and_go_outside
 def Wood(self):
     print_space("准备采集木材资源")
     print_space("点击搜索图标")
@@ -1244,6 +1277,8 @@ def Wood(self):
 
 # 煤矿
 @catch_exceptions
+@goHomepage
+@check_and_go_outside
 def Coal(self):
     print_space("准备采集煤矿资源")
     print_space("点击搜索图标")
@@ -1275,6 +1310,8 @@ def Coal(self):
 
 # 铁矿
 @catch_exceptions
+@goHomepage
+@check_and_go_outside
 def Iron(self):
     print_space("准备采集铁矿资源")
     print_space("点击搜索图标")
@@ -1305,8 +1342,8 @@ def Iron(self):
 
 
 # 自动采集
-@goHomepage
 @catch_exceptions
+@goHomepage
 def Collection(self):
     if not check_and_touch(
         Template(
@@ -1389,8 +1426,8 @@ def Collection(self):
 
 
 # 治疗
-@goHomepage
 @catch_exceptions
+@goHomepage
 def treatment():
     check_and_touch(
         Template(
@@ -1451,8 +1488,8 @@ def treatment():
 
 
 # 联盟捐赠
-@goHomepage
 @catch_exceptions
+@goHomepage
 def donate():
     print_space("开始执行联盟捐献任务")
     print_space("点击联盟图案")
@@ -1533,8 +1570,8 @@ def donate():
 
 
 # 探险
-@goHomepage
 @catch_exceptions
+@goHomepage
 def adventure():
     print_space("点击探险")
     touch(
@@ -1582,8 +1619,8 @@ def adventure():
 
 
 # 招募英雄
-@goHomepage
 @catch_exceptions
+@goHomepage
 def recruit():
     if check_and_touch(
         Template(
@@ -1654,8 +1691,8 @@ def recruit():
 
 
 # 攻击检测
-@goHomepage
 @catch_exceptions
+@goHomepage
 def mining_collision():
     if exists(
         Template(
@@ -1794,8 +1831,8 @@ def mining_collision():
 
 
 # 邮件领取功能逻辑
-@goHomepage
 @catch_exceptions
+@goHomepage
 def mail_function():
     print_space("点击邮件图案")
     touch([993, 1582])  # 邮件图案坐标
@@ -1828,8 +1865,8 @@ def mail_function():
 
 
 # 联盟宝箱领取功能
-@goHomepage
 @catch_exceptions
+@goHomepage
 def union_Treasure_Chest():
     print_space("点击联盟图案")
     touch(
@@ -1918,8 +1955,8 @@ def union_Treasure_Chest():
 
 
 # 仓库补给
-@goHomepage
 @catch_exceptions
+@goHomepage
 def warehouse():
     global number_physical_strength
     now_time = datetime.now()
