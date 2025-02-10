@@ -105,6 +105,8 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.优化：野怪，联盟宝箱，仓库执行时间优化（重复）</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.优化：仓库未检查到时未关闭左侧弹窗</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.优化：主页检查逻辑</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.优化：英雄招募检查逻辑</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.优化：仓库补给检查逻辑</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"))
         self.textEdit.setReadOnly(True)

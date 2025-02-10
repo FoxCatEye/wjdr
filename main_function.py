@@ -21,6 +21,21 @@ def print_space(variable, spaces=4):
     # 使用指定数量的空格进行缩进，并将变量转换为字符串后打印
     print(' ' * spaces + str(variable))
 
+# 检查并点击
+def check_and_touch(templateObj, message="", target_pos=None):
+    if exists(templateObj):
+        if message:
+            print_space(message)
+        if target_pos:
+            print_space(f"点击位置：{target_pos}")
+            touch(target_pos)
+        else:
+            print_space("点击图标")
+            touch(templateObj)
+        sleep(0.5)
+        return True
+    return False
+
 
 # 主页判断
 def Homepage():
@@ -765,13 +780,13 @@ def recruit():
         touch(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
         print_space('点击英雄招募')
         touch(Template(r"icon\hero_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
-        if exists(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.234, 0.285), scale_max=800, resolution=(1080, 1920))):
-            print_space('点击免费招募')
-            touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.234, 0.285), scale_max=800, resolution=(1080, 1920)))
+        if check_and_touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.234, 0.285), scale_max=800, resolution=(1080, 1920))):
+            # print_space('点击免费招募')
+            # touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.234, 0.285), scale_max=800, resolution=(1080, 1920)))
             time.sleep(1)
             if not exists(Template(r"icon\tpl1729741197970.png", record_pos=(-0.441, -0.836), resolution=(1080, 1920))):
-                # 如果没找到返回按钮，随机点击一个位置（考虑抽到英雄的情况）
-                touch([200, 200])
+                # 如果没找到返回按钮，模拟按下手机的返回键（考虑抽到英雄的情况）
+                keyevent('BACK')
             touch(Template(r"icon\tpl1729741197970.png", record_pos=(-0.441, -0.836), resolution=(1080, 1920)))
             time.sleep(1)
         else:
@@ -779,7 +794,6 @@ def recruit():
         touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
         time.sleep(1)
         touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
-
 
 # 攻击检测
 def mining_collision():
@@ -904,7 +918,7 @@ def warehouse():
     time.sleep(1)
     if exists(Template(r"icon/tpl1737088915389.png", threshold=0.9, record_pos=(-0.436, 0.106), resolution=(1080, 1920))):
         print_space('有可领取补给，点击前往')
-        touch(Template(r"icon/tpl1737088915389.png", record_pos=(-0.436, 0.106), resolution=(1080, 1920)))
+        touch(Template(r"icon/tpl1737088915389.png", threshold=0.9, record_pos=(-0.436, 0.106), resolution=(1080, 1920)))
         time.sleep(1)
         print_space('点击领取')
         touch([540, 870])  # 点击领取补给
