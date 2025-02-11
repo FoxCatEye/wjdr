@@ -935,12 +935,12 @@ class Ui_MainWindow(object):
         self.textEdit.setFont(font)
         self.hide_UI.setFont(font)
 
-    def retranslateUi(self, MainWindow):  #将按钮文本等显示到窗口
+    def retranslateUi(self, MainWindow):  # 将按钮文本等显示到窗口
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "无尽冬日"))
         self.textEdit.setText(_translate("MainWindow", "<font color=\"#FF0000\" size=4><p align=\"center\"  style=\" margin-top:0px; "
                                                        "margin-bottom:5px; \">注意事项：①模拟器分辨率：手机（1080*1920）②游戏设置：画质高级，关闭雪花和昼夜</p>"
-                                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px\" >③请停止执行任务后再关闭脚本④请等待程序停止后再设置相关参数⑤设置相关参数后请重新开始执行任务</p></font>"))
+                                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px\" >③请停止执行任务后再关闭脚本④请等待程序停止后再设置相关参数⑤设置相关参数后点击设置并请重新开始执行任务</p></font>"))
         self.save_simulator.setText(_translate("MainWindow", "保存"))
         self.start_simulator.setText(_translate("MainWindow", "启动模拟器"))
         self.connect_simulator.setText(_translate("MainWindow", "连接模拟器"))
@@ -1022,7 +1022,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "版本:" + version))
         self.show_UI.setText(_translate("MainWindow", "显示UI"))
         self.notice_button.setText(_translate("MainWindow", "版本日志"))
-        self.help_button.setText(_translate("MainWindow", "帮助文档"))
+        self.help_button.setText(_translate("MainWindow", "功能说明"))
         self.hide_UI.setText(_translate("MainWindow", "隐藏UI"))
 
     @pyqtSlot()
@@ -1134,7 +1134,7 @@ class Ui_MainWindow(object):
             itemData_1 = settings.value('模拟器地址', 'E:\leidian\LDPlayer9\dnplayer.exe', type=str)
             self.lineEdit.setText(itemData_1)
         elif currentText == 1:
-            itemData_2 = settings.value('模拟器ip', '127.0.0.1:5037', type=str)
+            itemData_2 = settings.value('模拟器ip', '127.0.0.1:5037/emulator-5554', type=str)
             self.lineEdit.setText(itemData_2)  # 获取当前选中项的数据  itemData = self.comboBox.itemData(index)   在输入框中显示内容  self.lineEdit.setText(itemData)
 
     @pyqtSlot()
@@ -1380,7 +1380,7 @@ class Ui_MainWindow(object):
         # 当窗口关闭时调用
         global close_number, thread1
         close_number = 0  # 通知发送信息函数程序已停止，终止发送连接请求
-        event.accept()
+        # event.accept()
         thread1.join()  # 等待线程结束
         stop_event.set()  # 通知所有线程停止
 

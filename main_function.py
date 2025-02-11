@@ -30,7 +30,6 @@ def check_and_touch(templateObj, message="", target_pos=None):
             print_space(f"点击位置：{target_pos}")
             touch(target_pos)
         else:
-            print_space("点击图标")
             touch(templateObj)
         sleep(0.5)
         return True
@@ -48,15 +47,15 @@ def Homepage():
 
     :return: 无返回值
     """
-    a = 1  # 初始化变量 a 为 1，用于控制循环次数
+    check_number = 1  # 初始化变量 a 为 1，用于控制循环次数
     try:
-        while a < 4:  # 循环最多执行 3 次
+        while check_number < 4:  # 循环最多执行 3 次
             # 判断是否存在特定图标，如果存在则打印信息并跳出循环
             if exists(Template(r"icon\tpl1719198809581.png", record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
                 print_space("在主页，准备执行任务")  # 在主界面，执行任务
                 break
             else:
-                a += 1  # 增加 a 的值
+                check_number += 1  # 增加 a 的值
                 print_space("不在主页，返回上一级")
                 '''# 判断是否存在黑色返回按钮，如果存在则点击
                 if exists(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
@@ -89,7 +88,7 @@ def Homepage():
                 break'''
     except:
         print('执行错误')  # 捕获异常并打印错误信息
-    if a == 4:  # 如果 a 的值达到 4
+    if check_number == 4:  # 如果 a 的值达到 4
         re_connet()  # 调用 re_connet 函数进行设备顶号重连
 
 
@@ -779,21 +778,25 @@ def recruit():
         print_space('点击英雄')
         touch(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
         print_space('点击英雄招募')
-        touch(Template(r"icon\hero_recruit.png", threshold=0.8, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
-        if check_and_touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.234, 0.285), scale_max=800, resolution=(1080, 1920))):
+        touch(Template(r"icon\hero_recruit.png", threshold=0.8, record_pos=(-0.438, 0.258), resolution=(1080, 1920)))
+        if check_and_touch(Template(r"icon\free_recruit.png", threshold=0.75, record_pos=(-0.234, 0.285), scale_max=800, resolution=(1080, 1920)),'点击免费招募'):
             # print_space('点击免费招募')
             # touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.234, 0.285), scale_max=800, resolution=(1080, 1920)))
+            time.sleep(5)
+            keyevent('BACK')
             time.sleep(1)
             if not exists(Template(r"icon\tpl1729741197970.png", record_pos=(-0.441, -0.836), resolution=(1080, 1920))):
                 # 如果没找到返回按钮，模拟按下手机的返回键（考虑抽到英雄的情况）
                 keyevent('BACK')
-            touch(Template(r"icon\tpl1729741197970.png", record_pos=(-0.441, -0.836), resolution=(1080, 1920)))
+                check_and_touch(Template(r"icon\tpl1729741197970.png", record_pos=(-0.441, -0.836), resolution=(1080, 1920)))
+                print_space('点击返回1按钮')
             time.sleep(1)
         else:
             print_space('无免费招募次数')
-        touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
+        print_space('点击返回2按钮')
+        check_and_touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
         time.sleep(1)
-        touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
+        check_and_touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
 
 # 攻击检测
 def mining_collision():

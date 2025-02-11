@@ -32,21 +32,22 @@ def start_exe():
 # 连接模拟器
 def cnnect():
     global emulator_click
-    emulator_click = 1
     a = 1
-    while a > 0:  # 连接模拟器
+    while True:  # 连接模拟器
         try:
             print('%d.开始尝试连接模拟器' % a)
-            os.popen('adb start-server')
+            if emulator_click == 3:
+                os.popen('adb start-server')
             connect_ip = settings.value('模拟器ip', '127.0.0.1:5037', type=str)
             print('地址：android:// %s' % connect_ip)
             # print('地址：android://127.0.0.1:5037')
             connect_device('android://%s' % connect_ip)
             # connect_device('android://127.0.0.1:5037')
-            # subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
             time.sleep(5)
             print('连接模拟器成功!!!')
-            a = 0
+            emulator_click = 1
+            # os.popen('adb kill-server')
+            break
         except:
             a += 1
             print('未连接到模拟器，5s后尝试重新连接')
@@ -97,21 +98,26 @@ def start_simple(button_start_id):  # 模拟器启动相关
         '''启动模拟器线程'''
         start_exe_thread = threading.Thread(target=start_exe)  # threading.Thread(target=start_exe).join()
         start_exe_thread.start()
+        start_exe_thread.join()
     elif button_start_id == 2:
         # cnnect()
         '''连接模拟器线程'''
         connect_thread = threading.Thread(target=cnnect)  # threading.Thread(target=cnnect).join()
         connect_thread.start()
+        # connect_thread.join()
     elif button_start_id == 3:
         # start_app_button.configure(text='再次启动app', command=lambda: start_simple(3))
         # start_app()
         '''启动app线程'''
         start_app_thread = threading.Thread(target=start_app)  # threading.Thread(target=start_app).join()
         start_app_thread.start()
+        # start_app_thread.join()
     elif button_start_id == 4:
         # all_start()
         '''一键启动线程'''
-        threading.Thread(target=all_start).start()
+        all_start_thread = threading.Thread(target=all_start)
+        all_start_thread.start()
+        # all_start_thread.join()
     else:
         print_space('错误')
 
@@ -132,7 +138,6 @@ def subject(self):
         time.sleep(1)
         cnnect()
     run_number = 1
-    run_1 = True  # 初始化run_1以用于程序执行
     if self.select_time.isChecked():
         while True:
             now = datetime.now()
@@ -532,7 +537,7 @@ def simple_select(self):
         time.sleep(1)
         print('未连接模拟器')
         time.sleep(1)
-        cnnect()
+        # cnnect()
     execute = True
     if self.radioButton_help.isChecked():
         while True:
