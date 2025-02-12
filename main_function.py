@@ -409,7 +409,7 @@ def Brush_XG(self):
     if exists(Template(r"icon\tpl1721191349775.png", rgb=False, record_pos=(0.002, 0.705), resolution=(1080, 1920))):
         touch(Template(r"icon\tpl1721191349775.png", rgb=False, record_pos=(0.002, 0.705), resolution=(1080, 1920)))  # 点击出征怪物
     else:
-        print_space('未找到攻击按钮图案，如游戏内有，请检查模拟器和游戏相关设置')
+        print_space('未找到攻击按钮图案，如游戏内有，请检查模拟器和游戏相关设置或使用自助修复')
     time.sleep(1)  # 等待1s
     if exists(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):  # 判断是否有兵力
         if self.checkBox_XG_average.isChecked():  # 平均兵力选项
