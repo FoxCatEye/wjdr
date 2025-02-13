@@ -12,13 +12,12 @@ import importlib
 from global_vars import stop_event
 
 
-# 设置默认编码为 utf-8
-importlib.reload(sys)
-sys.setdefaultencoding = "utf-8"
-# 确保输出编码为 UTF-8
-sys.stdout = open(sys.stdout.fileno(), mode="w", encoding="utf-8", buffering=1)
-sys.stderr = open(sys.stderr.fileno(), mode="w", encoding="utf-8", buffering=1)
-
+# # 设置默认编码为 utf-8
+# importlib.reload(sys)
+# sys.setdefaultencoding = "utf-8"
+# # 确保输出编码为 UTF-8
+# sys.stdout = open(sys.stdout.fileno(), mode="w", encoding="utf-8", buffering=1)
+# sys.stderr = open(sys.stderr.fileno(), mode="w", encoding="utf-8", buffering=1)
 
 def check_stop_event(func):
     if stop_event.is_set():
@@ -54,7 +53,7 @@ def goHomepage(func):
 
 
 @catch_exceptions
-def check_and_touch(templateObj, message="", target_pos=None):
+def check_and_touch(templateObj, message="", target_pos=None, delay=0.5):
     if exists(templateObj):
         if message:
             print_space(message)
@@ -62,7 +61,7 @@ def check_and_touch(templateObj, message="", target_pos=None):
             touch(target_pos)
         else:
             touch(templateObj)
-        sleep(0.5)
+        sleep(delay)
         return True
     return False
 
@@ -108,16 +107,13 @@ def Homepage():
         if stop_event.is_set():
             return
         print_space(f"第{i+1}次判断是否在主页")
-        keyevent("BACK")
-        sleep(0.3)
-        keyevent("BACK")
-        sleep(0.3)
         # 判断是否在主页
         if exists(
             Template(
                 os.path.join("icon", r"tpl1739445040255.png"),
                 record_pos=(0.403, 0.824),
                 resolution=(1080, 1920),
+                threshold=0.9,
             )
         ):
             print_space("在主页")
@@ -133,7 +129,7 @@ def Homepage():
             return
 
         print_space("不在主页，返回主页")
-        check_and_touch(
+        if check_and_touch(
             Template(
                 os.path.join("icon", r"tpl1739011457290.png"),
                 record_pos=(-0.328, -0.71),
@@ -142,15 +138,22 @@ def Homepage():
             ),
             "检查到弹窗并点击",
             [50, 50],
-        )
-        check_and_touch(
+        ):  # 检查是否有弹窗
+            continue
+        if check_and_touch(
             Template(
                 os.path.join("icon", r"tpl1739008721692.png"),
                 record_pos=(0.403, 0.815),
                 resolution=(1080, 1920),
+                threshold=0.9,
             ),
             "检查到在野外并点击去往城镇",
-        )
+            [980, 1800],
+            delay=1
+        ):   # 检查是否在野外
+            continue
+        keyevent("BACK")
+        sleep(0.3)
         continue
         # 判断是否在城镇,面板是否回收,
         if exists(
@@ -459,16 +462,6 @@ def train(self):
 @goHomepage
 @catch_exceptions
 def Production_soldiers(self):
-    if exists(
-        Template(
-            os.path.join("icon", r"tpl1720145326019.png"),
-            record_pos=(0.404, 0.852),
-            resolution=(1080, 1920),
-        )
-    ):  # 判断是否在城镇，防止队列影响按钮
-        print_space("不在城镇，点击去往城镇")
-        touch([950, 1850])  # 点击野外
-        time.sleep(5)
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
@@ -1398,59 +1391,73 @@ def Collection(self):
     touch([14, 823])
     time.sleep(1)
     touch([500, 400])
+    sleep(1)
     if not exists(
         Template(
             os.path.join("icon", r"tpl1739447204774.png"),
             record_pos=(-0.439, -0.374),
             resolution=(1080, 1920),
+            threshold=0.9,
         )
     ):
         print_space("无采肉队伍，执行采肉任务")
         time.sleep(1)
         Meat(self)
+        Homepage()
+        sleep(3)
+        touch([14, 823])
+        time.sleep(1)
+        touch([500, 400])
+        sleep(1)
     else:
         print_space("已有采肉队伍")
-    Homepage()
-    touch([14, 823])
-    time.sleep(1)
-    touch([500, 400])
+    
     if not exists(
         Template(
             os.path.join("icon", r"tpl1739447625682.png"),
             record_pos=(-0.451, -0.431),
             resolution=(1080, 1920),
+            threshold=0.9,
         )
     ):
         print_space("无采集木头队伍，执行采木头任务")
         time.sleep(1)
         Wood(self)
+        Homepage()
+        sleep(3)
+        touch([14, 823])
+        time.sleep(1)
+        touch([500, 400])
+        sleep(1)
     else:
         print_space("已有采木材队伍")
-    Homepage()
-    touch([14, 823])
-    time.sleep(1)
-    touch([500, 400])
+    
     if not exists(
         Template(
             os.path.join("icon", r"tpl1739447869180.png"),
             record_pos=(-0.456, -0.347),
             resolution=(1080, 1920),
+            threshold=0.9,
         )
     ):
         print_space("无采煤队伍，执行采煤任务")
         time.sleep(1)
         Coal(self)
+        Homepage()
+        sleep(3)
+        touch([14, 823])
+        time.sleep(1)
+        touch([500, 400])
+        sleep(1)
     else:
         print_space("已有采煤队伍")
-    Homepage()
-    touch([14, 823])
-    time.sleep(1)
-    touch([500, 400])
+
     if not exists(
         Template(
             os.path.join("icon", r"tpl1739447913250.png"),
             record_pos=(-0.452, -0.346),
             resolution=(1080, 1920),
+            threshold=0.9,
         )
     ):
         print_space("无采铁队伍，执行采铁任务")
