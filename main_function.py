@@ -107,6 +107,50 @@ def Homepage():
         if stop_event.is_set():
             return
         print_space(f"第{i+1}次判断是否在主页")
+        keyevent("BACK")
+        sleep(0.3)
+        keyevent("BACK")
+        sleep(0.3)
+        # 判断是否在主页
+        if exists(
+            Template(
+                os.path.join("icon", r"tpl1739445040255.png"),
+                record_pos=(0.403, 0.824),
+                resolution=(1080, 1920),
+            )
+        ):
+            print_space("在主页")
+            check_and_touch(
+                Template(
+                    os.path.join("icon", r"tpl1739010465874.png"),
+                    record_pos=(0.151, -0.125),
+                    resolution=(1080, 1920),
+                    threshold=0.9,
+                ),
+                "检查到面板未回收并点击",
+            )
+            return
+
+        print_space("不在主页，返回主页")
+        check_and_touch(
+            Template(
+                os.path.join("icon", r"tpl1739011457290.png"),
+                record_pos=(-0.328, -0.71),
+                resolution=(1080, 1920),
+                threshold=0.9,
+            ),
+            "检查到弹窗并点击",
+            [50, 50],
+        )
+        check_and_touch(
+            Template(
+                os.path.join("icon", r"tpl1739008721692.png"),
+                record_pos=(0.403, 0.815),
+                resolution=(1080, 1920),
+            ),
+            "检查到在野外并点击去往城镇",
+        )
+        continue
         # 判断是否在城镇,面板是否回收,
         if exists(
             Template(
@@ -1347,24 +1391,16 @@ def Iron(self):
 @catch_exceptions
 @goHomepage
 def Collection(self):
-    if not check_and_touch(
-        Template(
-            os.path.join("icon", r"tpl1739024627263.png"),
-            record_pos=(0.396, 0.788),
-            resolution=(1080, 1920),
-            threshold=0.9,
-        ),
-        "检查到在城镇,去野外采集",
-    ):
-        print_space("检查到在野外,准备采集")
+    print_space("开始执行自动采集任务")
+    touch([980, 1800])
     sleep(3)
     touch([14, 823])
     time.sleep(1)
     touch([500, 400])
     if not exists(
         Template(
-            os.path.join("icon", r"tpl1720691682616.png"),
-            record_pos=(-0.188, -0.127),
+            os.path.join("icon", r"tpl1739447204774.png"),
+            record_pos=(-0.439, -0.374),
             resolution=(1080, 1920),
         )
     ):
@@ -1375,11 +1411,12 @@ def Collection(self):
         print_space("已有采肉队伍")
     Homepage()
     touch([14, 823])
+    time.sleep(1)
+    touch([500, 400])
     if not exists(
         Template(
-            os.path.join("icon", r"tpl1720766916044.png"),
-            threshold=0.7,
-            record_pos=(-0.438, -0.163),
+            os.path.join("icon", r"tpl1739447625682.png"),
+            record_pos=(-0.451, -0.431),
             resolution=(1080, 1920),
         )
     ):
@@ -1390,10 +1427,12 @@ def Collection(self):
         print_space("已有采木材队伍")
     Homepage()
     touch([14, 823])
+    time.sleep(1)
+    touch([500, 400])
     if not exists(
         Template(
-            os.path.join("icon", r"tpl1720766916045.png"),
-            record_pos=(-0.168, -0.088),
+            os.path.join("icon", r"tpl1739447869180.png"),
+            record_pos=(-0.456, -0.347),
             resolution=(1080, 1920),
         )
     ):
@@ -1404,11 +1443,12 @@ def Collection(self):
         print_space("已有采煤队伍")
     Homepage()
     touch([14, 823])
+    time.sleep(1)
+    touch([500, 400])
     if not exists(
         Template(
-            os.path.join("icon", r"tpl1720766916046.png"),
-            rgb=True,
-            record_pos=(-0.168, -0.088),
+            os.path.join("icon", r"tpl1739447913250.png"),
+            record_pos=(-0.452, -0.346),
             resolution=(1080, 1920),
         )
     ):
