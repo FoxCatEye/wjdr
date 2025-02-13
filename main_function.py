@@ -1,4 +1,5 @@
 # 功能逻辑
+import os
 import time
 from airtest.core.api import exists, touch, swipe, text, keyevent, find_all, sleep
 from airtest.core.cv import Template
