@@ -1437,7 +1437,7 @@ def Collection(self):
             os.path.join("icon", r"tpl1739447869180.png"),
             record_pos=(-0.456, -0.347),
             resolution=(1080, 1920),
-            threshold=0.9,
+            threshold=0.7,
             rgb=True,
         )
     ):
