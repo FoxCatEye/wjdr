@@ -1438,6 +1438,7 @@ def Collection(self):
             record_pos=(-0.456, -0.347),
             resolution=(1080, 1920),
             threshold=0.9,
+            rgb=True,
         )
     ):
         print_space("无采煤队伍，执行采煤任务")
