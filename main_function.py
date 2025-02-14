@@ -19,6 +19,7 @@ from global_vars import stop_event
 # sys.stdout = open(sys.stdout.fileno(), mode="w", encoding="utf-8", buffering=1)
 # sys.stderr = open(sys.stderr.fileno(), mode="w", encoding="utf-8", buffering=1)
 
+
 def check_stop_event(func):
     if stop_event.is_set():
         return
@@ -53,14 +54,16 @@ def goHomepage(func):
 
 
 @catch_exceptions
-def check_and_touch(templateObj, message="", target_pos=None, delay=0.5):
+def check_and_touch(
+    templateObj, message="", target_pos=None, delay=0.5, touch_duration=0.1
+):
     if exists(templateObj):
         if message:
             print_space(message)
         if target_pos:
-            touch(target_pos)
+            touch(target_pos, duration=touch_duration)
         else:
-            touch(templateObj)
+            touch(templateObj, duration=touch_duration)
         sleep(delay)
         return True
     return False
@@ -149,8 +152,8 @@ def Homepage():
             ),
             "检查到在野外并点击去往城镇",
             [980, 1800],
-            delay=1
-        ):   # 检查是否在野外
+            delay=1,
+        ):  # 检查是否在野外
             continue
         keyevent("BACK")
         sleep(0.3)
@@ -622,13 +625,128 @@ def build_main():
         )
 
 
+# 检测并点击升级按钮
+@catch_exceptions
+def check_upgrade():
+    check_and_touch(
+        Template(
+            os.path.join("icon", r"tpl1739509922387.png"),
+            record_pos=(0.081, 0.404),
+            resolution=(1080, 1920),
+        ),
+        message="点击去升级",
+        delay=1,
+    )
+    for i in range(1, 4):
+        while check_and_touch(
+            Template(
+                os.path.join("icon", r"tpl1739511009707.png"),
+                rgb=True,
+                record_pos=(0.369, 0.106),
+                resolution=(1080, 1920),
+            ),
+            message=f"第{i}次检查到升级按钮，点击升级",
+            delay=1,
+        ):
+            while check_and_touch(
+                Template(
+                    os.path.join("icon", r"tpl1739519888560.png"),
+                    record_pos=(0.003, 0.674),
+                    resolution=(1080, 1920),
+                ),
+                message="点击一件补齐所有资源",
+                delay=1,
+            ):
+                check_and_touch(
+                    Template(
+                        os.path.join("icon", r"tpl1739520280249.png"),
+                        record_pos=(0.219, 0.557),
+                        resolution=(1080, 1920),
+                    ),
+                    message="弹框确认",
+                    delay=1,
+                )
+            while check_and_touch(
+                Template(
+                    os.path.join("icon", r"tpl1739511605341.png"),
+                    record_pos=(0.353, 0.034),
+                    resolution=(1080, 1920),
+                ),
+                message="点击下一个持续3秒",
+                touch_duration=3,
+            ):
+                sleep(1)
+
+            for j in range(1, 3):
+                check_and_touch(
+                    Template(
+                        os.path.join("icon", r"tpl1739030020921.png"),
+                        record_pos=(-0.253, -0.504),
+                        resolution=(1080, 1920),
+                    ),
+                    "找到联盟互助图标点击",
+                    delay=1,
+                )
+
+
+# 队列1检查并升级
+@catch_exceptions
+@goHomepage
+def Queue1():
+    print_space("检查队列1")
+    touch([14, 823])
+    sleep(1)
+    touch([170, 400])
+    sleep(1)
+    if check_and_touch(
+        Template(
+            os.path.join("icon", r"tpl1739498332974.png"),
+            threshold=0.76,
+            rgb=True,
+            record_pos=(-0.058, -0.39),
+            resolution=(1080, 1920),
+        ),
+        message="有空闲队列1，开始建造",
+        delay=1,
+    ):
+        check_upgrade()
+    else:
+        print_space("没有空闲队列1")
+
+
+# 队列2检查并升级
+@catch_exceptions
+@goHomepage
+def Queue2():
+    print_space("检查队列2")
+    touch([14, 823])
+    sleep(1)
+    touch([170, 400])
+    sleep(1)
+    if check_and_touch(
+        Template(
+            os.path.join("icon", r"tpl1739501154658.png"),
+            threshold=0.76,
+            rgb=True,
+            record_pos=(-0.059, -0.288),
+            resolution=(1080, 1920),
+        ),
+        message="有空闲队列2，开始建造",
+        delay=1,
+    ):
+        check_upgrade()
+    else:
+        print_space("没有空闲队列2")
+
+
 # 自动建筑升级
 @catch_exceptions
 @goHomepage
 def Build():
-    touch([14, 823])
-    time.sleep(1)
-    touch([170, 400])
+    Queue1()
+    Queue2()
+
+    return
     if exists(
         Template(
             os.path.join("icon", r"tpl1719643933714.png"),
@@ -1411,7 +1529,7 @@ def Collection(self):
         sleep(1)
     else:
         print_space("已有采肉队伍")
-    
+
     if not exists(
         Template(
             os.path.join("icon", r"tpl1739447625682.png"),
@@ -1431,7 +1549,7 @@ def Collection(self):
         sleep(1)
     else:
         print_space("已有采木材队伍")
-    
+
     if not exists(
         Template(
             os.path.join("icon", r"tpl1739447869180.png"),
