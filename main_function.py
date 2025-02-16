@@ -517,7 +517,7 @@ def Spear_soldiers(self):
     ) or check_and_touch(
         Template(
             os.path.join("icon", r"tpl1739688175143.png"),
-            threshold=0.75,
+            threshold=0.756,
             rgb=True,
             record_pos=(-0.06, -0.031),
             resolution=(1080, 1920),
@@ -546,6 +546,7 @@ def Arrow_soldiers(self):
     ) or check_and_touch(
         Template(
             os.path.join("icon", r"tpl1739688421326.png"),
+            threshold=0.71,
             rgb=True,
             record_pos=(-0.056, 0.069),
             resolution=(1080, 1920),
