@@ -307,16 +307,22 @@ def Help(self):
 @catch_exceptions
 def train(self):
     lv_y = 0  # 设置初始循环次数
+    touch([540, 940])
+    sleep(0.3)
+    touch([540, 940])
+    sleep(0.3)
     time.sleep(5)  # 等待3秒
     print_space("收取已生产士兵...")
-    touch([500, 950])  # 收取已生产的兵
+    touch([540, 940])  # 收取已生产的兵
     time.sleep(1)  # 等待1秒
     print_space("点击兵营")
-    touch([500, 950])  # 点击兵营
+    touch([540, 940])  # 点击兵营
     time.sleep(1)  # 等待1秒
     print_space("点击训练")
     touch([786, 1221])  # 点击训练按钮
     time.sleep(1)  # 等待1秒
+    touch([540, 940])
+    sleep(0.3)
     if self.checkBox_jinshen.isChecked():  # 判定是否勾选可优先晋升
         print_space("检查是否有可晋升士兵")
         if exists(
@@ -449,7 +455,7 @@ def train(self):
                     break  # 退出该循环
     time.sleep(2)  # 等待2秒
     print_space("返回上一级")
-    touch([66, 66])  # 使用坐标点击，防止识别错误
+    keyevent("BACK")
     """if exists(Template(os.path.join("icon", r"tpl1719198082013.png"), threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920))):
         touch(Template(os.path.join("icon", r"tpl1719198082013.png"), threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920)))
     elif exists(Template(os.path.join("icon", r"tpl1719198103804.png"), record_pos=(0.442, -0.35), resolution=(1080, 1920))):
@@ -461,110 +467,101 @@ def train(self):
     print_space("训练完成")
 
 
-# 训练检查
+# 盾兵训练
 @catch_exceptions
 @goHomepage
-def Production_soldiers(self):
+def Shield_soldiers(self):
+    print_space("检查盾兵训练是否完成")
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    print_space("检查盾兵训练是否完成")
-    if exists(
+    if check_and_touch(
         Template(
             os.path.join("icon", r"tpl1719478488282.png"),
             threshold=0.8,
             rgb=True,
             record_pos=(-0.189, -0.009),
             resolution=(1080, 1920),
-        )
-    ):
-        print_space("1跳转到盾兵兵营...")
-        touch([600, 840])  # 点击索引到对应兵营
-        train(self)
-        Homepage()  # 返回主页
-        time.sleep(1)  # 等待1秒
-        touch([14, 823])
-    elif exists(
+        ),
+        message="检查到盾兵训练完成,跳转到盾兵兵营...",
+    ) or check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1719478488283.png"),
-            threshold=0.9,
+            os.path.join("icon", r"tpl1739686551108.png"),
+            threshold=0.82,
             rgb=True,
-            record_pos=(-0.066, -0.111),
+            record_pos=(-0.06, -0.133),
             resolution=(1080, 1920),
-        )
+        ),
+        message="检查到盾兵训练空闲,跳转到盾兵兵营...",
     ):
-        print_space("跳转到盾兵兵营...")
-        touch([600, 840])  # 点击索引到对应兵营
         train(self)
-        Homepage()  # 返回主页
-        time.sleep(1)  # 等待1秒
-        touch([14, 823])
+
+
+# 矛兵训练
+@catch_exceptions
+@goHomepage
+def Spear_soldiers(self):
     print_space("检查矛兵训练是否完成")
-    if exists(
+    touch([14, 823])
+    time.sleep(1)
+    touch([170, 400])
+    if check_and_touch(
         Template(
             os.path.join("icon", r"tpl1719480722195.png"),
             threshold=0.8,
             rgb=True,
             record_pos=(-0.189, -0.009),
             resolution=(1080, 1920),
-        )
-    ):
-        print_space("1跳转到矛兵兵营...")
-        touch([600, 942])  # 点击索引到对应兵营
-        train(self)
-        Homepage()  # 返回主页
-        time.sleep(1)  # 等待1秒
-        touch([14, 823])
-    elif exists(
+        ),
+        message="检查到矛兵训练完成,跳转到矛兵兵营...",
+    ) or check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1719480722196.png"),
-            threshold=0.8,
+            os.path.join("icon", r"tpl1739688175143.png"),
+            threshold=0.75,
             rgb=True,
-            record_pos=(-0.314, -0.01),
+            record_pos=(-0.06, -0.031),
             resolution=(1080, 1920),
-        )
+        ),
+        message="检查到矛兵训练空闲,跳转到矛兵兵营...",
     ):
-        print_space("跳转到矛兵兵营...")
-        touch([600, 942])  # 点击索引到对应兵营
         train(self)
-        Homepage()  # 返回主页
-        time.sleep(1)  # 等待1秒
-        touch([14, 823])
-    print_space("检查射手训练是否完成")
-    if exists(
+Ï
+# 箭兵训练
+@catch_exceptions
+@goHomepage
+def Arrow_soldiers(self):
+    print_space("检查箭兵训练是否完成")
+    touch([14, 823])
+    time.sleep(1)
+    touch([170, 400])
+    if check_and_touch(
         Template(
             os.path.join("icon", r"tpl1719480732965.png"),
             threshold=0.8,
             rgb=True,
             record_pos=(-0.192, 0.087),
             resolution=(1080, 1920),
-        )
-    ):
-        print_space("1跳转到射手兵营...")
-        touch([600, 1060])  # 点击索引到对应兵营
-        train(self)
-    elif exists(
+        ),
+        message="检查到箭兵训练完成,跳转到箭兵兵营...",
+    ) or check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1719480732966.png"),
-            threshold=0.8,
+            os.path.join("icon", r"tpl1739688421326.png"),
             rgb=True,
-            record_pos=(-0.021, -0.003),
+            record_pos=(-0.056, 0.069),
             resolution=(1080, 1920),
-        )
+        ),
+        message="检查到箭兵训练空闲,跳转到箭兵兵营...",
     ):
-        print_space("跳转到射手兵营...")
-        touch([600, 1060])  # 点击索引到对应兵营
         train(self)
-    else:
-        print_space("没有兵营已完成生产，结束该任务")
-        touch(
-            Template(
-                os.path.join("icon", r"tpl1719552273333.png"),
-                threshold=0.9,
-                record_pos=(0.142, -0.126),
-                resolution=(1080, 1920),
-            )
-        )
+
+
+# 训练检查
+@catch_exceptions
+@goHomepage
+def Production_soldiers(self):
+    Shield_soldiers(self)
+    Spear_soldiers(self)
+    Arrow_soldiers(self)
 
 
 # 升级资源检查
@@ -745,6 +742,7 @@ def Queue2():
 def Build():
     Queue1()
     Queue2()
+
 
 # 搜索资源
 @catch_exceptions
@@ -1517,6 +1515,7 @@ def treatment():
     else:
         print_space("没有需要治疗的士兵")
 
+
 # 联盟捐赠
 @catch_exceptions
 @goHomepage
@@ -2056,3 +2055,11 @@ def warehouse():
             print_space("领取成功")
         else:
             print_space("未找到体力罐头")
+
+
+# 科技研究
+@catch_exceptions
+@goHomepage
+def technology():
+    print_space("点击科技研究")
+    touch()
