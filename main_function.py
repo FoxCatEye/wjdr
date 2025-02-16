@@ -75,7 +75,7 @@ def check_and_go_outside(func):
         print_space("检查是否在城镇,去野外")
         check_and_touch(
             Template(
-                os.path.join("icon", r"tpl1739024627263.png"),
+                r"icon/tpl1739024627263.png",
                 record_pos=(0.396, 0.788),
                 resolution=(1080, 1920),
                 threshold=0.9,
@@ -113,7 +113,7 @@ def Homepage():
         # 判断是否在主页
         if exists(
             Template(
-                os.path.join("icon", r"tpl1739445040255.png"),
+                r"icon/tpl1739445040255.png",
                 record_pos=(0.403, 0.824),
                 resolution=(1080, 1920),
                 threshold=0.9,
@@ -122,7 +122,7 @@ def Homepage():
             print_space("在主页")
             check_and_touch(
                 Template(
-                    os.path.join("icon", r"tpl1739010465874.png"),
+                    r"icon/tpl1739010465874.png",
                     record_pos=(0.151, -0.125),
                     resolution=(1080, 1920),
                     threshold=0.9,
@@ -134,7 +134,7 @@ def Homepage():
         print_space("不在主页，返回主页")
         if check_and_touch(
             Template(
-                os.path.join("icon", r"tpl1739011457290.png"),
+                r"icon/tpl1739011457290.png",
                 record_pos=(-0.328, -0.71),
                 resolution=(1080, 1920),
                 threshold=0.9,
@@ -145,7 +145,7 @@ def Homepage():
             continue
         if check_and_touch(
             Template(
-                os.path.join("icon", r"tpl1739008721692.png"),
+                r"icon/tpl1739008721692.png",
                 record_pos=(0.403, 0.815),
                 resolution=(1080, 1920),
                 threshold=0.9,
@@ -161,14 +161,14 @@ def Homepage():
         # 判断是否在城镇,面板是否回收,
         if exists(
             Template(
-                os.path.join("icon", r"tpl1739024627263.png"),
+                r"icon/tpl1739024627263.png",
                 record_pos=(0.396, 0.788),
                 resolution=(1080, 1920),
                 threshold=0.9,
             )
         ) and exists(
             Template(
-                os.path.join("icon", r"tpl1739008819108.png"),
+                r"icon/tpl1739008819108.png",
                 record_pos=(-0.483, -0.11),
                 resolution=(1080, 1920),
                 threshold=0.9,
@@ -179,7 +179,7 @@ def Homepage():
         else:
             if check_and_touch(
                 Template(
-                    os.path.join("icon", r"tpl1739008721692.png"),
+                    r"icon/tpl1739008721692.png",
                     record_pos=(0.403, 0.815),
                     resolution=(1080, 1920),
                     threshold=0.9,
@@ -189,7 +189,7 @@ def Homepage():
                 continue
             if check_and_touch(
                 Template(
-                    os.path.join("icon", r"tpl1739012192856.png"),
+                    r"icon/tpl1739012192856.png",
                     record_pos=(-0.444, -0.844),
                     resolution=(1080, 1920),
                     threshold=0.9,
@@ -200,7 +200,7 @@ def Homepage():
                 continue
             if check_and_touch(
                 Template(
-                    os.path.join("icon", r"tpl1739010465874.png"),
+                    r"icon/tpl1739010465874.png",
                     record_pos=(0.151, -0.125),
                     resolution=(1080, 1920),
                     threshold=0.9,
@@ -210,7 +210,7 @@ def Homepage():
                 continue
             if check_and_touch(
                 Template(
-                    os.path.join("icon", r"tpl1739011457290.png"),
+                    r"icon/tpl1739011457290.png",
                     record_pos=(-0.328, -0.71),
                     resolution=(1080, 1920),
                     threshold=0.9,
@@ -233,7 +233,7 @@ def Homepage():
 def re_connet():
     if exists(
         Template(
-            os.path.join("icon", r"tpl1720766916047.png"),
+            r"icon/tpl1720766916047.png",
             rgb=False,
             record_pos=(-0.168, -0.088),
             resolution=(1080, 1920),
@@ -247,7 +247,7 @@ def re_connet():
             while re > 0:
                 touch(
                     Template(
-                        os.path.join("icon", r"tpl1720766916047.png"),
+                        r"icon/tpl1720766916047.png",
                         rgb=False,
                         record_pos=(-0.168, -0.088),
                         resolution=(1080, 1920),
@@ -256,7 +256,7 @@ def re_connet():
                 time.sleep(10)
                 if exists(
                     Template(
-                        os.path.join("icon", r"tpl1720766916047.png"),
+                        r"icon/tpl1720766916047.png",
                         rgb=False,
                         record_pos=(-0.168, -0.088),
                         resolution=(1080, 1920),
@@ -279,7 +279,7 @@ def re_connet():
 def Help(self):
     if exists(
         Template(
-            os.path.join("icon", r"tpl1718936896202.png"),
+            r"icon/tpl1718936896202.png",
             record_pos=(0.248, 0.735),
             resolution=(1080, 1920),
         )
@@ -293,7 +293,7 @@ def Help(self):
         print_space("随机点击位置：%s" % record)
         touch(
             Template(
-                os.path.join("icon", r"tpl1718936896202.png"),
+                r"icon/tpl1718936896202.png",
                 target_pos=record,
                 record_pos=(0.248, 0.735),
                 resolution=(1080, 1920),
@@ -327,7 +327,7 @@ def train(self):
         print_space("检查是否有可晋升士兵")
         if exists(
             Template(
-                os.path.join("icon", r"tpl1721784527077.png"),
+                r"icon/tpl1721784527077.png",
                 record_pos=(-0.439, 0.078),
                 resolution=(1080, 1920),
             )
@@ -335,7 +335,7 @@ def train(self):
             print_space("点击前往可晋升士兵")
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1721784527077.png"),
+                    r"icon/tpl1721784527077.png",
                     record_pos=(-0.439, 0.078),
                     resolution=(1080, 1920),
                 )
@@ -343,7 +343,7 @@ def train(self):
             print_space("点击晋升图标")
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1721784547262.png"),
+                    r"icon/tpl1721784547262.png",
                     record_pos=(0.399, 0.019),
                     resolution=(1080, 1920),
                 )
@@ -351,7 +351,7 @@ def train(self):
             print_space("点击开始晋升士兵")
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1727422988298.png"),
+                    r"icon/tpl1727422988298.png",
                     record_pos=(0.216, 0.339),
                     resolution=(1080, 1920),
                 )
@@ -359,7 +359,7 @@ def train(self):
             lv_y = 1  # 更新初始循环次数,不会进入可训练士兵检查
         elif exists(
             Template(
-                os.path.join("icon", r"tpl1721784547262.png"),
+                r"icon/tpl1721784547262.png",
                 rgb=True,
                 record_pos=(0.399, 0.019),
                 resolution=(1080, 1920),
@@ -368,7 +368,7 @@ def train(self):
             print_space("点击晋升图标")
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1721784547262.png"),
+                    r"icon/tpl1721784547262.png",
                     record_pos=(0.399, 0.019),
                     resolution=(1080, 1920),
                 )
@@ -376,7 +376,7 @@ def train(self):
             print_space("点击开始晋升士兵")
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1727422988298.png"),
+                    r"icon/tpl1727422988298.png",
                     record_pos=(0.216, 0.339),
                     resolution=(1080, 1920),
                 )
@@ -392,7 +392,7 @@ def train(self):
             while lv_y > 0:
                 if exists(
                     Template(
-                        os.path.join("icon", r"tpl1721784547262.png"),
+                        r"icon/tpl1721784547262.png",
                         rgb=True,
                         record_pos=(0.399, 0.019),
                         resolution=(1080, 1920),
@@ -401,7 +401,7 @@ def train(self):
                     print_space("点击晋升图标")
                     touch(
                         Template(
-                            os.path.join("icon", r"tpl1721784547262.png"),
+                            r"icon/tpl1721784547262.png",
                             record_pos=(0.399, 0.019),
                             resolution=(1080, 1920),
                         )
@@ -409,7 +409,7 @@ def train(self):
                     print_space("点击开始晋升士兵")
                     touch(
                         Template(
-                            os.path.join("icon", r"tpl1727422988298.png"),
+                            r"icon/tpl1727422988298.png",
                             record_pos=(0.216, 0.339),
                             resolution=(1080, 1920),
                         )
@@ -429,7 +429,7 @@ def train(self):
             # 判断是否有训练按钮
             if exists(
                 Template(
-                    os.path.join("icon", r"tpl17217845790633.png"),
+                    r"icon/tpl17217845790633.png",
                     rgb=True,
                     threshold=0.8,
                     record_pos=(0.22, 0.338),
@@ -456,12 +456,12 @@ def train(self):
     time.sleep(2)  # 等待2秒
     print_space("返回上一级")
     keyevent("BACK")
-    """if exists(Template(os.path.join("icon", r"tpl1719198082013.png"), threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920))):
-        touch(Template(os.path.join("icon", r"tpl1719198082013.png"), threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920)))
-    elif exists(Template(os.path.join("icon", r"tpl1719198103804.png"), record_pos=(0.442, -0.35), resolution=(1080, 1920))):
-        touch(Template(os.path.join("icon", r"tpl1719198103804.png"), record_pos=(0.442, -0.35), resolution=(1080, 1920)))  # 关闭当前界面
-        if exists(Template(os.path.join("icon", r"tpl1719198082013.png"), threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920))):
-            touch(Template(os.path.join("icon", r"tpl1719198082013.png"), threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920)))
+    """if exists(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920))):
+        touch(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920)))
+    elif exists(Template(r"icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920))):
+        touch(Template(r"icon/tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))  # 关闭当前界面
+        if exists(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920))):
+            touch(Template(r"icon/tpl1719198082013.png", threshold=0.8, record_pos=(-0.439, -0.835), resolution=(1080, 1920)))
     else:
         print_space('未找到对应图案')"""
     print_space("训练完成")
@@ -477,7 +477,7 @@ def Shield_soldiers(self):
     touch([170, 400])
     if check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1719478488282.png"),
+            r"icon/tpl1719478488282.png",
             threshold=0.8,
             rgb=True,
             record_pos=(-0.189, -0.009),
@@ -486,7 +486,7 @@ def Shield_soldiers(self):
         message="检查到盾兵训练完成,跳转到盾兵兵营...",
     ) or check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1739686551108.png"),
+            r"icon/tpl1739686551108.png",
             threshold=0.82,
             rgb=True,
             record_pos=(-0.06, -0.133),
@@ -507,7 +507,7 @@ def Spear_soldiers(self):
     touch([170, 400])
     if check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1719480722195.png"),
+            r"icon/tpl1719480722195.png",
             threshold=0.8,
             rgb=True,
             record_pos=(-0.189, -0.009),
@@ -516,7 +516,7 @@ def Spear_soldiers(self):
         message="检查到矛兵训练完成,跳转到矛兵兵营...",
     ) or check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1739688175143.png"),
+            r"icon/tpl1739688175143.png",
             threshold=0.756,
             rgb=True,
             record_pos=(-0.06, -0.031),
@@ -525,6 +525,7 @@ def Spear_soldiers(self):
         message="检查到矛兵训练空闲,跳转到矛兵兵营...",
     ):
         train(self)
+
 
 # 箭兵训练
 @catch_exceptions
@@ -536,7 +537,7 @@ def Arrow_soldiers(self):
     touch([170, 400])
     if check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1719480732965.png"),
+            r"icon/tpl1719480732965.png",
             threshold=0.8,
             rgb=True,
             record_pos=(-0.192, 0.087),
@@ -545,7 +546,7 @@ def Arrow_soldiers(self):
         message="检查到箭兵训练完成,跳转到箭兵兵营...",
     ) or check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1739688421326.png"),
+            r"icon/tpl1739688421326.png",
             threshold=0.71,
             rgb=True,
             record_pos=(-0.056, 0.069),
@@ -570,7 +571,7 @@ def Production_soldiers(self):
 def build_main():
     touch(
         Template(
-            os.path.join("icon", r"tpl1719651083870.png"),
+            r"icon/tpl1719651083870.png",
             record_pos=(0.001, 0.731),
             resolution=(1080, 1920),
         )
@@ -578,7 +579,7 @@ def build_main():
     time.sleep(1)
     if exists(
         Template(
-            os.path.join("icon", r"tpl1719817875178.png"),
+            r"icon/tpl1719817875178.png",
             record_pos=(-0.002, 0.683),
             resolution=(1080, 1920),
         )
@@ -586,14 +587,14 @@ def build_main():
         print_space("一键补齐资源不足，回到首页")
         touch(
             Template(
-                os.path.join("icon", r"tpl1719198103804.png"),
+                r"icon/tpl1719198103804.png",
                 record_pos=(0.442, -0.35),
                 resolution=(1080, 1920),
             )
         )
         touch(
             Template(
-                os.path.join("icon", r"tpl1719198103804.png"),
+                r"icon/tpl1719198103804.png",
                 record_pos=(0.442, -0.35),
                 resolution=(1080, 1920),
             )
@@ -601,14 +602,14 @@ def build_main():
     else:
         touch(
             Template(
-                os.path.join("icon", r"tpl1719651144335.png"),
+                r"icon/tpl1719651144335.png",
                 record_pos=(0.224, 0.608),
                 resolution=(1080, 1920),
             )
         )
         touch(
             Template(
-                os.path.join("icon", r"tpl1719578558005.png"),
+                r"icon/tpl1719578558005.png",
                 record_pos=(0.003, -0.045),
                 resolution=(1080, 1920),
             )
@@ -616,7 +617,7 @@ def build_main():
         time.sleep(1)
         touch(
             Template(
-                os.path.join("icon", r"tpl1719579273500.png"),
+                r"icon/tpl1719579273500.png",
                 record_pos=(0.002, -0.08),
                 resolution=(1080, 1920),
             )
@@ -628,7 +629,7 @@ def build_main():
 def check_upgrade():
     check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1739509922387.png"),
+            r"icon/tpl1739509922387.png",
             record_pos=(0.081, 0.404),
             resolution=(1080, 1920),
         ),
@@ -638,7 +639,7 @@ def check_upgrade():
     for i in range(1, 4):
         while check_and_touch(
             Template(
-                os.path.join("icon", r"tpl1739511009707.png"),
+                r"icon/tpl1739511009707.png",
                 rgb=True,
                 record_pos=(0.369, 0.106),
                 resolution=(1080, 1920),
@@ -648,7 +649,7 @@ def check_upgrade():
         ):
             while check_and_touch(
                 Template(
-                    os.path.join("icon", r"tpl1739519888560.png"),
+                    r"icon/tpl1739519888560.png",
                     record_pos=(0.003, 0.674),
                     resolution=(1080, 1920),
                 ),
@@ -657,7 +658,7 @@ def check_upgrade():
             ):
                 check_and_touch(
                     Template(
-                        os.path.join("icon", r"tpl1739520280249.png"),
+                        r"icon/tpl1739520280249.png",
                         record_pos=(0.219, 0.557),
                         resolution=(1080, 1920),
                     ),
@@ -666,7 +667,7 @@ def check_upgrade():
                 )
             while check_and_touch(
                 Template(
-                    os.path.join("icon", r"tpl1739511605341.png"),
+                    r"icon/tpl1739511605341.png",
                     record_pos=(0.353, 0.034),
                     resolution=(1080, 1920),
                 ),
@@ -678,7 +679,7 @@ def check_upgrade():
             for j in range(1, 3):
                 check_and_touch(
                     Template(
-                        os.path.join("icon", r"tpl1739030020921.png"),
+                        r"icon/tpl1739030020921.png",
                         record_pos=(-0.253, -0.504),
                         resolution=(1080, 1920),
                     ),
@@ -698,7 +699,7 @@ def Queue1():
     sleep(1)
     if check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1739498332974.png"),
+            r"icon/tpl1739498332974.png",
             threshold=0.76,
             rgb=True,
             record_pos=(-0.058, -0.39),
@@ -723,7 +724,7 @@ def Queue2():
     sleep(1)
     if check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1739501154658.png"),
+            r"icon/tpl1739501154658.png",
             threshold=0.76,
             rgb=True,
             record_pos=(-0.059, -0.288),
@@ -750,7 +751,7 @@ def Build():
 def search_main():
     if not exists(
         Template(
-            os.path.join("icon", r"tpl1720145326019.png"),
+            r"icon/tpl1720145326019.png",
             record_pos=(0.404, 0.852),
             resolution=(1080, 1920),
         )
@@ -775,7 +776,7 @@ def NPC():
     time.sleep(1)
     if exists(
         Template(
-            os.path.join("icon", r"tpl1719376487523.png"),
+            r"icon/tpl1719376487523.png",
             record_pos=(0.449, -0.78),
             resolution=(1080, 1920),
         )
@@ -784,7 +785,7 @@ def NPC():
         print_space("查看活动道具")
         if exists(
             Template(
-                os.path.join("icon", r"tpl1719376586643.png"),
+                r"icon/tpl1719376586643.png",
                 record_pos=(0.106, -0.476),
                 resolution=(1080, 1920),
             )
@@ -792,14 +793,14 @@ def NPC():
             print_space("使用活动道具")
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1719376586643.png"),
+                    r"icon/tpl1719376586643.png",
                     record_pos=(0.106, -0.476),
                     resolution=(1080, 1920),
                 )
             )  # 点击道具
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1719376629723.png"),
+                    r"icon/tpl1719376629723.png",
                     record_pos=(0.0, 0.092),
                     resolution=(1080, 1920),
                 )
@@ -808,14 +809,14 @@ def NPC():
             print_space("集结打怪")
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1719376765868.png"),
+                    r"icon/tpl1719376765868.png",
                     record_pos=(0.002, 0.705),
                     resolution=(1080, 1920),
                 )
             )  # 寻找到怪物点击集结
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1719376776844.png"),
+                    r"icon/tpl1719376776844.png",
                     record_pos=(0.0, 0.326),
                     resolution=(1080, 1920),
                 )
@@ -823,14 +824,14 @@ def NPC():
             print_space("兵力检查")
             if exists(
                 Template(
-                    os.path.join("icon", r"tpl1721191349774.png"),
+                    r"icon/tpl1721191349774.png",
                     record_pos=(-0.118, 0.782),
                     resolution=(1080, 1920),
                 )
             ):
                 touch(
                     Template(
-                        os.path.join("icon", r"tpl1721191349774.png"),
+                        r"icon/tpl1721191349774.png",
                         record_pos=(-0.118, 0.782),
                         resolution=(1080, 1920),
                     )
@@ -838,7 +839,7 @@ def NPC():
                 print_space("体力检查")
                 if exists(
                     Template(
-                        os.path.join("icon", r"tpl1719376787180.png"),
+                        r"icon/tpl1719376787180.png",
                         record_pos=(0.263, 0.773),
                         resolution=(1080, 1920),
                     )
@@ -852,14 +853,14 @@ def NPC():
             print_space("未找到相关物品，退出任务")
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1719198082012.png"),
+                    r"icon/tpl1719198082012.png",
                     threshold=0.5,
                     record_pos=(-0.44, -0.783),
                     resolution=(1080, 1920),
                 )
             ) or touch(
                 Template(
-                    os.path.join("icon", r"tpl1719198103804.png"),
+                    r"icon/tpl1719198103804.png",
                     record_pos=(0.442, -0.35),
                     resolution=(1080, 1920),
                 )
@@ -884,7 +885,7 @@ def XG_lv():
     time.sleep(1)
     touch(
         Template(
-            os.path.join("icon", r"sure_button.png"),
+            r"icon/sure_button.png",
             record_pos=(0.404, 0.852),
             resolution=(1080, 1920),
         )
@@ -913,7 +914,7 @@ def Brush_XG(self):
     print_space("点击攻击按钮")
     if exists(
         Template(
-            os.path.join("icon", r"tpl1721191349775.png"),
+            r"icon/tpl1721191349775.png",
             rgb=False,
             record_pos=(0.002, 0.705),
             resolution=(1080, 1920),
@@ -921,7 +922,7 @@ def Brush_XG(self):
     ):
         touch(
             Template(
-                os.path.join("icon", r"tpl1721191349775.png"),
+                r"icon/tpl1721191349775.png",
                 rgb=False,
                 record_pos=(0.002, 0.705),
                 resolution=(1080, 1920),
@@ -932,7 +933,7 @@ def Brush_XG(self):
     time.sleep(1)  # 等待1s
     if exists(
         Template(
-            os.path.join("icon", r"tpl1721191349774.png"),
+            r"icon/tpl1721191349774.png",
             record_pos=(-0.118, 0.782),
             resolution=(1080, 1920),
         )
@@ -941,7 +942,7 @@ def Brush_XG(self):
             print_space("点击平均配置")
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1721191349774.png"),
+                    r"icon/tpl1721191349774.png",
                     record_pos=(-0.118, 0.782),
                     resolution=(1080, 1920),
                 )
@@ -957,7 +958,7 @@ def Brush_XG(self):
 def bear():
     if exists(
         Template(
-            os.path.join("icon", r"tpl1721191349777.png"),
+            r"icon/tpl1721191349777.png",
             record_pos=(0.26, 0.795),
             resolution=(1080, 1920),
         )
@@ -965,7 +966,7 @@ def bear():
         print_space("点击活动按钮")
         touch(
             Template(
-                os.path.join("icon", r"tpl1721191349777.png"),
+                r"icon/tpl1721191349777.png",
                 record_pos=(0.26, 0.795),
                 resolution=(1080, 1920),
             )
@@ -974,14 +975,14 @@ def bear():
         print_space("点击集结按钮")
         touch(
             Template(
-                os.path.join("icon", r"tpl1721784579065.png"),
+                r"icon/tpl1721784579065.png",
                 record_pos=(0.26, 0.795),
                 resolution=(1080, 1920),
             )
         )
         if exists(
             Template(
-                os.path.join("icon", r"tpl1721784579066.png"),
+                r"icon/tpl1721784579066.png",
                 record_pos=(0.26, 0.795),
                 resolution=(1080, 1920),
             )
@@ -989,7 +990,7 @@ def bear():
             print_space("发起集结")
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1721784579066.png"),
+                    r"icon/tpl1721784579066.png",
                     record_pos=(0.26, 0.795),
                     resolution=(1080, 1920),
                 )
@@ -997,7 +998,7 @@ def bear():
             print_space("点击出征")
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1721784579067.png"),
+                    r"icon/tpl1721784579067.png",
                     record_pos=(0.002, 0.705),
                     resolution=(414, 780),
                 )
@@ -1028,7 +1029,7 @@ def WM_lv():  # 冰原巨兽等级输入
     time.sleep(1)
     touch(
         Template(
-            os.path.join("icon", r"sure_button.png"),
+            r"icon/sure_button.png",
             record_pos=(0.404, 0.852),
             resolution=(1080, 1920),
         )
@@ -1056,7 +1057,7 @@ def Brush_WM(self):
     print_space("点击集结按钮")
     touch(
         Template(
-            os.path.join("icon", r"tpl1719376765868.png"),
+            r"icon/tpl1719376765868.png",
             record_pos=(-0.003, -0.227),
             resolution=(1080, 1920),
         )
@@ -1064,7 +1065,7 @@ def Brush_WM(self):
     time.sleep(1)  # 等待1s
     if exists(
         Template(
-            os.path.join("icon", r"tpl1719376776844.png"),
+            r"icon/tpl1719376776844.png",
             record_pos=(0.0, 0.326),
             resolution=(1080, 1920),
         )
@@ -1072,7 +1073,7 @@ def Brush_WM(self):
         print_space("点击发起集结")
         touch(
             Template(
-                os.path.join("icon", r"tpl1719376776844.png"),
+                r"icon/tpl1719376776844.png",
                 rgb=True,
                 record_pos=(0.0, 0.326),
                 resolution=(1080, 1920),
@@ -1081,7 +1082,7 @@ def Brush_WM(self):
         time.sleep(1)  # 等待0.5s
         if exists(
             Template(
-                os.path.join("icon", r"tpl1719376787180.png"),
+                r"icon/tpl1719376787180.png",
                 record_pos=(0.263, 0.773),
                 resolution=(1080, 1920),
             )
@@ -1089,7 +1090,7 @@ def Brush_WM(self):
             if self.checkBox_WM_average.isChecked():  # 平均兵力选项
                 touch(
                     Template(
-                        os.path.join("icon", r"tpl1721191349774.png"),
+                        r"icon/tpl1721191349774.png",
                         record_pos=(-0.118, 0.782),
                         resolution=(1080, 1920),
                     )
@@ -1098,7 +1099,7 @@ def Brush_WM(self):
                 print_space("点击全部撤回")
                 touch(
                     Template(
-                        os.path.join("icon", r"all_withdraw.png"),
+                        r"icon/all_withdraw.png",
                         record_pos=(-0.406, 0.781),
                         resolution=(1080, 1920),
                     )
@@ -1114,7 +1115,7 @@ def Brush_WM(self):
                 time.sleep(1)
                 touch(
                     Template(
-                        os.path.join("icon", r"sure_button.png"),
+                        r"icon/sure_button.png",
                         record_pos=(0.404, 0.852),
                         resolution=(1080, 1920),
                     )
@@ -1135,14 +1136,14 @@ def gather(self):
     print_space("点击采集按钮")
     touch(
         Template(
-            os.path.join("icon", r"tpl1720675061569.png"),
+            r"icon/tpl1720675061569.png",
             record_pos=(0.002, -0.015),
             resolution=(1080, 1920),
         )
     )
     if exists(
         Template(
-            os.path.join("icon", r"tpl1721191349776.png"),
+            r"icon/tpl1721191349776.png",
             record_pos=(0.26, 0.798),
             resolution=(1080, 1920),
         )
@@ -1153,11 +1154,11 @@ def gather(self):
             touch([640, 389])  # 点击删除第二个英雄
             touch([920, 389])  # 点击删除第三个英雄
         """if self.checkBox_ty_caiji_average.isChecked():  # 平均兵力选项
-            touch(Template(os.path.join("icon", r"tpl1721191349774.png"), record_pos=(-0.118, 0.782), resolution=(1080, 1920)))"""  # 弃用该功能
+            touch(Template(r"icon/tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))"""  # 弃用该功能
         print_space("点击出征按钮")
         touch(
             Template(
-                os.path.join("icon", r"tpl1721191349776.png"),
+                r"icon/tpl1721191349776.png",
                 rgb=True,
                 record_pos=(0.26, 0.798),
                 resolution=(1080, 1920),
@@ -1175,7 +1176,7 @@ def gather(self):
 def energy():
     touch(
         Template(
-            os.path.join("icon", r"tpl1719376787180.png"),
+            r"icon/tpl1719376787180.png",
             record_pos=(0.263, 0.773),
             resolution=(1080, 1920),
         )
@@ -1183,7 +1184,7 @@ def energy():
     time.sleep(1)
     if exists(
         Template(
-            os.path.join("icon", r"tpl1720264632282.png"),
+            r"icon/tpl1720264632282.png",
             record_pos=(0.301, -0.33),
             resolution=(1080, 1920),
         )
@@ -1193,7 +1194,7 @@ def energy():
         time.sleep(1)
         touch(
             Template(
-                os.path.join("icon", r"tpl1729734622180.png"),
+                r"icon/tpl1729734622180.png",
                 record_pos=(0.442, -0.35),
                 resolution=(1080, 1920),
             )
@@ -1202,7 +1203,7 @@ def energy():
         time.sleep(1)
         touch(
             Template(
-                os.path.join("icon", r"black_return.png"),
+                r"icon/black_return.png",
                 rgb=True,
                 record_pos=(-0.441, -0.839),
                 resolution=(1080, 1920),
@@ -1210,14 +1211,14 @@ def energy():
         )
     elif exists(
         Template(
-            os.path.join("icon", r"tpl1719376787180.png"),
+            r"icon/tpl1719376787180.png",
             record_pos=(0.263, 0.773),
             resolution=(1080, 1920),
         )
     ):
         touch(
             Template(
-                os.path.join("icon", r"tpl1719376787180.png"),
+                r"icon/tpl1719376787180.png",
                 record_pos=(0.263, 0.773),
                 resolution=(1080, 1920),
             )
@@ -1247,7 +1248,7 @@ def collection_lv():
     # time.sleep(1)
     touch(
         Template(
-            os.path.join("icon", r"sure_button.png"),
+            r"icon/sure_button.png",
             record_pos=(0.404, 0.852),
             resolution=(1080, 1920),
         )
@@ -1277,7 +1278,7 @@ def Meat(self):
     time.sleep(3)  # 等待1s
     if exists(
         Template(
-            os.path.join("icon", r"tpl1720675061569.png"),
+            r"icon/tpl1720675061569.png",
             rgb=True,
             record_pos=(0.002, -0.015),
             resolution=(1080, 1920),
@@ -1311,7 +1312,7 @@ def Wood(self):
     time.sleep(1)  # 等待1s
     if exists(
         Template(
-            os.path.join("icon", r"tpl1720675061569.png"),
+            r"icon/tpl1720675061569.png",
             record_pos=(0.002, -0.015),
             resolution=(1080, 1920),
         )
@@ -1344,7 +1345,7 @@ def Coal(self):
     time.sleep(1)  # 等待1s
     if exists(
         Template(
-            os.path.join("icon", r"tpl1720675061569.png"),
+            r"icon/tpl1720675061569.png",
             record_pos=(0.002, -0.015),
             resolution=(1080, 1920),
         )
@@ -1377,7 +1378,7 @@ def Iron(self):
     time.sleep(1)  # 等待1s
     if exists(
         Template(
-            os.path.join("icon", r"tpl1720675061569.png"),
+            r"icon/tpl1720675061569.png",
             record_pos=(0.002, -0.015),
             resolution=(1080, 1920),
         )
@@ -1400,7 +1401,7 @@ def Collection(self):
     sleep(1)
     if not exists(
         Template(
-            os.path.join("icon", r"tpl1739447204774.png"),
+            r"icon/tpl1739447204774.png",
             record_pos=(-0.439, -0.374),
             resolution=(1080, 1920),
             threshold=0.9,
@@ -1420,7 +1421,7 @@ def Collection(self):
 
     if not exists(
         Template(
-            os.path.join("icon", r"tpl1739447625682.png"),
+            r"icon/tpl1739447625682.png",
             record_pos=(-0.451, -0.431),
             resolution=(1080, 1920),
             threshold=0.9,
@@ -1440,7 +1441,7 @@ def Collection(self):
 
     if not exists(
         Template(
-            os.path.join("icon", r"tpl1739447869180.png"),
+            r"icon/tpl1739447869180.png",
             record_pos=(-0.456, -0.347),
             resolution=(1080, 1920),
             threshold=0.8,
@@ -1461,7 +1462,7 @@ def Collection(self):
 
     if not exists(
         Template(
-            os.path.join("icon", r"tpl1739447913250.png"),
+            r"icon/tpl1739447913250.png",
             record_pos=(-0.452, -0.346),
             resolution=(1080, 1920),
             threshold=0.9,
@@ -1474,7 +1475,7 @@ def Collection(self):
         print_space("已有采铁队伍")
         touch(
             Template(
-                os.path.join("icon", r"tpl1719552273333.png"),
+                r"icon/tpl1719552273333.png",
                 threshold=0.9,
                 record_pos=(0.142, -0.126),
                 resolution=(1080, 1920),
@@ -1489,7 +1490,7 @@ def Collection(self):
 def treatment():
     if check_and_touch(
         Template(
-            os.path.join("icon", r"tpl1738728068288.png"),
+            r"icon/tpl1738728068288.png",
             record_pos=(0.273, 0.434),
             resolution=(1080, 1920),
         ),
@@ -1497,7 +1498,7 @@ def treatment():
     ):
         check_and_touch(
             Template(
-                os.path.join("icon", r"tpl1738728101302.png"),
+                r"icon/tpl1738728101302.png",
                 record_pos=(0.219, 0.382),
                 resolution=(1080, 1920),
             ),
@@ -1506,7 +1507,7 @@ def treatment():
         print_space("点击联盟互助")
         if check_and_touch(
             Template(
-                os.path.join("icon", r"tpl1739672881567.png"),
+                r"icon/tpl1739672881567.png",
                 record_pos=(0.217, 0.406),
                 resolution=(1080, 1920),
             ),
@@ -1525,7 +1526,7 @@ def donate():
     print_space("点击联盟图案")
     touch(
         Template(
-            os.path.join("icon", r"tpl1721784579070.png"),
+            r"icon/tpl1721784579070.png",
             record_pos=(-0.168, -0.088),
             resolution=(1080, 1920),
         )
@@ -1533,14 +1534,14 @@ def donate():
     print_space("点击联盟科技")
     touch(
         Template(
-            os.path.join("icon", r"tpl1721784579071.png"),
+            r"icon/tpl1721784579071.png",
             record_pos=(-0.168, -0.088),
             resolution=(1080, 1920),
         )
     )
     if exists(
         Template(
-            os.path.join("icon", r"tpl1721784579072.png"),
+            r"icon/tpl1721784579072.png",
             record_pos=(-0.168, -0.088),
             resolution=(1080, 1920),
         )
@@ -1548,7 +1549,7 @@ def donate():
         print_space("点击大拇指科技")
         touch(
             Template(
-                os.path.join("icon", r"tpl1721784579072.png"),
+                r"icon/tpl1721784579072.png",
                 record_pos=(-0.168, -0.088),
                 resolution=(1080, 1920),
             )
@@ -1557,7 +1558,7 @@ def donate():
         while x > 0:
             if exists(
                 Template(
-                    os.path.join("icon", r"tpl1721784579073.png"),
+                    r"icon/tpl1721784579073.png",
                     rgb=True,
                     record_pos=(0.208, 0.514),
                     resolution=(1080, 1920),
@@ -1566,7 +1567,7 @@ def donate():
                 print_space("点击捐献")
                 touch(
                     Template(
-                        os.path.join("icon", r"tpl1721784579073.png"),
+                        r"icon/tpl1721784579073.png",
                         rgb=True,
                         record_pos=(0.208, 0.514),
                         resolution=(1080, 1920),
@@ -1579,7 +1580,7 @@ def donate():
                 touch([60, 60])  # 点击黑色返回按钮
                 touch(
                     Template(
-                        os.path.join("icon", r"black_return.png"),
+                        r"icon/black_return.png",
                         threshold=0.8,
                         record_pos=(-0.44, -0.783),
                         resolution=(1080, 1920),
@@ -1591,7 +1592,7 @@ def donate():
         touch([60, 60])  # 点击黑色返回按钮
         touch(
             Template(
-                os.path.join("icon", r"black_return.png"),
+                r"icon/black_return.png",
                 threshold=0.8,
                 record_pos=(-0.44, -0.783),
                 resolution=(1080, 1920),
@@ -1606,7 +1607,7 @@ def adventure():
     print_space("点击探险")
     touch(
         Template(
-            os.path.join("icon", r"tpl1719198809581.png"),
+            r"icon/tpl1719198809581.png",
             threshold=0.9,
             record_pos=(-0.398, 0.819),
             scale_max=800,
@@ -1618,7 +1619,7 @@ def adventure():
     touch([910, 1250])
     if exists(
         Template(
-            os.path.join("icon", r"tpl1721784579076.png"),
+            r"icon/tpl1721784579076.png",
             threshold=0.8,
             record_pos=(-0.398, 0.819),
             resolution=(1080, 1920),
@@ -1627,7 +1628,7 @@ def adventure():
         print_space("点击领取奖励")
         touch(
             Template(
-                os.path.join("icon", r"tpl1721784579076.png"),
+                r"icon/tpl1721784579076.png",
                 threshold=0.8,
                 record_pos=(-0.398, 0.819),
                 resolution=(1080, 1920),
@@ -1638,7 +1639,7 @@ def adventure():
         touch([500, 500])
         touch(
             Template(
-                os.path.join("icon", r"tpl1719198082012.png"),
+                r"icon/tpl1719198082012.png",
                 threshold=0.8,
                 record_pos=(-0.44, -0.783),
                 resolution=(1080, 1920),
@@ -1654,7 +1655,7 @@ def adventure():
 def recruit():
     if check_and_touch(
         Template(
-            os.path.join("icon", r"hero.png"),
+            r"icon/hero.png",
             threshold=0.9,
             record_pos=(-0.398, 0.819),
             scale_max=800,
@@ -1664,7 +1665,7 @@ def recruit():
     ):
         if check_and_touch(
             Template(
-                os.path.join("icon", r"hero_recruit.png"),
+                r"icon/hero_recruit.png",
                 threshold=0.8,
                 record_pos=(-0.398, 0.819),
                 scale_max=800,
@@ -1674,7 +1675,7 @@ def recruit():
         ):
             if check_and_touch(
                 Template(
-                    os.path.join("icon", r"tpl1739026421641.png"),
+                    r"icon/tpl1739026421641.png",
                     record_pos=(-0.235, 0.803),
                     resolution=(1080, 1920),
                 ),
@@ -1683,7 +1684,7 @@ def recruit():
                 sleep(1)
                 if check_and_touch(
                     Template(
-                        os.path.join("icon", r"tpl1739012192856.png"),
+                        r"icon/tpl1739012192856.png",
                         record_pos=(-0.444, -0.844),
                         resolution=(1080, 1920),
                         threshold=0.9,
@@ -1693,7 +1694,7 @@ def recruit():
                 ):
                     if check_and_touch(
                         Template(
-                            os.path.join("icon", r"tpl1739026421641.png"),
+                            r"icon/tpl1739026421641.png",
                             record_pos=(-0.235, 0.803),
                             resolution=(1080, 1920),
                         ),
@@ -1702,7 +1703,7 @@ def recruit():
                         sleep(1)
                         check_and_touch(
                             Template(
-                                os.path.join("icon", r"tpl1739012192856.png"),
+                                r"icon/tpl1739012192856.png",
                                 record_pos=(-0.444, -0.844),
                                 resolution=(1080, 1920),
                                 threshold=0.9,
@@ -1726,7 +1727,7 @@ def recruit():
 def mining_collision():
     if exists(
         Template(
-            os.path.join("icon", r"tpl1729833981926.png"),
+            r"icon/tpl1729833981926.png",
             record_pos=(0.42, -0.141),
             resolution=(1080, 1920),
         )
@@ -1734,14 +1735,14 @@ def mining_collision():
         print_space("检测到被攻击，点击预警图标")
         touch(
             Template(
-                os.path.join("icon", r"tpl1729833981926.png"),
+                r"icon/tpl1729833981926.png",
                 record_pos=(0.42, -0.141),
                 resolution=(1080, 1920),
             )
         )
         find_result = find_all(
             Template(
-                os.path.join("icon", r"tpl1729834107464.png"),
+                r"icon/tpl1729834107464.png",
                 record_pos=(0.207, -0.549),
                 resolution=(1080, 1920),
             )
@@ -1753,7 +1754,7 @@ def mining_collision():
             print_space("点击前往目标")
             time.sleep(1)
             # touch(results[1]['result']) # 点击字典内第一个坐标，但第一个坐标不一定是排在第一个的目标，废弃
-            # touch(Template(os.path.join("icon", r"tpl1729834107464.png"), record_pos=(0.207, -0.549), resolution=(1080, 1920)))
+            # touch(Template(r"icon/tpl1729834107464.png", record_pos=(0.207, -0.549), resolution=(1080, 1920)))
             touch([755, 356])  # 使用绝对坐标，点击列表内第一个目标
             time.sleep(1)
             print_space("点击跳转到的目标")
@@ -1761,7 +1762,7 @@ def mining_collision():
             time.sleep(2)
             if exists(
                 Template(
-                    os.path.join("icon", r"tpl1729834163624.png"),
+                    r"icon/tpl1729834163624.png",
                     rgb=True,
                     record_pos=(-0.139, 0.607),
                     resolution=(1080, 1920),
@@ -1770,7 +1771,7 @@ def mining_collision():
                 print_space("撞矿检测，点击召回采矿")
                 touch(
                     Template(
-                        os.path.join("icon", r"tpl1729834163624.png"),
+                        r"icon/tpl1729834163624.png",
                         record_pos=(-0.139, 0.607),
                         resolution=(1080, 1920),
                     )
@@ -1779,7 +1780,7 @@ def mining_collision():
                 print_space("点击确认召回队伍")
                 touch(
                     Template(
-                        os.path.join("icon", r"tpl1729834190986.png"),
+                        r"icon/tpl1729834190986.png",
                         record_pos=(0.212, 0.203),
                         resolution=(1080, 1920),
                     )
@@ -1788,7 +1789,7 @@ def mining_collision():
                 length -= 1  # 循环次数减1
             elif exists(
                 Template(
-                    os.path.join("icon", r"tpl1729834914817.png"),
+                    r"icon/tpl1729834914817.png",
                     record_pos=(-0.139, 0.557),
                     resolution=(1080, 1920),
                 )
@@ -1796,7 +1797,7 @@ def mining_collision():
                 print_space("检测到攻击城堡，点击城堡增益准备开启防护罩")
                 touch(
                     Template(
-                        os.path.join("icon", r"tpl1729834914817.png"),
+                        r"icon/tpl1729834914817.png",
                         record_pos=(-0.139, 0.557),
                         resolution=(1080, 1920),
                     )
@@ -1805,7 +1806,7 @@ def mining_collision():
                 print_space("点击防护罩")
                 touch(
                     Template(
-                        os.path.join("icon", r"tpl1729834969758.png"),
+                        r"icon/tpl1729834969758.png",
                         record_pos=(-0.372, -0.544),
                         resolution=(1080, 1920),
                     )
@@ -1814,7 +1815,7 @@ def mining_collision():
                 print_space("点击使用")
                 touch(
                     Template(
-                        os.path.join("icon", r"tpl1729834989760.png"),
+                        r"icon/tpl1729834989760.png",
                         record_pos=(0.322, -0.336),
                         resolution=(1080, 1920),
                     )
@@ -1823,7 +1824,7 @@ def mining_collision():
                 length -= 1  # 循环次数减1
                 if exists(
                     Template(
-                        os.path.join("icon", r"tpl1733823336248.png"),
+                        r"icon/tpl1733823336248.png",
                         record_pos=(-0.335, -0.838),
                         resolution=(1080, 1920),
                     )
@@ -1832,7 +1833,7 @@ def mining_collision():
                     print_space("点击黑色返回按钮")
                     touch(
                         Template(
-                            os.path.join("icon", r"tpl1733823336248.png"),
+                            r"icon/tpl1733823336248.png",
                             target_pos=4,
                             record_pos=(-0.335, -0.838),
                             resolution=(1080, 1920),
@@ -1840,7 +1841,7 @@ def mining_collision():
                     )
             if exists(
                 Template(
-                    os.path.join("icon", r"tpl1729833981926.png"),
+                    r"icon/tpl1729833981926.png",
                     record_pos=(0.42, -0.141),
                     resolution=(1080, 1920),
                 )
@@ -1849,7 +1850,7 @@ def mining_collision():
                 time.sleep(1)
                 touch(
                     Template(
-                        os.path.join("icon", r"tpl1729833981926.png"),
+                        r"icon/tpl1729833981926.png",
                         record_pos=(0.42, -0.141),
                         resolution=(1080, 1920),
                     )
@@ -1886,7 +1887,7 @@ def mail_function():
     touch([858, 1865])  # 再次点击以关闭奖励弹窗
     touch(
         Template(
-            os.path.join("icon", r"black_return.png"),
+            r"icon/black_return.png",
             rgb=True,
             record_pos=(-0.441, -0.839),
             resolution=(1080, 1920),
@@ -1901,7 +1902,7 @@ def union_Treasure_Chest():
     print_space("点击联盟图案")
     touch(
         Template(
-            os.path.join("icon", r"tpl1721784579070.png"),
+            r"icon/tpl1721784579070.png",
             record_pos=(-0.168, -0.088),
             resolution=(1080, 1920),
         )
@@ -1909,14 +1910,14 @@ def union_Treasure_Chest():
     print("点击联盟宝箱")
     if exists(
         Template(
-            os.path.join("icon", r"tpl1734838173842.png"),
+            r"icon/tpl1734838173842.png",
             record_pos=(0.214, 0.036),
             resolution=(1080, 1920),
         )
     ):
         touch(
             Template(
-                os.path.join("icon", r"tpl1734838173842.png"),
+                r"icon/tpl1734838173842.png",
                 record_pos=(0.214, 0.036),
                 resolution=(1080, 1920),
             )
@@ -1925,7 +1926,7 @@ def union_Treasure_Chest():
         touch([290, 600])  # 点击战利品宝箱区域
         if exists(
             Template(
-                os.path.join("icon", r"tpl1734838244122.png"),
+                r"icon/tpl1734838244122.png",
                 threshold=0.8,
                 rgb=True,
                 record_pos=(0.005, 0.789),
@@ -1934,7 +1935,7 @@ def union_Treasure_Chest():
         ):
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1734838244122.png"),
+                    r"icon/tpl1734838244122.png",
                     record_pos=(0.005, 0.789),
                     resolution=(1080, 1920),
                 )
@@ -1948,14 +1949,14 @@ def union_Treasure_Chest():
         touch([790, 600])
         if exists(
             Template(
-                os.path.join("icon", r"tpl1734838244122.png"),
+                r"icon/tpl1734838244122.png",
                 record_pos=(0.005, 0.789),
                 resolution=(1080, 1920),
             )
         ):
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1734838244122.png"),
+                    r"icon/tpl1734838244122.png",
                     record_pos=(0.005, 0.789),
                     resolution=(1080, 1920),
                 )
@@ -1977,7 +1978,7 @@ def warehouse():
     now_time = datetime.now()
     if exists(
         Template(
-            os.path.join("icon", r"tpl1720145326019.png"),
+            r"icon/tpl1720145326019.png",
             record_pos=(0.404, 0.852),
             resolution=(1080, 1920),
         )
@@ -1993,7 +1994,7 @@ def warehouse():
     time.sleep(1)
     if exists(
         Template(
-            os.path.join("icon", r"tpl1737088915389.png"),
+            r"icon/tpl1737088915389.png",
             threshold=0.9,
             record_pos=(-0.436, 0.106),
             resolution=(1080, 1920),
@@ -2002,7 +2003,7 @@ def warehouse():
         print_space("有可领取补给，点击前往")
         touch(
             Template(
-                os.path.join("icon", r"tpl1737088915389.png"),
+                r"icon/tpl1737088915389.png",
                 record_pos=(-0.436, 0.106),
                 resolution=(1080, 1920),
             )
@@ -2016,7 +2017,7 @@ def warehouse():
         print_space("未找到仓库补给，关闭左侧栏")
         touch(
             Template(
-                os.path.join("icon", r"tpl1719552273333.png"),
+                r"icon/tpl1719552273333.png",
                 threshold=0.9,
                 record_pos=(0.142, -0.126),
                 resolution=(1080, 1920),
@@ -2035,7 +2036,7 @@ def warehouse():
         time.sleep(1)
         if exists(
             Template(
-                os.path.join("icon", r"tpl1737094428928.png"),
+                r"icon/tpl1737094428928.png",
                 record_pos=(0.002, -0.094),
                 resolution=(1080, 1920),
             )
@@ -2043,7 +2044,7 @@ def warehouse():
             print_space("点击体力罐头")
             touch(
                 Template(
-                    os.path.join("icon", r"tpl1737094428928.png"),
+                    r"icon/tpl1737094428928.png",
                     record_pos=(0.002, -0.094),
                     resolution=(1080, 1920),
                 )
