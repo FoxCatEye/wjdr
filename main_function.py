@@ -462,8 +462,8 @@ def train(self):
 
 
 # 训练检查
-@goHomepage
 @catch_exceptions
+@goHomepage
 def Production_soldiers(self):
     touch([14, 823])
     time.sleep(1)
@@ -745,117 +745,6 @@ def Queue2():
 def Build():
     Queue1()
     Queue2()
-
-    return
-    if exists(
-        Template(
-            os.path.join("icon", r"tpl1719643933714.png"),
-            rgb=True,
-            record_pos=(-0.311, -0.372),
-            resolution=(1080, 1920),
-        )
-    ):
-        print_space("有空闲队列，开始建造")
-        touch(
-            Template(
-                os.path.join("icon", r"tpl1719643933714.png"),
-                record_pos=(-0.306, -0.318),
-                resolution=(1080, 1920),
-            )
-        )  # 点击跳转到需升级的建筑
-        if exists(
-            Template(
-                os.path.join("icon", r"tpl1719580056417.png"),
-                record_pos=(-0.362, 0.238),
-                resolution=(1080, 1920),
-            )
-        ):  # 判断是什么建筑升级升级
-            print_space("升级资源建筑")
-            time.sleep(5)  # 等待5s
-            if not exists(
-                Template(
-                    os.path.join("icon", r"tpl1719644932718.png"),
-                    threshold=0.9,
-                    record_pos=(0.308, 0.056),
-                    resolution=(1080, 1920),
-                )
-            ):
-                print_space("建筑设施未达到升级要求，升级设施")
-                while not exists(
-                    Template(
-                        os.path.join("icon", r"tpl1719645172814.png"),
-                        record_pos=(0.248, -0.102),
-                        resolution=(1080, 1920),
-                    )
-                ):
-                    touch([900, 1000])
-                    if exists(
-                        Template(
-                            os.path.join("icon", r"tpl1719645172814.png"),
-                            record_pos=(0.248, -0.102),
-                            resolution=(1080, 1920),
-                        )
-                    ):
-                        print_space("达到升级条件，开始升级")
-            touch([900, 800])  # 点击升级按钮
-            touch([800, 1800])  # 点击升级
-            if exists(
-                Template(
-                    os.path.join("icon", r"tpl1719651083870.png"),
-                    record_pos=(0.001, 0.731),
-                    resolution=(1080, 1920),
-                )
-            ):  # 判断资源是否充足
-                print_space("/31资源不足，点击一键补齐")
-                build_main()
-            else:
-                time.sleep(1)
-                touch(
-                    Template(
-                        os.path.join("icon", r"tpl1719579273500.png"),
-                        record_pos=(0.003, -0.045),
-                        resolution=(1080, 1920),
-                    )
-                )  # 点击求助
-        else:
-            print_space("升级功能建筑")
-            touch([553, 1333])  # 点击升级按钮
-            touch(
-                Template(
-                    os.path.join("icon", r"tpl1719578558005.png"),
-                    record_pos=(0.003, -0.045),
-                    resolution=(1080, 1920),
-                )
-            )  # 点击升级
-            if exists(
-                Template(
-                    os.path.join("icon", r"tpl1719651083870.png"),
-                    record_pos=(0.001, 0.731),
-                    resolution=(1080, 1920),
-                )
-            ):  # 判断资源是否充足
-                print_space("资源不足，点击一键补齐")
-                build_main()
-            else:
-                time.sleep(1)
-                touch(
-                    Template(
-                        os.path.join("icon", r"tpl1719579273500.png"),
-                        record_pos=(0.002, -0.08),
-                        resolution=(1080, 1920),
-                    )
-                )  # 点击求助
-    else:
-        print_space("没有空闲建筑队列")
-        touch(
-            Template(
-                os.path.join("icon", r"tpl1719552273333.png"),
-                threshold=0.9,
-                record_pos=(0.142, -0.126),
-                resolution=(1080, 1920),
-            )
-        )
-
 
 # 搜索资源
 @catch_exceptions
@@ -1597,64 +1486,36 @@ def Collection(self):
 # 治疗
 @catch_exceptions
 @goHomepage
+@check_and_go_outside
 def treatment():
-    check_and_touch(
-        Template(
-            os.path.join("icon", r"tpl1720145326019.png"),
-            record_pos=(0.404, 0.852),
-            resolution=(1080, 1920),
-        ),
-        "找到城镇图案点击并前往",
-    )
-    if exists(
+    if check_and_touch(
         Template(
             os.path.join("icon", r"tpl1738728068288.png"),
             record_pos=(0.273, 0.434),
             resolution=(1080, 1920),
-        )
-    ) or exists(
-        Template(
-            os.path.join("icon", r"tpl1739028844307.png"),
-            record_pos=(-0.035, -0.13),
-            resolution=(1080, 1920),
-        )
+        ),
+        "找到黑色治疗图标点击",
     ):
         check_and_touch(
-            Template(
-                os.path.join("icon", r"tpl1738728068288.png"),
-                record_pos=(0.273, 0.434),
-                resolution=(1080, 1920),
-            ),
-            "找到黑色治疗图标点击",
-        )
-        check_and_touch(
-            Template(
-                os.path.join("icon", r"tpl1739028844307.png"),
-                record_pos=(-0.035, -0.13),
-                resolution=(1080, 1920),
-            ),
-            "找到白色治疗图标点击",
-        )
-        print_space("点击治疗按钮")
-        touch(
             Template(
                 os.path.join("icon", r"tpl1738728101302.png"),
                 record_pos=(0.219, 0.382),
                 resolution=(1080, 1920),
-            )
+            ),
+            message="点击治疗按钮",
         )
         print_space("点击联盟互助")
-        check_and_touch(
+        if check_and_touch(
             Template(
-                os.path.join("icon", r"tpl1739030020921.png"),
-                record_pos=(-0.253, -0.504),
+                os.path.join("icon", r"tpl1739672881567.png"),
+                record_pos=(0.217, 0.406),
                 resolution=(1080, 1920),
             ),
-            "找到联盟互助图标点击",
-        )
+            "点击联盟互助",
+        ):
+            keyevent("BACK")
     else:
         print_space("没有需要治疗的士兵")
-
 
 # 联盟捐赠
 @catch_exceptions

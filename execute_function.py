@@ -364,7 +364,6 @@ def subject(self):
             if self.checkBox_help.isChecked():
                 try:
                     print("%d.开始执行互助任务" % run_number)
-                    Homepage()  # 主页检查
                     Help(self)  # 互助模块
                     run_number += 1
                     if stop_event.is_set():
@@ -375,7 +374,6 @@ def subject(self):
             if self.checkBox_XG.isChecked() and now.hour != 21:
                 try:
                     print("%d.开始执行野怪任务" % run_number)
-                    Homepage()  # 主页检查
                     Brush_XG(self)  # 野怪
                     run_number += 1
                     if stop_event.is_set():
@@ -386,7 +384,6 @@ def subject(self):
             if self.checkBox_WM.isChecked() and now.hour != 21:
                 try:
                     print("%d.开始执行冰原巨兽任务" % run_number)
-                    Homepage()  # 主页检查
                     Brush_WM(self)  # 冰原巨兽
                     run_number += 1
                     if stop_event.is_set():
@@ -397,7 +394,6 @@ def subject(self):
             if self.checkBox_npc.isChecked() and now.hour != 21:
                 try:
                     print("%d.开始执行活动雪怪任务" % run_number)
-                    Homepage()  # 主页检查
                     NPC()  # 活动雪怪
                     run_number += 1
                     if stop_event.is_set():
@@ -408,7 +404,6 @@ def subject(self):
             if self.checkBox_Production.isChecked():
                 try:
                     print("%d.开始执行训练任务" % run_number)
-                    Homepage()  # 主页检查
                     Production_soldiers(self)  # 训练模块
                     run_number += 1
                     if stop_event.is_set():
@@ -419,7 +414,6 @@ def subject(self):
             if self.checkBox_build.isChecked():
                 try:
                     print("%d.开始执行建造任务" % run_number)
-                    Homepage()  # 主页检查
                     Build()  # 建造模块
                     run_number += 1
                     if stop_event.is_set():
@@ -430,7 +424,6 @@ def subject(self):
             if self.checkBox_Collection.isChecked():
                 try:
                     print("%d.开始执行采集任务" % run_number)
-                    Homepage()  # 主页检查
                     Collection(self)  # 采集资源模块
                     run_number += 1
                     if stop_event.is_set():
@@ -443,7 +436,6 @@ def subject(self):
                     print_space(
                         "当前时间：%s,巨熊活动进行中" % now.strftime("%H:%M:%S")
                     )
-                    Homepage()  # 主页检查
                     bear()  # 巨熊模块
                     run_number += 1
                     if stop_event.is_set():
@@ -454,7 +446,6 @@ def subject(self):
             if self.checkBox_treatment.isChecked():
                 try:
                     print("%d.开始执行治疗任务" % run_number)
-                    Homepage()  # 主页检查
                     treatment()  # 治疗模块
                     run_number += 1
                     if stop_event.is_set():
@@ -465,7 +456,6 @@ def subject(self):
             if self.checkBox_adventure.isChecked():
                 try:
                     print("%d.开始执行探险任务" % run_number)
-                    Homepage()  # 主页检查
                     adventure()  # 探险
                     run_number += 1
                     if stop_event.is_set():
@@ -476,7 +466,6 @@ def subject(self):
             if self.checkBox_donate.isChecked():
                 try:
                     print("%d.开始执行捐赠任务" % run_number)
-                    Homepage()  # 主页检查
                     donate()  # 捐赠模块
                     run_number += 1
                     if stop_event.is_set():
@@ -487,7 +476,6 @@ def subject(self):
             if self.checkBox_recruit.isChecked():
                 try:
                     print("%d.开始执行招募任务" % run_number)
-                    Homepage()
                     recruit()  # 英雄招募
                     run_number += 1
                     if stop_event.is_set():
@@ -498,7 +486,6 @@ def subject(self):
             if self.checkBox_collision.isChecked():
                 try:
                     print("%d.开始执行攻击检测任务" % run_number)
-                    Homepage()
                     mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
@@ -509,7 +496,6 @@ def subject(self):
             if self.checkBox_mail.isChecked():
                 try:
                     print("%d.开始执行邮件领取任务" % run_number)
-                    Homepage()
                     mail_function()  # 邮件领取
                     run_number += 1
                     if stop_event.is_set():
@@ -520,7 +506,6 @@ def subject(self):
             if self.checkBox_Treasure_Chest.isChecked():
                 try:
                     print("%d.开始执行联盟宝箱领取任务" % run_number)
-                    Homepage()
                     union_Treasure_Chest()  # 联盟宝箱
                     run_number += 1
                     if stop_event.is_set():
@@ -531,7 +516,6 @@ def subject(self):
             if self.checkBox_warehouse.isChecked():
                 try:
                     print("%d.开始执行仓库补给任务" % run_number)
-                    Homepage()
                     warehouse()  # 仓库补给
                     run_number += 1
                     if stop_event.is_set():
