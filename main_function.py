@@ -525,7 +525,7 @@ def Spear_soldiers(self):
         message="检查到矛兵训练空闲,跳转到矛兵兵营...",
     ):
         train(self)
-Ï
+
 # 箭兵训练
 @catch_exceptions
 @goHomepage
