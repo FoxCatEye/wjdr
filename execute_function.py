@@ -138,6 +138,7 @@ def subject(self):
         time.sleep(1)
         cnnect()
     run_number = 1
+    run_1 = True
     if self.select_time.isChecked():
         while True:
             now = datetime.now()
