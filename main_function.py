@@ -931,7 +931,7 @@ def warehouse():
         print_space('未找到仓库补给，关闭左侧栏')
         touch(Template(r"icon/tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
     # 判定是否是刷新时间或本次启动首次执行
-    if now_time.hour == 12 or now_time.hour == 17 or number_physical_strength == 0:
+    if now_time.hour == 12 or now_time.hour == 19 or number_physical_strength == 0:
         number_physical_strength = 1
         print_space('首次执行任务或体力刷新时间，检查是否有体力可领取')
         time.sleep(1)
