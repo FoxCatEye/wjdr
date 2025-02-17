@@ -271,17 +271,19 @@ def Production_soldiers(self):
 
 # 升级资源检查
 def build_main():
-    touch(Template(r"icon\tpl1719651083870.png", record_pos=(0.001, 0.731), resolution=(1080, 1920)))
+    touch(Template(r"icon\tpl1719651083870.png", record_pos=(0.0, 0.682), resolution=(1080, 1920)))
     time.sleep(1)
+    if exists(Template(r"icon\tpl1739791465219.png", record_pos=(0.012, -0.607), resolution=(1080, 1920))):
+        touch(Template(r"icon\tpl1729834190986.png", record_pos=(0.215, 0.556), resolution=(1080, 1920)))
     if exists(Template(r"icon\tpl1719817875178.png", record_pos=(-0.002, 0.683), resolution=(1080, 1920))):
         print_space('一键补齐资源不足，回到首页')
         touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
         touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
     else:
-        touch(Template(r"icon\tpl1719651144335.png", record_pos=(0.224, 0.608), resolution=(1080, 1920)))
-        touch(Template(r"icon\tpl1719578558005.png", record_pos=(0.003, -0.045), resolution=(1080, 1920)))  # 点击升级
+        touch(Template(r"icon\tpl1729834190986.png", record_pos=(0.224, 0.608), resolution=(1080, 1920)))
+        touch(Template(r"icon\tpl1739790693448.png", record_pos=(0.224, 0.531), resolution=(1080, 1920)))  # 点击升级
         time.sleep(1)
-        touch(Template(r"icon\tpl1719579273500.png", record_pos=(0.002, -0.08), resolution=(1080, 1920)))
+        touch(Template(r"icon\tpl1719579273500.png", record_pos=(0.001, -0.092), resolution=(1080, 1920)))
 
 
 # 自动建筑升级
@@ -289,39 +291,41 @@ def Build():
     touch([14, 823])
     time.sleep(1)
     touch([170, 400])
-    if exists(Template(r"icon\tpl1719643933714.png", rgb=True, record_pos=(-0.311, -0.372), resolution=(1080, 1920))):
+    if exists(Template(r"icon\tpl1719643933714.png", threshold=0.85, rgb=True, record_pos=(-0.311, -0.372), resolution=(1080, 1920))):
         print_space('有空闲队列，开始建造')
-        touch(Template(r"icon\tpl1719643933714.png", record_pos=(-0.306, -0.318), resolution=(1080, 1920)))  # 点击跳转到需升级的建筑
-        if exists(Template(r"icon\tpl1719580056417.png", record_pos=(-0.362, 0.238), resolution=(1080, 1920))):  # 判断是什么建筑升级升级
+        touch(Template(r"icon\tpl1719643933714.png", threshold=0.85, rgb=True, record_pos=(-0.306, -0.318), resolution=(1080, 1920)))  # 点击跳转到需升级的建筑
+        if exists(Template(r"icon\tpl1719580056417.png",  record_pos=(-0.36, 0.193), resolution=(1080, 1920))):  # 判断是什么建筑升级升级
+            touch([500, 900])
             print_space('升级资源建筑')
-            time.sleep(5)  # 等待5s
-            if not exists(Template(r"icon\tpl1719644932718.png", threshold=0.9, record_pos=(0.308, 0.056), resolution=(1080, 1920))):
+            time.sleep(1)  # 等待5s
+            # if not exists(Template(r"icon\tpl1719644932718.png", threshold=0.9, record_pos=(0.308, 0.056), resolution=(1080, 1920))):
+            while not exists(Template(r"icon\tpl1719645172814.png", record_pos=(0.346, -0.149), resolution=(1080, 1920))):
                 print_space('建筑设施未达到升级要求，升级设施')
-                while not exists(Template(r"icon\tpl1719645172814.png", record_pos=(0.248, -0.102), resolution=(1080, 1920))):
-                    touch([900, 1000])
-                    if exists(Template(r"icon\tpl1719645172814.png", record_pos=(0.248, -0.102), resolution=(1080, 1920))):
-                        print_space('达到升级条件，开始升级')
-            touch([900, 800])  # 点击升级按钮
-            touch([800, 1800])  # 点击升级
-            if exists(Template(r"icon\tpl1719651083870.png", record_pos=(0.001, 0.731), resolution=(1080, 1920))):  # 判断资源是否充足
+                touch([900, 1000])
+            if exists(Template(r"icon\tpl1719645172814.png", record_pos=(0.346, -0.149), resolution=(1080, 1920))):
+                print_space('达到升级条件，开始升级')
+            touch(Template(r"icon\tpl1719645172814.png", record_pos=(0.346, -0.149), resolution=(1080, 1920)))  # 点击升级按钮
+            touch(Template(r"icon\tpl1739790693448.png", record_pos=(0.234, 0.759), resolution=(1080, 1920)))  # 点击升级
+            if exists(Template(r"icon\tpl1719651083870.png", record_pos=(0.0, 0.682), resolution=(1080, 1920))):  # 判断资源是否充足
                 print_space("/31资源不足，点击一键补齐")
                 build_main()
             else:
                 time.sleep(1)
+                print_space('资源充足，点击求助')
                 touch(Template(r"icon\tpl1719579273500.png", record_pos=(0.003, -0.045), resolution=(1080, 1920)))  # 点击求助
         else:
             print_space('升级功能建筑')
             touch([553, 1333])  # 点击升级按钮
-            touch(Template(r"icon\tpl1719578558005.png", record_pos=(0.003, -0.045), resolution=(1080, 1920)))  # 点击升级
-            if exists(Template(r"icon\tpl1719651083870.png", record_pos=(0.001, 0.731), resolution=(1080, 1920))):  # 判断资源是否充足
+            touch(Template(r"icon\tpl1739790693448.png", record_pos=(0.222, 0.528), resolution=(1080, 1920)))  # 点击升级
+            if exists(Template(r"icon\tpl1719651083870.png", record_pos=(0.0, 0.682), resolution=(1080, 1920))):  # 判断资源是否充足
                 print_space('资源不足，点击一键补齐')
                 build_main()
             else:
                 time.sleep(1)
-                touch(Template(r"icon\tpl1719579273500.png", record_pos=(0.002, -0.08), resolution=(1080, 1920)))  # 点击求助
+                touch(Template(r"icon\tpl1719579273500.png", record_pos=(0.001, -0.092), resolution=(1080, 1920)))  # 点击求助
     else:
         print_space("没有空闲建筑队列")
-        touch(Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+        touch(Template(r"icon\tpl1719552273333.png", threshold=0.85, record_pos=(0.143, -0.124), resolution=(1080, 1920)))
 
 
 # 搜索资源
