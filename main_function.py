@@ -106,10 +106,10 @@ def print_space(variable, spaces=4):
 # 主页判断
 @catch_exceptions
 def Homepage():
-    for i in range(10):
+    for i in range(1, 10):
         if stop_event.is_set():
             return
-        print_space(f"第{i+1}次判断是否在主页")
+        print_space(f"第{i}次判断是否在主页")
         # 判断是否在主页
         if exists(
             Template(
@@ -130,8 +130,6 @@ def Homepage():
                 "检查到面板未回收并点击",
             )
             return
-
-        print_space("不在主页，返回主页")
         if check_and_touch(
             Template(
                 r"icon/tpl1739011457290.png",
@@ -155,76 +153,9 @@ def Homepage():
             delay=1,
         ):  # 检查是否在野外
             continue
+        print_space("不在主页，返回主页")
         keyevent("BACK")
         sleep(0.3)
-        continue
-        # 判断是否在城镇,面板是否回收,
-        if exists(
-            Template(
-                r"icon/tpl1739024627263.png",
-                record_pos=(0.396, 0.788),
-                resolution=(1080, 1920),
-                threshold=0.9,
-            )
-        ) and exists(
-            Template(
-                r"icon/tpl1739008819108.png",
-                record_pos=(-0.483, -0.11),
-                resolution=(1080, 1920),
-                threshold=0.9,
-            )
-        ):
-            print_space("在城镇，面板已回收")
-            return
-        else:
-            if check_and_touch(
-                Template(
-                    r"icon/tpl1739008721692.png",
-                    record_pos=(0.403, 0.815),
-                    resolution=(1080, 1920),
-                    threshold=0.9,
-                ),
-                "检查到在野外并点击去往城镇",
-            ):
-                continue
-            if check_and_touch(
-                Template(
-                    r"icon/tpl1739012192856.png",
-                    record_pos=(-0.444, -0.844),
-                    resolution=(1080, 1920),
-                    threshold=0.9,
-                ),
-                "检查到返回按钮并点击",
-                [50, 50],
-            ):
-                continue
-            if check_and_touch(
-                Template(
-                    r"icon/tpl1739010465874.png",
-                    record_pos=(0.151, -0.125),
-                    resolution=(1080, 1920),
-                    threshold=0.9,
-                ),
-                "检查到面板未回收并点击",
-            ):
-                continue
-            if check_and_touch(
-                Template(
-                    r"icon/tpl1739011457290.png",
-                    record_pos=(-0.328, -0.71),
-                    resolution=(1080, 1920),
-                    threshold=0.9,
-                ),
-                "检查到弹窗并点击",
-                [50, 50],
-            ):
-                continue
-
-            print_space("未知情况，固定点击返回")
-            touch([50, 50])
-            sleep(0.5)
-            touch([50, 50])
-            sleep(0.5)
     re_connet()
 
 
