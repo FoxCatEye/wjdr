@@ -233,7 +233,7 @@ def Production_soldiers(self):
         Homepage()  # 返回主页
         time.sleep(1)  # 等待1秒
         touch([14, 823])
-    elif exists(Template(r"icon/tpl1719478488283.png", threshold=0.9, rgb=True, record_pos=(-0.066, -0.111), resolution=(1080, 1920))):
+    elif exists(Template(r"icon/tpl1719478488283.png", threshold=0.85, rgb=True, record_pos=(-0.061, -0.131), resolution=(1080, 1920))):
         print_space("跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train(self)
@@ -248,7 +248,7 @@ def Production_soldiers(self):
         Homepage()  # 返回主页
         time.sleep(1)  # 等待1秒
         touch([14, 823])
-    elif exists(Template(r"icon/tpl1719480722196.png", threshold=0.8, rgb=True, record_pos=(-0.314, -0.01), resolution=(1080, 1920))):
+    elif exists(Template(r"icon/tpl1719480722196.png", threshold=0.85, rgb=True, record_pos=(-0.063, -0.031), resolution=(1080, 1920))):
         print_space("跳转到矛兵兵营...")
         touch([600, 942])  # 点击索引到对应兵营
         train(self)
@@ -260,7 +260,7 @@ def Production_soldiers(self):
         print_space("1跳转到射手兵营...")
         touch([600, 1060])  # 点击索引到对应兵营
         train(self)
-    elif exists(Template(r'icon/tpl1719480732966.png', threshold=0.8, rgb=True, record_pos=(-0.021, -0.003), resolution=(1080, 1920))):
+    elif exists(Template(r'icon/tpl1719480732966.png', threshold=0.85, rgb=True, record_pos=(-0.064, 0.071), resolution=(1080, 1920))):
         print_space("跳转到射手兵营...")
         touch([600, 1060])  # 点击索引到对应兵营
         train(self)

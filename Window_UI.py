@@ -1284,8 +1284,7 @@ class Ui_MainWindow(object):
         self.select_start.show()
         self.select_stop.hide()
 
-
-    def simple_start_button(self):  # 单选开始按钮  （已废弃）
+    def simple_start_button(self):  # 单选开始按钮（已废弃）
         settings.setValue('单选选择', self.radioButton_group.checkedId())
         self.simple_stop.show()  # type: ignore
         self.simple_start.hide()  # type: ignore
