@@ -1015,7 +1015,7 @@ class Ui_MainWindow(object):
         self.simple_start.setText(_translate("MainWindow", "开始"))'''
         self.label_3.setText(_translate("MainWindow", "循环间隔(秒):"))
         self.ty_title.setText(_translate("MainWindow", "任务选项"))
-        self.ty_set.setText(_translate("MainWindow", "设置"))
+        self.ty_set.setText(_translate("MainWindow", "保存参数"))
         # self.simple_set.setText(_translate("MainWindow", "设置"))
         self.label.setText(_translate("MainWindow", "输出："))
         self.label_Version_prompt.setText(_translate("MainWindow", "<font color=\"#FF0000\" ><p>检查到新版本，请于群内下载最新版本</p></font>"))

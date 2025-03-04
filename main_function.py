@@ -33,14 +33,15 @@ def check_and_touch(templateObj, message="", target_pos=None):
             touch(templateObj)
         sleep(0.5)
         return True
-    return False
+    else:
+        print_space("未找到对应图片")
+        return False
 
 
 # 主页判断
 def Homepage():
     """
     主页判断函数，用于判断当前是否在游戏主页，并根据情况执行相应操作。
-
     该函数通过检查特定图标是否存在来判断当前是否在主页。如果不在主页，
     则尝试点击不同颜色的返回按钮或关闭按钮，直到达到最大尝试次数或成功返回主页。
     如果达到最大尝试次数，则调用 `re_connet` 函数进行设备顶号重连。
@@ -117,6 +118,8 @@ def re_connet():
 
 # 互助功能
 def Help(self):
+    if stop_event.is_set():  # 在函数开始时检查是否停止
+        return  # 如果停止，直接返回
     if exists(Template(r"icon\tpl1718936896202.png", record_pos=(0.248, 0.735), resolution=(1080, 1920))):  # 判断是否有盟员求助
         print_space("有盟员求助，需点击援助按钮")
         if self.checkBox_Random_time.isChecked():
@@ -125,7 +128,9 @@ def Help(self):
             time.sleep(random_number)  # 等待随机时间后
         record = random.randint(1, 9)
         print_space('随机点击位置：%s' % record)
-        touch(Template(r"icon\tpl1718936896202.png", target_pos=record, record_pos=(0.248, 0.735), resolution=(1080, 1920)))
+        if stop_event.is_set():  # 点击前检查是否停止
+            return  # 如果停止，直接返回
+        check_and_touch(Template(r"icon\tpl1718936896202.png", target_pos=record, record_pos=(0.248, 0.735), resolution=(1080, 1920)))
     else:
         print_space("未找到求助按钮，进行下一个任务")
 

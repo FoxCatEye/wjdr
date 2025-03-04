@@ -126,7 +126,7 @@ def stop_function():
     # 这里放置停止需要的代码
     global stop_event
     stop_event.set()  # 设置事件，通知线程结束
-    print('-------------当前任务结束或10s后结束任务-------------')
+    print('-------------当前任务结束或1s后结束任务-------------')
 
 
 # 多选主体代码
@@ -137,7 +137,7 @@ def subject(self):
         print('未连接模拟器')
         time.sleep(1)
         cnnect()
-    run_number = 1
+    run_number = 1   # 初始化单项执行状态
     run_1 = True
     if self.select_time.isChecked():
         while True:
@@ -339,6 +339,7 @@ def subject(self):
                 try:
                     print('%d.开始执行野怪任务' % run_number)
                     Homepage()  # 主页检查
+                    mining_collision()  #攻击检测
                     Brush_XG(self)  # 野怪
                     run_number += 1
                     if stop_event.is_set():
@@ -502,10 +503,17 @@ def subject(self):
                     print('程序执行异常，结束该任务，执行其他任务')
             if stop_event.is_set():
                 self.select_stop_button()  # 停止
+                run_1 = False
                 break
             wait_time = int(settings.value('循环时间设置', 0, type=str))
             print_space('等待%s秒后开始下一循环' % wait_time)
-            wait_number_start = 0  # 设置循环开始条件
+            for _ in range(wait_time):  # 将sleep改为循环，以便及时响应停止事件
+                    if stop_event.is_set():
+                        self.select_stop_button()
+                        run_1 = False
+                        break
+                    time.sleep(1)
+            '''wait_number_start = 0  # 设置循环开始条件
             wait_number = wait_time / 10  # 设置循环次数
             while wait_number > wait_number_start:  # 如果循环次数大于开始条件，则执行循环
                 time.sleep(1)  # 等待1s
@@ -527,7 +535,7 @@ def subject(self):
                         if stop_event.is_set():  # 如果点击了停止
                             self.select_stop_button()  # 停止
                             run_1 = False
-                            break
+                            break'''
     print('结束任务')
 
 
