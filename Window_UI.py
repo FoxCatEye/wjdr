@@ -405,6 +405,7 @@ class Ui_MainWindow(object):
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")'''
 
+
         # 任务区域
         self.frame_task = QtWidgets.QFrame(self.centralwidget)
         self.frame_task.setGeometry(QtCore.QRect(10, 40, 461, 470))
