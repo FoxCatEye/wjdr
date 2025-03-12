@@ -22,6 +22,34 @@ settings.setIniCodec('UTF-8')  # 设置ini文件编码为 UTF-8
 close_number = 1
 version = '2.3.1'  # 当前版本
 
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtGui import QPainter, QPainterPath, QPen, QColor
+
+class StyledButton(QPushButton):
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)  # 抗锯齿优化‌:ml-citation{ref="1,3" data="citationList"}
+        
+        # 定义字体和文本
+        font = self.font()
+        text = self.text()
+        rect = self.rect()
+        
+        # 创建文字路径
+        path = QPainterPath()
+        path.addText(rect.center().x() - painter.fontMetrics().width(text)/2, 
+                     rect.center().y() + painter.fontMetrics().height()/4, 
+                     font, text)
+        
+        # 绘制白色描边
+        painter.setPen(QPen(QColor(255, 255, 255), 4))  # 描边宽度4像素‌:ml-citation{ref="5,6" data="citationList"}
+        painter.drawPath(path)
+        
+        # 填充文字主体颜色
+        painter.setPen(Qt.NoPen)
+        painter.setBrush(QColor(0, 0, 0))  # 文字颜色为黑色‌:ml-citation{ref="4" data="citationList"}
+        painter.drawPath(path)
+
 
 def get_ip_address():
     try:
@@ -215,8 +243,10 @@ class Ui_MainWindow(object):
         self.frame_2.setObjectName("frame_2")'''
         #启动模拟器
         self.start_simulator = QtWidgets.QPushButton(self.frame)
+        # self.start_simulator = StyledButton(self.frame)
         self.start_simulator.setGeometry(QtCore.QRect(10, 70, 75, 23))
         self.start_simulator.setFlat(True)
+        #self.start_simulator.setFont(QFont("Arial", 20))
         self.start_simulator.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
                                            "}"
                                            "QPushButton:hover {\n"
@@ -308,11 +338,12 @@ class Ui_MainWindow(object):
         self.select_all.setObjectName("select_all")
         self.select_all.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
                                       "}"
+                                      
                                       "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                      "background-color: rgba(0, 0, 0, 15); /* 鼠标悬停时的背景透明度 */\n"
                                       "}\n"
                                       "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                      "background-color: rgba(0, 0, 0, 80); /* 按钮按下时的背景透明度 */\n"
                                       "}\n")
         # 取消全选
         self.select_unall = QtWidgets.QPushButton(self.frame)

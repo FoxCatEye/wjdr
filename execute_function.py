@@ -138,7 +138,7 @@ def subject(self):
         time.sleep(1)
         cnnect()
     run_number = 1   # 初始化单项执行状态
-    run_1 = True
+    # run_1 = True
     if self.select_time.isChecked():
         while True:
             now = datetime.now()
@@ -503,39 +503,16 @@ def subject(self):
                     print('程序执行异常，结束该任务，执行其他任务')
             if stop_event.is_set():
                 self.select_stop_button()  # 停止
-                run_1 = False
+                # run_1 = False
                 break
             wait_time = int(settings.value('循环时间设置', 0, type=str))
             print_space('等待%s秒后开始下一循环' % wait_time)
             for _ in range(wait_time):  # 将sleep改为循环，以便及时响应停止事件
                     if stop_event.is_set():
                         self.select_stop_button()
-                        run_1 = False
+                        # run_1 = False
                         break
                     time.sleep(1)
-            '''wait_number_start = 0  # 设置循环开始条件
-            wait_number = wait_time / 10  # 设置循环次数
-            while wait_number > wait_number_start:  # 如果循环次数大于开始条件，则执行循环
-                time.sleep(1)  # 等待1s
-                if stop_event.is_set():  # 如果点击了停止
-                    self.select_stop_button()  # 停止
-                    run_1 = False
-                    break
-                else:
-                    if wait_number < 1:  # 如果循环次数小于1次
-                        remaining_time = wait_time % 10  # 获取循环时间除于10后的余数
-                        # print('剩余等待时间：%ss' % remaining_time)
-                        time.sleep(remaining_time)
-                        break
-                    else:  # 如果循环次数大于1次
-                        # print(wait_number)
-                        wait_number -= 1
-                        # print('等待10s')
-                        time.sleep(10)
-                        if stop_event.is_set():  # 如果点击了停止
-                            self.select_stop_button()  # 停止
-                            run_1 = False
-                            break'''
     print('结束任务')
 
 
