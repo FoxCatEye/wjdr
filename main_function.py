@@ -440,8 +440,11 @@ def bear():
         if exists(Template(r"icon/tpl1721784579066.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):
             print_space('发起集结')
             touch(Template(r"icon/tpl1721784579066.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))
+            if self.checkBox_bear_queue.isChecked():  # 巨熊队列选项
+                print_space('点击队列1')
+                touch([90, 185])
             print_space('点击出征')
-            touch(Template(r"icon/tpl1721784579067.png", record_pos=(0.002, 0.705), resolution=(414, 780)))
+            touch(Template(r"icon/tpl1721784579067.png", record_pos=(0.002, 0.705), resolution=(1080, 1920)))
             print_space('出征成功')
         else:
             print_space('集结中')
@@ -939,25 +942,27 @@ def warehouse():
     else:
         print_space('未找到仓库补给，关闭左侧栏')
         touch(Template(r"icon/tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
-    # 判定是否是刷新时间或本次启动首次执行
-    if now_time.hour == 12 or now_time.hour == 19 or number_physical_strength == 0:
-        number_physical_strength = 1
-        print_space('首次执行任务或体力刷新时间，检查是否有体力可领取')
-        time.sleep(1)
-        touch([14, 823])  # 点击左侧打开隐藏栏
-        time.sleep(1)
-        touch([70, 1230])  # 点击科技研究
-        time.sleep(1)
-        swipe([500, 1000], vector=[0.2, 0.0017])  # 向左滑动
-        time.sleep(1)
-        if exists(Template(r"icon/tpl1737094428928.png", record_pos=(0.002, -0.094), resolution=(1080, 1920))):
-            print_space('点击体力罐头')
-            touch(Template(r"icon/tpl1737094428928.png", record_pos=(0.002, -0.094), resolution=(1080, 1920)))  # 点击体力罐头
+    # 体力开关判断检测
+    if self.checkBox_warehouse_physical_strength.isChecked():
+        # 判定是否是刷新时间或本次启动首次执行
+        if now_time.hour == 12 or now_time.hour == 19 or number_physical_strength == 0:
+            number_physical_strength = 1
+            print_space('首次执行任务或体力刷新时间，检查是否有体力可领取')
             time.sleep(1)
-            print_space('点击领取按钮')
-            touch([540, 1430])  # 点击领取按钮
+            touch([14, 823])  # 点击左侧打开隐藏栏
             time.sleep(1)
-            touch([150, 1300])  # 关闭奖励弹窗
-            print_space('领取成功')
-        else:
-            print_space('未找到体力罐头')
+            touch([70, 1230])  # 点击科技研究
+            time.sleep(1)
+            swipe([500, 1000], vector=[0.2, 0.0017])  # 向左滑动
+            time.sleep(1)
+            if exists(Template(r"icon/tpl1737094428928.png", record_pos=(0.002, -0.094), resolution=(1080, 1920))):
+                print_space('点击体力罐头')
+                touch(Template(r"icon/tpl1737094428928.png", record_pos=(0.002, -0.094), resolution=(1080, 1920)))  # 点击体力罐头
+                time.sleep(1)
+                print_space('点击领取按钮')
+                touch([540, 1430])  # 点击领取按钮
+                time.sleep(1)
+                touch([150, 1300])  # 关闭奖励弹窗
+                print_space('领取成功')
+            else:
+                print_space('未找到体力罐头')

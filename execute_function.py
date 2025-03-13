@@ -138,7 +138,7 @@ def subject(self):
         time.sleep(1)
         cnnect()
     run_number = 1   # 初始化单项执行状态
-    # run_1 = True
+    run_1 = True
     if self.select_time.isChecked():
         while True:
             now = datetime.now()
@@ -510,7 +510,7 @@ def subject(self):
             for _ in range(wait_time):  # 将sleep改为循环，以便及时响应停止事件
                     if stop_event.is_set():
                         self.select_stop_button()
-                        # run_1 = False
+                        run_1 = False
                         break
                     time.sleep(1)
     print('结束任务')

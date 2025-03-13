@@ -543,67 +543,98 @@ class Ui_MainWindow(object):
                                                "background: transparent;\n"
                                                "border: 1px solid rgba(0, 255, 0)"
                                                "}")
+        
+        # 情报文本
+        self.label_intelligence = QtWidgets.QLabel(self.frame_task)
+        self.label_intelligence.setGeometry(QtCore.QRect(20, 230, 54, 21))  # 显示文本
+        self.label_intelligence.setObjectName("情报文本")
+        # 情报开关选项
+        self.checkBox_intelligence = QtWidgets.QCheckBox(self.frame_task)  
+        self.checkBox_intelligence.setGeometry(QtCore.QRect(80, 230, 71, 21))
+        self.checkBox_intelligence.setObjectName("情报开关")
+        # 情报品质选项
+        self.checkBox_intelligence_high_quality = QtWidgets.QCheckBox(self.frame_task)  
+        self.checkBox_intelligence_high_quality.setGeometry(QtCore.QRect(170, 230, 71, 21))
+        self.checkBox_intelligence_high_quality.setObjectName("情报品质")
+        # 情报次数选项
+        self.checkBox_intelligence_number = QtWidgets.QCheckBox(self.frame_task)  
+        self.checkBox_intelligence_number.setGeometry(QtCore.QRect(260, 230, 71, 21))
+        self.checkBox_intelligence_number.setObjectName("情报次数")
+        # 仓库补给文本
+        self.label_warehouse = QtWidgets.QLabel(self.frame_task)
+        self.label_warehouse.setGeometry(QtCore.QRect(20, 260, 54, 21))  # 显示文本
+        self.label_warehouse.setObjectName("仓库补给")
+        # 仓库补给开关选项
+        self.checkBox_warehouse = QtWidgets.QCheckBox(self.frame_task)  
+        self.checkBox_warehouse.setGeometry(QtCore.QRect(80, 260, 71, 21))
+        self.checkBox_warehouse.setObjectName("仓库补给")
+        # 仓库体力补给开关选项
+        self.checkBox_warehouse_physical_strength = QtWidgets.QCheckBox(self.frame_task)  
+        self.checkBox_warehouse_physical_strength.setGeometry(QtCore.QRect(170, 260, 71, 21))
+        self.checkBox_warehouse_physical_strength.setObjectName("仓库体力")
         # 巨熊活动文本
         self.label_bear = QtWidgets.QLabel(self.frame_task)
-        self.label_bear.setGeometry(QtCore.QRect(20, 230, 54, 21))  # 显示文本
-        self.label_bear.setObjectName("XXXX")
+        self.label_bear.setGeometry(QtCore.QRect(20, 290, 54, 21))  # 显示文本
+        self.label_bear.setObjectName("巨熊活动")
         # 开关选项
         self.checkBox_bear = QtWidgets.QCheckBox(self.frame_task)  # 巨熊活动
-        self.checkBox_bear.setGeometry(QtCore.QRect(80, 230, 71, 21))
+        self.checkBox_bear.setGeometry(QtCore.QRect(80, 290, 71, 21))
         self.checkBox_bear.setObjectName("checkBox_bear")
-
+        # 巨熊队列开关选项
+        self.checkBox_bear_queue = QtWidgets.QCheckBox(self.frame_task)  # 巨熊活动
+        self.checkBox_bear_queue.setGeometry(QtCore.QRect(170, 290, 71, 21))
+        self.checkBox_bear_queue.setObjectName("队列开关")
         # 治疗士兵文本
         self.label_treatment = QtWidgets.QLabel(self.frame_task)
-        self.label_treatment.setGeometry(QtCore.QRect(20, 260, 54, 21))  # 显示文本
+        self.label_treatment.setGeometry(QtCore.QRect(20, 320, 54, 21))  # 显示文本
         self.label_treatment.setObjectName("XXXX")
         # 开关选项
         self.checkBox_treatment = QtWidgets.QCheckBox(self.frame_task)  # 治疗士兵
-        self.checkBox_treatment.setGeometry(QtCore.QRect(80, 260, 71, 21))
+        self.checkBox_treatment.setGeometry(QtCore.QRect(80, 320, 71, 21))
         self.checkBox_treatment.setObjectName("checkBox_treatment")
-
+        
         # 探险奖励文本
         self.label_adventure = QtWidgets.QLabel(self.frame_task)
-        self.label_adventure.setGeometry(QtCore.QRect(20, 290, 54, 21))  # 显示文本
+        self.label_adventure.setGeometry(QtCore.QRect(220, 440, 54, 21))  # 显示文本
         self.label_adventure.setObjectName("XXXX")
         # 开关选项
         self.checkBox_adventure = QtWidgets.QCheckBox(self.frame_task)  # 探险奖励
-        self.checkBox_adventure.setGeometry(QtCore.QRect(80, 290, 71, 21))
+        self.checkBox_adventure.setGeometry(QtCore.QRect(280, 440, 71, 21))
         self.checkBox_adventure.setObjectName("checkBox_adventure")
-
         # 联盟捐赠文本
         self.label_donate = QtWidgets.QLabel(self.frame_task)
-        self.label_donate.setGeometry(QtCore.QRect(20, 320, 54, 21))  # 显示文本
+        self.label_donate.setGeometry(QtCore.QRect(20, 350, 54, 21))  # 显示文本
         self.label_donate.setObjectName("XXXX")
         # 开关选项
         self.checkBox_donate = QtWidgets.QCheckBox(self.frame_task)  # 联盟捐赠
-        self.checkBox_donate.setGeometry(QtCore.QRect(80, 320, 71, 21))
+        self.checkBox_donate.setGeometry(QtCore.QRect(80, 350, 71, 21))
         self.checkBox_donate.setObjectName("checkBox_donate")
 
         # 英雄招募文本
         self.label_recruit = QtWidgets.QLabel(self.frame_task)
-        self.label_recruit.setGeometry(QtCore.QRect(20, 350, 54, 21))  # 显示文本
+        self.label_recruit.setGeometry(QtCore.QRect(20, 380, 54, 21))  # 显示文本
         self.label_recruit.setObjectName("XXXX")
         # 开关选项
         self.checkBox_recruit = QtWidgets.QCheckBox(self.frame_task)  # 英雄招募
-        self.checkBox_recruit.setGeometry(QtCore.QRect(80, 350, 71, 21))
+        self.checkBox_recruit.setGeometry(QtCore.QRect(80, 380, 71, 21))
         self.checkBox_recruit.setObjectName("checkBox_collision")
 
         # 攻击检测文本
         self.label_collision = QtWidgets.QLabel(self.frame_task)
-        self.label_collision.setGeometry(QtCore.QRect(20, 380, 54, 21))  # 显示文本
+        self.label_collision.setGeometry(QtCore.QRect(20, 410, 54, 21))  # 显示文本
         self.label_collision.setObjectName("XXXX")
         # 开关选项
         self.checkBox_collision = QtWidgets.QCheckBox(self.frame_task)  # 攻击检测
-        self.checkBox_collision.setGeometry(QtCore.QRect(80, 380, 71, 21))
+        self.checkBox_collision.setGeometry(QtCore.QRect(80, 410, 71, 21))
         self.checkBox_collision.setObjectName("checkBox_collision")
 
         # 邮件领取文本
         self.label_mail = QtWidgets.QLabel(self.frame_task)
-        self.label_mail.setGeometry(QtCore.QRect(20, 410, 54, 21))  # 显示文本
+        self.label_mail.setGeometry(QtCore.QRect(220, 410, 54, 21))  # 显示文本
         self.label_mail.setObjectName("XXXX")
         # 开关选项
         self.checkBox_mail = QtWidgets.QCheckBox(self.frame_task)  # 邮件领取
-        self.checkBox_mail.setGeometry(QtCore.QRect(80, 410, 71, 21))
+        self.checkBox_mail.setGeometry(QtCore.QRect(280, 410, 71, 21))
         self.checkBox_mail.setObjectName("checkBox_mail")
 
         # 联盟宝箱文本
@@ -614,14 +645,8 @@ class Ui_MainWindow(object):
         self.checkBox_Treasure_Chest = QtWidgets.QCheckBox(self.frame_task)  # 联盟宝箱
         self.checkBox_Treasure_Chest.setGeometry(QtCore.QRect(80, 440, 71, 21))
         self.checkBox_Treasure_Chest.setObjectName("checkBox_Treasure_Chest")
-        # 仓库补给文本
-        self.label_warehouse = QtWidgets.QLabel(self.frame_task)
-        self.label_warehouse.setGeometry(QtCore.QRect(220, 440, 54, 21))  # 显示文本
-        self.label_warehouse.setObjectName("仓库补给")
-        # 仓库补给开关选项
-        self.checkBox_warehouse = QtWidgets.QCheckBox(self.frame_task)  # 联盟宝箱
-        self.checkBox_warehouse.setGeometry(QtCore.QRect(280, 440, 71, 21))
-        self.checkBox_warehouse.setObjectName("仓库补给")
+        
+        
 
         # 单项内容
         '''
@@ -926,6 +951,11 @@ class Ui_MainWindow(object):
         self.select_unall.setFont(font)
         self.select_stop.setFont(font)
         self.select_start.setFont(font)
+        self.label_intelligence.setFont(font)
+        self.checkBox_intelligence.setFont(font)
+        self.checkBox_intelligence_number.setFont(font)
+        self.checkBox_intelligence_high_quality.setFont(font)
+        self.checkBox_warehouse_physical_strength.setFont(font)
         '''self.radioButton_help.setFont(font)
         self.radioButton_XG.setFont(font)
         self.radioButton_WM.setFont(font)
@@ -1010,6 +1040,11 @@ class Ui_MainWindow(object):
         self.label_Collection_lv.setText(_translate("MainWindow", "等级设置:"))
         self.label_bear.setText(_translate("MainWindow", "巨熊活动："))
         self.checkBox_bear.setText(_translate("MainWindow", "启用"))
+        self.checkBox_bear_queue.setText(_translate("MainWindow", "巨熊队列"))
+        self.label_intelligence.setText(_translate("MainWindow", "情报灯塔："))
+        self.checkBox_intelligence.setText(_translate("MainWindow", "启用"))
+        self.checkBox_intelligence_high_quality.setText(_translate("MainWindow", "金紫品质"))
+        self.checkBox_intelligence_number.setText(_translate("MainWindow", "十次情报"))
         self.label_donate.setText(_translate("MainWindow", "联盟捐赠："))
         self.checkBox_donate.setText(_translate("MainWindow", "启用"))
         self.label_recruit.setText(_translate("MainWindow", "英雄招募："))
@@ -1022,6 +1057,7 @@ class Ui_MainWindow(object):
         self.checkBox_Treasure_Chest.setText(_translate("MainWindow", "启用"))
         self.label_warehouse.setText(_translate("MainWindow", "仓库补给："))
         self.checkBox_warehouse.setText(_translate("MainWindow", "启用"))
+        self.checkBox_warehouse_physical_strength.setText(_translate("MainWindow", "仓库体力"))
         self.select_all.setText(_translate("MainWindow", "全选"))
         self.select_unall.setText(_translate("MainWindow", "取消全选"))
         self.select_stop.setText(_translate("MainWindow", "停止"))
@@ -1077,6 +1113,7 @@ class Ui_MainWindow(object):
         option14 = settings.value('邮件领取', 0, type=bool)
         option15 = settings.value('联盟宝箱', 0, type=bool)
         option16 = settings.value('仓库补给', 0, type=bool)
+        option17 = settings.value('情报灯塔', 0, type=bool)
         # 2.3.0版本取消单项功能区
         # option = settings.value('单选选择', 1, type=int)
         self.comboBox.setCurrentIndex(simulator_settings)
@@ -1099,6 +1136,7 @@ class Ui_MainWindow(object):
         self.checkBox_mail.setChecked(option14)
         self.checkBox_Treasure_Chest.setChecked(option15)
         self.checkBox_warehouse.setChecked(option16)
+        self.checkBox_intelligence.setChecked(option17)
 
     def read_ty_setting(self):  # 读取通用设置
         option_Random_time = settings.value('随机时间', 1, type=bool)
@@ -1111,6 +1149,10 @@ class Ui_MainWindow(object):
         option_ty_WM_average = settings.value('冰原巨兽平均兵力', 0, type=bool)
         option_ty_XG_average = settings.value('世界野怪平均兵力', 0, type=bool)
         option_cycle_time = settings.value('循环时间设置', 0, type=str)
+        option_intelligence_number = settings.value('十次情报', 0, type=bool)
+        option_intelligence_high_quality = settings.value('金紫品质', 0, type=bool)
+        option_physical_strength = settings.value('仓库体力', 0, type=bool)
+        option_bear_queue = settings.value('巨熊队列', 0, type=bool)
         self.lineEdit_cycle_time.setText(option_cycle_time)
         settings.setValue('冰原巨兽等级设置更新', 1)
         settings.setValue('肉采集等级设置更新', 1)
@@ -1127,6 +1169,10 @@ class Ui_MainWindow(object):
         self.checkBox_WM_simple.setChecked(option_ty_sim)
         self.checkBox_WM_average.setChecked(option_ty_WM_average)
         self.checkBox_XG_average.setChecked(option_ty_XG_average)
+        self.checkBox_intelligence_number.setChecked(option_intelligence_number)
+        self.checkBox_intelligence_high_quality.setChecked(option_intelligence_high_quality)
+        self.checkBox_warehouse_physical_strength.setChecked(option_physical_strength)
+        self.checkBox_bear_queue.setChecked(option_bear_queue)
 
     def save_ty_setting(self):  # 保存通用设置
         option_WM = self.lineEdit_WM.text()
@@ -1143,6 +1189,10 @@ class Ui_MainWindow(object):
         settings.setValue('采集英雄', self.checkBox_Collection_hero.isChecked())
         settings.setValue('采集资源等级设置', option_lv)
         settings.setValue('循环时间设置', option_cycle_time)
+        settings.setValue('十次情报', self.checkBox_intelligence_number.isChecked())
+        settings.setValue('金紫品质', self.checkBox_intelligence_high_quality.isChecked())
+        settings.setValue('仓库体力', self.checkBox_warehouse_physical_strength.isChecked())
+        settings.setValue('巨熊队列', self.checkBox_bear_queue.isChecked())
         print_space('通用设置成功！！！')
         self.read_ty_setting()
 
@@ -1300,6 +1350,7 @@ class Ui_MainWindow(object):
         settings.setValue('邮件领取', self.checkBox_mail.isChecked())
         settings.setValue('联盟宝箱', self.checkBox_Treasure_Chest.isChecked())
         settings.setValue('仓库补给', self.checkBox_warehouse.isChecked())
+        settings.setValue('情报灯塔', self.checkBox_intelligence.isChecked())
 
     @pyqtSlot()
     def select_start_button(self):  # 多选开始按钮
@@ -1379,6 +1430,7 @@ class Ui_MainWindow(object):
         self.checkBox_mail.setChecked(True)
         self.checkBox_Treasure_Chest.setChecked(True)
         self.checkBox_warehouse.setChecked(True)
+        self.checkBox_intelligence.setChecked(True)
         self.save_settings()
 
     @pyqtSlot()  # 取消全选
@@ -1399,6 +1451,7 @@ class Ui_MainWindow(object):
         self.checkBox_mail.setChecked(False)
         self.checkBox_Treasure_Chest.setChecked(False)
         self.checkBox_warehouse.setChecked(False)
+        self.checkBox_intelligence.setChecked(False)
         self.save_settings()
 
     #@pyqtSlot()
