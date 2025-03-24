@@ -7,31 +7,36 @@ from numpy import random
 from Window_UI import settings
 from datetime import datetime
 import subprocess
+import threading
 
 number_physical_strength = 0
+stop_event = threading.Event()
 
+
+# Identification_State = True
 # 重写打印
 def print_space(variable, spaces=4):
     """
     打印带有指定空格缩进的字符串。
-
     :param variable: 要打印的变量或字符串。
     :param spaces: 缩进的空格数，默认为4。
     """
     # 使用指定数量的空格进行缩进，并将变量转换为字符串后打印
     print(' ' * spaces + str(variable))
 
+
 # 检查并点击
-def check_and_touch(templateObj, message="", target_pos=None):
+#def check_and_touch(templateObj, message="", target_pos=None):
+def check_and_touch(templateObj, message=""):
+    # global Identification_State
     if exists(templateObj):
         if message:
             print_space(message)
-        if target_pos:
+        '''if target_pos:
             print_space(f"点击位置：{target_pos}")
             touch(target_pos)
-        else:
-            touch(templateObj)
-        sleep(0.5)
+        else:'''
+        touch(templateObj)
         return True
     else:
         print_space("未找到对应图片")
@@ -48,6 +53,8 @@ def Homepage():
 
     :return: 无返回值
     """
+    if datetime.now().hour == 0 and datetime.now().minute == 0:
+        print_space('新的一天开始，重置情报执行次数')
     check_number = 1  # 初始化变量 a 为 1，用于控制循环次数
     try:
         while check_number < 4:  # 循环最多执行 3 次
@@ -58,29 +65,6 @@ def Homepage():
             else:
                 check_number += 1  # 增加 a 的值
                 print_space("不在主页，返回上一级")
-                '''# 判断是否存在黑色返回按钮，如果存在则点击
-                if exists(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920))):
-                    print_space('点击黑色返回按钮')
-                    touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
-                # 判断是否存在白色返回按钮，如果存在则点击
-                elif exists(Template(r'icon\return.png', rgb=True, record_pos=(-0.44, -0.783), resolution=(1080, 1920))):
-                    print_space('点击白色返回按钮')
-                    touch(Template(r"icon\return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
-                # 判断是否存在黄色返回按钮，如果存在则点击
-                elif exists(Template(r"icon\yellow_return.png", record_pos=(-0.442, -0.836), resolution=(1080, 1920))):
-                    print_space('点击黄色返回按钮')
-                    touch(Template(r"icon\yellow_return.png", record_pos=(-0.442, -0.836), resolution=(1080, 1920)))
-                # 判断是否存在关闭按钮，如果存在则点击
-                elif exists(Template(r"icon\tpl1719198103804.png", rgb=True, record_pos=(0.442, -0.35), resolution=(1080, 1920))):
-                    print_space('点击关闭按钮')
-                    touch(Template(r"icon\tpl1719198103804.png", rgb=True, record_pos=(0.442, -0.35), resolution=(1080, 1920)))
-                # 判断是否存在浅色关闭按钮，如果存在则点击
-                elif exists(Template(r"icon\tpl1729734622180.png", rgb=True, record_pos=(0.381, -0.461), resolution=(1080, 1920))):
-                    print_space('点击浅色关闭按钮')
-                    touch(Template(r"icon\tpl1729734622180.png", rgb=True, record_pos=(0.381, -0.461), resolution=(1080, 1920)))
-                else:
-                    print_space('点击其他区域')
-                    touch([536, 1210])  # 点击屏幕上的其他区域'''
                 # 模拟按下手机的返回键
                 keyevent('BACK')
                 print_space("成功调用手机的返回按钮")
@@ -231,7 +215,9 @@ def Production_soldiers(self):
     time.sleep(1)
     touch([170, 400])
     print_space('检查盾兵训练是否完成')
+    #region_1=(560,900,650,1000)
     if exists(Template(r"icon/tpl1719478488282.png", threshold=0.8, rgb=True, record_pos=(-0.189, -0.009), resolution=(1080, 1920))):
+        #if exists(Template(r"icon1/tpl1742788475470.png", region=region_1, resolution=(1080, 1920))):
         print_space("1跳转到盾兵兵营...")
         touch([600, 840])  # 点击索引到对应兵营
         train(self)
@@ -298,8 +284,9 @@ def Build():
     touch([170, 400])
     if exists(Template(r"icon\tpl1719643933714.png", threshold=0.85, rgb=True, record_pos=(-0.311, -0.372), resolution=(1080, 1920))):
         print_space('有空闲队列，开始建造')
-        touch(Template(r"icon\tpl1719643933714.png", threshold=0.85, rgb=True, record_pos=(-0.306, -0.318), resolution=(1080, 1920)))  # 点击跳转到需升级的建筑
-        if exists(Template(r"icon\tpl1719580056417.png",  record_pos=(-0.36, 0.193), resolution=(1080, 1920))):  # 判断是什么建筑升级升级
+        touch(Template(r"icon\tpl1719643933714.png", threshold=0.85, rgb=True, record_pos=(-0.306, -0.318), resolution=(
+            1080, 1920)))  # 点击跳转到需升级的建筑
+        if exists(Template(r"icon\tpl1719580056417.png", record_pos=(-0.36, 0.193), resolution=(1080, 1920))):  # 判断是什么建筑升级升级
             touch([500, 900])
             print_space('升级资源建筑')
             time.sleep(1)  # 等待5s
@@ -374,9 +361,8 @@ def NPC():
             else:
                 print_space('兵力不足，暂停打怪')
         else:
-            print_space("未找到相关物品，退出任务")
-            touch(Template(r"icon\tpl1719198082012.png", threshold=0.5, record_pos=(-0.44, -0.783), resolution=(
-                1080, 1920))) or touch(Template(r"icon\tpl1719198103804.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
+            print_space("未找到相关物品，返回主页并退出任务")
+            keyevent('BACK')
 
 
 # 野兽等级输入
@@ -430,7 +416,7 @@ def Brush_XG(self):
 
 
 # 巨熊活动
-def bear():
+def bear(self):
     if exists(Template(r"icon/tpl1721191349777.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):
         print_space('点击活动按钮')
         touch(Template(r"icon/tpl1721191349777.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))
@@ -528,8 +514,6 @@ def gather(self):
             # touch([357, 389])  # 点击删除第一个英雄
             touch([640, 389])  # 点击删除第二个英雄
             touch([920, 389])  # 点击删除第三个英雄
-        '''if self.checkBox_ty_caiji_average.isChecked():  # 平均兵力选项
-            touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))'''  # 弃用该功能
         print_space('点击出征按钮')
         touch(Template(r"icon/tpl1721191349776.png", rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
         print_space('出征成功')
@@ -791,7 +775,8 @@ def recruit():
         touch(Template(r"icon\hero.png", threshold=0.9, record_pos=(-0.398, 0.819), scale_max=800, resolution=(1080, 1920)))
         print_space('点击英雄招募')
         touch(Template(r"icon\hero_recruit.png", threshold=0.8, record_pos=(-0.438, 0.258), resolution=(1080, 1920)))
-        if check_and_touch(Template(r"icon\free_recruit.png", threshold=0.75, record_pos=(-0.234, 0.285), scale_max=800, resolution=(1080, 1920)),'点击免费招募'):
+        if check_and_touch(Template(r"icon\free_recruit.png", threshold=0.75, record_pos=(-0.234, 0.285), scale_max=800, resolution=(
+                1080, 1920)), '点击免费招募'):
             # print_space('点击免费招募')
             # touch(Template(r"icon\free_recruit.png", threshold=0.8, record_pos=(-0.234, 0.285), scale_max=800, resolution=(1080, 1920)))
             time.sleep(5)
@@ -810,9 +795,10 @@ def recruit():
         time.sleep(1)
         check_and_touch(Template(r"icon\black_return.png", threshold=0.8, record_pos=(-0.44, -0.783), resolution=(1080, 1920)))
 
+
 # 攻击检测
 def mining_collision():
-    if exists(Template(r"icon\tpl1729833981926.png",rgb=True, record_pos=(0.42, -0.141), resolution=(1080, 1920))):
+    if exists(Template(r"icon\tpl1729833981926.png", rgb=True, record_pos=(0.42, -0.141), resolution=(1080, 1920))):
         print_space('检测到被攻击，点击预警图标')
         touch(Template(r"icon\tpl1729833981926.png", record_pos=(0.42, -0.141), resolution=(1080, 1920)))
         find_result = find_all(Template(r"icon\tpl1729834107464.png", record_pos=(0.207, -0.549), resolution=(1080, 1920)))
@@ -918,7 +904,7 @@ def union_Treasure_Chest():
 
 
 # 仓库补给
-def warehouse():
+def warehouse(self):
     global number_physical_strength
     now_time = datetime.now()
     if exists(Template(r"icon/tpl1720145326019.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
@@ -955,9 +941,9 @@ def warehouse():
             time.sleep(1)
             swipe([500, 1000], vector=[0.2, 0.0017])  # 向左滑动
             time.sleep(1)
-            if exists(Template(r"icon/tpl1737094428928.png", record_pos=(0.002, -0.094), resolution=(1080, 1920))):
+            if exists(Template(r"icon/tpl1737094428928.png", threshold=0.8, record_pos=(0.002, -0.094), resolution=(1080, 1920))):
                 print_space('点击体力罐头')
-                touch(Template(r"icon/tpl1737094428928.png", record_pos=(0.002, -0.094), resolution=(1080, 1920)))  # 点击体力罐头
+                touch(Template(r"icon/tpl1737094428928.png", threshold=0.8, record_pos=(0.002, -0.094), resolution=(1080, 1920)))  # 点击体力罐头
                 time.sleep(1)
                 print_space('点击领取按钮')
                 touch([540, 1430])  # 点击领取按钮
@@ -966,3 +952,204 @@ def warehouse():
                 print_space('领取成功')
             else:
                 print_space('未找到体力罐头')
+
+
+intelligence_number = 0
+
+
+# 情报功能
+def intelligence(self):
+    global intelligence_number
+    """
+    情报功能的主函数。
+    检查是否在世界地图中，如果不在则点击前往世界地图。
+    点击情报按钮，等待加载完成。
+    查找金色爪子、蓝色帐篷和金色对战的图标，并根据查找结果执行相应操作。
+    """
+    if self.checkBox_intelligence_number.isChecked() and intelligence_number >= 10:
+        print_space('已完成10次情报任务，停止执行')
+    else:
+        # 检查是否在世界地图中，如果不在则点击前往世界地图
+        if not exists(Template(r"icon/tpl1720145326019.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
+            print_space('不在世界，点击去往世界')
+            touch([950, 1850])  # 点击野外
+            time.sleep(5)
+        # 点击情报按钮
+        print_space('点击情报按钮')
+        touch(Template(r"icon1/tpl1736493661192.png", record_pos=(0.421, 0.309), resolution=(1080, 1920)))  # 点击情报
+        time.sleep(1)  # 等待加载
+        '''Template(r"情报/tpl1736410865667.png", record_pos=(0.256, -0.327), resolution=(1080, 1920)) # 金色爪子
+         Template(r"情报/tpl1736414583724.png", record_pos=(0.044, 0.28), resolution=(1080, 1920))  # 紫色爪子
+         Template(r"tpl1742360757043.png", record_pos=(-0.291, -0.065), resolution=(1080, 1920))   # 金色帐篷
+         Template(r"tpl1742361255615.png", record_pos=(-0.284, 0.094), resolution=(1080, 1920))   # 紫色帐篷
+         Template(r"情报/tpl1736415568618.png", record_pos=(-0.149, 0.076), resolution=(1080, 1920))   # 蓝色帐篷
+         Template(r"情报/tpl1736414991579.png", record_pos=(-0.216, -0.009), resolution=(1080, 1920))  # 金色对战
+         Template(r"情报/tpl1736414443397.png", record_pos=(-0.035, -0.505), resolution=(1080, 1920))  # 紫色对战'''
+        # 检查是否有已完成的情报
+        if check_and_touch(Template(r"icon1/tpl1742811376103.png", record_pos=(0.264, -0.065), resolution=(1080, 1920)), '有已完成的情报，点击领取奖励'):
+            print_space('领取奖励成功')
+            time.sleep(1)
+            # 模拟按下手机的返回键
+            keyevent('BACK')
+        if check_and_touch(Template(r"icon1/tpl1736410865667.png", rgb=True, record_pos=(0.256, -0.327), resolution=(1080, 1920)), "找到金色爪子图案，点击图案"):  # 金色爪子及紫色爪子
+            time.sleep(1)
+            # 点击前往查看按钮
+            print_space('点击前往查看按钮')
+            touch(Template(r"icon1/tpl1736414104111.png", record_pos=(-0.003, 0.406), resolution=(1080, 1920)))  # 前往查看按钮
+            time.sleep(1)
+            # 点击出征按钮
+            touch(Template(r"icon1/tpl1736414133437.png", record_pos=(-0.003, -0.039), resolution=(1080, 1920)))  # 大世界出征
+            touch(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920)))  # 点击出征
+            time.sleep(1)
+            if exists(Template(r"icon\tpl1720264632282.png", record_pos=(0.301, -0.33), resolution=(1080, 1920))):  # 判断是否有体力
+                print_space("体力不足，不满足出征条件，开始回到主页")
+                print_space('关闭补充体力界面')
+                time.sleep(1)
+                touch(Template(r"icon\tpl1729734622180.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
+                print_space('关闭出征界面')
+                time.sleep(1)
+                touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
+            else:
+                print_space("出征成功")
+                intelligence_number += 1
+        elif check_and_touch(Template(r"icon1/tpl1742360757043.png", rgb=True, record_pos=(-0.291, -0.065), resolution=(1080, 1920)), '找到金色帐篷图案，点击图案'):
+            # 点击前往查看按钮
+            time.sleep(1)
+            touch(Template(r"icon1/tpl1736414104111.png", record_pos=(-0.003, 0.406), resolution=(1080, 1920)))  # 前往查看按钮
+            time.sleep(1)
+            # 点击营救按钮
+            touch(Template(r"icon1/tpl1736414182861.png", record_pos=(-0.004, -0.039), resolution=(1080, 1920)))  # 营救
+            if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):  # 判断是否有体力
+                print_space("体力不足，不满足营救条件，开始回到主页")
+                print_space('关闭补充体力界面')
+            else:
+                print_space("营救成功")
+                intelligence_number += 1
+        elif check_and_touch(Template(r"icon1/tpl1736414991579.png", rgb=True, record_pos=(-0.216, -0.009), resolution=(1080, 1920)), '找到金色对战图案，点击图案'):
+            # 点击前往查看按钮
+            touch(Template(r"icon1/tpl1736414104111.png", record_pos=(-0.003, 0.406), resolution=(1080, 1920)))
+            time.sleep(1)
+            # 点击探险按钮
+            touch(Template(r"icon1/tpl1736414216951.png", record_pos=(-0.001, -0.04), resolution=(1080, 1920)))
+            # 该处预留体力判断
+            if exists(Template(r"icon1/tpl1736416044350.png", record_pos=(0.235, 0.779), resolution=(1080, 1920))):
+                touch(Template(r"icon1/tpl1736416044350.png", record_pos=(0.235, 0.779), resolution=(1080, 1920)))  # 点击战斗
+                time.sleep(5)  # 等待战斗结束
+                touch([155, 155])  # 点击任意位置
+                intelligence_number += 1
+            else:
+                print('体力不足，无法探险')
+        elif check_and_touch(Template(r"icon1/tpl1736414583724.png",threshold=0.8, rgb=True, record_pos=(0.044, 0.28), resolution=(1080, 1920)), "找到紫色爪子图案，点击图案"):
+            time.sleep(1)
+            # 点击前往查看按钮
+            print_space('点击前往查看按钮')
+            touch(Template(r"icon1/tpl1736414104111.png", record_pos=(-0.003, 0.406), resolution=(1080, 1920)))  # 前往查看按钮
+            time.sleep(1)
+            # 点击出征按钮
+            touch(Template(r"icon1/tpl1736414133437.png", record_pos=(-0.003, -0.039), resolution=(1080, 1920)))  # 大世界出征
+            #energy()
+            touch(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920)))  # 点击出征
+            time.sleep(1)
+            if exists(Template(r"icon\tpl1720264632282.png", record_pos=(0.301, -0.33), resolution=(1080, 1920))):  # 判断是否有体力
+                print_space("体力不足，不满足出征条件，开始回到主页")
+                print_space('关闭补充体力界面')
+                time.sleep(1)
+                touch(Template(r"icon\tpl1729734622180.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
+                print_space('关闭出征界面')
+                time.sleep(1)
+                touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
+            else:
+                print_space("出征成功")
+                intelligence_number += 1
+        elif check_and_touch(Template(r"icon1/tpl1742361255615.png", rgb=True, record_pos=(-0.284, 0.094), resolution=(1080, 1920)), '找到紫色帐篷图案，点击图案'):
+            # 点击前往查看按钮
+            time.sleep(1)
+            touch(Template(r"icon1/tpl1736414104111.png", record_pos=(-0.003, 0.406), resolution=(1080, 1920)))  # 前往查看按钮
+            time.sleep(1)
+            # 点击营救按钮
+            touch(Template(r"icon1/tpl1736414182861.png", record_pos=(-0.004, -0.039), resolution=(1080, 1920)))  # 营救
+            if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):  # 判断是否有体力
+                print_space("体力不足，不满足营救条件，开始回到主页")
+                print_space('关闭补充体力界面')
+            else:
+                print_space("营救成功")
+                intelligence_number += 1
+        elif check_and_touch(Template(r"icon1/tpl1736414443397.png", rgb=True, record_pos=(-0.035, -0.505), resolution=(
+                1080, 1920)), '找到紫色对战图案，点击图案'):
+            # 点击前往查看按钮
+            touch(Template(r"icon1/tpl1736414104111.png", record_pos=(-0.003, 0.406), resolution=(1080, 1920)))
+            time.sleep(1)
+            # 点击探险按钮
+            touch(Template(r"icon1/tpl1736414216951.png", record_pos=(-0.001, -0.04), resolution=(1080, 1920)))
+            # 该处预留体力判断
+            if exists(Template(r"icon1/tpl1736416044350.png", record_pos=(0.235, 0.779), resolution=(1080, 1920))):
+                touch(Template(r"icon1/tpl1736416044350.png", record_pos=(0.235, 0.779), resolution=(1080, 1920)))  # 点击战斗
+                time.sleep(5)  # 等待战斗结束
+                touch([155, 155])  # 点击任意位置
+                intelligence_number += 1
+            else:
+                print('体力不足，无法探险')
+        else:
+            if not self.checkBox_intelligence_high_quality.isChecked():  # 如果没勾选
+                print_space('未勾选高品质，检查低品质情报')
+                # 如果找到金色爪子图标
+                if check_and_touch(Template(r"icon1/tpl1736410865667.png", record_pos=(0.256, -0.327), resolution=(
+                        1080, 1920)), '找到爪子图案，点击图案'):
+                    # 点击前往查看按钮
+                    touch(Template(r"icon1/tpl1736414104111.png", record_pos=(-0.003, 0.406), resolution=(1080, 1920)))  # 前往查看按钮
+                    time.sleep(1)
+                    # 点击出征按钮
+                    touch(Template(r"icon1/tpl1736414133437.png", record_pos=(-0.003, -0.039), resolution=(1080, 1920)))  # 大世界出征
+                    #energy()
+                    touch(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920)))  # 点击出征
+                    time.sleep(1)
+                    if exists(Template(r"icon\tpl1720264632282.png", record_pos=(0.301, -0.33), resolution=(1080, 1920))):  # 判断是否有体力
+                        print_space("体力不足，不满足出征条件，开始回到主页")
+                        print_space('关闭补充体力界面')
+                        time.sleep(1)
+                        touch(Template(r"icon\tpl1729734622180.png", record_pos=(0.442, -0.35), resolution=(1080, 1920)))
+                        print_space('关闭出征界面')
+                        time.sleep(1)
+                        touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))
+                    elif exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):
+                        touch(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920)))  # 点击出征
+                        print_space('出征成功')
+                        intelligence_number += 1
+                    else:
+                        print_space("出征成功")
+                        intelligence_number += 1
+                # 如果找到金色帐篷图标
+                elif check_and_touch(Template(r"icon1/tpl1742360757043.png", record_pos=(-0.291, -0.065), resolution=(
+                        1080, 1920)), '找到帐篷图案，点击图案'):
+                    # 点击前往查看按钮
+                    touch(Template(r"icon1/tpl1736414104111.png", record_pos=(-0.003, 0.406), resolution=(1080, 1920)))  # 前往查看按钮
+                    time.sleep(1)
+                    # 点击营救按钮
+                    touch(Template(r"icon1/tpl1736414182861.png", record_pos=(-0.004, -0.039), resolution=(1080, 1920)))  # 营救
+                    if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):  # 判断是否有体力
+                        print_space("体力不足，不满足营救条件，开始回到主页")
+                        print_space('关闭补充体力界面')
+                    else:
+                        print_space("营救成功")
+                        intelligence_number += 1
+                # 如果找到金色对战图标
+                elif check_and_touch(Template(r"icon1/tpl1736414991579.png", record_pos=(-0.216, -0.009), resolution=(
+                        1080, 1920)), '找到对战图案，点击图案'):
+                    # 点击前往查看按钮
+                    touch(Template(r"icon1/tpl1736414104111.png", record_pos=(-0.003, 0.406), resolution=(1080, 1920)))
+                    time.sleep(1)
+                    # 点击探险按钮
+                    touch(Template(r"icon1/tpl1736414216951.png", record_pos=(-0.001, -0.04), resolution=(1080, 1920)))
+                    # 该处预留体力判断
+                    if exists(Template(r"icon1/tpl1736416044350.png", record_pos=(0.235, 0.779), resolution=(1080, 1920))):
+                        touch(Template(r"icon1/tpl1736416044350.png", record_pos=(0.235, 0.779), resolution=(1080, 1920)))  # 点击战斗
+                        time.sleep(5)  # 等待战斗结束
+                        touch([155, 155])  # 点击任意位置
+                        intelligence_number += 1
+                    else:
+                        print('体力不足，无法探险')
+                else:
+                    print_space('未找到可执行的高情报任务')
+            else:  # 如果勾选了高品质
+                print_space('勾选了高品质，不检查低品质情报')
+                print_space('未找到可执行的高情报任务')
