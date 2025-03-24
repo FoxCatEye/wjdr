@@ -1074,8 +1074,7 @@ def intelligence(self):
             else:
                 print_space("营救成功")
                 intelligence_number += 1
-        elif check_and_touch(Template(r"icon1/tpl1736414443397.png", rgb=True, record_pos=(-0.035, -0.505), resolution=(
-                1080, 1920)), '找到紫色对战图案，点击图案'):
+        elif check_and_touch(Template(r"icon1/tpl1736414443397.png", rgb=True, record_pos=(-0.035, -0.505), resolution=(1080, 1920)), '找到紫色对战图案，点击图案'):
             # 点击前往查看按钮
             touch(Template(r"icon1/tpl1736414104111.png", record_pos=(-0.003, 0.406), resolution=(1080, 1920)))
             time.sleep(1)

@@ -1,14 +1,11 @@
-'''模拟器点击变量'''
+
 import os
-
 import time
-
 from airtest.core.api import connect_device
 from main_function import *
-import threading
 
-stop_event = threading.Event()
-'''打开模拟器'''
+
+'''打开模拟器''''''模拟器点击变量'''
 emulator_click = 0
 run_1 = True
 
@@ -24,9 +21,9 @@ def start_exe():
         except:
             print_space('未找到模拟器，5s后重新尝试启动')
             time.sleep(5)
-            if stop_event.is_set():
+            '''if stop_event.is_set():
                 print_space('停止启动模拟器')
-                break
+                break'''
 
 
 # 连接模拟器
@@ -52,9 +49,9 @@ def cnnect():
             a += 1
             print('未连接到模拟器，5s后尝试重新连接')
             time.sleep(5)
-            if stop_event.is_set():
+            '''if stop_event.is_set():
                 print_space('停止连接模拟器')
-                break
+                break'''
 
 
 # 启动APP
@@ -74,9 +71,9 @@ def start_app():
             break
         except:
             print('启动失败，再次尝试')
-            if stop_event.is_set():
+            '''if stop_event.is_set():
                 print_space('停止启动游戏')
-                break
+                break'''
         '''else:
         print_space('游戏已启动!!!')'''
 
@@ -131,7 +128,7 @@ def stop_function():
 
 # 多选主体代码
 def subject(self):
-    global emulator_click, stop_event, run_1
+    global emulator_click, stop_event, run_1, intelligence_number
     if emulator_click == 0:
         time.sleep(1)
         print('未连接模拟器')
@@ -223,7 +220,7 @@ def subject(self):
                 try:
                     print_space('当前时间：%s,巨熊活动进行中' % now.strftime("%H:%M:%S"))
                     Homepage()  # 主页检查
-                    bear()  # 巨熊模块
+                    bear(self)  # 巨熊模块
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -311,7 +308,18 @@ def subject(self):
                 try:
                     print('%d.开始执行仓库补给领取任务' % run_number)
                     Homepage()
-                    warehouse()  # 仓库补给
+                    warehouse(self)  # 仓库补给
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_intelligence.isChecked() and now.hour == 12 or now.hour == 19:
+                try:
+                    print('%d.开始执行情报灯塔任务' % run_number)
+                    Homepage()
+                    intelligence(self)  # 灯塔情报
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -406,7 +414,7 @@ def subject(self):
                 try:
                     print_space('当前时间：%s,巨熊活动进行中' % now.strftime("%H:%M:%S"))
                     Homepage()  # 主页检查
-                    bear()  # 巨熊模块
+                    bear(self)  # 巨熊模块
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -494,7 +502,18 @@ def subject(self):
                 try:
                     print('%d.开始执行仓库补给任务' % run_number)
                     Homepage()
-                    warehouse()  # 仓库补给
+                    warehouse(self)  # 仓库补给
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_intelligence.isChecked():
+                try:
+                    print('%d.开始执行情报灯塔任务' % run_number)
+                    Homepage()
+                    intelligence(self)  # 灯塔情报
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -705,7 +724,7 @@ def simple_select(self):
         while execute:
             try:
                 Homepage()
-                bear()
+                bear(self)
                 if stop_event.is_set():
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始
