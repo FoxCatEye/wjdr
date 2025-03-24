@@ -986,6 +986,7 @@ def intelligence(self):
          Template(r"情报/tpl1736414991579.png", record_pos=(-0.216, -0.009), resolution=(1080, 1920))  # 金色对战
          Template(r"情报/tpl1736414443397.png", record_pos=(-0.035, -0.505), resolution=(1080, 1920))  # 紫色对战'''
         # 检查是否有已完成的情报
+
         if check_and_touch(Template(r"icon1/tpl1742811376103.png", record_pos=(0.264, -0.065), resolution=(1080, 1920)), '有已完成的情报，点击领取奖励'):
             print_space('领取奖励成功')
             time.sleep(1)
