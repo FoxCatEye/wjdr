@@ -1,14 +1,13 @@
-'''模拟器点击变量'''
-import os
-import subprocess
-import time
 
+import os
+import time
 from airtest.core.api import connect_device
 from main_function import *
-import threading
-stop_event = threading.Event()
-'''打开模拟器'''
+
+
+'''打开模拟器''''''模拟器点击变量'''
 emulator_click = 0
+run_1 = True
 
 
 def start_exe():
@@ -22,30 +21,37 @@ def start_exe():
         except:
             print_space('未找到模拟器，5s后重新尝试启动')
             time.sleep(5)
+            '''if stop_event.is_set():
+                print_space('停止启动模拟器')
+                break'''
 
 
 # 连接模拟器
 def cnnect():
     global emulator_click
-    emulator_click = 1
     a = 1
-    while a > 0:  # 连接模拟器
+    while True:  # 连接模拟器
         try:
             print('%d.开始尝试连接模拟器' % a)
-            os.popen('adb start-server')
+            if emulator_click == 3:
+                os.popen('adb start-server')
             connect_ip = settings.value('模拟器ip', '127.0.0.1:5037', type=str)
             print('地址：android:// %s' % connect_ip)
             # print('地址：android://127.0.0.1:5037')
             connect_device('android://%s' % connect_ip)
             # connect_device('android://127.0.0.1:5037')
-            # subprocess.run(['adb', '-s', '127.0.0.1:21503', 'shell'])
             time.sleep(5)
             print('连接模拟器成功!!!')
-            a = 0
+            emulator_click = 1
+            # os.popen('adb kill-server')
+            break
         except:
             a += 1
             print('未连接到模拟器，5s后尝试重新连接')
             time.sleep(5)
+            '''if stop_event.is_set():
+                print_space('停止连接模拟器')
+                break'''
 
 
 # 启动APP
@@ -65,6 +71,9 @@ def start_app():
             break
         except:
             print('启动失败，再次尝试')
+            '''if stop_event.is_set():
+                print_space('停止启动游戏')
+                break'''
         '''else:
         print_space('游戏已启动!!!')'''
 
@@ -84,20 +93,28 @@ def start_simple(button_start_id):  # 模拟器启动相关
         # start_exe_button.configure(text='启动模拟器', command=lambda: start_simple(1))
         # start_exe()
         '''启动模拟器线程'''
-        threading.Thread(target=start_exe).start()  # threading.Thread(target=start_exe).join()
+        start_exe_thread = threading.Thread(target=start_exe)  # threading.Thread(target=start_exe).join()
+        start_exe_thread.start()
+        start_exe_thread.join()
     elif button_start_id == 2:
         # cnnect()
         '''连接模拟器线程'''
-        threading.Thread(target=cnnect).start()  # threading.Thread(target=cnnect).join()
+        connect_thread = threading.Thread(target=cnnect)  # threading.Thread(target=cnnect).join()
+        connect_thread.start()
+        # connect_thread.join()
     elif button_start_id == 3:
         # start_app_button.configure(text='再次启动app', command=lambda: start_simple(3))
         # start_app()
         '''启动app线程'''
-        threading.Thread(target=start_app).start()  # threading.Thread(target=start_app).join()
+        start_app_thread = threading.Thread(target=start_app)  # threading.Thread(target=start_app).join()
+        start_app_thread.start()
+        # start_app_thread.join()
     elif button_start_id == 4:
         # all_start()
         '''一键启动线程'''
-        threading.Thread(target=all_start).start()
+        all_start_thread = threading.Thread(target=all_start)
+        all_start_thread.start()
+        # all_start_thread.join()
     else:
         print_space('错误')
 
@@ -106,20 +123,19 @@ def stop_function():
     # 这里放置停止需要的代码
     global stop_event
     stop_event.set()  # 设置事件，通知线程结束
-    print('-------------当前任务结束或10s后结束任务-------------')
-
-
+    print('-------------当前任务结束或1s后结束任务-------------')
 
 
 # 多选主体代码
 def subject(self):
-    global emulator_click, stop_event
+    global emulator_click, stop_event, run_1, intelligence_number
     if emulator_click == 0:
         time.sleep(1)
         print('未连接模拟器')
         time.sleep(1)
         cnnect()
-    run_number = 1
+    run_number = 1   # 初始化单项执行状态
+    run_1 = True
     if self.select_time.isChecked():
         while True:
             now = datetime.now()
@@ -134,7 +150,7 @@ def subject(self):
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_XG.isChecked() and now.minute % 5 == 0 and now.second % 5 == 0 and now.hour != 21:
+            if self.checkBox_XG.isChecked() and now.minute % 4 == 0 and now.second % 10 == 0 and now.hour != 21:
                 try:
                     print('%d.开始执行野怪任务' % run_number)
                     Homepage()  # 主页检查
@@ -204,7 +220,7 @@ def subject(self):
                 try:
                     print_space('当前时间：%s,巨熊活动进行中' % now.strftime("%H:%M:%S"))
                     Homepage()  # 主页检查
-                    bear()  # 巨熊模块
+                    bear(self)  # 巨熊模块
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -259,7 +275,7 @@ def subject(self):
                 try:
                     print('%d.开始执行攻击检测任务' % run_number)
                     Homepage()
-                    mining_collision()  #攻击检测
+                    mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -270,18 +286,18 @@ def subject(self):
                 try:
                     print('%d.开始执行邮件领取任务' % run_number)
                     Homepage()
-                    mail_function()    # 邮件领取
+                    mail_function()  # 邮件领取
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_Treasure_Chest.isChecked() and now.minute == 50 and now.second % 20 == 0:
+            if self.checkBox_Treasure_Chest.isChecked() and now.minute == 49 and now.second % 20 == 0:
                 try:
                     print('%d.开始执行联盟宝箱领取任务' % run_number)
                     Homepage()
-                    union_Treasure_Chest()    # 联盟宝箱
+                    union_Treasure_Chest()  # 联盟宝箱
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -292,7 +308,18 @@ def subject(self):
                 try:
                     print('%d.开始执行仓库补给领取任务' % run_number)
                     Homepage()
-                    warehouse()    # 仓库补给
+                    warehouse(self)  # 仓库补给
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_intelligence.isChecked() and now.hour == 12 or now.hour == 19:
+                try:
+                    print('%d.开始执行情报灯塔任务' % run_number)
+                    Homepage()
+                    intelligence(self)  # 灯塔情报
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -303,7 +330,7 @@ def subject(self):
                 self.select_stop_button()  # 总功能
                 break
     else:
-        while True:
+        while run_1:
             now = datetime.now()
             if self.checkBox_help.isChecked():
                 try:
@@ -320,6 +347,7 @@ def subject(self):
                 try:
                     print('%d.开始执行野怪任务' % run_number)
                     Homepage()  # 主页检查
+                    mining_collision()  #攻击检测
                     Brush_XG(self)  # 野怪
                     run_number += 1
                     if stop_event.is_set():
@@ -386,7 +414,7 @@ def subject(self):
                 try:
                     print_space('当前时间：%s,巨熊活动进行中' % now.strftime("%H:%M:%S"))
                     Homepage()  # 主页检查
-                    bear()  # 巨熊模块
+                    bear(self)  # 巨熊模块
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -452,7 +480,7 @@ def subject(self):
                 try:
                     print('%d.开始执行邮件领取任务' % run_number)
                     Homepage()
-                    mail_function()    # 邮件领取
+                    mail_function()  # 邮件领取
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -463,7 +491,7 @@ def subject(self):
                 try:
                     print('%d.开始执行联盟宝箱领取任务' % run_number)
                     Homepage()
-                    union_Treasure_Chest()    # 联盟宝箱
+                    union_Treasure_Chest()  # 联盟宝箱
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -474,7 +502,18 @@ def subject(self):
                 try:
                     print('%d.开始执行仓库补给任务' % run_number)
                     Homepage()
-                    warehouse()  # 仓库补给
+                    warehouse(self)  # 仓库补给
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_intelligence.isChecked():
+                try:
+                    print('%d.开始执行情报灯塔任务' % run_number)
+                    Homepage()
+                    intelligence(self)  # 灯塔情报
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -483,28 +522,16 @@ def subject(self):
                     print('程序执行异常，结束该任务，执行其他任务')
             if stop_event.is_set():
                 self.select_stop_button()  # 停止
+                # run_1 = False
                 break
             wait_time = int(settings.value('循环时间设置', 0, type=str))
             print_space('等待%s秒后开始下一循环' % wait_time)
-            wait_number_start = 0  # 设置循环开始条件
-            wait_number = wait_time / 10  # 设置循环次数
-            while wait_number > wait_number_start:  # 如果循环次数大于开始条件，则执行循环
-                time.sleep(1)  # 等待1s
-                if stop_event.is_set():   # 如果点击了停止
-                    # execute = False
-                    self.simple_stop_button()  # 停止
-                    break
-                else:
-                    if wait_number < 1:  # 如果循环次数小于1次
-                        remaining_time = wait_time % 10  # 获取循环时间除于10后的余数
-                        # print('剩余等待时间：%ss' % remaining_time)
-                        time.sleep(remaining_time)
+            for _ in range(wait_time):  # 将sleep改为循环，以便及时响应停止事件
+                    if stop_event.is_set():
+                        self.select_stop_button()
+                        run_1 = False
                         break
-                    else:  # 如果循环次数大于1次
-                        wait_number -= 1
-                        # print(wait_number)
-                        # print('等待10s')
-                        time.sleep(10)
+                    time.sleep(1)
     print('结束任务')
 
 
@@ -515,7 +542,7 @@ def simple_select(self):
         time.sleep(1)
         print('未连接模拟器')
         time.sleep(1)
-        cnnect()
+        # cnnect()
     execute = True
     if self.radioButton_help.isChecked():
         while True:
@@ -697,7 +724,7 @@ def simple_select(self):
         while execute:
             try:
                 Homepage()
-                bear()
+                bear(self)
                 if stop_event.is_set():
                     execute = False
                     self.simple_stop_button()  # 停止后按钮变为开始

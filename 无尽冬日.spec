@@ -21,7 +21,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='无尽冬日辅助',
+    name='无尽冬日辅助2.3.2',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -33,6 +33,7 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None,
     icon=['log.ico'],
+    distpath='E:\\main\\dist',
 )
 coll = COLLECT(
     exe,
@@ -41,5 +42,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='辅助2.3.0',
+    name='脚本2.3.2',
 )

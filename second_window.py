@@ -98,9 +98,17 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.更新版本日志</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.更新使用说明</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.优化循环逻辑</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.3.1</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.bug修复：循环时间等待中停止不生效</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.bug修复：体力概率未领取</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.bug修复：隐藏UI崩溃问题</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.优化：野怪，联盟宝箱，仓库执行时间优化（重复）</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.优化：仓库未检查到时未关闭左侧弹窗</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.优化：主页检查逻辑</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.优化：英雄招募检查逻辑</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.优化：仓库补给检查逻辑</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"
-                                                         ))
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"))
         self.textEdit.setReadOnly(True)
 
 
@@ -151,7 +159,7 @@ class Ui_helpWindow(object):
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">三.其他设置：</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.固定时间：勾选后多选项功能只会在特定时间（下面介绍的时间）执行，未勾选，不会有时间判定，执行完一个功能立马执行下一个</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.互助：每2秒检测一次</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.野怪：分钟与秒是5的倍数是检测一次，21点不检测</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.野怪：分钟是4的倍数，秒数是10的倍数时检测一次，21点不检测</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ③.冰原巨兽：分钟是6的倍数且秒数在0-20s时检查一次，21点不检测，等级可在单选内设置</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ④.活动雪怪：分钟是6的倍数时检测一次，21点不检测</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑤.训练士兵：分钟数是5的倍数时检测</p>\n"
@@ -164,7 +172,7 @@ class Ui_helpWindow(object):
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩②.英雄招募：凌晨1点时分钟数为5的倍数时会检查是否有免费次数</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩③.攻击检测：开启后轮到就检测，检测城堡和撞矿攻击</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩④.邮件领取：分钟数为30时领取邮件内联盟，系统，报告的奖励（5次领取）</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩⑤.联盟宝箱：分钟数为50时就检测联盟宝箱内的战利品宝箱和盟友赠礼是否有一键领取（5次）</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩⑤.联盟宝箱：分钟数为49分且秒数是20的倍数时就检测联盟宝箱内的战利品宝箱和盟友赠礼是否有一键领取（5次）</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩⑥.仓库补给：分钟数是5的倍数时检测，体力检测会在首次启动或体力刷新时间内进行</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.循环时间：当前列表内任务完成一次循环（不在时间内未执行也算），下一次循环开始的间隔时间</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">四.功能介绍：</p>\n"
