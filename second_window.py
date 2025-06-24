@@ -1,5 +1,6 @@
 from Window_UI import QtCore, QtGui, QtWidgets, QMainWindow
-
+from PyQt5.QtWidgets import QApplication, QTextEdit
+from PyQt5.QtCore import QTimer
 
 
 '''-------------------------------------更新公告-----------------------------------------------'''
@@ -17,6 +18,7 @@ class Ui_NoticeWindow(object):
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
         self.textEdit.setGeometry(QtCore.QRect(0, 0, 371, 262))
         self.textEdit.setObjectName("textEdit")
+
         noticewindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(noticewindow)
@@ -106,11 +108,54 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.优化：仓库未检查到时未关闭左侧弹窗</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.优化：主页检查逻辑</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.优化：英雄招募检查逻辑</p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.优化：仓库补给检查逻辑</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.优化：仓库补给\n检查逻辑</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.3.2</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.修复：将驻防识别成攻击</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.bug修复：单项停止后再次开始任务未执行并提示结束的bug</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.尝试修复招募消耗钻石bug</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.修复更新后导致的采集英雄失效问题</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.修复设置等级等参数后执行失败问题</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.新增情报:高品质，十次情报</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.优化：体力补给晚上领取时间检查优化及自定义领取</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.优化：兵营空闲中状态识别优化</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    9.优化：循环时间等待</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    10.优化：互助点击</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    11.优化：巨熊新增队列选项</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    12.代码优化：主体代码优化</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    13.优化：建筑升级（补充资源未完善）</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.3.3</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.bug修复：巨兽单兵集结输入数量失效（更新后新增增益导致坐标失效）</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.优化：攻击检测频率优化（更多检测）</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.增加系统托盘（可隐藏程序窗口）</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.巨熊任务时间自定义</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.优化情报奖励领取逻辑及修复输出代码问题</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.修复十次情报跨天未重置</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.3.4</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.bug修复：十次情报跨天未重置</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.bug修复：部分用户巨兽-单兵集结，采集-采集英雄功能失效</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.bug修复：尝试修复情报出征失败</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.优化：配置文件汉化</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.新增：重启游戏功能</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.3.5</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.bug修复：部分配置需重启脚本才生效</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.3.6</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.重构:服务器通信，新版本提醒</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.新增：炼金实验室领取功能</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.新增：每日任务奖励领取</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.新增：晨曦岛回礼领取</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.新增：晨曦岛水晶领取</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.优化：巨兽-平均兵力改为队列选项</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.优化：攻击检测逻辑（战争增益开盾增加点击战争页签）</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.优化：主页检查增加颜色识别</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    9.优化：巨兽执行时间优化</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    10.优化：取消情报-金紫品质、十次情报功能、悬赏情报，增加火晶版本选项</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.3.7</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.bug修复-保存参数导致勾选项失效</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.新增-满级兵营勾选项</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.优化-采集队伍识别-尝试修复重复识别已采集矿种</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"))
-        self.textEdit.setReadOnly(True)
-
+        self.textEdit.setReadOnly(True)  # 设置文本不可编辑状态
 
 class noticelog(QMainWindow, Ui_NoticeWindow):
     def __init__(self, parent=None):
@@ -135,7 +180,6 @@ class Ui_helpWindow(object):
         self.textEdit.setGeometry(QtCore.QRect(0, 0, 400, 300))
         self.textEdit.setObjectName("textEdit")
         helpwindow.setCentralWidget(self.centralwidget)
-
         self.retranslateUi(helpwindow)
         QtCore.QMetaObject.connectSlotsByName(helpwindow)
 
@@ -157,11 +201,11 @@ class Ui_helpWindow(object):
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.一键启动：包含启动模拟器、连接模拟器、启动游戏功能</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\"> </p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">三.其他设置：</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.固定时间：勾选后多选项功能只会在特定时间（下面介绍的时间）执行，未勾选，不会有时间判定，执行完一个功能立马执行下一个</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.开启定时：勾选后多选项功能只会在特定时间（下面介绍的时间）执行，未勾选，不会有时间判定，执行完一个功能立马执行下一个</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.互助：每2秒检测一次</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.野怪：分钟是4的倍数，秒数是10的倍数时检测一次，21点不检测</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ③.冰原巨兽：分钟是6的倍数且秒数在0-20s时检查一次，21点不检测，等级可在单选内设置</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ④.活动雪怪：分钟是6的倍数时检测一次，21点不检测</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.野怪：分钟是4的倍数，秒数是10的倍数时检测一次，巨熊功能开启且在活动时间不检测</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ③.冰原巨兽：分钟是6的倍数且秒数在0-20s时检查一次，巨熊功能开启且在活动时间不检测，等级可在单选内设置</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ④.活动雪怪：分钟是6的倍数时检测一次，巨熊功能开启且在活动时间不检测</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑤.训练士兵：分钟数是5的倍数时检测</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑥.建筑升级：分钟个位数是2时检测</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑦.采集资源：分钟个位数为3时检测每一种资源是否有采集，每种只会采集一队</p>\n"
@@ -174,7 +218,13 @@ class Ui_helpWindow(object):
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩④.邮件领取：分钟数为30时领取邮件内联盟，系统，报告的奖励（5次领取）</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩⑤.联盟宝箱：分钟数为49分且秒数是20的倍数时就检测联盟宝箱内的战利品宝箱和盟友赠礼是否有一键领取（5次）</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩⑥.仓库补给：分钟数是5的倍数时检测，体力检测会在首次启动或体力刷新时间内进行</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.循环时间：当前列表内任务完成一次循环（不在时间内未执行也算），下一次循环开始的间隔时间</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩⑦.情报灯塔：12点或19点时进行</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩⑧.炼金实验室：首次启动或凌晨1时及23时分钟数为12的倍数时检查（4次）</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩⑧.每日任务：首次启动或凌晨23时检查</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩⑧.生命之树：首次启动或凌晨23时检查</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩⑧.晨曦回礼：首次启动或凌晨23时检查</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.循环间隔：关闭定时时使用，当前列表内任务完成一次循环，下一次循环开始的间隔时间</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.增益已解锁：如果巨兽/采集出征界面有显示增益一项，需要勾选该选项，否则部分功能选项（出征）会受到影响，未显示增益一项不需要勾选，否则部分功能选项会受到影响</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">四.功能介绍：</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.联盟互助：</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.随机时间：识别到互助按钮后随机时间点击（防系统检测）</p>\n"
@@ -183,17 +233,27 @@ class Ui_helpWindow(object):
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.等级设置：设置全局攻击世界野怪的等级</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.冰原巨兽：</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.单兵集结：集结巨兽时只上一个兵（英雄正常上）</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.平均兵力：设置全局集结冰原巨兽时平均兵力出征</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.巨兽队列：选择预设好的第二序列的队伍</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ③.等级设置：设置全局集结冰原巨兽的等级</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.训练士兵：</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.优先晋升：训练士兵时，有低级兵优先晋升低级兵</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.满级兵营：兵营没有升级按钮时，需要勾选此选项才能正常执行训练任务</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.资源采集：</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.采集英雄：采集队伍出发时只带第一个英雄</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.等级设置：设置全局采集资源的等级</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.情报灯塔：</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.火晶版本：未勾选，识别30级前的情报图案，勾选后，识别火晶版本的情报图案</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    7.巨熊活动：</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.巨熊队列：选择预设好的第一序列的队伍</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.时间/时：自定义巨熊活动时间，24小时制</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.仓库补给：</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.仓库体力：检查是否有体力可领取</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\"> </p></body></html>"))
         self.textEdit.setReadOnly(True)
 
 
+# "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.十次情报：每天只执行10次情报</p>\n"
+# "<p style=\" margin-top:0px; margin-bottom:0px;\">        ③.悬赏情报：执行悬赏任务</p>\n"
 class helplog(QMainWindow, Ui_helpWindow):
     def __init__(self, parent=None):
         super(helplog, self).__init__(parent)

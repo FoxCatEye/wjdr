@@ -4,11 +4,9 @@ import time
 from airtest.core.api import connect_device
 from main_function import *
 
-
 '''打开模拟器''''''模拟器点击变量'''
 emulator_click = 0
 run_1 = True
-
 
 def start_exe():
     while True:
@@ -35,7 +33,7 @@ def cnnect():
             print('%d.开始尝试连接模拟器' % a)
             if emulator_click == 3:
                 os.popen('adb start-server')
-            connect_ip = settings.value('模拟器ip', '127.0.0.1:5037', type=str)
+            connect_ip = settings.value('模拟器ip', '127.0.0.1:5037/emulator-5554', type=str)
             print('地址：android:// %s' % connect_ip)
             # print('地址：android://127.0.0.1:5037')
             connect_device('android://%s' % connect_ip)
@@ -128,7 +126,7 @@ def stop_function():
 
 # 多选主体代码
 def subject(self):
-    global emulator_click, stop_event, run_1, intelligence_number
+    global emulator_click, stop_event, run_1, intelligence_number_state, settings
     if emulator_click == 0:
         time.sleep(1)
         print('未连接模拟器')
@@ -136,135 +134,176 @@ def subject(self):
         cnnect()
     run_number = 1   # 初始化单项执行状态
     run_1 = True
-    if self.select_time.isChecked():
+    bear_time = int(settings.value('巨熊执行时间设置', 21, type=str))
+    if self.select_time.isChecked():  # 如果勾选了定时
         while True:
             now = datetime.now()
+            alchemical_Laboratory_state = settings.value('炼金实验室初始化', 0, type=bool)
+            if now.hour == 23 and settings.value('十次情报状态', 0) == 1:
+                print_space("%d.重置十次情报状态" % run_number)
+                settings.setValue('十次情报状态', 0)
             if self.checkBox_help.isChecked() and now.second % 2 == 0:
                 try:
                     print('%d.开始执行互助任务' % run_number)
                     Homepage()  # 主页检查
                     Help(self)  # 互助模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_XG.isChecked() and now.minute % 4 == 0 and now.second % 10 == 0 and now.hour != 21:
+            if self.checkBox_XG.isChecked() and now.minute % 4 == 0 and now.second % 10 == 0 and (not self.checkBox_bear.isChecked() or (self.checkBox_bear.isChecked() and now.hour != bear_time)) and now.hour != 23:
                 try:
                     print('%d.开始执行野怪任务' % run_number)
                     Homepage()  # 主页检查
                     Brush_XG(self)  # 野怪
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_WM.isChecked() and now.minute % 6 == 0 and 0 < now.second < 20 and now.hour != 21:
+            if self.checkBox_WM.isChecked() and now.minute % 6 == 0 and 0 < now.second < 20 and (not self.checkBox_bear.isChecked() or (self.checkBox_bear.isChecked() and now.hour != bear_time)) and now.hour != 23:
                 try:
                     print('%d.开始执行冰原巨兽任务' % run_number)
                     Homepage()  # 主页检查
                     Brush_WM(self)  # 冰原巨兽
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_npc.isChecked() and now.minute % 6 == 0 and now.hour != 21:
+            if self.checkBox_npc.isChecked() and now.minute % 6 == 0 and (not self.checkBox_bear.isChecked() or (self.checkBox_bear.isChecked() and now.hour != bear_time)) and now.hour != 23:
                 try:
                     print('%d.开始执行活动雪怪任务' % run_number)
                     Homepage()  # 主页检查
                     NPC()  # 活动雪怪
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_Production.isChecked() and now.minute % 5 == 0:
+            if self.checkBox_Production.isChecked() and now.minute % 5 == 0 and now.hour != 23:
                 try:
                     print('%d.开始执行训练任务' % run_number)
                     Homepage()  # 主页检查
                     Production_soldiers(self)  # 训练模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_build.isChecked() and now.minute % 10 == 2:
+            if self.checkBox_build.isChecked() and now.minute % 10 == 2 and now.hour != 23:
                 try:
                     print('%d.开始执行建造任务' % run_number)
                     Homepage()  # 主页检查
                     Build()  # 建造模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_Collection.isChecked() and now.minute % 10 == 3:
+            if self.checkBox_Collection.isChecked() and now.minute % 10 == 3 and now.hour != 23:
                 try:
                     print('%d.开始执行采集任务' % run_number)
                     Homepage()  # 主页检查
                     Collection(self)  # 采集资源模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_bear.isChecked() and now.hour == 21:
+            if self.checkBox_bear.isChecked() and now.hour == bear_time:
                 try:
-                    print_space('当前时间：%s,巨熊活动进行中' % now.strftime("%H:%M:%S"))
+                    print_space('%d.' % run_number+'当前时间：%s,巨熊活动进行中' % now.strftime("%H:%M:%S"))
                     Homepage()  # 主页检查
                     bear(self)  # 巨熊模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_treatment.isChecked() and now.minute % 10 == 5:
+            if self.checkBox_treatment.isChecked() and now.minute % 10 == 5 and now.hour != 23:
                 try:
                     print('%d.开始执行治疗任务' % run_number)
                     Homepage()  # 主页检查
                     treatment()  # 治疗模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_adventure.isChecked() and now.minute == 25:
+            if self.checkBox_adventure.isChecked() and now.minute == 25 and now.hour != 23:
                 try:
                     print('%d.开始执行探险任务' % run_number)
                     Homepage()  # 主页检查
                     adventure()  # 探险
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_donate.isChecked() and now.hour % 2 and now.minute == 1:
+            if self.checkBox_donate.isChecked() and now.hour % 2 and now.minute == 1 and now.hour != 23:
                 try:
                     print('%d.开始执行捐赠任务' % run_number)
                     Homepage()  # 主页检查
                     donate()  # 捐赠模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_recruit.isChecked() and now.hour == 1 and now.minute % 5 == 0:
+            if self.checkBox_recruit.isChecked() and now.hour == 1 and now.minute % 5 == 0 and now.hour != 23:
                 try:
                     print('%d.开始执行招募任务' % run_number)
                     Homepage()
                     recruit()  # 英雄招募
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -287,6 +326,9 @@ def subject(self):
                     print('%d.开始执行邮件领取任务' % run_number)
                     Homepage()
                     mail_function()  # 邮件领取
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -298,6 +340,9 @@ def subject(self):
                     print('%d.开始执行联盟宝箱领取任务' % run_number)
                     Homepage()
                     union_Treasure_Chest()  # 联盟宝箱
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -309,17 +354,80 @@ def subject(self):
                     print('%d.开始执行仓库补给领取任务' % run_number)
                     Homepage()
                     warehouse(self)  # 仓库补给
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_intelligence.isChecked() and now.hour == 12 or now.hour == 19:
+            if self.checkBox_intelligence.isChecked() and now.hour < 23:
                 try:
                     print('%d.开始执行情报灯塔任务' % run_number)
                     Homepage()
                     intelligence(self)  # 灯塔情报
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_alchemical_Laboratory.isChecked() and (alchemical_Laboratory_state == 0 or (now.hour == 0 and now.minute % 12 == 0)):
+                try:
+                    print('%d.开始执行炼金实验室领取任务' % run_number)
+                    Homepage()
+                    alchemical_Laboratory()  # 炼金实验室
+                    settings.setValue('炼金实验室初始化', 1)
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_daily_task.isChecked() and now.hour == 23:
+                try:
+                    print('%d.开始执行每日任务领取' % run_number)
+                    Homepage()
+                    daily_task_collection()  # 每日任务
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_tree_of_life.isChecked() and now.hour == 23:
+                try:
+                    print('%d.开始执行生命之树领取任务' % run_number)
+                    Homepage()
+                    tree_of_life()  # 生命之树
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_morning_light_returns_gift.isChecked() and now.hour == 23:
+                try:
+                    print('%d.开始执行晨曦回礼任务' % run_number)
+                    Homepage()
+                    morning_light_returns_gift()  # 晨练
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -327,50 +435,64 @@ def subject(self):
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
             if stop_event.is_set():
-                self.select_stop_button()  # 总功能
+                self.select_stop_button()  # 停止
                 break
     else:
         while run_1:
             now = datetime.now()
+            if now.minute == 35 and settings.value('十次情报状态', 0):
+                print_space("重置十次情报状态")
+                settings.setValue('十次情报状态', 0)
             if self.checkBox_help.isChecked():
                 try:
                     print('%d.开始执行互助任务' % run_number)
                     Homepage()  # 主页检查
                     Help(self)  # 互助模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_XG.isChecked() and now.hour != 21:
+            if self.checkBox_XG.isChecked() and (not self.checkBox_bear.isChecked() or (self.checkBox_bear.isChecked() and now.hour != bear_time)):
                 try:
                     print('%d.开始执行野怪任务' % run_number)
                     Homepage()  # 主页检查
-                    mining_collision()  #攻击检测
                     Brush_XG(self)  # 野怪
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_WM.isChecked() and now.hour != 21:
+            if self.checkBox_WM.isChecked() and (not self.checkBox_bear.isChecked() or (self.checkBox_bear.isChecked() and now.hour != bear_time)):
                 try:
                     print('%d.开始执行冰原巨兽任务' % run_number)
                     Homepage()  # 主页检查
                     Brush_WM(self)  # 冰原巨兽
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_npc.isChecked() and now.hour != 21:
+            if self.checkBox_npc.isChecked() and (not self.checkBox_bear.isChecked() or (self.checkBox_bear.isChecked() and now.hour != bear_time)):  # 功能勾选且巨熊未开启或巨熊开启但未到时间
                 try:
                     print('%d.开始执行活动雪怪任务' % run_number)
                     Homepage()  # 主页检查
                     NPC()  # 活动雪怪
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()
@@ -382,6 +504,9 @@ def subject(self):
                     print('%d.开始执行训练任务' % run_number)
                     Homepage()  # 主页检查
                     Production_soldiers(self)  # 训练模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -393,6 +518,9 @@ def subject(self):
                     print('%d.开始执行建造任务' % run_number)
                     Homepage()  # 主页检查
                     Build()  # 建造模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -404,17 +532,23 @@ def subject(self):
                     print('%d.开始执行采集任务' % run_number)
                     Homepage()  # 主页检查
                     Collection(self)  # 采集资源模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_bear.isChecked():
+            if self.checkBox_bear.isChecked() and now.hour == bear_time:
                 try:
                     print_space('当前时间：%s,巨熊活动进行中' % now.strftime("%H:%M:%S"))
                     Homepage()  # 主页检查
                     bear(self)  # 巨熊模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -426,6 +560,9 @@ def subject(self):
                     print('%d.开始执行治疗任务' % run_number)
                     Homepage()  # 主页检查
                     treatment()  # 治疗模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -437,6 +574,9 @@ def subject(self):
                     print('%d.开始执行探险任务' % run_number)
                     Homepage()  # 主页检查
                     adventure()  # 探险
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -448,6 +588,9 @@ def subject(self):
                     print('%d.开始执行捐赠任务' % run_number)
                     Homepage()  # 主页检查
                     donate()  # 捐赠模块
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -458,7 +601,10 @@ def subject(self):
                 try:
                     print('%d.开始执行招募任务' % run_number)
                     Homepage()
-                    recruit()  #英雄招募
+                    recruit()  # 英雄招募
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -469,7 +615,10 @@ def subject(self):
                 try:
                     print('%d.开始执行攻击检测任务' % run_number)
                     Homepage()
-                    mining_collision()  #攻击检测
+                    mining_collision()  # 攻击检测
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 总功能
@@ -481,6 +630,9 @@ def subject(self):
                     print('%d.开始执行邮件领取任务' % run_number)
                     Homepage()
                     mail_function()  # 邮件领取
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -492,6 +644,9 @@ def subject(self):
                     print('%d.开始执行联盟宝箱领取任务' % run_number)
                     Homepage()
                     union_Treasure_Chest()  # 联盟宝箱
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -503,6 +658,9 @@ def subject(self):
                     print('%d.开始执行仓库补给任务' % run_number)
                     Homepage()
                     warehouse(self)  # 仓库补给
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -514,6 +672,65 @@ def subject(self):
                     print('%d.开始执行情报灯塔任务' % run_number)
                     Homepage()
                     intelligence(self)  # 灯塔情报
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_alchemical_Laboratory.isChecked():
+                try:
+                    print('%d.开始执行炼金实验室领取任务' % run_number)
+                    Homepage()
+                    alchemical_Laboratory()  # 炼金实验室
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_daily_task.isChecked():
+                try:
+                    print('%d.开始执行领取每日任务奖励' % run_number)
+                    Homepage()
+                    daily_task_collection()  # 每日任务
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_tree_of_life.isChecked():
+                try:
+                    print('%d.开始执行树之生命任务' % run_number)
+                    Homepage()
+                    tree_of_life()  # 树之生命
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
+                    run_number += 1
+                    if stop_event.is_set():
+                        self.select_stop_button()  # 停止
+                        break
+                except:
+                    print('程序执行异常，结束该任务，执行其他任务')
+            if self.checkBox_morning_light_returns_gift.isChecked():
+                try:
+                    print('%d.开始执行晨曦回礼领取任务' % run_number)
+                    Homepage()
+                    morning_light_returns_gift()  # 晨露返回礼物
+                    if self.checkBox_collision.isChecked():  # 攻击检测
+                        Homepage()  # 主页检查
+                        mining_collision()  # 攻击检测
                     run_number += 1
                     if stop_event.is_set():
                         self.select_stop_button()  # 停止
@@ -524,7 +741,7 @@ def subject(self):
                 self.select_stop_button()  # 停止
                 # run_1 = False
                 break
-            wait_time = int(settings.value('循环时间设置', 0, type=str))
+            wait_time = int(settings.value('循环时间设置', 10, type=str))
             print_space('等待%s秒后开始下一循环' % wait_time)
             for _ in range(wait_time):  # 将sleep改为循环，以便及时响应停止事件
                     if stop_event.is_set():
