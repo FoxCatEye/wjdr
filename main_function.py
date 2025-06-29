@@ -692,6 +692,8 @@ def Collection(self):
         print_space('已有采肉队伍')
     Homepage()
     touch([2, 812])
+    time.sleep(1)
+    touch([500, 400])
     if not exists(Template(r"icon\tpl1720766916044.png", threshold=0.7, record_pos=(-0.438, -0.163), resolution=(1080, 1920))):
         print_space('无采集木头队伍，执行采木头任务')
         time.sleep(1)
@@ -700,6 +702,8 @@ def Collection(self):
         print_space('已有采木材队伍')
     Homepage()
     touch([2, 812])
+    time.sleep(1)
+    touch([500, 400])
     if not exists(Template(r"icon\tpl1720766916045.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
         print_space('无采煤队伍，执行采煤任务')
         time.sleep(1)
@@ -708,6 +712,8 @@ def Collection(self):
         print_space('已有采煤队伍')
     Homepage()
     touch([2, 812])
+    time.sleep(1)
+    touch([500, 400])
     if not exists(Template(r"icon\tpl1720766916046.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
         print_space('无采铁队伍，执行采铁任务')
         time.sleep(1)
