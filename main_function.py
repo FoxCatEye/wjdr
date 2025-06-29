@@ -920,7 +920,7 @@ def union_Treasure_Chest():
         touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))  # 点击返回按钮
     else:
         print_space('未找到联盟宝箱图案，请检查游戏界面或自主修复')
-    touch(Template(r"icon\black_return.png", rgb=True, record_pos=(-0.441, -0.839), resolution=(1080, 1920)))  # 点击返回按钮
+    keyevent('BACK')
 
 
 # 仓库补给
