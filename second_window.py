@@ -157,6 +157,8 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.优化-采集资源检查</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.优化-搜索野怪/矿物等逻辑</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.优化-模拟器地址/ip显示</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.优化-联盟宝箱，每日任务，生命之树，晨曦回礼定时逻辑</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.代码优化删除</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"))
         self.textEdit.setReadOnly(True)  # 设置文本不可编辑状态
