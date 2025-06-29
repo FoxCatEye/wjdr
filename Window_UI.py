@@ -782,6 +782,10 @@ class Ui_MainWindow(object):
         self.checkBox_npc = QCheckBox(self.frame_task)  # 活动雪怪
         self.checkBox_npc.setGeometry(QRect(80, 260, 71, 21))
         self.checkBox_npc.setObjectName("checkBox_npc")
+        # 巨熊队列开关选项
+        self.checkBox_heroic_mission = QCheckBox(self.frame_task)  # 英雄使命
+        self.checkBox_heroic_mission.setGeometry(QRect(170, 260, 71, 21))
+        self.checkBox_heroic_mission.setObjectName("英雄使命")
 
         # 建筑升级文本
         self.label_build = QLabel(self.frame_task)
@@ -1176,6 +1180,7 @@ class Ui_MainWindow(object):
         self.checkBox_WM.setFont(font)
         self.label_npc.setFont(font)
         self.checkBox_npc.setFont(font)
+        self.checkBox_heroic_mission.setFont(font)
         self.label_Production.setFont(font)
         self.checkBox_Production.setFont(font)
         self.label_adventure.setFont(font)
@@ -1296,6 +1301,7 @@ class Ui_MainWindow(object):
         self.label_WM_lv.setText(_translate("MainWindow", "等级设置:"))
         self.label_npc.setText(_translate("MainWindow", "活动雪怪："))
         self.checkBox_npc.setText(_translate("MainWindow", "启用"))
+        self.checkBox_heroic_mission.setText(_translate("MainWindow", "英雄使命"))
         self.label_Production.setText(_translate("MainWindow", "训练士兵："))
         self.checkBox_Production.setText(_translate("MainWindow", "启用"))
         self.checkBox_jinshen.setText(_translate("MainWindow", "优先晋升"))
@@ -1321,6 +1327,7 @@ class Ui_MainWindow(object):
         self.checkBox_bear.setText(_translate("MainWindow", "启用"))
         self.checkBox_bear_queue.setText(_translate("MainWindow", "巨熊队列"))
         self.label_bear_time.setText(_translate("MainWindow", "时间/时："))
+        self.checkBox_heroic_mission.setText(_translate("MainWindow", "英雄使命"))
         self.label_intelligence.setText(_translate("MainWindow", "情报灯塔："))
         self.checkBox_intelligence.setText(_translate("MainWindow", "启用"))
         self.checkBox_intelligence_version.setText(_translate("MainWindow", "火晶版本"))
@@ -1403,6 +1410,7 @@ class Ui_MainWindow(object):
         option19 = settings.value('每日任务', 0, type=bool)
         option20 = settings.value('生命之树', 0, type=bool)
         option21 = settings.value('晨曦回礼', 0, type=bool)
+
         # 2.3.0版本取消单项功能区
         # option = settings.value('单选选择', 1, type=int)
         # self.comboBox.setCurrentIndex(simulator_settings)
@@ -1455,6 +1463,7 @@ class Ui_MainWindow(object):
         option_physical_strength = settings.value('仓库体力', 1, type=bool)
         option_bear_queue = settings.value('巨熊队列', 0, type=bool)
         option_bear_time = settings.value('巨熊执行时间设置', "21", type=str)
+        option_heroic_mission = settings.value('英雄使命', 1, type=bool)
         self.lineEdit_cycle_time.setText(option_cycle_time)
         settings.setValue('冰原巨兽等级设置更新', 1)
         settings.setValue('肉采集等级设置更新', 1)
@@ -1481,6 +1490,7 @@ class Ui_MainWindow(object):
         self.checkBox_warehouse_physical_strength.setChecked(option_physical_strength)
         self.checkBox_bear_queue.setChecked(option_bear_queue)
         self.lineEdit_bear_time.setText(option_bear_time)
+        self.checkBox_heroic_mission.setChecked(option_heroic_mission)
 
     def save_ty_setting(self):  # 保存通用设置
         option_WM = self.lineEdit_WM.text()
@@ -1510,6 +1520,7 @@ class Ui_MainWindow(object):
         settings.setValue('仓库体力', self.checkBox_warehouse_physical_strength.isChecked())
         settings.setValue('巨熊队列', self.checkBox_bear_queue.isChecked())
         settings.setValue('巨熊执行时间设置', option_bear_time)
+        settings.setValue('英雄使命', self.checkBox_heroic_mission.isChecked())
         print_space('通用设置成功！！！')
         print_space('模拟器安装地址：% s' % option_lineEdit_address)
         print_space('模拟器IP地址：% s' % option_lineEdit_ip_address)

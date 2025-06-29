@@ -188,7 +188,7 @@ def subject(self):
                 try:
                     print('%d.开始执行活动雪怪任务' % run_number)
                     Homepage()  # 主页检查
-                    NPC()  # 活动雪怪
+                    NPC(self)  # 活动雪怪
                     if self.checkBox_collision.isChecked():  # 攻击检测
                         Homepage()  # 主页检查
                         mining_collision()  # 攻击检测
@@ -489,7 +489,7 @@ def subject(self):
                 try:
                     print('%d.开始执行活动雪怪任务' % run_number)
                     Homepage()  # 主页检查
-                    NPC()  # 活动雪怪
+                    NPC(self)  # 活动雪怪
                     if self.checkBox_collision.isChecked():  # 攻击检测
                         Homepage()  # 主页检查
                         mining_collision()  # 攻击检测

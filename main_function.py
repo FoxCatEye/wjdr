@@ -348,7 +348,7 @@ def search_main():
 
 
 # 打雪怪功能
-def NPC():
+def NPC(self):
     print_space('打雪怪时间，开始集结雪怪')
     print_space('打开背包')
     touch([460, 1836])  # 点击打开背包
@@ -356,7 +356,11 @@ def NPC():
     if exists(Template(r"icon\tpl1719376487523.png", record_pos=(0.449, -0.78), resolution=(1080, 1920))):  # 判断背包是否打开成功
         touch([949, 171])  # 点击其他跳转至该页
         print_space('查看活动道具')
-        if exists(Template(r"icon\tpl1719376586643.png", record_pos=(0.106, -0.476), resolution=(1080, 1920))):  # 判断是否有该道具
+        if self.checkBox_heroic_mission.isChecked():  # 开启英雄使命选项
+            active_version = Template(r"icon\tpl1719376586643.png", record_pos=(0.106, -0.476), resolution=(1080, 1920))
+        else:
+            active_version = Template(r"icon\tpl1719376586643-吉娜.png", record_pos=(0.106, -0.476), resolution=(1080, 1920))
+        if exists(active_version):  # 判断是否有该道具
             print_space('使用活动道具')
             touch(Template(r"icon\tpl1719376586643.png", record_pos=(0.106, -0.476), resolution=(1080, 1920)))  # 点击道具
             touch(Template(r"icon\tpl1719376629723.png", record_pos=(0.0, 0.092), resolution=(1080, 1920)))  # 点击使用
@@ -632,7 +636,7 @@ def Wood(self):
     if exists(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920))):
         gather(self)
     else:
-        print_space('未找到采集按钮，未搜索到生肉资源，结束该任务')
+        print_space('未找到采集按钮，未搜索到木材资源，结束该任务')
 
 
 # 煤矿
@@ -656,7 +660,7 @@ def Coal(self):
     if exists(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920))):
         gather(self)
     else:
-        print_space('未找到采集按钮，未搜索到生肉资源，结束该任务')
+        print_space('未找到采集按钮，未搜索到煤矿资源，结束该任务')
 
 
 # 铁矿
@@ -680,7 +684,7 @@ def Iron(self):
     if exists(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920))):
         gather(self)
     else:
-        print_space('未找到采集按钮，未搜索到生肉资源，结束该任务')
+        print_space('未找到采集按钮，未搜索到铁矿资源，结束该任务')
 
 
 # 自动采集
@@ -689,6 +693,7 @@ collection_default = 0
 def Collection(self):
     global collection_default
     collection_value = collection_default % 4
+    # collection_value = 1
     if not exists(Template(r"icon\tpl1720145326019.png", record_pos=(-0.191, -0.169), resolution=(1080, 1920))):
         print_space('不在世界，点击去往世界')
         touch([950, 1850])  # 点击野外
@@ -704,11 +709,11 @@ def Collection(self):
         time.sleep(1)
         Meat(self)
         collection_default = 1
-    elif not exists(Template(r"icon\tpl1720766916044.png", threshold=0.7, record_pos=(-0.438, -0.163), resolution=(1080, 1920))) and collection_value == 1:
+    elif not exists(Template(r"icon\tpl1720766916044.png", threshold=0.73, record_pos=(-0.188, -0.127), resolution=(1080, 1920))) and collection_value == 1:
         print_space('无采集木头队伍，执行采木头任务')
         time.sleep(1)
         Wood(self)
-    elif not exists(Template(r"icon\tpl1720766916045.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))) and collection_value == 2:
+    elif not exists(Template(r"icon\tpl1720766916045.png", threshold=0.65, record_pos=(-0.438, -0.163), resolution=(1080, 1920))) and collection_value == 2:
         print_space('无采煤队伍，执行采煤任务')
         time.sleep(1)
         Coal(self)
