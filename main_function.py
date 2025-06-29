@@ -343,7 +343,7 @@ def search_main():
     else:
         print_space('找到城镇图案，在世界')
     print_space('点击搜索图标')
-    touch([63, 1314])  # 点击搜索图标
+    touch([63, 1320])  # 点击搜索图标
     time.sleep(1)  # 等待1s
 
 
@@ -580,7 +580,7 @@ def collection_lv():
 def Meat(self):
     print_space('准备采集生肉资源')
     print_space('点击搜索图标')
-    touch([63, 1314])  # 点击搜索图标
+    touch([63, 1320])  # 点击搜索图标
     time.sleep(1)  # 等待1s
     swipe([600, 1370], vector=[-0.4103, 0.0170])  # 滑动
     print_space('点击选择肉')
@@ -604,7 +604,7 @@ def Meat(self):
 def Wood(self):
     print_space('准备采集木材资源')
     print_space('点击搜索图标')
-    touch([63, 1314])  # 点击搜索图标
+    touch([63, 1320])  # 点击搜索图标
     time.sleep(1)  # 等待1s
     swipe([600, 1370], vector=[-0.4103, 0.0170])  # 滑动
     print_space('点击选择木材资源')
@@ -628,7 +628,7 @@ def Wood(self):
 def Coal(self):
     print_space('准备采集煤矿资源')
     print_space('点击搜索图标')
-    touch([63, 1314])  # 点击搜索图标
+    touch([63, 1320])  # 点击搜索图标
     time.sleep(1)  # 等待1s
     swipe([600, 1370], vector=[-0.4103, 0.0170])  # 滑动
     print_space('点击选择煤矿资源')
@@ -652,7 +652,7 @@ def Coal(self):
 def Iron(self):
     print_space('准备采集铁矿资源')
     print_space('点击搜索图标')
-    touch([63, 1314])  # 点击搜索图标
+    touch([63, 1320])  # 点击搜索图标
     time.sleep(1)  # 等待1s
     swipe([600, 1370], vector=[-0.4103, 0.0170])  # 滑动
     print_space('点击选择铁矿资源')
@@ -708,7 +708,7 @@ def Collection(self):
         print_space('已有采煤队伍')
     Homepage()
     touch([2, 812])
-    if not exists(Template(r"icon\tpl1720766916046.png", rgb=True, record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+    if not exists(Template(r"icon\tpl1720766916046.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
         print_space('无采铁队伍，执行采铁任务')
         time.sleep(1)
         Iron(self)

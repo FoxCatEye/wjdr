@@ -29,7 +29,9 @@ from second_window import *
 
 logging.getLogger('airtest').setLevel(logging.ERROR)
 close_number = 1
-local_version = "2.3.7"  # 当前版本
+local_version = "2.3.8"  # 当前版本
+network_address = "http://fukesihu.gnway.cc:80"  # 服务器地址1
+network_address1 = "https://fukesihu.iepose.cn"  # 服务器地址2
 
 
 # 旧版本的 PyQt5 中使用 QSettings.IniFormat 来指定配置文件格式，而在新版本中可以直接省略该参数
@@ -163,7 +165,7 @@ class ClientManager:
                 return (version_status, response.json().get('version'))
         except RequestException as e:
             version_status = 0
-            print(f"版本检查失败: {e}")
+            # print(f"版本检查失败: {e}")
             return (version_status, 0)
 
 
@@ -1030,12 +1032,17 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.label_Version_prompt = QLabel(self.centralwidget)  # 版本提示
         self.label_Version_prompt.setGeometry(QRect(650, 520, 300, 20))
-        clientManager = ClientManager("http://fukesihu.gnway.cc:80")
+        clientManager = ClientManager(network_address)
         return_value = clientManager.check_version()[0]
+        clientManager1 = ClientManager(network_address1)
+        return_value1 = clientManager1.check_version()[0]
         if return_value == 1:
             self.label_Version_prompt.setVisible(True)
         elif return_value == 0:
-            self.label_Version_prompt.setVisible(False)
+            if return_value1 == 1:
+                self.label_Version_prompt.setVisible(True)
+            elif return_value1 == 0:
+                self.label_Version_prompt.setVisible(False)
         self.label_Version_prompt.setObjectName("label_Version_prompt")
         self.show_UI = QPushButton(self.centralwidget)
         self.show_UI.setGeometry(QRect(190, 520, 51, 23))
@@ -1854,10 +1861,16 @@ class MyApp(QMainWindow, Ui_MainWindow):
 
 
 if __name__ == '__main__':
-    client = ClientManager("http://fukesihu.gnway.cc:80")
+    client = ClientManager(network_address)
+    client1 = ClientManager(network_address1)
     if client.register():
         print("注册成功")
         version = client.check_version()[1]
+        if version:
+            print(f"服务器版本: {version}")
+    elif client1.register():
+        print("注册成功")
+        version = client1.check_version()[1]
         if version:
             print(f"服务器版本: {version}")
     # 解决不同电脑不同缩放比例问题

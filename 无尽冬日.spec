@@ -5,7 +5,7 @@ a = Analysis(
     ['Window_UI.py'],
     pathex=[],
     binaries=[],
-    datas=[('E:\\main\\even\\Lib\\site-packages\\airtest', 'airtest'),('E:\\main\\icon', '.\\icon')],
+    datas=[('E:\\main\\even\\Lib\\site-packages\\airtest', 'airtest'),('E:\\WJDR_Project\\icon', '.\\icon')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -32,7 +32,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['log.ico'],
+    icon=['icon\\log.png'],
 )
 coll = COLLECT(
     exe,
@@ -41,5 +41,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='脚本2.3.7正式版',
+    name='脚本2.3.8-dev2',
 )

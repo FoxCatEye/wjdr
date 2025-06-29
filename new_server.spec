@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['E:\\main\\new_server.py'],
+    ['E:\\WJDR_Project\\new_server.py'],
     pathex=[],
     binaries=[],
     datas=[],

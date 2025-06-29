@@ -22,11 +22,21 @@ class SimpleHTTPRequestHandlerWithPost(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
-        if post_data not in post_requests:
-            post_requests[post_data] = post_data
-            print(post_data)
-        length = len(post_requests)
-        print('今日已连接数：%s' % length)
+        if self.path == '/register':
+            client_ip = json_data.get('client_address')  # 从请求体中提取client_address
+            today = datetime.now().strftime('%Y-%m-%d')
+
+            if client_ip not in self.daily_users:
+                self.daily_users.add(client_ip)
+                self.stats[today] = len(self.daily_users)
+                print(f"[{datetime.now()}] 新连接: {client_ip} 今日活跃: {self.stats[today]}")
+
+            self._set_headers()
+            self.wfile.write(json.dumps({
+                "status": "success", "active_users": self.stats[today]
+            }).encode())
+        else:
+            self.send_error(404, "Not Found")
         # 返回200 OK响应
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
