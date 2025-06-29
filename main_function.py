@@ -714,6 +714,7 @@ def Collection(self):
             print_space('已有采煤队伍')
         elif collection_value == 3:
             print_space('已有采铁队伍')
+        print_space("采集任务结束，等待下次任务检测其他矿类")
         touch(Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
     collection_default += 1
 
