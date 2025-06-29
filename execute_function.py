@@ -13,7 +13,7 @@ def start_exe():
         try:
             print('开始启动模拟器')
             # subprocess.Popen('E:\leidian\LDPlayer9\dnplayer.exe')
-            subprocess.Popen(settings.value('模拟器地址', 'E:\leidian\LDPlayer9\dnplayer.exe', type=str))
+            subprocess.Popen(settings.value('模拟器安装地址', 'E:\leidian\LDPlayer9\dnplayer.exe', type=str))
             print('启动成功')
             break
         except:
@@ -33,7 +33,7 @@ def cnnect():
             print('%d.开始尝试连接模拟器' % a)
             if emulator_click == 3:
                 os.popen('adb start-server')
-            connect_ip = settings.value('模拟器ip', '127.0.0.1:5037/emulator-5554', type=str)
+            connect_ip = settings.value('模拟器ip地址', '127.0.0.1:5037/emulator-5554', type=str)
             print('地址：android:// %s' % connect_ip)
             # print('地址：android://127.0.0.1:5037')
             connect_device('android://%s' % connect_ip)

@@ -395,7 +395,7 @@ def XG_lv():
     time.sleep(1)
     if exists(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
         print_space('点击确定按钮')
-        touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))) # 第三方库自带确定功能，取消点击确定按钮
+        touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))  # 第三方库自带确定功能，取消点击确定按钮
 
 
 # 野兽

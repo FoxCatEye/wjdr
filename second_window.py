@@ -160,6 +160,8 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.优化-联盟宝箱，每日任务，生命之树，晨曦回礼定时逻辑</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    5.代码优化删除</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.优化-输入逻辑</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.3.9</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.bug修复-模拟器安装地址/IP地址修改后不生效</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"))
         self.textEdit.setReadOnly(True)  # 设置文本不可编辑状态
