@@ -31,7 +31,7 @@ logging.getLogger('airtest').setLevel(logging.ERROR)
 close_number = 1
 local_version = "2.3.8"  # 当前版本
 network_address = "http://fukesihu.gnway.cc:80"  # 服务器地址1
-network_address1 = "https://fukesihu.iepose.cn"  # 服务器地址2
+network_address1 = "http://fukesihu.iepose.cn"  # 服务器地址2
 
 
 # 旧版本的 PyQt5 中使用 QSettings.IniFormat 来指定配置文件格式，而在新版本中可以直接省略该参数

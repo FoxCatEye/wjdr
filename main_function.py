@@ -391,7 +391,11 @@ def XG_lv():
     time.sleep(1)  # 等待1秒
     print_space('输入新的等级')
     time.sleep(1)
-    text(settings.value('世界野怪等级设置', 10, type=str))  # print_space('点击确定按钮')  # time.sleep(1)  # touch(Template(r"icon/sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))) #第三方库自带确定功能，取消点击确定按钮
+    text(settings.value('世界野怪等级设置', 10, type=str))
+    time.sleep(1)
+    if exists(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
+        print_space('点击确定按钮')
+        touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))) # 第三方库自带确定功能，取消点击确定按钮
 
 
 # 野兽
@@ -464,7 +468,11 @@ def WM_lv():  # 冰原巨兽等级输入
     # value = settings.value('冰原巨兽等级设置', type=str)
     # print(value)
     time.sleep(1)
-    text(settings.value('冰原巨兽等级设置', 6, type=str))  # print_space('点击确定按钮')  # time.sleep(1)  # touch(Template(r"icon/sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))#第三方库自带确定功能，取消点击确定按钮
+    text(settings.value('冰原巨兽等级设置', 6, type=str))
+    if exists(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
+        print_space('点击确定按钮')
+        time.sleep(1)
+        touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))) # 第三方库自带确定功能，取消点击确定按钮
 
 
 # 冰原巨兽
@@ -573,7 +581,10 @@ def collection_lv():
     # print(set_collection_lv.get())
     # print(settings.value('采集等级设置', type=str))
     text(settings.value('采集资源等级设置', 7, type=str))
-    time.sleep(1)  # print_space('点击确定按钮')  #time.sleep(1)  # touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))) #第三方库自带确定功能，取消点击确定按钮
+    time.sleep(1)
+    if exists(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
+        print_space('点击确定按钮')
+        touch(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))) # 第三方库自带确定功能，取消点击确定按钮
 
 
 # 生肉
