@@ -1511,6 +1511,8 @@ class Ui_MainWindow(object):
         settings.setValue('巨熊队列', self.checkBox_bear_queue.isChecked())
         settings.setValue('巨熊执行时间设置', option_bear_time)
         print_space('通用设置成功！！！')
+        print_space('模拟器安装地址：% s' % option_lineEdit_address)
+        print_space('模拟器IP地址：% s' % option_lineEdit_ip_address)
         self.save_settings()  # 保存功能选项
 
     '''@pyqtSlot()

@@ -542,8 +542,8 @@ def gather(self):
         print_space('点击出征按钮')
         touch(Template(r"icon/tpl1721191349776.png", rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
         print_space('出征成功')
-        time.sleep(1)
-        touch([2, 812])
+        # time.sleep(1)
+        # touch([2, 812])
     else:  # 判断是否有多余兵力
         print_space('不满足条件，无兵力出征')
 
@@ -712,7 +712,7 @@ def Collection(self):
         print_space('无采煤队伍，执行采煤任务')
         time.sleep(1)
         Coal(self)
-    elif not exists(Template(r"icon\tpl1720766916046.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))) and collection_value == 3:
+    elif not exists(Template(r"icon\tpl1720766916046.png", threshold=0.7, rgb=True, record_pos=(-0.168, -0.088), resolution=(1080, 1920))) and collection_value == 3:
         print_space('无采铁队伍，执行采铁任务')
         time.sleep(1)
         Iron(self)
