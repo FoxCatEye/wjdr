@@ -29,7 +29,7 @@ from second_window import *
 
 logging.getLogger('airtest').setLevel(logging.ERROR)
 close_number = 1
-local_version = "2.3.8"  # 当前版本
+local_version = "2.3.9"  # 当前版本
 network_address = "http://fukesihu.gnway.cc:80"  # 服务器地址1
 network_address1 = "http://fukesihu.iepose.cn"  # 服务器地址2
 
