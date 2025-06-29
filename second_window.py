@@ -257,6 +257,8 @@ class Ui_helpWindow(object):
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ①.时间/时：自定义巨熊活动时间，24小时制</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">    8.仓库补给：</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.仓库体力：检查是否有体力可领取</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">    9.活动雪怪：</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ②.英雄使命：吉娜版本已过，道具为散落的零件时勾选该选项</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\"> </p></body></html>"))
         self.textEdit.setReadOnly(True)
 
