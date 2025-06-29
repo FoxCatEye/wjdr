@@ -325,8 +325,11 @@ class Ui_MainWindow(object):
         self.frame.setObjectName("frame")
         # 下拉框
         # noinspection PyAttributeOutsideInit
-        # 导入 QComboBox
-        self.comboBox = QComboBox(self.frame)
+        # 模拟器安装地址
+        self.select_address = QLabel(self.frame)
+        self.select_address.setGeometry(QRect(20, 10, 90, 21))
+        self.select_address.setObjectName("select_text")
+        '''self.comboBox = QComboBox(self.frame)
         self.comboBox.setGeometry(QRect(10, 10, 91, 22))
         # self.comboBox.setAutoFillBackground(False)
         # self.comboBox.setStyleSheet("background: transparent;")
@@ -337,20 +340,37 @@ class Ui_MainWindow(object):
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("模拟器地址", 1)
         self.comboBox.addItem("模拟器ip", 2)
-        self.comboBox.currentIndexChanged[int].connect(self.updateLineEdit)  # 下拉框信号槽
-        self.lineEdit = QLineEdit(self.frame)  # 模拟器地址输入框
-        self.lineEdit.setEnabled(True)
-        self.lineEdit.setGeometry(QRect(130, 10, 221, 21))
-        self.lineEdit.setMouseTracking(True)
-        self.lineEdit.setAcceptDrops(True)
+        self.comboBox.currentIndexChanged[int].connect(self.updateLineEdit)  # 下拉框信号槽'''
+        self.lineEdit_address = QLineEdit(self.frame)  # 模拟器地址输入框
+        self.lineEdit_address.setEnabled(True)
+        self.lineEdit_address.setGeometry(QRect(130, 10, 221, 21))
+        self.lineEdit_address.setMouseTracking(True)
+        self.lineEdit_address.setAcceptDrops(True)
         # self.lineEdit.setText(self.updateLineEdit())
-        self.lineEdit.setAutoFillBackground(False)
-        self.lineEdit.setStyleSheet("QLineEdit {\n""    background: transparent;\n""    border: 1px solid rgba(0, 255, 0); /* 边框样式 */\n""}")
-        self.lineEdit.setFrame(True)
-        self.lineEdit.setDragEnabled(False)
-        self.lineEdit.setReadOnly(False)
-        self.lineEdit.setClearButtonEnabled(False)
-        self.lineEdit.setObjectName("lineEdit")
+        self.lineEdit_address.setAutoFillBackground(False)
+        self.lineEdit_address.setStyleSheet("QLineEdit {\n""    background: transparent;\n""    border: 1px solid rgba(0, 255, 0); /* 边框样式 */\n""}")
+        self.lineEdit_address.setFrame(True)
+        self.lineEdit_address.setDragEnabled(False)
+        self.lineEdit_address.setReadOnly(False)
+        self.lineEdit_address.setClearButtonEnabled(False)
+        self.lineEdit_address.setObjectName("lineEdit")
+        # 模拟器ip地址
+        self.select_ip_address = QLabel(self.frame)
+        self.select_ip_address.setGeometry(QRect(20, 40, 90, 21))
+        self.select_ip_address.setObjectName("select_text")
+        # 模拟器ip地址输入框
+        self.lineEdit_ip_address = QLineEdit(self.frame)
+        self.lineEdit_ip_address.setEnabled(True)
+        self.lineEdit_ip_address.setGeometry(QRect(130, 40, 221, 21))
+        self.lineEdit_ip_address.setMouseTracking(True)
+        self.lineEdit_ip_address.setAcceptDrops(True)
+        self.lineEdit_ip_address.setAutoFillBackground(False)
+        self.lineEdit_ip_address.setStyleSheet("QLineEdit {\n""    background: transparent;\n""    border: 1px solid rgba(0, 255, 0); /* 边框样式 */\n""}")
+        self.lineEdit_ip_address.setFrame(True)
+        self.lineEdit_ip_address.setDragEnabled(False)
+        self.lineEdit_ip_address.setReadOnly(False)
+        self.lineEdit_ip_address.setClearButtonEnabled(False)
+        self.lineEdit_ip_address.setObjectName("lineEdit")
         # 模拟器地址/ip保存按钮
         self.save_simulator = QPushButton(self.frame)
         self.save_simulator.setEnabled(True)
@@ -366,7 +386,7 @@ class Ui_MainWindow(object):
         self.save_simulator.setAutoExclusive(False)
         self.save_simulator.setAutoDefault(False)
         self.save_simulator.setDefault(False)
-        self.save_simulator.setFlat(True)
+        self.save_simulator.setVisible(False)  # 隐藏显示该功能（已弃用该功能）
         self.save_simulator.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
                                           "}"
                                           "QPushButton:hover {\n"
@@ -376,7 +396,7 @@ class Ui_MainWindow(object):
                                           "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                           "}\n")
         self.save_simulator.setObjectName("pushButton")
-        self.save_simulator.clicked.connect(self.save_simulator_settings)  # type: ignore
+        # self.save_simulator.clicked.connect(self.save_simulator_settings)  # type: ignore
         '''模拟器区域'''
         '''self.frame_2 = QFrame(self.centralwidget)
         self.frame_2.setGeometry(QRect(490, 90, 461, 41))
@@ -397,7 +417,7 @@ class Ui_MainWindow(object):
         # 启动模拟器
         self.start_simulator = QPushButton(self.frame)
         # self.start_simulator = StyledButton(self.frame)
-        self.start_simulator.setGeometry(QRect(10, 60, 75, 23))
+        self.start_simulator.setGeometry(QRect(10, 70, 75, 23))
         self.start_simulator.setFlat(True)
         # self.start_simulator.setFont(QFont("Arial", 20))
         self.start_simulator.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
@@ -411,7 +431,7 @@ class Ui_MainWindow(object):
         self.start_simulator.setObjectName("start_simulator")
         # 连接模拟器
         self.connect_simulator = QPushButton(self.frame)
-        self.connect_simulator.setGeometry(QRect(130, 60, 75, 23))
+        self.connect_simulator.setGeometry(QRect(130, 70, 75, 23))
         self.connect_simulator.setFlat(True)
         self.connect_simulator.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
                                              "}"
@@ -424,7 +444,7 @@ class Ui_MainWindow(object):
         self.connect_simulator.setObjectName("connect_simulator")
         # 启动游戏
         self.start_game = QPushButton(self.frame)
-        self.start_game.setGeometry(QRect(260, 60, 75, 23))
+        self.start_game.setGeometry(QRect(260, 70, 75, 23))
         self.start_game.setAutoDefault(False)
         self.start_game.setDefault(False)
         self.start_game.setFlat(True)
@@ -439,7 +459,7 @@ class Ui_MainWindow(object):
         self.start_game.setObjectName("start_game")
         # 一键启动
         self.simulator_start_all = QPushButton(self.frame)
-        self.simulator_start_all.setGeometry(QRect(380, 60, 75, 23))
+        self.simulator_start_all.setGeometry(QRect(380, 70, 75, 23))
         self.simulator_start_all.setAutoDefault(False)
         self.simulator_start_all.setDefault(False)
         self.simulator_start_all.setFlat(True)
@@ -454,20 +474,20 @@ class Ui_MainWindow(object):
         self.simulator_start_all.setObjectName("simulator_start_all")
         # 其他设置
         self.select_text = QLabel(self.frame)
-        self.select_text.setGeometry(QRect(10, 90, 81, 21))
+        self.select_text.setGeometry(QRect(10, 100, 81, 21))
         self.select_text.setObjectName("select_text")
         # 开启定时
         self.select_time = QCheckBox(self.frame)
-        self.select_time.setGeometry(QRect(20, 120, 100, 21))
+        self.select_time.setGeometry(QRect(20, 130, 100, 21))
         self.select_time.setObjectName("开启定时")
         self.select_time.setStyleSheet("background-color: transparent")
         # 循环间隔文本
         self.label_3 = QLabel(self.frame)
-        self.label_3.setGeometry(QRect(120, 120, 81, 21))
+        self.label_3.setGeometry(QRect(120, 130, 81, 21))
         self.label_3.setObjectName("label_3")
         # 间隔时间输入
         self.lineEdit_cycle_time = QLineEdit(self.frame)
-        self.lineEdit_cycle_time.setGeometry(QRect(200, 121, 31, 21))
+        self.lineEdit_cycle_time.setGeometry(QRect(200, 131, 31, 21))
         self.lineEdit_cycle_time.setObjectName("lineEdit_cycle_time")
         self.lineEdit_cycle_time.setStyleSheet("QLineEdit {\n"
                                                "background: transparent;\n"
@@ -475,12 +495,12 @@ class Ui_MainWindow(object):
                                                "}")
         # 增益已解锁
         self.checkBox_pet_Unlock = QCheckBox(self.frame)
-        self.checkBox_pet_Unlock.setGeometry(QRect(300, 120, 100, 21))
+        self.checkBox_pet_Unlock.setGeometry(QRect(300, 130, 100, 21))
         self.checkBox_pet_Unlock.setObjectName("增益已解锁")
         self.checkBox_pet_Unlock.setStyleSheet("background-color: transparent")
         # 保存参数按钮
         self.ty_set = QPushButton(self.frame)
-        self.ty_set.setGeometry(QRect(190, 150, 75, 21))
+        self.ty_set.setGeometry(QRect(190, 160, 75, 21))
         self.ty_set.setObjectName("ty_set")
         self.ty_set.setFlat(True)
         self.ty_set.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
@@ -1138,6 +1158,8 @@ class Ui_MainWindow(object):
     def set_font(self):  # 界面兼容设置，设置界面文本大小，保证不同分辨率情况下显示正常
         font = QFont("Arial", 7)
         # font.setPointSize(10)
+        self.select_address.setFont(font)
+        self.select_ip_address.setFont(font)
         self.save_simulator.setFont(font)
         self.start_simulator.setFont(font)
         self.connect_simulator.setFont(font)
@@ -1243,11 +1265,13 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):  # 将按钮文本等显示到窗口
         _translate = QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "无尽冬日"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "无尽冬日（个人练习使用，请勿商用）"))
         self.textEdit.setText(_translate("MainWindow", "<font color=\"#FF0000\" size=4><p align=\"center\"  style=\" margin-top:0px; "
                                                        "margin-bottom:5px; \">注意事项：①模拟器分辨率：手机（1080*1920）____②游戏设置：画质高级，关闭雪花和昼夜</p>"
                                                        "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px\" >③请停止执行任务后再关闭脚本____④请等待程序停止后再设置相关参数____⑤设置相关参数后点击保存参数并请重新开始执行任务</p></font>"))
         self.save_simulator.setText(_translate("MainWindow", "保存"))
+        self.select_address.setText(_translate("MainWindow", "模拟器安装路径："))
+        self.select_ip_address.setText(_translate("MainWindow", "模拟器IP地址："))
         self.start_simulator.setText(_translate("MainWindow", "启动模拟器"))
         self.connect_simulator.setText(_translate("MainWindow", "连接模拟器"))
         self.start_game.setText(_translate("MainWindow", "启动游戏"))
@@ -1354,7 +1378,8 @@ class Ui_MainWindow(object):
     @pyqtSlot()
     def load_settings(self):  # 读取设置
         # global settings
-        simulator_settings = settings.value('下拉框', 1, type=int)
+        simulator_address = settings.value('模拟器安装地址', r'E:\leidian\LDPlayer9\dnplayer.exe', type=str)
+        simulator_ip_address = settings.value('模拟器ip地址', '127.0.0.1:5037/emulator-5554', type=str)
         option_time = settings.value('开启定时', 1, type=bool)
         option_pet_Unlock = settings.value("增益已解锁", 1, type=bool)
         option1 = settings.value('联盟互助', 0, type=bool)
@@ -1380,9 +1405,11 @@ class Ui_MainWindow(object):
         option21 = settings.value('晨曦回礼', 0, type=bool)
         # 2.3.0版本取消单项功能区
         # option = settings.value('单选选择', 1, type=int)
-        self.comboBox.setCurrentIndex(simulator_settings)
+        # self.comboBox.setCurrentIndex(simulator_settings)
         # 2.3.0版本取消单项功能区
         # self.radioButton_group.button(option).setChecked(True)
+        self.lineEdit_address.setText(simulator_address)
+        self.lineEdit_ip_address.setText(simulator_ip_address)
         self.select_time.setChecked(option_time)
         self.checkBox_pet_Unlock.setChecked(option_pet_Unlock)
         self.checkBox_help.setChecked(option1)
@@ -1461,6 +1488,10 @@ class Ui_MainWindow(object):
         option_XG_lv = self.lineEdit_XG.text()
         option_bear_time = self.lineEdit_bear_time.text()
         option_cycle_time = self.lineEdit_cycle_time.text()
+        option_lineEdit_address = self.lineEdit_address.text()
+        option_lineEdit_ip_address = self.lineEdit_ip_address.text()
+        settings.setValue('模拟器安装地址', option_lineEdit_address)
+        settings.setValue('模拟器ip地址', option_lineEdit_ip_address)
         settings.setValue('随机时间', self.checkBox_Random_time.isChecked())
         settings.setValue('世界野怪平均兵力', self.checkBox_XG_average.isChecked())
         settings.setValue('世界野怪等级设置', option_XG_lv)
@@ -1482,8 +1513,8 @@ class Ui_MainWindow(object):
         print_space('通用设置成功！！！')
         self.save_settings()  # 保存功能选项
 
-    @pyqtSlot()
-    def save_simulator_settings(self):  # 保存模拟器设置
+    '''@pyqtSlot()
+    def save_simulator_settings(self):  # 保存模拟器设置（已弃用）
         value = self.lineEdit.text()
         index = self.comboBox.currentIndex()
         settings.setValue('下拉框', index)
@@ -1504,7 +1535,7 @@ class Ui_MainWindow(object):
             self.lineEdit.setText(itemData_1)
         elif currentText == 1:
             itemData_2 = settings.value('模拟器ip', '127.0.0.1:5037/emulator-5554', type=str)
-            self.lineEdit.setText(itemData_2)  # 获取当前选中项的数据  itemData = self.comboBox.itemData(index)   在输入框中显示内容  self.lineEdit.setText(itemData)
+            self.lineEdit.setText(itemData_2)  # 获取当前选中项的数据  itemData = self.comboBox.itemData(index)   在输入框中显示内容  self.lineEdit.setText(itemData)'''
 
     '''@pyqtSlot()
     def read_simple_set(self):  # 读取单项设置  （已废弃）
@@ -1618,7 +1649,7 @@ class Ui_MainWindow(object):
         self.read_simple_set()'''
 
     @pyqtSlot()
-    def save_settings(self):  # 保存多项设置
+    def save_settings(self):  # 保存功能选项设置
         # settings.setValue('下拉框', self.comboBox.index())
         settings.setValue('开启定时', self.select_time.isChecked())
         settings.setValue('增益已解锁', self.checkBox_pet_Unlock.isChecked())

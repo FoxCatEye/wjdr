@@ -673,7 +673,11 @@ def Iron(self):
 
 
 # 自动采集
+# 设置采集初始值为0
+collection_default = 0
 def Collection(self):
+    global collection_default
+    collection_value = collection_default % 4
     if not exists(Template(r"icon\tpl1720145326019.png", record_pos=(-0.191, -0.169), resolution=(1080, 1920))):
         print_space('不在世界，点击去往世界')
         touch([950, 1850])  # 点击野外
@@ -684,43 +688,35 @@ def Collection(self):
     touch([2, 812])  # 点击左侧栏
     time.sleep(1)
     touch([500, 400])
-    if not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.188, -0.127), resolution=(1080, 1920))):
+    if not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.188, -0.127), resolution=(1080, 1920))) and collection_value == 0:
         print_space('无采肉队伍，执行采肉任务')
         time.sleep(1)
         Meat(self)
-    else:
-        print_space('已有采肉队伍')
-    Homepage()
-    touch([2, 812])
-    time.sleep(1)
-    touch([500, 400])
-    if not exists(Template(r"icon\tpl1720766916044.png", threshold=0.7, record_pos=(-0.438, -0.163), resolution=(1080, 1920))):
+        collection_default = 1
+    elif not exists(Template(r"icon\tpl1720766916044.png", threshold=0.7, record_pos=(-0.438, -0.163), resolution=(1080, 1920))) and collection_value == 1:
         print_space('无采集木头队伍，执行采木头任务')
         time.sleep(1)
         Wood(self)
-    else:
-        print_space('已有采木材队伍')
-    Homepage()
-    touch([2, 812])
-    time.sleep(1)
-    touch([500, 400])
-    if not exists(Template(r"icon\tpl1720766916045.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+    elif not exists(Template(r"icon\tpl1720766916045.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))) and collection_value == 2:
         print_space('无采煤队伍，执行采煤任务')
         time.sleep(1)
         Coal(self)
-    else:
-        print_space('已有采煤队伍')
-    Homepage()
-    touch([2, 812])
-    time.sleep(1)
-    touch([500, 400])
-    if not exists(Template(r"icon\tpl1720766916046.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))):
+    elif not exists(Template(r"icon\tpl1720766916046.png", record_pos=(-0.168, -0.088), resolution=(1080, 1920))) and collection_value == 3:
         print_space('无采铁队伍，执行采铁任务')
         time.sleep(1)
         Iron(self)
     else:
-        print_space('已有采铁队伍')
+        if collection_value == 0:
+            print_space('已有采肉队伍')
+        elif collection_value == 1:
+            print_space('已有采木材队伍')
+        elif collection_value == 2:
+            print_space('已有采煤队伍')
+        elif collection_value == 3:
+            print_space('已有采铁队伍')
         touch(Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+    collection_default += 1
+
 
 
 # 治疗

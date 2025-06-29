@@ -335,7 +335,7 @@ def subject(self):
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_Treasure_Chest.isChecked() and now.minute == 49 and now.second % 20 == 0:
+            if self.checkBox_Treasure_Chest.isChecked() and now.minute % 14 == 0:
                 try:
                     print('%d.开始执行联盟宝箱领取任务' % run_number)
                     Homepage()
@@ -392,7 +392,7 @@ def subject(self):
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_daily_task.isChecked() and now.hour == 23:
+            if self.checkBox_daily_task.isChecked() and (now.hour == 23 or now.hour == 8):
                 try:
                     print('%d.开始执行每日任务领取' % run_number)
                     Homepage()
@@ -406,7 +406,7 @@ def subject(self):
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_tree_of_life.isChecked() and now.hour == 23:
+            if self.checkBox_tree_of_life.isChecked() and (now.hour == 23 or now.hour == 8):
                 try:
                     print('%d.开始执行生命之树领取任务' % run_number)
                     Homepage()
@@ -420,7 +420,7 @@ def subject(self):
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_morning_light_returns_gift.isChecked() and now.hour == 23:
+            if self.checkBox_morning_light_returns_gift.isChecked() and now.hour == (now.hour == 23 or now.hour == 8):
                 try:
                     print('%d.开始执行晨曦回礼任务' % run_number)
                     Homepage()
