@@ -16,12 +16,11 @@ from datetime import datetime
 
 # 合并PyQt5相关的导入语句
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QSettings, pyqtSlot, pyqtSignal, Qt, QRect, QLocale, QMetaObject, QCoreApplication
-from PyQt5.QtGui import QPalette, QBrush, QPixmap, QFont, QGuiApplication, QPainter, QPainterPath, QPen, QIcon, QTextCursor
-from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QButtonGroup, QMessageBox, QVBoxLayout, QWidget, QPushButton, QFrame, QComboBox,
-    QLineEdit, QLabel, QCheckBox, QListView, QTextEdit, QSystemTrayIcon, QMenu, QAction
-)
+from PyQt5.QtCore import QSettings, pyqtSlot, pyqtSignal, Qt, QRect, QLocale, QMetaObject, QCoreApplication, QTimer
+from PyQt5.QtGui import QPalette, QBrush, QPixmap, QFont, QGuiApplication, QPainter, QPainterPath, QPen, QIcon, QTextCursor, QPainter, \
+    QPainterPath
+from PyQt5.QtWidgets import (QApplication, QMainWindow, QButtonGroup, QMessageBox, QVBoxLayout, QWidget, QPushButton, QFrame, QComboBox,
+                             QLineEdit, QLabel, QCheckBox, QListView, QTextEdit, QSystemTrayIcon, QMenu, QAction, QToolTip)
 
 from execute_function import *
 from main_function import *
@@ -29,7 +28,7 @@ from second_window import *
 
 logging.getLogger('airtest').setLevel(logging.ERROR)
 close_number = 1
-local_version = "2.3.9"  # 当前版本
+local_version = "2.3.10"  # 当前版本
 network_address = "http://fukesihu.gnway.cc:80"  # 服务器地址1
 network_address1 = "http://fukesihu.iepose.cn"  # 服务器地址2
 
@@ -125,6 +124,7 @@ class ConfigSettings:
 
 settings = ConfigSettings("set.ini")  # 生成配置文件
 
+
 class ClientManager:
     def __init__(self, server_url):
         self.server_url = server_url
@@ -200,7 +200,6 @@ def check_update():
         print(f"Error checking update: {e}")
         return 0'''
 
-
 # check_update()
 
 
@@ -267,7 +266,34 @@ else:
 
 class Ui_MainWindow(object):
     textSignal = pyqtSignal(str)
+    HELP_LABEL_STYLE = """
+        QLabel {
+            font-size: 10px;
+            color: black;
+            border: 0.5px solid green;
+            border-radius: 6px;
+            min-width: 10px;
+            min-height: 10px;
+            text-align: center;
+            background-color: green;
+        }
+        """
 
+    def __init__(self):
+        self.label_select_address = None
+
+    def show_help_info(self, event):
+        """点击 ? 图标时显示多行帮助信息"""
+        help_text = "这是多行提示文本\n" \
+                    "第二行内容\n" \
+                    "第三行更长的内容可以自动换行显示\n" \
+                    "支持任意多行文本"
+        msg_box = QMessageBox()
+        msg_box.setWindowTitle("帮助信息")
+        msg_box.setText(help_text)
+        # 设置自定义图标，需将 'path/to/your/icon.png' 替换为实际的图标文件路径
+        msg_box.setWindowIcon(QIcon('icon/log.png'))
+        msg_box.exec_()
 
     def setupUi(self, MainWindow):
 
@@ -289,7 +315,7 @@ class Ui_MainWindow(object):
         MainWindow.setDocumentMode(True)
 
         # Windows 应用标识设置（Win11必须）
-        self.appid = '无尽冬日' + str(local_version)   # 需要唯一标识
+        self.appid = '无尽冬日' + str(local_version)  # 需要唯一标识
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(self.appid)
 
         # 主窗口初始化
@@ -300,7 +326,7 @@ class Ui_MainWindow(object):
         self.init_tray()
 
         # 初始显示
-        #self.show()
+        # self.show()
 
         # 确保导入了QWidget类
         self.centralwidget = QWidget(MainWindow)
@@ -329,6 +355,19 @@ class Ui_MainWindow(object):
         self.select_address = QLabel(self.frame)
         self.select_address.setGeometry(QRect(20, 10, 90, 21))
         self.select_address.setObjectName("select_text")
+        # 功能说明
+        # self.label_select_address = IconTextWidget('icon/wenhao.png', "初始提示文本", self.frame)
+        self.label_select_address = self._create_label(107, 14, "电脑模拟器安装地址，以exe结尾，启动模拟器功\n能需要，地址错误时无法启动模拟器，只能手动启动\n"
+                                                                "例：\n"
+                                                                "    雷电安装地址：E:/leidian/LDPlayer9/dnplayer.exe\n"
+                                                                "    雷电多开安装地址：E:/leidian/LDPlayer9/dnplayer.exe index=10\n"
+                                                                "启动模拟器：\n"
+                                                                "    模拟器未启动时，可以使用脚本设置的模拟器安装地址启动模拟器\n"
+                                                                "    ps:MuMu模拟器不支持启动模拟器功能", self.frame)
+        # self.label_select_address.setGeometry(10, 10, 64, 64)
+
+        # 动态更改提示文本
+        # self.label_select_address.setText("新提示文本\n第二行内容")
         '''self.comboBox = QComboBox(self.frame)
         self.comboBox.setGeometry(QRect(10, 10, 91, 22))
         # self.comboBox.setAutoFillBackground(False)
@@ -341,7 +380,8 @@ class Ui_MainWindow(object):
         self.comboBox.addItem("模拟器地址", 1)
         self.comboBox.addItem("模拟器ip", 2)
         self.comboBox.currentIndexChanged[int].connect(self.updateLineEdit)  # 下拉框信号槽'''
-        self.lineEdit_address = QLineEdit(self.frame)  # 模拟器地址输入框
+        # 模拟器地址输入框
+        self.lineEdit_address = QLineEdit(self.frame)
         self.lineEdit_address.setEnabled(True)
         self.lineEdit_address.setGeometry(QRect(130, 10, 221, 21))
         self.lineEdit_address.setMouseTracking(True)
@@ -354,10 +394,35 @@ class Ui_MainWindow(object):
         self.lineEdit_address.setReadOnly(False)
         self.lineEdit_address.setClearButtonEnabled(False)
         self.lineEdit_address.setObjectName("lineEdit")
+        # 启动模拟器
+        self.start_simulator = QPushButton(self.frame)
+        # self.start_simulator = StyledButton(self.frame)
+        self.start_simulator.setGeometry(QRect(380, 10, 75, 23))
+        self.start_simulator.setFlat(True)
+        # self.start_simulator.setFont(QFont("Arial", 20))
+        self.start_simulator.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
+                                           "}"
+                                           "QPushButton:hover {\n"
+                                           "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                           "}\n"
+                                           "QPushButton:pressed {\n"
+                                           "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                           "}\n")
+        self.start_simulator.setObjectName("start_simulator")
         # 模拟器ip地址
         self.select_ip_address = QLabel(self.frame)
         self.select_ip_address.setGeometry(QRect(20, 40, 90, 21))
         self.select_ip_address.setObjectName("select_text")
+        # 功能说明
+        self.label_select_ip_address = self._create_label(97, 44, "连接模拟器需要，由本地地址＋端口号组成，ip错误将无法连接模拟器，无法使用\n"
+                                                                  "例：\n"
+                                                                  "    雷电地址1：127.0.0.1:5037/emulator-5554\n"
+                                                                  "    雷电地址2：127.0.0.1:5037/emulator-5556\n"
+                                                                  "    MuMu地址：127.0.0.1:7555/127.0.0.1:16384\n"
+                                                                  "    MuMu多开地址：127.0.0.1:7555/127.0.0.1:16448\n"
+                                                                  "  详细IP地址获取请查看使用教程"
+                                                                  "连接模拟器：\n"
+                                                                  "    模拟器和脚本打开后，脚本adb使用设置的IP连接模拟器", self.frame)
         # 模拟器ip地址输入框
         self.lineEdit_ip_address = QLineEdit(self.frame)
         self.lineEdit_ip_address.setEnabled(True)
@@ -374,7 +439,7 @@ class Ui_MainWindow(object):
         # 模拟器地址/ip保存按钮
         self.save_simulator = QPushButton(self.frame)
         self.save_simulator.setEnabled(True)
-        self.save_simulator.setGeometry(QRect(380, 10, 75, 23))
+        self.save_simulator.setGeometry(QRect(380, 40, 75, 23))
         self.save_simulator.setMouseTracking(False)
         self.save_simulator.setTabletTracking(False)
         self.save_simulator.setAcceptDrops(False)
@@ -396,6 +461,19 @@ class Ui_MainWindow(object):
                                           "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                           "}\n")
         self.save_simulator.setObjectName("pushButton")
+        # 连接模拟器
+        self.connect_simulator = QPushButton(self.frame)
+        self.connect_simulator.setGeometry(QRect(380, 40, 75, 23))
+        self.connect_simulator.setFlat(True)
+        self.connect_simulator.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
+                                             "}"
+                                             "QPushButton:hover {\n"
+                                             "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                             "}\n"
+                                             "QPushButton:pressed {\n"
+                                             "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                             "}\n")
+        self.connect_simulator.setObjectName("connect_simulator")
         # self.save_simulator.clicked.connect(self.save_simulator_settings)  # type: ignore
         '''模拟器区域'''
         '''self.frame_2 = QFrame(self.centralwidget)
@@ -414,37 +492,10 @@ class Ui_MainWindow(object):
         self.frame_2.setLineWidth(1)
         self.frame_2.setMidLineWidth(0)
         self.frame_2.setObjectName("frame_2")'''
-        # 启动模拟器
-        self.start_simulator = QPushButton(self.frame)
-        # self.start_simulator = StyledButton(self.frame)
-        self.start_simulator.setGeometry(QRect(10, 70, 75, 23))
-        self.start_simulator.setFlat(True)
-        # self.start_simulator.setFont(QFont("Arial", 20))
-        self.start_simulator.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                           "}"
-                                           "QPushButton:hover {\n"
-                                           "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                           "}\n"
-                                           "QPushButton:pressed {\n"
-                                           "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                           "}\n")
-        self.start_simulator.setObjectName("start_simulator")
-        # 连接模拟器
-        self.connect_simulator = QPushButton(self.frame)
-        self.connect_simulator.setGeometry(QRect(130, 70, 75, 23))
-        self.connect_simulator.setFlat(True)
-        self.connect_simulator.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                             "}"
-                                             "QPushButton:hover {\n"
-                                             "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                             "}\n"
-                                             "QPushButton:pressed {\n"
-                                             "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                             "}\n")
-        self.connect_simulator.setObjectName("connect_simulator")
+
         # 启动游戏
         self.start_game = QPushButton(self.frame)
-        self.start_game.setGeometry(QRect(260, 70, 75, 23))
+        self.start_game.setGeometry(QRect(140, 70, 75, 23))
         self.start_game.setAutoDefault(False)
         self.start_game.setDefault(False)
         self.start_game.setFlat(True)
@@ -457,9 +508,16 @@ class Ui_MainWindow(object):
                                       "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                       "}\n")
         self.start_game.setObjectName("start_game")
+        # 功能说明
+        self.label_start_game = self._create_label(220, 74, "启动游戏：\n"
+                                                            "    启动前请确保模拟器已连接，\n"
+                                                            "    点击后，会自动打开游戏，\n"
+                                                            "一键启动：\n"
+                                                            "    启动模拟器，连接模拟器，启动游戏功能的集合"
+                                                            "    ps：启动模拟器无法使用时，请勿使用该功能", self.frame)
         # 一键启动
         self.simulator_start_all = QPushButton(self.frame)
-        self.simulator_start_all.setGeometry(QRect(380, 70, 75, 23))
+        self.simulator_start_all.setGeometry(QRect(240, 70, 75, 23))
         self.simulator_start_all.setAutoDefault(False)
         self.simulator_start_all.setDefault(False)
         self.simulator_start_all.setFlat(True)
@@ -476,6 +534,36 @@ class Ui_MainWindow(object):
         self.select_text = QLabel(self.frame)
         self.select_text.setGeometry(QRect(10, 100, 81, 21))
         self.select_text.setObjectName("select_text")
+        # 功能说明
+        self.label_select_text = self._create_label(60, 104, "开启定时：\n"
+                                                             "    1.开启后左侧勾选任务只在特定时间执行，\n"
+                                                             "详情下方\n"
+                                                             "    2.开启后循环时间设置不生效\n"
+                                                             "循环时间：\n"
+                                                             "    1.执行完一次左侧勾选的所有任务后，下次执行任务的等\n待时间\n"
+                                                             "    2.未勾选定时时生效\n"
+                                                             "定时详情：\n"
+                                                             "    1.互助：每2秒检测一次\n"
+                                                             "    2.野怪：分钟是4的倍数，秒数是10的倍数时检测一次，巨\n熊功能开启且在活动时间不检测\n"
+                                                             "    3.冰原巨兽：分钟是6的倍数且秒数在0-20s时检查一次，\n巨熊功能开启且在活动时间不检测，等级可在单选内设置\n"
+                                                             "    4.活动雪怪：分钟是6的倍数时检测一次，巨熊功能开启且\n在活动时间不检测\n"
+                                                             "    5.训练士兵：分钟数是5的倍数时检测\n"
+                                                             "    6.建筑升级（已删除）：分钟个位数是2时检测\n"
+                                                             "    7.采集资源：分钟个位数为3时检测每一种资源是否有采集，\n每种只会采集一队\n"
+                                                             "    8.巨熊活动：21点时检测\n"
+                                                             "    9.治疗士兵：分钟个位数为5时检测，相当于每过一小时就\n检查\n"
+                                                             "    10.探险奖励：分钟数为14时检测，每小时分钟数为14，28,\n42，56检查\n"
+                                                             "    11.联盟捐赠：分钟数为1时检测，相当于每过一小时就检查\n"
+                                                             "    12.英雄招募：凌晨1点时分钟数为5的倍数时会检查是否有免\n费次数\n"
+                                                             "    13.攻击检测：开启后轮到就检测，检测城堡和撞矿攻击\n"
+                                                             "    14.邮件领取：分钟数为30时领取邮件内联盟，系统，报告的\n奖励（5次领取）\n"
+                                                             "    15.联盟宝箱：分钟数为49分且秒数是20的倍数时就检测联盟\n宝箱内的战利品宝箱和盟友赠礼是否有一键领取（5次）\n"
+                                                             "    16.仓库补给：分钟数是5的倍数时检测，体力检测会在首次启\n动或体力刷新时间内进行\n"
+                                                             "    17.情报灯塔：12点或19点时进行\n"
+                                                             "    18.炼金实验室：首次启动或凌晨1时及23时分钟数为12的倍数\n时检查（4次）\n"
+                                                             "    19.每日任务：首次启动或凌晨23时，早上8时检查\n"
+                                                             "    20.生命之树：首次启动或凌晨23时，早上8时检查\n"
+                                                             "    21.晨曦回礼：首次启动或凌晨23时，早上8时检查", self.frame)
         # 开启定时
         self.select_time = QCheckBox(self.frame)
         self.select_time.setGeometry(QRect(20, 130, 100, 21))
@@ -498,9 +586,10 @@ class Ui_MainWindow(object):
         self.checkBox_pet_Unlock.setGeometry(QRect(300, 130, 100, 21))
         self.checkBox_pet_Unlock.setObjectName("增益已解锁")
         self.checkBox_pet_Unlock.setStyleSheet("background-color: transparent")
+        self.checkBox_pet_Unlock.setVisible(False)
         # 保存参数按钮
         self.ty_set = QPushButton(self.frame)
-        self.ty_set.setGeometry(QRect(190, 160, 75, 21))
+        self.ty_set.setGeometry(QRect(140, 175, 75, 21))
         self.ty_set.setObjectName("ty_set")
         self.ty_set.setFlat(True)
         self.ty_set.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
@@ -511,37 +600,18 @@ class Ui_MainWindow(object):
                                   "QPushButton:pressed {\n"
                                   "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
                                   "}\n")
-        # 全选
-        self.select_all = QPushButton(self.frame)
-        self.select_all.setGeometry(QRect(90, 190, 75, 23))
-        self.select_all.setFlat(True)
-        self.select_all.setObjectName("select_all")
-        self.select_all.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                      "}"
-
-                                      "QPushButton:hover {\n"
-                                      "background-color: rgba(0, 0, 0, 15); /* 鼠标悬停时的背景透明度 */\n"
-                                      "}\n"
-                                      "QPushButton:pressed {\n"
-                                      "background-color: rgba(0, 0, 0, 80); /* 按钮按下时的背景透明度 */\n"
-                                      "}\n")
-        # 取消全选
-        self.select_unall = QPushButton(self.frame)
-        self.select_unall.setGeometry(QRect(290, 190, 75, 23))
-        self.select_unall.setFlat(True)
-        self.select_unall.setObjectName("select_unall")
-        self.select_unall.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
-                                        "}"
-                                        "QPushButton:hover {\n"
-                                        "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
-                                        "}\n"
-                                        "QPushButton:pressed {\n"
-                                        "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
-                                        "}\n")
+        # 功能说明
+        self.label_ty_set = self._create_label(220, 179, "保存参数：\n"
+                                                         "    1.勾选项，输入项变动后，需点击保存参数\n"
+                                                         "确保改动生效\n"
+                                                         "开始：\n"
+                                                         "    点击开始即开始根据设置，执行左侧开启的任务\n"
+                                                         "停止：\n"
+                                                         "    点击停止，在当前任务结束后，停止执行任务", self.frame)
         # 停止按钮
         self.select_stop = QPushButton(self.frame)
         self.select_stop.setEnabled(True)
-        self.select_stop.setGeometry(QRect(190, 190, 75, 23))
+        self.select_stop.setGeometry(QRect(240, 175, 75, 23))
         self.select_stop.setFlat(True)
         self.select_stop.setVisible(False)
         self.select_stop.setObjectName("select_stop")
@@ -556,7 +626,7 @@ class Ui_MainWindow(object):
         # 多选开始按钮
         self.select_start = QPushButton(self.frame)
         self.select_start.setEnabled(True)
-        self.select_start.setGeometry(QRect(190, 190, 75, 23))
+        self.select_start.setGeometry(QRect(240, 175, 75, 23))
         self.select_start.setWhatsThis("")
         self.select_start.setAutoFillBackground(False)
         self.select_start.setCheckable(False)
@@ -595,9 +665,41 @@ class Ui_MainWindow(object):
         self.label_help = QLabel(self.frame_task)
         self.label_help.setGeometry(QRect(20, 20, 54, 21))  # 显示文本
         self.label_help.setObjectName("联盟互助")
+
+        # 功能说明
+        self.label_help_info = self._create_label(70, 24, "开启后，有盟友求助，自动点击拳头\n"
+                                                          "随机时间：\n"
+                                                          "    识别到互助按钮后，随机时间（1~9s）点击互助（防系统检测）", self.frame_task)
+
+        # 创建一个用于显示 ? 图案的 QLabel 控件
+        self.help_label = QLabel(self.frame_task)
+        self.help_label.setText("?")
+        # 设置 ? 图案的样式
+        self.help_label.setStyleSheet("""
+        QLabel {
+            font-size: 12px;
+            color: black;
+            border: 0.5px solid green;
+            border-radius: 6px;
+            min-width: 11px;
+            min-height: 11px;
+            text-align: center;
+            background-color: #ADFF2F;
+        }
+        """)
+        # 将 ? 图案放置在联盟互助文本后面
+        self.help_label.setGeometry(QRect(68, 25, 10, 10))
+        self.help_label.setVisible(False)  # 显示? 图案
+        # 使 QLabel 可以接收鼠标点击事件
+        self.help_label.setCursor(Qt.PointingHandCursor)
+        self.help_label.mousePressEvent = self.show_help_info
+
+        # 设置提示文本的样式
+        QToolTip.setFont(QFont("微软雅黑", 10))
+        QToolTip.setPalette(QPalette(Qt.white, Qt.black))
         # 开关选项
         self.checkBox_help = QCheckBox(self.frame_task)  # 互助
-        self.checkBox_help.setGeometry(QRect(80, 20, 71, 21))
+        self.checkBox_help.setGeometry(QRect(90, 20, 71, 21))
         self.checkBox_help.setObjectName("checkBox_help")
         # 互助随机时间选项
         self.checkBox_Random_time = QCheckBox(self.frame_task)
@@ -607,9 +709,16 @@ class Ui_MainWindow(object):
         self.label_XG = QLabel(self.frame_task)
         self.label_XG.setGeometry(QRect(20, 50, 54, 21))  # 显示等级文本
         self.label_XG.setObjectName("世界野怪文本")
+        # 功能说明
+        self.label_XG_info = self._create_label(70, 54, "开启后，执行刷世界野怪任务\n"
+                                                        "平均兵力：\n"
+                                                        "    出征时，在出征界面，自动点击平均兵力\n"
+                                                        "等级设置：\n"
+                                                        "    设置出征野怪的等级，启动后第一次执行或\n"
+                                                        "设置有改动时，会执行重新输入等级操作", self.frame_task)
         # 开关选项
         self.checkBox_XG = QCheckBox(self.frame_task)  # 野怪
-        self.checkBox_XG.setGeometry(QRect(80, 50, 71, 21))
+        self.checkBox_XG.setGeometry(QRect(90, 50, 71, 21))
         self.checkBox_XG.setObjectName("checkBox_XG")
         self.checkBox_XG.setStyleSheet("background-color: transparent")
         # 世界野怪平均兵力选项
@@ -632,15 +741,24 @@ class Ui_MainWindow(object):
         self.label_WM = QLabel(self.frame_task)
         self.label_WM.setGeometry(QRect(20, 80, 54, 21))  # 显示文本
         self.label_WM.setObjectName("冰原巨兽文本")
+        # 功能说明
+        self.label_WM_info = self._create_label(70, 84, "开启后，执行刷冰原巨兽任务\n"
+                                                        "单兵集结：\n"
+                                                        "    出征时只上一个兵（英雄正常上）\n"
+                                                        "巨兽队列：\n"
+                                                        "    出征时选择预设好的第二序列的队伍\n"
+                                                        "巨兽等级：\n"
+                                                        "    设置集结巨兽的等级，启动后第一次执行或\n"
+                                                        "设置有改动时，会执行重新输入等级操作", self.frame_task)
         # 开关选项
         self.checkBox_WM = QCheckBox(self.frame_task)  # 冰原巨兽
-        self.checkBox_WM.setGeometry(QRect(80, 80, 71, 21))
+        self.checkBox_WM.setGeometry(QRect(90, 80, 71, 21))
         self.checkBox_WM.setObjectName("checkBox_WM")
         # 冰原巨兽单兵选项
         self.checkBox_WM_simple = QCheckBox(self.frame_task)
         self.checkBox_WM_simple.setGeometry(QRect(170, 80, 71, 21))
         self.checkBox_WM_simple.setObjectName("checkBox_ty_simple")
-        # 冰原巨兽巨兽队列选项
+        # 冰原巨兽队列选项
         self.checkBox_WM_average = QCheckBox(self.frame_task)
         self.checkBox_WM_average.setGeometry(QRect(260, 80, 71, 21))
         self.checkBox_WM_average.setObjectName("巨兽队列")
@@ -656,15 +774,21 @@ class Ui_MainWindow(object):
                                        "background: transparent;\n"
                                        "border: 1px solid rgba(0, 255, 0)"
                                        "}")
-        
 
         # 训练士兵文本
         self.label_Production = QLabel(self.frame_task)
         self.label_Production.setGeometry(QRect(20, 110, 54, 21))  # 显示等级文本
         self.label_Production.setObjectName("训练士兵")
+        # 功能说明
+        self.label_Production_info = self._create_label(70, 114, "开启后，执行训练士兵任务\n"
+                                                                 "晋升选项：\n"
+                                                                 "    训练士兵时，优先晋升\n"
+                                                                 "满级兵营：\n"
+                                                                 "    训练士兵时，兵营满级，无升级按钮时，需\n"
+                                                                 "勾选此选项，否则无法训练", self.frame_task)
         # 开关选项
         self.checkBox_Production = QCheckBox(self.frame_task)  # 训练士兵
-        self.checkBox_Production.setGeometry(QRect(80, 110, 71, 21))
+        self.checkBox_Production.setGeometry(QRect(90, 110, 71, 21))
         self.checkBox_Production.setObjectName("checkBox_Production")
 
         # 训练晋升选项
@@ -672,50 +796,46 @@ class Ui_MainWindow(object):
         self.checkBox_jinshen.setGeometry(QRect(170, 113, 71, 21))
         self.checkBox_jinshen.setObjectName("优先晋升")
 
-        # 训练晋升选项
+        # 满级兵营选项
         self.checkBox_maxed_barracks = QCheckBox(self.frame_task)
         self.checkBox_maxed_barracks.setGeometry(QRect(260, 110, 71, 21))
         self.checkBox_maxed_barracks.setObjectName("满级兵营")
-        
 
-        # 采集文本
-        self.label_Collection = QLabel(self.frame_task)
-        self.label_Collection.setGeometry(QRect(20, 140, 54, 21))  # 显示等级文本
-        self.label_Collection.setObjectName("资源采集")
+        # 活动雪怪文本
+        self.label_npc = QLabel(self.frame_task)
+        self.label_npc.setGeometry(QRect(20, 140, 54, 21))  # 显示文本
+        self.label_npc.setObjectName("活动雪怪")
+        # 功能说明
+        self.label_npc_info = self._create_label(70, 144, "开启后，执行刷活动雪怪任务\n"
+                                                          "英雄使命：\n"
+                                                          "    未勾选，执行吉娜活动任务，勾选后，执行散落\n"
+                                                          "的零件活动任务", self.frame_task)
         # 开关选项
-        self.checkBox_Collection = QCheckBox(self.frame_task)  # 采集资源
-        self.checkBox_Collection.setGeometry(QRect(80, 140, 71, 21))
-        self.checkBox_Collection.setObjectName("checkBox_Collection")
-
-        # 采集英雄选项
-        self.checkBox_Collection_hero = QCheckBox(self.frame_task)
-        self.checkBox_Collection_hero.setGeometry(QRect(170, 140, 71, 21))
-        self.checkBox_Collection_hero.setObjectName("采集英雄")
-        # 采集平均兵力选项
-        # self.checkBox_ty_caiji_average = QCheckBox(self.frame_task)
-        # self.checkBox_ty_caiji_average.setGeometry(QRect(200, 53, 71, 21))
-        # self.checkBox_ty_caiji_average.setObjectName("平均兵力")
-        # 采集等级文本
-        self.label_Collection_lv = QLabel(self.frame_task)
-        self.label_Collection_lv.setGeometry(QRect(350, 140, 54, 21))  # 显示等级文本
-        self.label_Collection_lv.setObjectName("label_4")
-        #self.label_4.setVisible(False)
-        # 采集等级输入
-        self.lineEdit_Collection = QLineEdit(self.frame_task)
-        self.lineEdit_Collection.setGeometry(QRect(400, 140, 31, 21))  # 显示等级输入框
-        self.lineEdit_Collection.setObjectName("lineEdit_3")
-        self.lineEdit_Collection.setStyleSheet("QLineEdit {\n"
-                                               "background: transparent;\n"
-                                               "border: 1px solid rgba(0, 255, 0)"
-                                               "}")
+        self.checkBox_npc = QCheckBox(self.frame_task)  # 活动雪怪
+        self.checkBox_npc.setGeometry(QRect(90, 140, 71, 21))
+        self.checkBox_npc.setObjectName("checkBox_npc")
+        # 英雄使命开关选项
+        self.checkBox_heroic_mission = QCheckBox(self.frame_task)  # 英雄使命
+        self.checkBox_heroic_mission.setGeometry(QRect(170, 140, 71, 21))
+        self.checkBox_heroic_mission.setObjectName("英雄使命")
 
         # 情报文本
         self.label_intelligence = QLabel(self.frame_task)
         self.label_intelligence.setGeometry(QRect(20, 170, 54, 21))  # 显示文本
         self.label_intelligence.setObjectName("情报文本")
+        # 功能说明
+        self.label_intelligence_info = self._create_label(70, 174, "开启后，执行刷情报任务\n"
+                                                                   "情报版本：\n"
+                                                                   "    勾选后，执行火晶版本的情报，默认版本是30级以下的无火晶版本，\n"
+                                                                   "情报品质（已弃用）：\n"
+                                                                   "    勾选后，只做金色和紫色的情报\n"
+                                                                   "十次情报（已弃用）：\n"
+                                                                   "    勾选后，执行十次情报后就不在执行情报任务\n"
+                                                                   "悬赏情报（已弃用）：\n"
+                                                                   "    勾选后，执行悬赏情报任务", self.frame_task)
         # 情报开关选项
         self.checkBox_intelligence = QCheckBox(self.frame_task)
-        self.checkBox_intelligence.setGeometry(QRect(80, 170, 71, 21))
+        self.checkBox_intelligence.setGeometry(QRect(90, 170, 71, 21))
         self.checkBox_intelligence.setObjectName("情报开关")
         # 情报版本选项
         self.checkBox_intelligence_version = QCheckBox(self.frame_task)
@@ -732,7 +852,7 @@ class Ui_MainWindow(object):
         self.checkBox_intelligence_number.setGeometry(QRect(260, 170, 71, 21))
         self.checkBox_intelligence_number.setObjectName("十次情报")
         self.checkBox_intelligence_number.setVisible(False)
-        # 十次情报选项
+        # 悬赏情报选项
         self.checkBox_intelligence_offer_a_reward = QCheckBox(self.frame_task)
         self.checkBox_intelligence_offer_a_reward.setGeometry(QRect(350, 170, 71, 21))
         self.checkBox_intelligence_offer_a_reward.setObjectName("悬赏情报")
@@ -741,11 +861,15 @@ class Ui_MainWindow(object):
         self.label_warehouse = QLabel(self.frame_task)
         self.label_warehouse.setGeometry(QRect(20, 200, 54, 21))  # 显示文本
         self.label_warehouse.setObjectName("仓库补给")
+        # 功能说明
+        self.label_warehouse_info = self._create_label(70, 204, "开启后，执行仓库补给任务\n"
+                                                                "仓库体力：\n"
+                                                                "    勾选后，领取仓库体力补给\n", self.frame_task)
         # 仓库补给开关选项
         self.checkBox_warehouse = QCheckBox(self.frame_task)
-        self.checkBox_warehouse.setGeometry(QRect(80, 200, 71, 21))
+        self.checkBox_warehouse.setGeometry(QRect(90, 200, 71, 21))
         self.checkBox_warehouse.setObjectName("仓库补给")
-        # 仓库体力补给开关选项
+        # 仓库体力
         self.checkBox_warehouse_physical_strength = QCheckBox(self.frame_task)
         self.checkBox_warehouse_physical_strength.setGeometry(QRect(170, 200, 71, 21))
         self.checkBox_warehouse_physical_strength.setObjectName("仓库体力")
@@ -753,9 +877,17 @@ class Ui_MainWindow(object):
         self.label_bear = QLabel(self.frame_task)
         self.label_bear.setGeometry(QRect(20, 230, 54, 21))  # 显示文本
         self.label_bear.setObjectName("巨熊活动")
+        # 功能说明
+        self.label_bear_info = self._create_label(70, 234, "开启后，执行巨熊活动任务，只发车，不上车\n"
+                                                           "队列开关：\n"
+                                                           "    执行巨熊活动时，选择预设好的第一序列的队伍\n"
+                                                           "巨熊时间：\n"
+                                                           "    设置执行巨熊任务的时间,单位为小时\n"
+                                                           "例：\n"
+                                                           "    巨熊活动开始时间为21:30，巨熊时间填21", self.frame_task)
         # 开关选项
         self.checkBox_bear = QCheckBox(self.frame_task)  # 巨熊活动
-        self.checkBox_bear.setGeometry(QRect(80, 230, 71, 21))
+        self.checkBox_bear.setGeometry(QRect(90, 230, 71, 21))
         self.checkBox_bear.setObjectName("checkBox_bear")
         # 巨熊队列开关选项
         self.checkBox_bear_queue = QCheckBox(self.frame_task)  # 巨熊活动
@@ -774,18 +906,45 @@ class Ui_MainWindow(object):
                                               "background: transparent;\n"
                                               "border: 1px solid rgba(0, 255, 0)"
                                               "}")
-        # 活动雪怪文本
-        self.label_npc = QLabel(self.frame_task)
-        self.label_npc.setGeometry(QRect(20, 260, 54, 21))  # 显示文本
-        self.label_npc.setObjectName("活动雪怪")
+
+        # 采集文本
+        self.label_Collection = QLabel(self.frame_task)
+        self.label_Collection.setGeometry(QRect(20, 260, 54, 21))  # 显示等级文本
+        self.label_Collection.setObjectName("资源采集")
+        # 功能说明
+        self.label_Collection_info = self._create_label(70, 264, "开启后，执行资源采集任务\n"
+                                                                 "采集英雄（默认）：\n"
+                                                                 "    采集队伍出征时时，只上采集英雄\n"
+                                                                 "采集等级：\n"
+                                                                 "    设置采集资源的等级，启动后第一次执行或"
+                                                                 "设置有改动时，会执行重新输入等级操作\n", self.frame_task)
         # 开关选项
-        self.checkBox_npc = QCheckBox(self.frame_task)  # 活动雪怪
-        self.checkBox_npc.setGeometry(QRect(80, 260, 71, 21))
-        self.checkBox_npc.setObjectName("checkBox_npc")
-        # 巨熊队列开关选项
-        self.checkBox_heroic_mission = QCheckBox(self.frame_task)  # 英雄使命
-        self.checkBox_heroic_mission.setGeometry(QRect(170, 260, 71, 21))
-        self.checkBox_heroic_mission.setObjectName("英雄使命")
+        self.checkBox_Collection = QCheckBox(self.frame_task)  # 采集资源
+        self.checkBox_Collection.setGeometry(QRect(90, 260, 71, 21))
+        self.checkBox_Collection.setObjectName("checkBox_Collection")
+
+        # 采集英雄选项
+        self.checkBox_Collection_hero = QCheckBox(self.frame_task)
+        self.checkBox_Collection_hero.setGeometry(QRect(170, 260, 71, 21))
+        self.checkBox_Collection_hero.setObjectName("采集英雄")
+        self.checkBox_Collection_hero.setVisible(False)
+        # 采集平均兵力选项
+        # self.checkBox_ty_caiji_average = QCheckBox(self.frame_task)
+        # self.checkBox_ty_caiji_average.setGeometry(QRect(200, 53, 71, 21))
+        # self.checkBox_ty_caiji_average.setObjectName("平均兵力")
+        # 采集等级文本
+        self.label_Collection_lv = QLabel(self.frame_task)
+        self.label_Collection_lv.setGeometry(QRect(350, 260, 54, 21))  # 显示等级文本
+        self.label_Collection_lv.setObjectName("label_4")
+        # self.label_4.setVisible(False)
+        # 采集等级输入
+        self.lineEdit_Collection = QLineEdit(self.frame_task)
+        self.lineEdit_Collection.setGeometry(QRect(400, 260, 31, 21))  # 显示等级输入框
+        self.lineEdit_Collection.setObjectName("lineEdit_3")
+        self.lineEdit_Collection.setStyleSheet("QLineEdit {\n"
+                                               "background: transparent;\n"
+                                               "border: 1px solid rgba(0, 255, 0)"
+                                               "}")
 
         # 建筑升级文本
         self.label_build = QLabel(self.frame_task)
@@ -800,101 +959,164 @@ class Ui_MainWindow(object):
         # 治疗士兵文本
         self.label_treatment = QLabel(self.frame_task)
         self.label_treatment.setGeometry(QRect(20, 320, 54, 21))  # 显示文本
-        self.label_treatment.setObjectName("XXXX")
+        self.label_treatment.setObjectName("治疗士兵")
+        # 功能说明
+        self.label_treatment_info = self._create_label(70, 324, "开启后，执行治疗士兵任务\n"
+                                                                "治疗数量（待做）：\n"
+                                                                "    输入单词治疗士兵的数量", self.frame_task)
         # 开关选项
         self.checkBox_treatment = QCheckBox(self.frame_task)  # 治疗士兵
-        self.checkBox_treatment.setGeometry(QRect(80, 320, 71, 21))
+        self.checkBox_treatment.setGeometry(QRect(90, 320, 71, 21))
         self.checkBox_treatment.setObjectName("checkBox_treatment")
-
 
         # 联盟捐赠文本
         self.label_donate = QLabel(self.frame_task)
         self.label_donate.setGeometry(QRect(170, 320, 54, 21))  # 显示文本
         self.label_donate.setObjectName("XXXX")
+        # 功能说明
+        self.label_donate_info = self._create_label(220, 324, "开启后，执行联盟捐赠任务\n", self.frame_task)
         # 开关选项
         self.checkBox_donate = QCheckBox(self.frame_task)  # 联盟捐赠
-        self.checkBox_donate.setGeometry(QRect(230, 320, 71, 21))
+        self.checkBox_donate.setGeometry(QRect(240, 320, 71, 21))
         self.checkBox_donate.setObjectName("checkBox_donate")
 
         # 英雄招募文本
         self.label_recruit = QLabel(self.frame_task)
         self.label_recruit.setGeometry(QRect(320, 320, 54, 21))  # 显示文本
         self.label_recruit.setObjectName("XXXX")
+        # 功能说明
+        self.label_recruit_info = self._create_label(370, 324, "开启后，执行英雄招募任务\n", self.frame_task)
         # 开关选项
         self.checkBox_recruit = QCheckBox(self.frame_task)  # 英雄招募
-        self.checkBox_recruit.setGeometry(QRect(380, 320, 71, 21))
+        self.checkBox_recruit.setGeometry(QRect(390, 320, 71, 21))
         self.checkBox_recruit.setObjectName("checkBox_collision")
         # 炼金实验室文本
         self.label_alchemical_Laboratory = QLabel(self.frame_task)
         self.label_alchemical_Laboratory.setGeometry(QRect(20, 350, 65, 21))  # 显示文本
         self.label_alchemical_Laboratory.setObjectName("XXXX")
+        # 功能说明
+        self.label_alchemical_Laboratory_info = self._create_label(70, 354, "开启后，执行领取炼金实验室火晶任务\n", self.frame_task)
         # 开关选项
         self.checkBox_alchemical_Laboratory = QCheckBox(self.frame_task)  # 炼金实验室
-        self.checkBox_alchemical_Laboratory.setGeometry(QRect(80, 350, 71, 21))
+        self.checkBox_alchemical_Laboratory.setGeometry(QRect(90, 350, 71, 21))
         self.checkBox_alchemical_Laboratory.setObjectName("checkBox_collision")
 
         # 攻击检测文本
         self.label_collision = QLabel(self.frame_task)
         self.label_collision.setGeometry(QRect(170, 350, 54, 21))  # 显示文本
         self.label_collision.setObjectName("XXXX")
+        # 功能说明
+        self.label_collision_info = self._create_label(220, 354, "开启后，执行攻击检测任务\n"
+                                                                 "掏炉子：\n"
+                                                                 "    开启免费的盾\n"
+                                                                 "撞矿：\n"
+                                                                 "    主动撤回被撞的矿\n"
+                                                                 "ps:检测有延迟，活动期间或被针对时看运气", self.frame_task)
         # 开关选项
         self.checkBox_collision = QCheckBox(self.frame_task)  # 攻击检测
-        self.checkBox_collision.setGeometry(QRect(230, 350, 71, 21))
+        self.checkBox_collision.setGeometry(QRect(240, 350, 71, 21))
         self.checkBox_collision.setObjectName("checkBox_collision")
 
         # 邮件领取文本
         self.label_mail = QLabel(self.frame_task)
         self.label_mail.setGeometry(QRect(320, 350, 54, 21))  # 显示文本
         self.label_mail.setObjectName("XXXX")
+        # 功能说明
+        self.label_mail_info = self._create_label(370, 354, "开启后，执行邮件（联盟，系统，报告）领取任务\n", self.frame_task)
         # 开关选项
         self.checkBox_mail = QCheckBox(self.frame_task)  # 邮件领取
-        self.checkBox_mail.setGeometry(QRect(380, 350, 71, 21))
+        self.checkBox_mail.setGeometry(QRect(390, 350, 71, 21))
         self.checkBox_mail.setObjectName("checkBox_mail")
 
         # 联盟宝箱文本
         self.label_Treasure_Chest = QLabel(self.frame_task)
         self.label_Treasure_Chest.setGeometry(QRect(20, 380, 54, 21))  # 显示文本
         self.label_Treasure_Chest.setObjectName("XXXX")
+        # 功能说明
+        self.label_Treasure_Chest_info = self._create_label(70, 384, "开启后，执行领取联盟宝箱任务\n"
+                                                                     "ps：盟友赠礼需有一键领取才可领取", self.frame_task)
         # 开关选项
         self.checkBox_Treasure_Chest = QCheckBox(self.frame_task)  # 联盟宝箱
-        self.checkBox_Treasure_Chest.setGeometry(QRect(80, 380, 71, 21))
+        self.checkBox_Treasure_Chest.setGeometry(QRect(90, 380, 71, 21))
         self.checkBox_Treasure_Chest.setObjectName("checkBox_Treasure_Chest")
 
         # 探险奖励文本
         self.label_adventure = QLabel(self.frame_task)
         self.label_adventure.setGeometry(QRect(170, 380, 54, 21))  # 显示文本
         self.label_adventure.setObjectName("XXXX")
+        # 功能说明
+        self.label_adventure_info = self._create_label(220, 384, "开启后，执行领取探险奖励任务\n", self.frame_task)
         # 开关选项
         self.checkBox_adventure = QCheckBox(self.frame_task)  # 探险奖励
-        self.checkBox_adventure.setGeometry(QRect(230, 380, 71, 21))
+        self.checkBox_adventure.setGeometry(QRect(240, 380, 71, 21))
         self.checkBox_adventure.setObjectName("checkBox_adventure")
 
         # 每日任务文本
         self.label_daily_task = QLabel(self.frame_task)
         self.label_daily_task.setGeometry(QRect(320, 380, 54, 21))  # 显示文本
         self.label_daily_task.setObjectName("XXXX")
+        # 功能说明
+        self.label_daily_task_info = self._create_label(370, 384, "开启后，执行领取每日任务奖励任务\n", self.frame_task)
         # 开关选项
         self.checkBox_daily_task = QCheckBox(self.frame_task)  # 每日任务
-        self.checkBox_daily_task.setGeometry(QRect(380, 380, 71, 21))
+        self.checkBox_daily_task.setGeometry(QRect(390, 380, 71, 21))
         self.checkBox_daily_task.setObjectName("checkBox_adventure")
 
         # 生命之树文本
         self.label_tree_of_life = QLabel(self.frame_task)
         self.label_tree_of_life.setGeometry(QRect(20, 410, 54, 21))  # 显示文本
         self.label_tree_of_life.setObjectName("XXXX")
+        # 功能说明
+        self.label_tree_of_life_info = self._create_label(70, 414, "开启后，执行领取生命之树任务\n"
+                                                                   "ps：只领取树的奖励且奖励满了", self.frame_task)
         # 开关选项
         self.checkBox_tree_of_life = QCheckBox(self.frame_task)  # 生命之树
-        self.checkBox_tree_of_life.setGeometry(QRect(80, 410, 71, 21))
+        self.checkBox_tree_of_life.setGeometry(QRect(90, 410, 71, 21))
         self.checkBox_tree_of_life.setObjectName("checkBox_adventure")
 
         # 晨曦回礼文本
         self.label_morning_light_returns_gift = QLabel(self.frame_task)
         self.label_morning_light_returns_gift.setGeometry(QRect(170, 410, 54, 21))  # 显示文本
         self.label_morning_light_returns_gift.setObjectName("XXXX")
+        # 功能说明
+        self.label_morning_light_returns_gift_info = self._create_label(220, 414, "开启后，执行领取晨曦回礼任务\n"
+                                                                                  "ps：在世界领取，不会进入海岛领取", self.frame_task)
         # 开关选项
         self.checkBox_morning_light_returns_gift = QCheckBox(self.frame_task)  # 晨曦回礼
-        self.checkBox_morning_light_returns_gift.setGeometry(QRect(230, 410, 71, 21))
+        self.checkBox_morning_light_returns_gift.setGeometry(QRect(240, 410, 71, 21))
         self.checkBox_morning_light_returns_gift.setObjectName("checkBox_adventure")
+        # 全选
+        self.select_all = QPushButton(self.frame_task)
+        self.select_all.setGeometry(QRect(140, 440, 75, 23))
+        self.select_all.setFlat(True)
+        self.select_all.setObjectName("select_all")
+        self.select_all.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
+                                      "}"
+
+                                      "QPushButton:hover {\n"
+                                      "background-color: rgba(0, 0, 0, 15); /* 鼠标悬停时的背景透明度 */\n"
+                                      "}\n"
+                                      "QPushButton:pressed {\n"
+                                      "background-color: rgba(0, 0, 0, 80); /* 按钮按下时的背景透明度 */\n"
+                                      "}\n")
+        # 功能说明
+        self.label_select_all_info = self._create_label(220, 444, "全选：\n"
+                                                                  "    选中所有任务选项，功能选项不影响\n"
+                                                                  "取消全选：\n"
+                                                                  "    取消选中所有任务选项，功能选项不影响", self.frame_task)
+        # 取消全选
+        self.select_unall = QPushButton(self.frame_task)
+        self.select_unall.setGeometry(QRect(240, 440, 75, 23))
+        self.select_unall.setFlat(True)
+        self.select_unall.setObjectName("select_unall")
+        self.select_unall.setStyleSheet("QPushButton {\n""border: 1px solid rgb(0,255,0); /* 边框样式 */\n"
+                                        "}"
+                                        "QPushButton:hover {\n"
+                                        "background-color: rgba(0, 0, 0, 15); /* 编辑状态下的背景透明度 */\n"
+                                        "}\n"
+                                        "QPushButton:pressed {\n"
+                                        "background-color: rgba(0, 0, 0, 80); /* 编辑状态下的背景透明度 */\n"
+                                        "}\n")
 
         # 单项内容
         '''
@@ -1159,6 +1381,55 @@ class Ui_MainWindow(object):
         self.textSignal.connect(insert_text)  # type: ignore
         QMetaObject.connectSlotsByName(MainWindow)
 
+    def _create_label(self, x, y, click_text, parent=None):
+        """
+        创建并初始化一个带图标的标签，设置悬停提示和鼠标事件。
+
+        :param pixmap: 图标对应的 QPixmap 对象
+        :param x: 标签的 x 坐标
+        :param y: 标签的 y 坐标
+        :param hover_text: 悬停提示文本 click_text
+        :param click_text: 点击提示文本
+        :return: 初始化好的 QLabel 对象
+        """
+        # 创建带图标的标签
+        icon = QIcon('icon/wenhao.png')
+        pixmap = icon.pixmap(14, 14)  # 将 QIcon 转换为 QPixmap
+
+        # 创建圆角矩形遮罩
+        rounded = QPixmap(14, 14)
+        rounded.fill(Qt.transparent)
+
+        painter = QPainter(rounded)
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        # 创建圆角矩形路径
+        path = QPainterPath()
+        path.addRoundedRect(0, 0, 14, 14, 7, 7)
+        painter.setClipPath(path)
+
+        # 绘制图标
+        painter.drawPixmap(0, 0, pixmap)
+        painter.end()
+
+        # 创建标签
+        label = QLabel(parent)
+        label.setPixmap(rounded)
+        label.setGeometry(QRect(x, y, 14, 14))
+
+        # 设置悬停提示
+        label.setToolTip(click_text)
+        label.setToolTipDuration(15000)  # 提示显示5秒
+
+        def handle_click(event):
+            if event.button() == Qt.LeftButton:
+                QToolTip.showText(event.globalPos(), click_text, label)
+
+        label.mousePressEvent = handle_click
+        label.mouseMoveEvent = handle_click
+
+        return label
+
     def set_font(self):  # 界面兼容设置，设置界面文本大小，保证不同分辨率情况下显示正常
         font = QFont("Arial", 7)
         # font.setPointSize(10)
@@ -1275,8 +1546,8 @@ class Ui_MainWindow(object):
                                                        "margin-bottom:5px; \">注意事项：①模拟器分辨率：手机（1080*1920）____②游戏设置：画质高级，关闭雪花和昼夜</p>"
                                                        "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px\" >③请停止执行任务后再关闭脚本____④请等待程序停止后再设置相关参数____⑤设置相关参数后点击保存参数并请重新开始执行任务</p></font>"))
         self.save_simulator.setText(_translate("MainWindow", "保存"))
-        self.select_address.setText(_translate("MainWindow", "模拟器安装路径："))
-        self.select_ip_address.setText(_translate("MainWindow", "模拟器IP地址："))
+        self.select_address.setText(_translate("MainWindow", "模拟器安装路径"))
+        self.select_ip_address.setText(_translate("MainWindow", "模拟器IP地址"))
         self.start_simulator.setText(_translate("MainWindow", "启动模拟器"))
         self.connect_simulator.setText(_translate("MainWindow", "连接模拟器"))
         self.start_game.setText(_translate("MainWindow", "启动游戏"))
@@ -1287,66 +1558,66 @@ class Ui_MainWindow(object):
         self.checkBox_pet_Unlock.setText(_translate("MainWindow", "增益已解锁"))
         self.ty_set.setText(_translate("MainWindow", "保存参数"))
         self.ty_title.setText(_translate("MainWindow", "任务选项"))
-        self.label_help.setText(_translate("MainWindow", "联盟互助："))
+        self.label_help.setText(_translate("MainWindow", "联盟互助"))
         self.checkBox_help.setText(_translate("MainWindow", "启用"))
         self.checkBox_Random_time.setText(_translate("MainWindow", "随机时间"))
-        self.label_XG.setText(_translate("MainWindow", "世界野怪："))
+        self.label_XG.setText(_translate("MainWindow", "世界野怪"))
         self.checkBox_XG.setText(_translate("MainWindow", "启用"))
         self.checkBox_XG_average.setText(_translate("MainWindow", "平均兵力"))
         self.label_XG_lv.setText(_translate("MainWindow", "等级设置:"))
-        self.label_WM.setText(_translate("MainWindow", "冰原巨兽："))
+        self.label_WM.setText(_translate("MainWindow", "冰原巨兽"))
         self.checkBox_WM.setText(_translate("MainWindow", "启用"))
         self.checkBox_WM_simple.setText(_translate("MainWindow", "单兵集结"))
         self.checkBox_WM_average.setText(_translate("MainWindow", "巨兽队列"))
         self.label_WM_lv.setText(_translate("MainWindow", "等级设置:"))
-        self.label_npc.setText(_translate("MainWindow", "活动雪怪："))
+        self.label_npc.setText(_translate("MainWindow", "活动雪怪"))
         self.checkBox_npc.setText(_translate("MainWindow", "启用"))
         self.checkBox_heroic_mission.setText(_translate("MainWindow", "英雄使命"))
-        self.label_Production.setText(_translate("MainWindow", "训练士兵："))
+        self.label_Production.setText(_translate("MainWindow", "训练士兵"))
         self.checkBox_Production.setText(_translate("MainWindow", "启用"))
         self.checkBox_jinshen.setText(_translate("MainWindow", "优先晋升"))
         self.checkBox_maxed_barracks.setText(_translate("MainWindow", "满级兵营"))
-        self.label_adventure.setText(_translate("MainWindow", "探险奖励："))
+        self.label_adventure.setText(_translate("MainWindow", "探险奖励"))
         self.checkBox_adventure.setText(_translate("MainWindow", "启用"))
-        self.label_daily_task.setText(_translate("MainWindow", "每日任务："))
+        self.label_daily_task.setText(_translate("MainWindow", "每日任务"))
         self.checkBox_daily_task.setText(_translate("MainWindow", "启用"))
-        self.label_tree_of_life.setText(_translate("MainWindow", "生命之树："))
+        self.label_tree_of_life.setText(_translate("MainWindow", "生命之树"))
         self.checkBox_tree_of_life.setText(_translate("MainWindow", "启用"))
-        self.label_morning_light_returns_gift.setText(_translate("MainWindow", "晨曦回礼："))
+        self.label_morning_light_returns_gift.setText(_translate("MainWindow", "晨曦回礼"))
         self.checkBox_morning_light_returns_gift.setText(_translate("MainWindow", "启用"))
-        self.label_treatment.setText(_translate("MainWindow", "治疗士兵："))
+        self.label_treatment.setText(_translate("MainWindow", "治疗士兵"))
         self.checkBox_treatment.setText(_translate("MainWindow", "启用"))
-        self.label_build.setText(_translate("MainWindow", "建筑升级："))
+        self.label_build.setText(_translate("MainWindow", "建筑升级"))
         self.checkBox_build.setText(_translate("MainWindow", "启用"))
-        self.label_Collection.setText(_translate("MainWindow", "采集资源："))
+        self.label_Collection.setText(_translate("MainWindow", "采集资源"))
         self.checkBox_Collection.setText(_translate("MainWindow", "启用"))
         self.checkBox_Collection_hero.setText(_translate("MainWindow", "采集英雄"))
         # self.checkBox_ty_caiji_average.setText(_translate("MainWindow", "平均兵力"))
         self.label_Collection_lv.setText(_translate("MainWindow", "等级设置:"))
-        self.label_bear.setText(_translate("MainWindow", "巨熊活动："))
+        self.label_bear.setText(_translate("MainWindow", "巨熊活动"))
         self.checkBox_bear.setText(_translate("MainWindow", "启用"))
         self.checkBox_bear_queue.setText(_translate("MainWindow", "巨熊队列"))
-        self.label_bear_time.setText(_translate("MainWindow", "时间/时："))
+        self.label_bear_time.setText(_translate("MainWindow", "时间/时"))
         self.checkBox_heroic_mission.setText(_translate("MainWindow", "英雄使命"))
-        self.label_intelligence.setText(_translate("MainWindow", "情报灯塔："))
+        self.label_intelligence.setText(_translate("MainWindow", "情报灯塔"))
         self.checkBox_intelligence.setText(_translate("MainWindow", "启用"))
         self.checkBox_intelligence_version.setText(_translate("MainWindow", "火晶版本"))
         self.checkBox_intelligence_high_quality.setText(_translate("MainWindow", "金紫品质"))
         self.checkBox_intelligence_number.setText(_translate("MainWindow", "十次情报"))
         self.checkBox_intelligence_offer_a_reward.setText(_translate("MainWindow", "悬赏情报"))
-        self.label_donate.setText(_translate("MainWindow", "联盟捐赠："))
+        self.label_donate.setText(_translate("MainWindow", "联盟捐赠"))
         self.checkBox_donate.setText(_translate("MainWindow", "启用"))
-        self.label_recruit.setText(_translate("MainWindow", "英雄招募："))
+        self.label_recruit.setText(_translate("MainWindow", "英雄招募"))
         self.checkBox_recruit.setText(_translate("MainWindow", "启用"))
-        self.label_alchemical_Laboratory.setText(_translate("MainWindow", "炼金实验："))
+        self.label_alchemical_Laboratory.setText(_translate("MainWindow", "炼金实验"))
         self.checkBox_alchemical_Laboratory.setText(_translate("MainWindow", "启用"))
-        self.label_collision.setText(_translate("MainWindow", "攻击检测："))
+        self.label_collision.setText(_translate("MainWindow", "攻击检测"))
         self.checkBox_collision.setText(_translate("MainWindow", "启用"))
-        self.label_mail.setText(_translate("MainWindow", "邮件领取："))
+        self.label_mail.setText(_translate("MainWindow", "邮件领取"))
         self.checkBox_mail.setText(_translate("MainWindow", "启用"))
-        self.label_Treasure_Chest.setText(_translate("MainWindow", "联盟宝箱："))
+        self.label_Treasure_Chest.setText(_translate("MainWindow", "联盟宝箱"))
         self.checkBox_Treasure_Chest.setText(_translate("MainWindow", "启用"))
-        self.label_warehouse.setText(_translate("MainWindow", "仓库补给："))
+        self.label_warehouse.setText(_translate("MainWindow", "仓库补给"))
         self.checkBox_warehouse.setText(_translate("MainWindow", "启用"))
         self.checkBox_warehouse_physical_strength.setText(_translate("MainWindow", "仓库体力"))
         self.select_all.setText(_translate("MainWindow", "全选"))
@@ -1895,19 +2166,16 @@ class Ui_MainWindow(object):
 # 确保基类正确，这里使用了正确的基类
 class MyApp(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
-        super(MyApp, self).__init__(parent)
+        super().__init__(parent)
         self.setupUi(self)
         self.load_settings()  # type: ignore # 读取所有设置
-        self.session = requests.Session()  # 使用会话保持连接
-        # 2.3.0版本取消单项功能区
-        # self.read_simple_set()  # 读取单项设置
-        # self.read_ty_setting()  # 读取通用设置  #self.updateLineEdit()  # 读取模拟器设置  # 重定向print函数到text_edit  #sys.stdout = RedirectText(self.textEdit_out)  #sys.stderr = RedirectText(self.textEdit_out)
+        self.session = requests.Session()  # 使用会话保持连接  # 2.3.0版本取消单项功能区  # self.read_simple_set()  # 读取单项设置  # self.read_ty_setting()  # 读取通用设置  #self.updateLineEdit()  # 读取模拟器设置  # 重定向print函数到text_edit  #sys.stdout = RedirectText(self.textEdit_out)  #sys.stderr = RedirectText(self.textEdit_out)
 
 
 if __name__ == '__main__':
     client = ClientManager(network_address)
     client1 = ClientManager(network_address1)
-    if client.register():
+    '''if client.register():
         print("注册成功")
         version = client.check_version()[1]
         if version:
@@ -1916,7 +2184,7 @@ if __name__ == '__main__':
         print("注册成功")
         version = client1.check_version()[1]
         if version:
-            print(f"服务器版本: {version}")
+            print(f"服务器版本: {version}")'''
     # 解决不同电脑不同缩放比例问题
     QGuiApplication.setAttribute(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)  # type: ignore
     app = QApplication(sys.argv)

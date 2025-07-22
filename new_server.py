@@ -1,7 +1,7 @@
 ﻿from http.server import HTTPServer, BaseHTTPRequestHandler
 from socketserver import ThreadingMixIn
 import json
-from datetime import datetime
+from datetime import datetime, date
 from collections import defaultdict
 import re
 
@@ -13,6 +13,7 @@ class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
 class RequestHandler(BaseHTTPRequestHandler):
     daily_users = set()
     stats = defaultdict(int)
+    last_save_date = date.today()
 
     # 在RequestHandler类中添加配置热更新支持
     @classmethod
@@ -23,7 +24,7 @@ class RequestHandler(BaseHTTPRequestHandler):
     @classmethod
     def get_server_config(cls):
         """从version.txt读取服务器配置"""
-        config = {"version": "0.0.0", "port": 8152}
+        config = {"version": "0.0.0", "port": 8080}
         try:
             with open('version.txt', 'r', encoding='utf-8-sig') as f:
                 content = f.read()
@@ -40,13 +41,22 @@ class RequestHandler(BaseHTTPRequestHandler):
             pass
         return config
 
+    @classmethod
+    def save_daily_stats(cls):
+        """保存当日统计并重置计数器"""
+        today = date.today().isoformat()
+        with open('version.txt', 'a', encoding='utf-8') as f:
+            f.write(f"\n# {today} 日活用户: {len(cls.daily_users)}\n")
+        cls.daily_users.clear()
+        cls.last_save_date = date.today()
+
     @property
     def VERSION(self):
         return self.get_server_config()["version"]
 
-    def log_message(self, format, *args):
+    '''def log_message(self, format, *args):
         """重写此方法以禁止默认的日志输出"""
-        pass
+        pass'''
 
     def _set_headers(self, status=200):
         self.send_response(status)
@@ -54,6 +64,10 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
+        # 检查是否需要保存统计
+        if date.today() != self.last_save_date:
+            self.save_daily_stats()
+
         if self.path == '/version':
             self._set_headers()
             self.wfile.write(json.dumps({
@@ -63,6 +77,9 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_error(404, "Not Found")
 
     def do_POST(self):
+        # 检查是否需要保存统计
+        if date.today() != self.last_save_date:
+            self.save_daily_stats()
         if 'Content-Length' not in self.headers:
             self.send_error(411, "Length Required")
             return
@@ -81,9 +98,6 @@ class RequestHandler(BaseHTTPRequestHandler):
         except json.JSONDecodeError:
             self.send_error(400, "Invalid JSON format")
             return
-        #content_length = int(self.headers['Content-Length'])
-        #post_data = self.rfile.read(content_length)
-        #json_data = json.loads(post_data.decode())
         if self.path == '/register':
             client_ip = json_data.get('client_address')  # 从请求体中提取client_address
             today = datetime.now().strftime('%Y-%m-%d')

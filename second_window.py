@@ -2,8 +2,8 @@ from Window_UI import QtCore, QtGui, QtWidgets, QMainWindow
 from PyQt5.QtWidgets import QApplication, QTextEdit
 from PyQt5.QtCore import QTimer
 
-
 '''-------------------------------------更新公告-----------------------------------------------'''
+
 
 class Ui_NoticeWindow(object):
     def setupUi(self, noticewindow):
@@ -162,9 +162,17 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    6.优化-输入逻辑</p>\n"
                                                          "<p style=\" margin-bottom:0px;\">V2.3.9</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.bug修复-模拟器安装地址/IP地址修改后不生效</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.优化-采铁识别逻辑</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.优化-采集结束逻辑</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.新增-活动雪怪新增英雄使命选项</p>\n"
+                                                         "<p style=\" margin-bottom:0px;\">V2.3.10</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.优化采集：取消采集英雄选项，默认只有采集英雄出征，以识别采集英雄判断是否有队伍出征</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.优化训练：取消满级兵营选项，脚本识别是否满级兵营</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.新增-功能旁增加功能介绍</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"))
         self.textEdit.setReadOnly(True)  # 设置文本不可编辑状态
+
 
 class noticelog(QMainWindow, Ui_NoticeWindow):
     def __init__(self, parent=None):

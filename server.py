@@ -1,62 +1,58 @@
-import http.server
-from datetime import datetime
-import os
-import logging
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QToolTip
+from PyQt5.QtGui import QIcon, QMouseEvent, QPixmap  # 导入 QPixmap
+import sys
 
-#logging.disable(logging.CRITICAL)
-#logging.getLogger('HTTP/1.1').setLevel(logging.ERROR)
 
-# 用于存储POST请求数据的字典
-post_requests = {}
-#定义文件目录
-DIRECTORY = 'E:\测试文件\测试工具\无尽冬日脚本（电脑版）'
-# 自定义的HTTP请求处理类
-class SimpleHTTPRequestHandlerWithPost(http.server.SimpleHTTPRequestHandler):
-    global post_requests
+class ToolTipDemo(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
 
-    def translate_path(self, path):
-        # 确保返回的路径在指定的目录内
-        path = os.path.normpath(os.path.join(DIRECTORY, path.lstrip('/')))
-        return path
-    # 重写do_POST方法以保存POST请求数据到字典
-    def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
-        post_data = self.rfile.read(content_length)
-        if self.path == '/register':
-            client_ip = json_data.get('client_address')  # 从请求体中提取client_address
-            today = datetime.now().strftime('%Y-%m-%d')
+    def initUI(self):
+        self.setWindowTitle('ToolTip Demo')
+        self.setGeometry(100, 100, 300, 200)
 
-            if client_ip not in self.daily_users:
-                self.daily_users.add(client_ip)
-                self.stats[today] = len(self.daily_users)
-                print(f"[{datetime.now()}] 新连接: {client_ip} 今日活跃: {self.stats[today]}")
+        # 创建带图标的标签
+        icon = QIcon('icon/wenhao.png')
+        pixmap = icon.pixmap(15, 15)  # 将 QIcon 转换为 QPixmap
 
-            self._set_headers()
-            self.wfile.write(json.dumps({
-                "status": "success", "active_users": self.stats[today]
-            }).encode())
-        else:
-            self.send_error(404, "Not Found")
-        # 返回200 OK响应
-        self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
-        #self.wfile.write(b'{"status":"success", "message":"POST request received"}')
-def run(server_class=http.server.HTTPServer, handler_class=SimpleHTTPRequestHandlerWithPost):
-    global post_requests
-    server_address = ('', 8152)  # 服务器监听在0.0.0.0的8000端口
-    httpd = server_class(server_address, handler_class)
-    print('HTTP server running on port 8152')
-    now = datetime.now()
-    if now.hour == 0 and now.minute == 0 and now.second == 0:
-        # 初始化字典
-        post_requests = {}
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        pass
-    httpd.server_close()
-    print('Stopping server')
+        # 创建并初始化标签
+        self.label = self._create_label(pixmap, 50, 50, "这是个提示文本", "点击提示内容\n四大行较好的")
+        self.label_1 = self._create_label(pixmap, 150, 50, "这是个提示文本", "这是第二条\n四大行较好的")
+
+    def _create_label(self, pixmap, x, y, hover_text, click_text):
+        """
+        创建并初始化一个带图标的标签，设置悬停提示和鼠标事件。
+
+        :param pixmap: 图标对应的 QPixmap 对象
+        :param x: 标签的 x 坐标
+        :param y: 标签的 y 坐标
+        :param hover_text: 悬停提示文本
+        :param click_text: 点击提示文本
+        :return: 初始化好的 QLabel 对象
+        """
+        label = QLabel(self)
+        label.setPixmap(pixmap)
+        label.setGeometry(x, y, 64, 64)
+
+        # 设置悬停提示
+        label.setToolTip(hover_text)
+        label.setToolTipDuration(5000)  # 提示显示5秒
+
+        # 绑定鼠标事件
+        def show_tooltip(event):
+            if event.buttons() == Qt.LeftButton:
+                QToolTip.showText(event.globalPos(), click_text, label)
+            else:
+                QToolTip.hideText()
+
+        label.mousePressEvent = show_tooltip
+        label.mouseMoveEvent = show_tooltip
+
 
 if __name__ == '__main__':
-    run()
+    app = QApplication(sys.argv)
+    ex = ToolTipDemo()
+    ex.show()
+    sys.exit(app.exec_())
