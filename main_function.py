@@ -510,7 +510,8 @@ def Brush_WM(self):
             elif self.checkBox_WM_simple.isChecked():  # 单兵集结
                 print_space('点击全部撤回')
                 touch(Template(r"icon\all_withdraw.png", record_pos=(-0.406, 0.781), resolution=(1080, 1920)))  # 点击全部撤回
-                if exists(Template(r"icon/tpl1753177913410.png", record_pos=(-0.328, -0.532), resolution=(1080, 1920))):  # 是否增益已解锁，解锁增益功能后会导致Y坐标多100
+                if exists(Template(r"icon/tpl1753177913410.png", record_pos=(-0.328, -0.532), resolution=(
+                        1080, 1920))):  # 是否增益已解锁，解锁增益功能后会导致Y坐标多100
                     touch([711, 990])  # 点击有增益的出征界面盾兵数量输入框
                 else:
                     touch([714, 894])  # 点击无增益的出征界面盾兵数量输入框
@@ -535,12 +536,16 @@ def Collection_buff(self):
     if self.checkBox_Collection_hero.isChecked():  # 采集英雄选项
         print_space('删除英雄')
         # touch([357, 389])  # 点击删除第一个英雄
-        if exists(Template(r"icon/tpl1753177913410.png", record_pos=(-0.328, -0.532), resolution=(1080, 1920))):  # 是否增益已解锁，解锁增益功能后会导致Y坐标多100
+        if exists(Template(r"icon/tpl1753177913410.png", record_pos=(-0.328, -0.532), resolution=(
+                1080, 1920))):  # 是否增益已解锁，解锁增益功能后会导致Y坐标多100
             touch([640, 480])  # 点击删除第二个英雄
             touch([920, 480])  # 点击删除第三个英雄
         else:
             touch([640, 390])  # 点击删除第二个英雄
             touch([920, 390])  # 点击删除第三个英雄
+    print_space('点击出征按钮')
+    touch(Template(r"icon/tpl1721191349776.png", rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
+    print_space('出征成功')  # time.sleep(1)  # touch([2, 812])
 
 
 # 采集出兵
@@ -548,38 +553,44 @@ def gather(self, natural_resources):
     print_space('点击采集按钮')
     touch(Template(r"icon/tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920)))
     if exists(Template(r"icon/tpl1721191349776.png", record_pos=(0.26, 0.798), resolution=(1080, 1920))):  # 有兵力可出征
-        if natural_resources == 'Meat' and exists(Template(r"tpl1753177955265.png", record_pos=(-0.262, -0.336), resolution=(
-                1080, 1920))):  # 肉
-            Collection_buff(self)
-        else:
-            print_space('未找到采集英雄，不执行采集肉资源操作')
-        if natural_resources == 'Wood' and exists(Template(r"tpl1753177979395.png", record_pos=(-0.259, -0.329), resolution=(
-                1080, 1920))):  # 木头
-            Collection_buff(self)
-        else:
-            print_space('未找到采集英雄，不执行采集木头资源操作')
-        if natural_resources == 'Coal' and exists(Template(r"tpl1753178001751.png", record_pos=(-0.259, -0.329), resolution=(
-                1080, 1920))):  # 煤
-            Collection_buff(self)
-        else:
-            print_space('未找到采集英雄，不执行采集煤资源操作')
-        if natural_resources == 'Iron' and exists(Template(r"tpl1753178076304.png", record_pos=(-0.261, -0.327), resolution=(
-                1080, 1920))):  # 铁
-            Collection_buff(self)
-        else:
-            print_space('未找到采集英雄，不执行采集铁资源操作')
-        print_space('点击出征按钮')
-        touch(Template(r"icon/tpl1721191349776.png", rgb=True, record_pos=(0.26, 0.798), resolution=(1080, 1920)))  # 点击出征
-        print_space('出征成功')  # time.sleep(1)  # touch([2, 812])
+        if natural_resources == 'Meat':
+            if exists(Template(r"icon/tpl1753177955265.png", rgb=True, record_pos=(-0.262, -0.336), resolution=(1080, 1920))):  # 肉
+                print_space('找到采集英雄，开始执行采集肉资源操作')
+                Collection_buff(self)
+            else:
+                print_space('未找到采集英雄，不执行采集肉资源操作')
+                keyevent('BACK')
+        if natural_resources == 'Wood':
+            if exists(Template(r"icon/tpl1753177979395.png", rgb=True, record_pos=(-0.259, -0.329), resolution=(1080, 1920))):  # 木头
+                print_space('找到采集英雄，开始执行采集木头资源操作')
+                Collection_buff(self)
+            else:
+                print_space('未找到采集英雄，不执行采集木头资源操作')
+                keyevent('BACK')
+        if natural_resources == 'Coal':
+            if exists(Template(r"icon/tpl1753178001751.png", rgb=True, record_pos=(-0.259, -0.329), resolution=(1080, 1920))):  # 煤
+                print_space('找到采集英雄，开始执行采集煤资源操作')
+                Collection_buff(self)
+            else:
+                print_space('未找到采集英雄，不执行采集煤资源操作')
+                keyevent('BACK')
+        if natural_resources == 'Iron':
+            if exists(Template(r"icon/tpl1753178076304.png", rgb=True, record_pos=(-0.261, -0.327), resolution=(1080, 1920))):  # 铁
+                print_space('找到采集英雄，开始执行采集铁资源操作')
+                Collection_buff(self)
+            else:
+                print_space('未找到采集英雄，不执行采集铁资源操作')
+                keyevent('BACK')
+
     else:  # 判断是否有多余兵力
         print_space('不满足条件，无兵力出征')
 
 
-#exists(Template(r"tpl1753177913410.png", record_pos=(-0.328, -0.532), resolution=(1080, 1920)))战争增益
-#exists(Template(r"tpl1753177955265.png", record_pos=(-0.262, -0.336), resolution=(1080, 1920)))肉
-#exists(Template(r"tpl1753177979395.png", record_pos=(-0.26, -0.331), resolution=(1080, 1920)))木头
-#exists(Template(r"tpl1753178001751.png", record_pos=(-0.259, -0.329), resolution=(1080, 1920)))煤
-#exists(Template(r"tpl1753178076304.png", record_pos=(-0.261, -0.327), resolution=(1080, 1920)))铁
+# exists(Template(r"tpl1753177913410.png", record_pos=(-0.328, -0.532), resolution=(1080, 1920)))战争增益
+# exists(Template(r"tpl1753177955265.png", record_pos=(-0.262, -0.336), resolution=(1080, 1920)))肉
+# exists(Template(r"tpl1753177979395.png", record_pos=(-0.26, -0.331), resolution=(1080, 1920)))木头
+# exists(Template(r"tpl1753178001751.png", record_pos=(-0.259, -0.329), resolution=(1080, 1920)))煤
+# exists(Template(r"tpl1753178076304.png", record_pos=(-0.261, -0.327), resolution=(1080, 1920)))铁
 
 
 # 打怪出兵
@@ -640,7 +651,7 @@ def Meat(self):
     touch([534, 1821])  # 点击搜索
     time.sleep(3)  # 等待1s
     if exists(Template(r"icon\tpl1720675061569.png", rgb=True, record_pos=(0.002, -0.015), resolution=(1080, 1920))):
-        gather(self, Meat)
+        gather(self, 'Meat')
     else:
         print_space('未找到采集按钮，未搜索到生肉资源，结束该任务')
 
@@ -664,7 +675,7 @@ def Wood(self):
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
     if exists(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920))):
-        gather(self, Wood)
+        gather(self, 'Wood')
     else:
         print_space('未找到采集按钮，未搜索到木材资源，结束该任务')
 
@@ -688,7 +699,7 @@ def Coal(self):
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
     if exists(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920))):
-        gather(self, Coal)
+        gather(self, 'Coal')
     else:
         print_space('未找到采集按钮，未搜索到煤矿资源，结束该任务')
 
@@ -712,7 +723,7 @@ def Iron(self):
     touch([534, 1821])  # 点击搜索
     time.sleep(1)  # 等待1s
     if exists(Template(r"icon\tpl1720675061569.png", record_pos=(0.002, -0.015), resolution=(1080, 1920))):
-        gather(self, Iron)
+        gather(self, 'Iron')
     else:
         print_space('未找到采集按钮，未搜索到铁矿资源，结束该任务')
 
@@ -736,23 +747,22 @@ def Collection(self):
     touch([2, 812])  # 点击左侧栏
     time.sleep(1)
     touch([500, 400])
-    if not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.188, -0.127), resolution=(1080, 1920))) and collection_value == 0:
+    if collection_value == 0 and not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.188, -0.127), resolution=(1080, 1920))):
         print_space('无采肉队伍，执行采肉任务')
         time.sleep(1)
         Meat(self)
-        collection_default = 1
-    elif not exists(Template(r"icon\tpl1720766916044.png", threshold=0.73, record_pos=(-0.188, -0.127), resolution=(
-            1080, 1920))) and collection_value == 1:
+    elif collection_value == 1 and not exists(Template(r"icon\tpl1720766916044.png",threshold=0.73, record_pos=(-0.188, -0.127), resolution=(
+            1080, 1920))):
         print_space('无采集木头队伍，执行采木头任务')
         time.sleep(1)
         Wood(self)
-    elif not exists(Template(r"icon\tpl1720766916045.png", threshold=0.65, record_pos=(-0.438, -0.163), resolution=(
-            1080, 1920))) and collection_value == 2:
+    elif collection_value == 2 and not exists(Template(r"icon\tpl1720766916045.png", threshold=0.65, record_pos=(-0.438, -0.163), resolution=(
+            1080, 1920))):
         print_space('无采煤队伍，执行采煤任务')
         time.sleep(1)
         Coal(self)
-    elif not exists(Template(r"icon\tpl1720766916046.png", threshold=0.7, rgb=True, record_pos=(-0.168, -0.088), resolution=(
-            1080, 1920))) and collection_value == 3:
+    elif collection_value == 3 and not exists(Template(r"icon\tpl1720766916046.png", threshold=0.7, rgb=True, record_pos=(-0.168, -0.088), resolution=(
+            1080, 1920))):
         print_space('无采铁队伍，执行采铁任务')
         time.sleep(1)
         Iron(self)
