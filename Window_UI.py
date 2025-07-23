@@ -2015,7 +2015,7 @@ class Ui_MainWindow(object):
 
     @pyqtSlot()
     def select_start_button(self):  # 多选开始按钮
-        self.save_ty_setting()  # type: ignore
+        # self.save_ty_setting()  # type: ignore
         self.select_stop.show()  # type: ignore
         self.select_start.hide()  # type: ignore
         print("程序开始执行...")
@@ -2228,7 +2228,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
 
 if __name__ == '__main__':
     client1 = ClientManager(network_address1)
-    if  client1.register():
+    if client1.register():
         print("注册成功")
         version = client1.check_version()[1]
         if version:

@@ -187,6 +187,7 @@ def train(self):
         touch([910, 1225])  # 点击十级兵
         lv_x_1 = 910  # 设置点击初始x坐标
         lv_y_1 = 10  # 设置初始循环次数
+        time.sleep(1)
         while True:
             # 判断是否有训练按钮
             if exists(Template(r"icon/tpl17217845790633.png", rgb=True, threshold=0.8, record_pos=(0.22, 0.338), resolution=(
@@ -473,7 +474,7 @@ def WM_lv():  # 冰原巨兽等级输入
     # value = settings.value('冰原巨兽等级设置', type=str)
     # print(value)
     time.sleep(1)
-    text(settings.value('冰原巨兽等级设置', 6, type=str))
+    text(settings.value('冰原巨兽等级设置', 7, type=str))
     if exists(Template(r"icon\sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920))):
         print_space('点击确定按钮')
         time.sleep(1)
@@ -584,13 +585,6 @@ def gather(self, natural_resources):
 
     else:  # 判断是否有多余兵力
         print_space('不满足条件，无兵力出征')
-
-
-# exists(Template(r"tpl1753177913410.png", record_pos=(-0.328, -0.532), resolution=(1080, 1920)))战争增益
-# exists(Template(r"tpl1753177955265.png", record_pos=(-0.262, -0.336), resolution=(1080, 1920)))肉
-# exists(Template(r"tpl1753177979395.png", record_pos=(-0.26, -0.331), resolution=(1080, 1920)))木头
-# exists(Template(r"tpl1753178001751.png", record_pos=(-0.259, -0.329), resolution=(1080, 1920)))煤
-# exists(Template(r"tpl1753178076304.png", record_pos=(-0.261, -0.327), resolution=(1080, 1920)))铁
 
 
 # 打怪出兵
