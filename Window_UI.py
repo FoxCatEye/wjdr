@@ -28,8 +28,8 @@ from second_window import *
 
 logging.getLogger('airtest').setLevel(logging.ERROR)
 close_number = 1
-local_version = "2.3.10"  # 当前版本
-network_address = "http://fukesihu.gnway.cc:80"  # 服务器地址1
+local_version = "2.4.0"  # 当前版本
+# network_address = "http://fukesihu.gnway.cc:80"  # 服务器地址1
 network_address1 = "http://fukesihu.iepose.cn"  # 服务器地址2
 
 
@@ -146,7 +146,7 @@ class ClientManager:
         try:
             headers = {'Content-Type': 'application/json'}
             data = {'client_address': self.get_public_ip(), 'timestamp': datetime.now().isoformat()}
-            #response = requests.post("http://fukesihu.gnway.cc:80", data={'key': self.get_public_ip()})
+            # response = requests.post("http://fukesihu.gnway.cc:80", data={'key': self.get_public_ip()})
             response = self.session.post(f"{self.server_url}/register", json=data, headers=headers, timeout=1)
             return response.status_code == 200
         except RequestException as e:
@@ -414,7 +414,7 @@ class Ui_MainWindow(object):
         self.select_ip_address.setGeometry(QRect(20, 40, 90, 21))
         self.select_ip_address.setObjectName("select_text")
         # 功能说明
-        self.label_select_ip_address = self._create_label(97, 44, "连接模拟器需要，由本地地址＋端口号组成，ip错误将无法连接模拟器，无法使用\n"
+        self.label_select_ip_address = self._create_label(107, 44, "连接模拟器需要，由本地地址＋端口号组成，ip错误将无法连接模拟器，无法使用\n"
                                                                   "例：\n"
                                                                   "    雷电地址1：127.0.0.1:5037/emulator-5554\n"
                                                                   "    雷电地址2：127.0.0.1:5037/emulator-5556\n"
@@ -915,6 +915,14 @@ class Ui_MainWindow(object):
         self.label_Collection_info = self._create_label(70, 264, "开启后，执行资源采集任务\n"
                                                                  "采集英雄（默认）：\n"
                                                                  "    采集队伍出征时时，只上采集英雄\n"
+                                                                 "肉：\n"
+                                                                 "    勾选后，采集时会采集肉\n"
+                                                                 "木头：\n"
+                                                                 "    勾选后，采集时会采集木头\n"
+                                                                 "煤：\n"
+                                                                 "    勾选后，采集时会采集煤\n"
+                                                                 "铁：\n"
+                                                                 "    勾选后，采集时会采集铁\n"
                                                                  "采集等级：\n"
                                                                  "    设置采集资源的等级，启动后第一次执行或"
                                                                  "设置有改动时，会执行重新输入等级操作\n", self.frame_task)
@@ -932,6 +940,24 @@ class Ui_MainWindow(object):
         # self.checkBox_ty_caiji_average = QCheckBox(self.frame_task)
         # self.checkBox_ty_caiji_average.setGeometry(QRect(200, 53, 71, 21))
         # self.checkBox_ty_caiji_average.setObjectName("平均兵力")
+        # 采集种类
+        # 肉
+        self.checkBox_Collection_meat = QCheckBox(self.frame_task)
+        self.checkBox_Collection_meat.setGeometry(QRect(170, 260, 71, 21))
+        self.checkBox_Collection_meat.setObjectName("肉")
+        # 木头
+        self.checkBox_Collection_wood = QCheckBox(self.frame_task)
+        self.checkBox_Collection_wood.setGeometry(QRect(210, 260, 71, 21))
+        self.checkBox_Collection_wood.setObjectName("木头")
+        # 煤
+        self.checkBox_Collection_coal = QCheckBox(self.frame_task)
+        self.checkBox_Collection_coal.setGeometry(QRect(250, 260, 71, 21))
+        self.checkBox_Collection_coal.setObjectName("煤")
+        # 铁
+        self.checkBox_Collection_iron = QCheckBox(self.frame_task)
+        self.checkBox_Collection_iron.setGeometry(QRect(290, 260, 71, 21))
+        self.checkBox_Collection_iron.setObjectName("铁")
+
         # 采集等级文本
         self.label_Collection_lv = QLabel(self.frame_task)
         self.label_Collection_lv.setGeometry(QRect(350, 260, 54, 21))  # 显示等级文本
@@ -946,16 +972,6 @@ class Ui_MainWindow(object):
                                                "border: 1px solid rgba(0, 255, 0)"
                                                "}")
 
-        # 建筑升级文本
-        self.label_build = QLabel(self.frame_task)
-        self.label_build.setGeometry(QRect(170, 260, 54, 21))  # 显示文本
-        self.label_build.setObjectName("XXXX")
-        self.label_build.setVisible(False)
-        # 开关选项
-        self.checkBox_build = QCheckBox(self.frame_task)  # 建筑升级
-        self.checkBox_build.setGeometry(QRect(230, 260, 200, 21))
-        self.checkBox_build.setObjectName("checkBox_build")
-        self.checkBox_build.setVisible(False)
         # 治疗士兵文本
         self.label_treatment = QLabel(self.frame_task)
         self.label_treatment.setGeometry(QRect(20, 320, 54, 21))  # 显示文本
@@ -1085,6 +1101,23 @@ class Ui_MainWindow(object):
         self.checkBox_morning_light_returns_gift = QCheckBox(self.frame_task)  # 晨曦回礼
         self.checkBox_morning_light_returns_gift.setGeometry(QRect(240, 410, 71, 21))
         self.checkBox_morning_light_returns_gift.setObjectName("checkBox_adventure")
+
+        # 建筑升级文本
+        self.label_build = QLabel(self.frame_task)
+        self.label_build.setGeometry(QRect(320, 410, 54, 21))  # 显示文本
+        self.label_build.setObjectName("XXXX")
+        # self.label_build.setVisible(False)
+        # 功能说明
+        self.label_build_info = self._create_label(370, 414, "开启后，执行建筑升级任务\n"
+                                                             "ps:\n"
+                                                             "    单纯执行升级任务，不会使用增益\n"
+                                                             "    使用建筑队列1快捷方式找到可升级建筑", self.frame_task)
+        # 开关选项
+        self.checkBox_build = QCheckBox(self.frame_task)  # 建筑升级
+        self.checkBox_build.setGeometry(QRect(390, 410, 200, 21))
+        self.checkBox_build.setObjectName("checkBox_build")
+        # self.checkBox_build.setVisible(False)
+
         # 全选
         self.select_all = QPushButton(self.frame_task)
         self.select_all.setGeometry(QRect(140, 440, 75, 23))
@@ -1278,17 +1311,13 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.label_Version_prompt = QLabel(self.centralwidget)  # 版本提示
         self.label_Version_prompt.setGeometry(QRect(650, 520, 300, 20))
-        clientManager = ClientManager(network_address)
-        return_value = clientManager.check_version()[0]
+        # 服务器检查
         clientManager1 = ClientManager(network_address1)
         return_value1 = clientManager1.check_version()[0]
-        if return_value == 1:
+        if return_value1 == 1:
             self.label_Version_prompt.setVisible(True)
-        elif return_value == 0:
-            if return_value1 == 1:
-                self.label_Version_prompt.setVisible(True)
-            elif return_value1 == 0:
-                self.label_Version_prompt.setVisible(False)
+        elif return_value1 == 0:
+            self.label_Version_prompt.setVisible(False)
         self.label_Version_prompt.setObjectName("label_Version_prompt")
         self.show_UI = QPushButton(self.centralwidget)
         self.show_UI.setGeometry(QRect(190, 520, 51, 23))
@@ -1334,6 +1363,10 @@ class Ui_MainWindow(object):
         self.checkBox_Collection_hero.raise_()
         #self.checkBox_ty_caiji_average.raise_()
         self.label_Collection.raise_()
+        self.checkBox_Collection_meat.raise_()
+        self.checkBox_Collection_wood.raise_()
+        self.checkBox_Collection_coal.raise_()
+        self.checkBox_Collection_iron.raise_()
         self.checkBox_jinshen.raise_()
         self.checkBox_maxed_barracks.raise_()
         # self.frame_4.raise_()
@@ -1467,6 +1500,10 @@ class Ui_MainWindow(object):
         self.label_build.setFont(font)
         self.checkBox_build.setFont(font)
         self.label_Collection.setFont(font)
+        self.checkBox_Collection_meat.setFont(font)
+        self.checkBox_Collection_wood.setFont(font)
+        self.checkBox_Collection_coal.setFont(font)
+        self.checkBox_Collection_iron.setFont(font)
         self.label_Collection_lv.setFont(font)
         self.checkBox_Collection.setFont(font)
         self.label_bear.setFont(font)
@@ -1591,6 +1628,10 @@ class Ui_MainWindow(object):
         self.checkBox_build.setText(_translate("MainWindow", "启用"))
         self.label_Collection.setText(_translate("MainWindow", "采集资源"))
         self.checkBox_Collection.setText(_translate("MainWindow", "启用"))
+        self.checkBox_Collection_meat.setText(_translate("MainWindow", "肉"))
+        self.checkBox_Collection_wood.setText(_translate("MainWindow", "木"))
+        self.checkBox_Collection_coal.setText(_translate("MainWindow", "煤"))
+        self.checkBox_Collection_iron.setText(_translate("MainWindow", "铁"))
         self.checkBox_Collection_hero.setText(_translate("MainWindow", "采集英雄"))
         # self.checkBox_ty_caiji_average.setText(_translate("MainWindow", "平均兵力"))
         self.label_Collection_lv.setText(_translate("MainWindow", "等级设置:"))
@@ -1720,9 +1761,13 @@ class Ui_MainWindow(object):
         option_jinshen = settings.value('优先晋升', 1, type=bool)
         option_maxed_barracks = settings.value('满级兵营', 0, type=bool)
         option_WM = settings.value('冰原巨兽等级设置', 7, type=str)
+        option_meat = settings.value('采集肉', 1, type=bool)
+        option_wood = settings.value('采集木', 1, type=bool)
+        option_coal = settings.value('采集煤', 1, type=bool)
+        option_iron = settings.value('采集铁', 1, type=bool)
+        option_ty_un = settings.value('采集英雄', 1, type=bool)
         option_lv = settings.value('采集资源等级设置', 7, type=str)
         option_XG_lv = settings.value('世界野怪等级设置', 20, type=str)
-        option_ty_un = settings.value('采集英雄', 1, type=bool)
         option_ty_sim = settings.value('单兵集结', 0, type=bool)
         option_ty_WM_average = settings.value('冰原巨兽平均兵力', 0, type=bool)
         option_ty_XG_average = settings.value('世界野怪平均兵力', 0, type=bool)
@@ -1750,6 +1795,10 @@ class Ui_MainWindow(object):
         self.lineEdit_Collection.setText(option_lv)
         self.lineEdit_WM.setText(option_WM)
         self.lineEdit_XG.setText(option_XG_lv)
+        self.checkBox_Collection_meat.setChecked(option_meat)
+        self.checkBox_Collection_wood.setChecked(option_wood)
+        self.checkBox_Collection_coal.setChecked(option_coal)
+        self.checkBox_Collection_iron.setChecked(option_iron)
         self.checkBox_Collection_hero.setChecked(option_ty_un)
         self.checkBox_WM_simple.setChecked(option_ty_sim)
         self.checkBox_WM_average.setChecked(option_ty_WM_average)
@@ -1781,6 +1830,10 @@ class Ui_MainWindow(object):
         settings.setValue('冰原巨兽等级设置', option_WM)
         settings.setValue('优先晋升', self.checkBox_jinshen.isChecked())
         settings.setValue('满级兵营', self.checkBox_maxed_barracks.isChecked())
+        settings.setValue('采集肉', self.checkBox_Collection_meat.isChecked())
+        settings.setValue('采集木', self.checkBox_Collection_wood.isChecked())
+        settings.setValue('采集煤', self.checkBox_Collection_coal.isChecked())
+        settings.setValue('采集铁', self.checkBox_Collection_iron.isChecked())
         settings.setValue('采集英雄', self.checkBox_Collection_hero.isChecked())
         settings.setValue('采集资源等级设置', option_lv)
         settings.setValue('循环时间设置', option_cycle_time)
@@ -2027,7 +2080,7 @@ class Ui_MainWindow(object):
         self.checkBox_WM.setChecked(True)
         self.checkBox_npc.setChecked(True)
         self.checkBox_Production.setChecked(True)
-        # self.checkBox_build.setChecked(True)
+        self.checkBox_build.setChecked(True)
         self.checkBox_Collection.setChecked(True)
         self.checkBox_bear.setChecked(True)
         self.checkBox_treatment.setChecked(True)
@@ -2052,7 +2105,7 @@ class Ui_MainWindow(object):
         self.checkBox_WM.setChecked(False)
         self.checkBox_npc.setChecked(False)
         self.checkBox_Production.setChecked(False)
-        # self.checkBox_build.setChecked(False)
+        self.checkBox_build.setChecked(False)
         self.checkBox_Collection.setChecked(False)
         self.checkBox_bear.setChecked(False)
         self.checkBox_treatment.setChecked(False)
@@ -2173,18 +2226,12 @@ class MyApp(QMainWindow, Ui_MainWindow):
 
 
 if __name__ == '__main__':
-    client = ClientManager(network_address)
     client1 = ClientManager(network_address1)
-    '''if client.register():
-        print("注册成功")
-        version = client.check_version()[1]
-        if version:
-            print(f"服务器版本: {version}")
-    elif client1.register():
+    if  client1.register():
         print("注册成功")
         version = client1.check_version()[1]
         if version:
-            print(f"服务器版本: {version}")'''
+            print(f"服务器版本: {version}")
     # 解决不同电脑不同缩放比例问题
     QGuiApplication.setAttribute(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)  # type: ignore
     app = QApplication(sys.argv)

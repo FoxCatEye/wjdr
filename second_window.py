@@ -166,9 +166,10 @@ class Ui_NoticeWindow(object):
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.优化-采集结束逻辑</p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.新增-活动雪怪新增英雄使命选项</p>\n"
                                                          "<p style=\" margin-bottom:0px;\">V2.3.10</p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.优化采集：取消采集英雄选项，默认只有采集英雄出征，以识别采集英雄判断是否有队伍出征</p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.优化训练：取消满级兵营选项，脚本识别是否满级兵营</p>\n"
-                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.新增-功能旁增加功能介绍</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    1.新增-采集自定义采集资源种类</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    2.优化采集：取消采集英雄选项，默认只有采集英雄出征，以识别采集英雄判断是否有队伍出征</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    3.优化训练：取消满级兵营选项，脚本识别是否满级兵营</p>\n"
+                                                         "<p style=\" margin-top:0px; margin-bottom:0px;\">    4.新增-功能旁增加功能介绍</p>\n"
                                                          "<p style=\" margin-bottom:0px;\"></p>\n"
                                                          "<p style=\" margin-top:0px; margin-bottom:0px;\">    </p>\n"))
         self.textEdit.setReadOnly(True)  # 设置文本不可编辑状态

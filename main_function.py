@@ -747,37 +747,56 @@ def Collection(self):
     touch([2, 812])  # 点击左侧栏
     time.sleep(1)
     touch([500, 400])
-    if collection_value == 0 and not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.188, -0.127), resolution=(1080, 1920))):
-        print_space('无采肉队伍，执行采肉任务')
-        time.sleep(1)
-        Meat(self)
-    elif collection_value == 1 and not exists(Template(r"icon\tpl1720766916044.png",threshold=0.73, record_pos=(-0.188, -0.127), resolution=(
-            1080, 1920))):
-        print_space('无采集木头队伍，执行采木头任务')
-        time.sleep(1)
-        Wood(self)
-    elif collection_value == 2 and not exists(Template(r"icon\tpl1720766916045.png", threshold=0.65, record_pos=(-0.438, -0.163), resolution=(
-            1080, 1920))):
-        print_space('无采煤队伍，执行采煤任务')
-        time.sleep(1)
-        Coal(self)
-    elif collection_value == 3 and not exists(Template(r"icon\tpl1720766916046.png", threshold=0.7, rgb=True, record_pos=(-0.168, -0.088), resolution=(
-            1080, 1920))):
-        print_space('无采铁队伍，执行采铁任务')
-        time.sleep(1)
-        Iron(self)
-    else:
-        if collection_value == 0:
-            print_space('已有采肉队伍')
-        elif collection_value == 1:
-            print_space('已有采木材队伍')
-        elif collection_value == 2:
-            print_space('已有采煤队伍')
-        elif collection_value == 3:
-            print_space('已有采铁队伍')
-        print_space("采集任务结束，等待下次任务检测其他矿类")
-        touch(Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
-    collection_default += 1
+    if collection_value == 0:
+        if self.checkBox_Collection_meat.isChecked():
+            if not exists(Template(r"icon\tpl1720691682616.png", record_pos=(-0.188, -0.127), resolution=(1080, 1920))):
+                print_space('无采肉队伍，执行采肉任务')
+                time.sleep(1)
+                Meat(self)
+            else:
+                print_space('已有采肉队伍')
+                print_space("采集任务结束，等待下次任务检测其他矿类")
+                touch(Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+        else:
+            print_space("未勾选采集肉，等待下次任务检测其他矿类")
+    if collection_value == 1:
+        if self.checkBox_Collection_wood.isChecked():
+            if not exists(Template(r"icon\tpl1720766916044.png", threshold=0.73, record_pos=(-0.188, -0.127), resolution=(1080, 1920))):
+                print_space('无采集木头队伍，执行采木头任务')
+                time.sleep(1)
+                Wood(self)
+            else:
+                print_space('已有采木材队伍')
+                print_space("采集任务结束，等待下次任务检测其他矿类")
+                touch(Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+        else:
+            print_space("未勾选采集木材，等待下次任务检测其他矿类")
+    if collection_value == 2:
+        if self.checkBox_Collection_coal.isChecked():
+            if not exists(Template(r"icon\tpl1720766916045.png", threshold=0.65, record_pos=(-0.438, -0.163), resolution=(1080, 1920))):
+                print_space('无采煤队伍，执行采煤任务')
+                time.sleep(1)
+                Coal(self)
+            elif collection_value == 2:
+                print_space('已有采煤队伍')
+                print_space("采集任务结束，等待下次任务检测其他矿类")
+                touch(Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+        else:
+            print_space("未勾选采集煤炭，等待下次任务检测其他矿类")
+    if collection_value == 3:
+        if self.checkBox_Collection_iron.isChecked():
+            if not exists(Template(r"icon\tpl1720766916046.png", threshold=0.7, rgb=True, record_pos=(-0.168, -0.088), resolution=(
+                    1080, 1920))):
+                print_space('无采铁队伍，执行采铁任务')
+                time.sleep(1)
+                Iron(self)
+            else:
+                print_space('已有采铁队伍')
+                print_space("采集任务结束，等待下次任务检测其他矿类")
+                touch(Template(r"icon\tpl1719552273333.png", threshold=0.9, record_pos=(0.142, -0.126), resolution=(1080, 1920)))
+        else:
+            print_space("未勾选采集铁矿，等待下次任务检测其他矿类")
+    collection_default = collection_value + 1
 
 
 # 治疗

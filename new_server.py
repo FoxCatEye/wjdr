@@ -11,7 +11,7 @@ class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
 
 
 class RequestHandler(BaseHTTPRequestHandler):
-    daily_users = set()
+    daily_visits = defaultdict(set)  # 记录每日访问的客户端IP
     stats = defaultdict(int)
     last_save_date = date.today()
 
@@ -46,27 +46,38 @@ class RequestHandler(BaseHTTPRequestHandler):
         """保存当日统计并重置计数器"""
         today = date.today().isoformat()
         with open('version.txt', 'a', encoding='utf-8') as f:
-            f.write(f"\n# {today} 日活用户: {len(cls.daily_users)}\n")
-        cls.daily_users.clear()
+            f.write(f"\n# {today} 每日访问用户: {len(cls.daily_visits[today])}\n")
+        cls.daily_visits[today].clear()
         cls.last_save_date = date.today()
 
     @property
     def VERSION(self):
         return self.get_server_config()["version"]
 
-    '''def log_message(self, format, *args):
+    def log_message(self, format, *args):
         """重写此方法以禁止默认的日志输出"""
-        pass'''
+        pass
 
     def _set_headers(self, status=200):
         self.send_response(status)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
 
+    def _record_visit(self):
+        """记录客户端访问"""
+        today = date.today().isoformat()
+        client_ip = self.client_address[0]
+        if client_ip not in self.daily_visits[today]:
+            self.daily_visits[today].add(client_ip)
+            self.stats[today] = len(self.daily_visits[today])
+            print(f"[{datetime.now()}] 新访问: {client_ip} 今日访问: {self.stats[today]}")
+
     def do_GET(self):
         # 检查是否需要保存统计
         if date.today() != self.last_save_date:
             self.save_daily_stats()
+
+        self._record_visit()  # 记录访问
 
         if self.path == '/version':
             self._set_headers()
@@ -80,6 +91,9 @@ class RequestHandler(BaseHTTPRequestHandler):
         # 检查是否需要保存统计
         if date.today() != self.last_save_date:
             self.save_daily_stats()
+
+        self._record_visit()  # 记录访问
+
         if 'Content-Length' not in self.headers:
             self.send_error(411, "Length Required")
             return
@@ -99,14 +113,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_error(400, "Invalid JSON format")
             return
         if self.path == '/register':
-            client_ip = json_data.get('client_address')  # 从请求体中提取client_address
             today = datetime.now().strftime('%Y-%m-%d')
-
-            if client_ip not in self.daily_users:
-                self.daily_users.add(client_ip)
-                self.stats[today] = len(self.daily_users)
-                print(f"[{datetime.now()}] 新连接: {client_ip} 今日活跃: {self.stats[today]}")
-
             self._set_headers()
             self.wfile.write(json.dumps({
                 "status": "success", "active_users": self.stats[today]
