@@ -2011,10 +2011,11 @@ class Ui_MainWindow(object):
         settings.setValue('每日任务', self.checkBox_daily_task.isChecked())
         settings.setValue('生命之树', self.checkBox_tree_of_life.isChecked())
         settings.setValue('晨曦回礼', self.checkBox_morning_light_returns_gift.isChecked())
+        self.load_settings()
 
     @pyqtSlot()
     def select_start_button(self):  # 多选开始按钮
-        self.save_settings()  # type: ignore
+        self.save_ty_setting()  # type: ignore
         self.select_stop.show()  # type: ignore
         self.select_start.hide()  # type: ignore
         print("程序开始执行...")
