@@ -364,7 +364,7 @@ def NPC(self):
             active_version = Template(r"icon\tpl1719376586643-吉娜.png", record_pos=(0.106, -0.476), resolution=(1080, 1920))
         if exists(active_version):  # 判断是否有该道具
             print_space('使用活动道具')
-            touch(Template(r"icon\tpl1719376586643.png", record_pos=(0.106, -0.476), resolution=(1080, 1920)))  # 点击道具
+            touch(active_version)  # 点击道具
             touch(Template(r"icon\tpl1719376629723.png", record_pos=(0.0, 0.092), resolution=(1080, 1920)))  # 点击使用
             time.sleep(1)
             print_space('集结打怪')
