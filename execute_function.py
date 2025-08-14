@@ -7,7 +7,7 @@ from main_function import *
 '''打开模拟器''''''模拟器点击变量'''
 emulator_click = 0
 run_1 = True
-
+stop_event = threading.Event()
 def start_exe():
     while True:
         try:
@@ -33,10 +33,10 @@ def cnnect():
             print('%d.开始尝试连接模拟器' % a)
             if emulator_click == 3:
                 os.popen('adb start-server')
-            connect_ip = settings.value('模拟器ip地址', '127.0.0.1:5037/emulator-5554', type=str)
-            print('地址：android:// %s' % connect_ip)
+            connect_ip = settings.value('模拟器ip地址', 'emulator-5554', type=str)
+            print('地址：android://127.0.0.1:5037/ %s' % connect_ip)
             # print('地址：android://127.0.0.1:5037')
-            connect_device('android://%s' % connect_ip)
+            connect_device('android://127.0.0.1:5037/%s' % connect_ip)
             # connect_device('android://127.0.0.1:5037')
             time.sleep(5)
             print('连接模拟器成功!!!')

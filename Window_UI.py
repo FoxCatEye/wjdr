@@ -9,8 +9,6 @@ import socket
 import requests
 from configparser import ConfigParser
 import ctypes
-# 新版本检查及人数统计
-import requests
 from requests.exceptions import RequestException
 from datetime import datetime
 
@@ -28,7 +26,7 @@ from second_window import *
 
 logging.getLogger('airtest').setLevel(logging.ERROR)
 close_number = 1
-local_version = "2.4.0"  # 当前版本
+local_version = "2.4.1"  # 当前版本
 # network_address = "http://fukesihu.gnway.cc:80"  # 服务器地址1
 network_address1 = "http://fukesihu.iepose.cn"  # 服务器地址2
 
@@ -415,14 +413,14 @@ class Ui_MainWindow(object):
         self.select_ip_address.setObjectName("select_text")
         # 功能说明
         self.label_select_ip_address = self._create_label(107, 44, "连接模拟器需要，由本地地址＋端口号组成，ip错误将无法连接模拟器，无法使用\n"
-                                                                  "例：\n"
-                                                                  "    雷电地址1：127.0.0.1:5037/emulator-5554\n"
-                                                                  "    雷电地址2：127.0.0.1:5037/emulator-5556\n"
-                                                                  "    MuMu地址：127.0.0.1:7555/127.0.0.1:16384\n"
-                                                                  "    MuMu多开地址：127.0.0.1:7555/127.0.0.1:16448\n"
-                                                                  "  详细IP地址获取请查看使用教程"
-                                                                  "连接模拟器：\n"
-                                                                  "    模拟器和脚本打开后，脚本adb使用设置的IP连接模拟器", self.frame)
+                                                                   "例：\n"
+                                                                   "    雷电地址1：emulator-5554\n"
+                                                                   "    雷电地址2：emulator-5556\n"
+                                                                   "    MuMu地址1：127.0.0.1:16384\n"
+                                                                   "    MuMu地址2：127.0.0.1:16448\n"
+                                                                   "  详细IP地址获取请查看使用教程"
+                                                                   "连接模拟器：\n"
+                                                                   "    模拟器和脚本打开后，脚本adb使用设置的IP连接模拟器", self.frame)
         # 模拟器ip地址输入框
         self.lineEdit_ip_address = QLineEdit(self.frame)
         self.lineEdit_ip_address.setEnabled(True)
@@ -711,20 +709,37 @@ class Ui_MainWindow(object):
         self.label_XG.setObjectName("世界野怪文本")
         # 功能说明
         self.label_XG_info = self._create_label(70, 54, "开启后，执行刷世界野怪任务\n"
-                                                        "平均兵力：\n"
-                                                        "    出征时，在出征界面，自动点击平均兵力\n"
+                                                        "编组：\n"
+                                                        "    出征时选择预设好的编组出征\n"
                                                         "等级设置：\n"
                                                         "    设置出征野怪的等级，启动后第一次执行或\n"
-                                                        "设置有改动时，会执行重新输入等级操作", self.frame_task)
+                                                        "设置有改动时，会执行重新输入等级操作"
+                                                        "平均兵力(废弃)：\n"
+                                                        "    出征时，在出征界面，自动点击平均兵力\n", self.frame_task)
         # 开关选项
         self.checkBox_XG = QCheckBox(self.frame_task)  # 野怪
         self.checkBox_XG.setGeometry(QRect(90, 50, 71, 21))
         self.checkBox_XG.setObjectName("checkBox_XG")
         self.checkBox_XG.setStyleSheet("background-color: transparent")
+        # 世界野怪编组文本
+        self.label_XG_grouping = QLabel(self.frame_task)
+        self.label_XG_grouping.setGeometry(QRect(170, 50, 54, 21))
+        self.label_XG_grouping.setObjectName("label_WM_grouping")
+
+        # 创建下拉框并添加选项
+        self.combo_XG_grouping = QComboBox(self.frame_task)
+        self.combo_XG_grouping.setGeometry(QRect(210, 50, 70, 21))
+        self.combo_XG_grouping.addItems(["默认编组", "编组1", "编组2", "编组3", "编组4", "编组5", "编组6", "编组7", "编组8"])
+        self.combo_XG_grouping.currentIndexChanged.connect(self.combo_grouping_IndexChanged)
+        self.combo_XG_grouping.setStyleSheet("QComboBox {\n"
+                                             "    background-color: rgba(0, 0, 0, 0); /* 白色背景，150为透明度 */\n"
+                                             "    border: 1px solid rgba(0, 255, 0); /* 边框样式 */\n"
+                                             "}\n")
         # 世界野怪平均兵力选项
         self.checkBox_XG_average = QCheckBox(self.frame_task)
         self.checkBox_XG_average.setGeometry(QRect(170, 50, 71, 21))
         self.checkBox_XG_average.setObjectName("平均兵力")
+        self.checkBox_XG_average.setVisible(False)
         # 世界野怪等级文本
         self.label_XG_lv = QLabel(self.frame_task)
         self.label_XG_lv.setGeometry(QRect(350, 50, 54, 21))  # 显示等级文本
@@ -743,13 +758,15 @@ class Ui_MainWindow(object):
         self.label_WM.setObjectName("冰原巨兽文本")
         # 功能说明
         self.label_WM_info = self._create_label(70, 84, "开启后，执行刷冰原巨兽任务\n"
-                                                        "单兵集结：\n"
-                                                        "    出征时只上一个兵（英雄正常上）\n"
-                                                        "巨兽队列：\n"
-                                                        "    出征时选择预设好的第二序列的队伍\n"
+                                                        "编组：\n"
+                                                        "    出征时选择预设好的编组出征\n"
                                                         "巨兽等级：\n"
                                                         "    设置集结巨兽的等级，启动后第一次执行或\n"
-                                                        "设置有改动时，会执行重新输入等级操作", self.frame_task)
+                                                        "设置有改动时，会执行重新输入等级操作"
+                                                        "单兵集结（废弃）：\n"
+                                                        "    出征时只上一个兵（英雄正常上）\n"
+                                                        "巨兽队列（废弃）：\n"
+                                                        "    出征时选择预设好的第二序列的队伍\n", self.frame_task)
         # 开关选项
         self.checkBox_WM = QCheckBox(self.frame_task)  # 冰原巨兽
         self.checkBox_WM.setGeometry(QRect(90, 80, 71, 21))
@@ -758,15 +775,41 @@ class Ui_MainWindow(object):
         self.checkBox_WM_simple = QCheckBox(self.frame_task)
         self.checkBox_WM_simple.setGeometry(QRect(170, 80, 71, 21))
         self.checkBox_WM_simple.setObjectName("checkBox_ty_simple")
+        self.checkBox_WM_simple.setVisible(False)
+        # 冰原巨兽编组输入
+        self.lineEdit_WM_grouping = QLineEdit(self.frame_task)
+        self.lineEdit_WM_grouping.setGeometry(QRect(190, 80, 40, 21))
+        self.lineEdit_WM_grouping.setObjectName("lineEdit_WM")
+        self.lineEdit_WM_grouping.setStyleSheet("QLineEdit {\n"
+                                                "background: transparent;\n"
+                                                "border: 1px solid rgba(0, 255, 0)"
+                                                "}")
+        self.lineEdit_WM_grouping.setVisible(False)
+        # 冰原巨兽编组文本
+        self.label_WM_grouping = QLabel(self.frame_task)
+        self.label_WM_grouping.setGeometry(QRect(170, 80, 54, 21))
+        self.label_WM_grouping.setObjectName("label_WM_grouping")
+
+        # 创建下拉框并添加选项
+        self.combo_WM_grouping = QComboBox(self.frame_task)
+        self.combo_WM_grouping.setGeometry(QRect(210, 80, 70, 21))
+        self.combo_WM_grouping.addItems(["默认编组", "编组1", "编组2", "编组3", "编组4", "编组5", "编组6", "编组7", "编组8"])
+        self.combo_WM_grouping.currentIndexChanged.connect(self.combo_grouping_IndexChanged)
+        self.combo_WM_grouping.setStyleSheet("QComboBox {\n"
+                                             "    background-color: rgba(0, 0, 0, 0); /* 白色背景，150为透明度 */\n"
+                                             "    border: 1px solid rgba(0, 255, 0); /* 边框样式 */\n"
+                                             "}\n")
+
         # 冰原巨兽队列选项
         self.checkBox_WM_average = QCheckBox(self.frame_task)
         self.checkBox_WM_average.setGeometry(QRect(260, 80, 71, 21))
         self.checkBox_WM_average.setObjectName("巨兽队列")
+        self.checkBox_WM_average.setVisible(False)
         # 冰原巨兽等级文本
         self.label_WM_lv = QLabel(self.frame_task)
         self.label_WM_lv.setGeometry(QRect(350, 80, 54, 21))  # 显示等级文本
         self.label_WM_lv.setObjectName("label_WM_lv")
-        # 冰原巨兽输入
+        # 冰原巨兽等级输入
         self.lineEdit_WM = QLineEdit(self.frame_task)
         self.lineEdit_WM.setGeometry(QRect(400, 80, 31, 21))  # 显示等级输入框
         self.lineEdit_WM.setObjectName("lineEdit_WM")
@@ -827,12 +870,12 @@ class Ui_MainWindow(object):
         self.label_intelligence_info = self._create_label(70, 174, "开启后，执行刷情报任务\n"
                                                                    "情报版本：\n"
                                                                    "    勾选后，执行火晶版本的情报，默认版本是30级以下的无火晶版本，\n"
+                                                                   "烈焰獠牙：\n"
+                                                                   "    勾选后，执行烈焰獠牙活动任务"
                                                                    "情报品质（已弃用）：\n"
                                                                    "    勾选后，只做金色和紫色的情报\n"
                                                                    "十次情报（已弃用）：\n"
-                                                                   "    勾选后，执行十次情报后就不在执行情报任务\n"
-                                                                   "悬赏情报（已弃用）：\n"
-                                                                   "    勾选后，执行悬赏情报任务", self.frame_task)
+                                                                   "    勾选后，执行十次情报后就不在执行情报任务\n", self.frame_task)
         # 情报开关选项
         self.checkBox_intelligence = QCheckBox(self.frame_task)
         self.checkBox_intelligence.setGeometry(QRect(90, 170, 71, 21))
@@ -852,11 +895,11 @@ class Ui_MainWindow(object):
         self.checkBox_intelligence_number.setGeometry(QRect(260, 170, 71, 21))
         self.checkBox_intelligence_number.setObjectName("十次情报")
         self.checkBox_intelligence_number.setVisible(False)
-        # 悬赏情报选项
-        self.checkBox_intelligence_offer_a_reward = QCheckBox(self.frame_task)
-        self.checkBox_intelligence_offer_a_reward.setGeometry(QRect(350, 170, 71, 21))
-        self.checkBox_intelligence_offer_a_reward.setObjectName("悬赏情报")
-        self.checkBox_intelligence_offer_a_reward.setVisible(False)
+        # 烈焰獠牙选项
+        self.checkBox_intelligence_flame_fang = QCheckBox(self.frame_task)
+        self.checkBox_intelligence_flame_fang.setGeometry(QRect(260, 170, 71, 21))
+        self.checkBox_intelligence_flame_fang.setObjectName("烈焰獠牙")
+        self.checkBox_intelligence_flame_fang.setVisible(True)
         # 仓库补给文本
         self.label_warehouse = QLabel(self.frame_task)
         self.label_warehouse.setGeometry(QRect(20, 200, 54, 21))  # 显示文本
@@ -879,20 +922,37 @@ class Ui_MainWindow(object):
         self.label_bear.setObjectName("巨熊活动")
         # 功能说明
         self.label_bear_info = self._create_label(70, 234, "开启后，执行巨熊活动任务，只发车，不上车\n"
-                                                           "队列开关：\n"
-                                                           "    执行巨熊活动时，选择预设好的第一序列的队伍\n"
+                                                           "编组：\n"
+                                                           "    出征时选择预设好的编组出征\n"
                                                            "巨熊时间：\n"
                                                            "    设置执行巨熊任务的时间,单位为小时\n"
                                                            "例：\n"
-                                                           "    巨熊活动开始时间为21:30，巨熊时间填21", self.frame_task)
+                                                           "    巨熊活动开始时间为21:30，巨熊时间填21"
+                                                           "队列开关（废弃）：\n"
+                                                           "    执行巨熊活动时，选择预设好的第一序列的队伍\n", self.frame_task)
         # 开关选项
         self.checkBox_bear = QCheckBox(self.frame_task)  # 巨熊活动
         self.checkBox_bear.setGeometry(QRect(90, 230, 71, 21))
         self.checkBox_bear.setObjectName("checkBox_bear")
+        # 世界野怪编组文本
+        self.label_bear_grouping = QLabel(self.frame_task)
+        self.label_bear_grouping.setGeometry(QRect(170, 230, 54, 21))
+        self.label_bear_grouping.setObjectName("label_WM_grouping")
+
+        # 创建下拉框并添加选项
+        self.combo_bear_grouping = QComboBox(self.frame_task)
+        self.combo_bear_grouping.setGeometry(QRect(210, 230, 70, 21))
+        self.combo_bear_grouping.addItems(["默认编组", "编组1", "编组2", "编组3", "编组4", "编组5", "编组6", "编组7", "编组8"])
+        self.combo_bear_grouping.currentIndexChanged.connect(self.combo_grouping_IndexChanged)
+        self.combo_bear_grouping.setStyleSheet("QComboBox {\n"
+                                               "    background-color: rgba(0, 0, 0, 0); /* 白色背景，150为透明度 */\n"
+                                               "    border: 1px solid rgba(0, 255, 0); /* 边框样式 */\n"
+                                               "}\n")
         # 巨熊队列开关选项
         self.checkBox_bear_queue = QCheckBox(self.frame_task)  # 巨熊活动
         self.checkBox_bear_queue.setGeometry(QRect(170, 230, 71, 21))
         self.checkBox_bear_queue.setObjectName("队列开关")
+        self.checkBox_bear_queue.setVisible(False)
         # 巨熊时间文本
         self.label_bear_time = QLabel(self.frame_task)
         self.label_bear_time.setGeometry(QRect(350, 230, 54, 21))  # 显示时间文本
@@ -1480,7 +1540,9 @@ class Ui_MainWindow(object):
         self.checkBox_help.setFont(font)
         self.label_XG.setFont(font)
         self.checkBox_XG.setFont(font)
+        self.label_XG_grouping.setFont(font)
         self.label_WM.setFont(font)
+        self.label_WM_grouping.setFont(font)
         self.checkBox_WM.setFont(font)
         self.label_npc.setFont(font)
         self.checkBox_npc.setFont(font)
@@ -1507,6 +1569,7 @@ class Ui_MainWindow(object):
         self.label_Collection_lv.setFont(font)
         self.checkBox_Collection.setFont(font)
         self.label_bear.setFont(font)
+        self.label_bear_grouping.setFont(font)
         self.checkBox_bear.setFont(font)
         self.label_bear_time.setFont(font)
         self.label_donate.setFont(font)
@@ -1531,7 +1594,7 @@ class Ui_MainWindow(object):
         self.checkBox_intelligence.setFont(font)
         self.checkBox_intelligence_version.setFont(font)
         self.checkBox_intelligence_number.setFont(font)
-        self.checkBox_intelligence_offer_a_reward.setFont(font)
+        self.checkBox_intelligence_flame_fang.setFont(font)
         self.checkBox_intelligence_high_quality.setFont(font)
         self.checkBox_warehouse_physical_strength.setFont(font)
         '''self.radioButton_help.setFont(font)
@@ -1600,10 +1663,12 @@ class Ui_MainWindow(object):
         self.checkBox_Random_time.setText(_translate("MainWindow", "随机时间"))
         self.label_XG.setText(_translate("MainWindow", "世界野怪"))
         self.checkBox_XG.setText(_translate("MainWindow", "启用"))
+        self.label_XG_grouping.setText(_translate("MainWindow", "编组："))
         self.checkBox_XG_average.setText(_translate("MainWindow", "平均兵力"))
         self.label_XG_lv.setText(_translate("MainWindow", "等级设置:"))
         self.label_WM.setText(_translate("MainWindow", "冰原巨兽"))
         self.checkBox_WM.setText(_translate("MainWindow", "启用"))
+        self.label_WM_grouping.setText(_translate("MainWindow", "编组："))
         self.checkBox_WM_simple.setText(_translate("MainWindow", "单兵集结"))
         self.checkBox_WM_average.setText(_translate("MainWindow", "巨兽队列"))
         self.label_WM_lv.setText(_translate("MainWindow", "等级设置:"))
@@ -1637,6 +1702,7 @@ class Ui_MainWindow(object):
         self.label_Collection_lv.setText(_translate("MainWindow", "等级设置:"))
         self.label_bear.setText(_translate("MainWindow", "巨熊活动"))
         self.checkBox_bear.setText(_translate("MainWindow", "启用"))
+        self.label_bear_grouping.setText(_translate("MainWindow", "编组："))
         self.checkBox_bear_queue.setText(_translate("MainWindow", "巨熊队列"))
         self.label_bear_time.setText(_translate("MainWindow", "时间/时"))
         self.checkBox_heroic_mission.setText(_translate("MainWindow", "英雄使命"))
@@ -1645,7 +1711,7 @@ class Ui_MainWindow(object):
         self.checkBox_intelligence_version.setText(_translate("MainWindow", "火晶版本"))
         self.checkBox_intelligence_high_quality.setText(_translate("MainWindow", "金紫品质"))
         self.checkBox_intelligence_number.setText(_translate("MainWindow", "十次情报"))
-        self.checkBox_intelligence_offer_a_reward.setText(_translate("MainWindow", "悬赏情报"))
+        self.checkBox_intelligence_flame_fang.setText(_translate("MainWindow", "烈焰獠牙"))
         self.label_donate.setText(_translate("MainWindow", "联盟捐赠"))
         self.checkBox_donate.setText(_translate("MainWindow", "启用"))
         self.label_recruit.setText(_translate("MainWindow", "英雄招募"))
@@ -1694,13 +1760,24 @@ class Ui_MainWindow(object):
         self.help_button.setText(_translate("MainWindow", "功能说明"))
         self.hide_UI.setText(_translate("MainWindow", "隐藏UI"))
 
+    def combo_grouping_IndexChanged(self):  # 保存编组
+        settings.setValue('巨兽下拉框标记', self.combo_WM_grouping.currentIndex())
+        settings.setValue('巨兽下拉框文本', self.combo_WM_grouping.currentText())
+        settings.setValue('世界野怪下拉框标记', self.combo_XG_grouping.currentIndex())
+        settings.setValue('世界野怪下拉框文本', self.combo_XG_grouping.currentText())
+        settings.setValue('巨熊下拉框标记', self.combo_bear_grouping.currentIndex())
+        settings.setValue('巨熊下拉框文本', self.combo_bear_grouping.currentText())
+
     @pyqtSlot()
     def load_settings(self):  # 读取设置
         # global settings
         simulator_address = settings.value('模拟器安装地址', r'E:\leidian\LDPlayer9\dnplayer.exe', type=str)
-        simulator_ip_address = settings.value('模拟器ip地址', '127.0.0.1:5037/emulator-5554', type=str)
+        simulator_ip_address = settings.value('模拟器ip地址', 'emulator-5554', type=str)
         option_time = settings.value('开启定时', 1, type=bool)
         option_pet_Unlock = settings.value("增益已解锁", 1, type=bool)
+        index_WM = settings.value('巨兽下拉框标记', 0, type=int)
+        index_XG = settings.value('世界野怪下拉框标记', 0, type=int)
+        index_bear = settings.value('巨熊下拉框标记', 0, type=int)
         option1 = settings.value('联盟互助', 0, type=bool)
         option2 = settings.value('世界野怪', 0, type=bool)
         option3 = settings.value('冰原巨兽', 0, type=bool)
@@ -1728,6 +1805,9 @@ class Ui_MainWindow(object):
         # self.comboBox.setCurrentIndex(simulator_settings)
         # 2.3.0版本取消单项功能区
         # self.radioButton_group.button(option).setChecked(True)
+        self.combo_WM_grouping.setCurrentIndex(index_WM)
+        self.combo_XG_grouping.setCurrentIndex(index_XG)
+        self.combo_bear_grouping.setCurrentIndex(index_bear)
         self.lineEdit_address.setText(simulator_address)
         self.lineEdit_ip_address.setText(simulator_ip_address)
         self.select_time.setChecked(option_time)
@@ -1774,7 +1854,7 @@ class Ui_MainWindow(object):
         option_cycle_time = settings.value('循环时间设置', 10, type=str)
         option_intelligence_version = settings.value('火晶版本', 1, type=bool)
         option_intelligence_number = settings.value('十次情报', 0, type=bool)
-        option_intelligence_offer_a_reward = settings.value('悬赏情报', 0, type=bool)
+        option_intelligence_flame_fang = settings.value('烈焰獠牙', 0, type=bool)
         option_intelligence_high_quality = settings.value('金紫品质', 0, type=bool)
         option_physical_strength = settings.value('仓库体力', 1, type=bool)
         option_bear_queue = settings.value('巨熊队列', 0, type=bool)
@@ -1805,7 +1885,7 @@ class Ui_MainWindow(object):
         self.checkBox_XG_average.setChecked(option_ty_XG_average)
         self.checkBox_intelligence_version.setChecked(option_intelligence_version)
         self.checkBox_intelligence_number.setChecked(option_intelligence_number)
-        self.checkBox_intelligence_offer_a_reward.setChecked(option_intelligence_offer_a_reward)
+        self.checkBox_intelligence_flame_fang.setChecked(option_intelligence_flame_fang)
         self.checkBox_intelligence_high_quality.setChecked(option_intelligence_high_quality)
         self.checkBox_warehouse_physical_strength.setChecked(option_physical_strength)
         self.checkBox_bear_queue.setChecked(option_bear_queue)
@@ -1839,7 +1919,7 @@ class Ui_MainWindow(object):
         settings.setValue('循环时间设置', option_cycle_time)
         settings.setValue('火晶版本', self.checkBox_intelligence_version.isChecked())
         settings.setValue('十次情报', self.checkBox_intelligence_number.isChecked())
-        settings.setValue('悬赏情报', self.checkBox_intelligence_offer_a_reward.isChecked())
+        settings.setValue('烈焰獠牙', self.checkBox_intelligence_flame_fang.isChecked())
         settings.setValue('金紫品质', self.checkBox_intelligence_high_quality.isChecked())
         settings.setValue('仓库体力', self.checkBox_warehouse_physical_strength.isChecked())
         settings.setValue('巨熊队列', self.checkBox_bear_queue.isChecked())
@@ -2242,5 +2322,5 @@ if __name__ == '__main__':
     # sys.stdout = mainWindow
     # sys.stderr = mainWindow
     mainWindow.show()
-    mainWindow.open_noticeable()
+    # mainWindow.open_noticeable()  # 启动时显示第二窗口：更新提示
     sys.exit(app.exec_())

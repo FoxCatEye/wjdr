@@ -16,7 +16,7 @@ ST.FIND_TIMEOUT = 2.5  # 设置全局识别超时为秒
 number_physical_strength = 0
 intelligence_number = 0  # 情报次数
 
-stop_event = threading.Event()
+
 
 
 # Identification_State = True
@@ -114,8 +114,6 @@ def re_connet():
 
 # 互助功能
 def Help(self):
-    if stop_event.is_set():  # 在函数开始时检查是否停止
-        return  # 如果停止，直接返回
     if exists(Template(r"icon\tpl1718936896202.png", record_pos=(0.248, 0.735), resolution=(1080, 1920))):  # 判断是否有盟员求助
         print_space("有盟员求助，需点击援助按钮")
         if self.checkBox_Random_time.isChecked():
@@ -124,8 +122,6 @@ def Help(self):
             time.sleep(random_number)  # 等待随机时间后
         record = random.randint(1, 9)
         print_space('随机点击位置：%s' % record)
-        if stop_event.is_set():  # 点击前检查是否停止
-            return  # 如果停止，直接返回
         check_and_touch(Template(r"icon\tpl1718936896202.png", target_pos=record, record_pos=(0.248, 0.735), resolution=(1080, 1920)))
     else:
         print_space("未找到求助按钮，进行下一个任务")
@@ -428,9 +424,37 @@ def Brush_XG(self):
         print_space('未找到攻击按钮图案，如游戏内有，请检查模拟器和游戏相关设置或使用自助修复')
     time.sleep(1)  # 等待1s
     if exists(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920))):  # 判断是否有兵力
-        if self.checkBox_XG_average.isChecked():  # 平均兵力选项
+        '''if self.checkBox_XG_average.isChecked():  # 平均兵力选项
             print_space('点击平均配置')
-            touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))
+            touch(Template(r"icon\tpl1721191349774.png", record_pos=(-0.118, 0.782), resolution=(1080, 1920)))'''
+        index_XG = settings.value('世界野怪下拉框标记', 0, type=int)
+        if index_XG == 0:
+            print_space('使用默认编组')
+        elif index_XG == 1:
+            print_space('使用编组1出征,点击编组1')
+            touch([100, 185])
+        elif index_XG == 2:
+            print_space("使用编组2出征,点击编组2")
+            touch([210, 185])
+        elif index_XG == 3:
+            print_space("使用编组3出征,点击编组3")
+            touch([320, 185])
+        elif index_XG == 4:
+            print_space("使用编组4出征,点击编组4")
+            touch([430, 185])
+        elif index_XG == 5:
+            print_space("使用编组5出征,点击编组5")
+            touch([540, 185])
+        elif index_XG == 6:
+            print_space("使用编组6出征,点击编组6")
+            touch([650, 185])
+        elif index_XG == 7:
+            print_space("使用编组7出征,点击编组7")
+            touch([760, 185])
+        elif index_XG == 8:
+            print_space("使用编组8出征,点击编组8")
+            touch([870, 185])
+        print_space('点击出征')
         energy()
     else:
         print_space('兵力不足，暂停打野怪')
@@ -448,9 +472,36 @@ def bear(self):
         if exists(Template(r"icon/tpl1721784579066.png", record_pos=(0.26, 0.795), resolution=(1080, 1920))):
             print_space('发起集结')
             touch(Template(r"icon/tpl1721784579066.png", record_pos=(0.26, 0.795), resolution=(1080, 1920)))
-            if self.checkBox_bear_queue.isChecked():  # 巨熊队列选项
+            '''if self.checkBox_bear_queue.isChecked():  # 巨熊队列选项
                 print_space('点击队列1')
-                touch([90, 185])
+                touch([90, 185])'''
+            index_bear = settings.value('巨熊下拉框标记', 0, type=int)
+            if index_bear == 0:
+                print_space('使用默认编组')
+            elif index_bear == 1:
+                print_space('使用编组1出征,点击编组1')
+                touch([100, 185])
+            elif index_bear == 2:
+                print_space("使用编组2出征,点击编组2")
+                touch([210, 185])
+            elif index_bear == 3:
+                print_space("使用编组3出征,点击编组3")
+                touch([320, 185])
+            elif index_bear == 4:
+                print_space("使用编组4出征,点击编组4")
+                touch([430, 185])
+            elif index_bear == 5:
+                print_space("使用编组5出征,点击编组5")
+                touch([540, 185])
+            elif index_bear == 6:
+                print_space("使用编组6出征,点击编组6")
+                touch([650, 185])
+            elif index_bear == 7:
+                print_space("使用编组7出征,点击编组7")
+                touch([760, 185])
+            elif index_bear == 8:
+                print_space("使用编组8出征,点击编组8")
+                touch([870, 185])
             print_space('点击出征')
             touch(Template(r"icon/tpl1721784579067.png", record_pos=(0.002, 0.705), resolution=(1080, 1920)))
             print_space('出征成功')
@@ -505,8 +556,36 @@ def Brush_WM(self):
         touch(Template(r"icon\tpl1719376776844.png", rgb=True, record_pos=(0.0, 0.326), resolution=(1080, 1920)))  # 点击发起集结
         time.sleep(1)  # 等待0.5s
         if exists(Template(r"icon\tpl1719376787180.png", record_pos=(0.263, 0.773), resolution=(1080, 1920))):  # 有兵力可出征
-            if self.checkBox_WM_average.isChecked():  # 巨兽队列选项
-                print_space('点击队列2')
+            index = settings.value('巨兽下拉框标记', 0, type=int)
+            if index == 0:
+                print_space("使用默认编组出征")
+            elif index == 1:
+                print_space("使用编组1出征,点击编组1")
+                touch([100, 185])
+            elif index == 2:
+                print_space("使用编组2出征,点击编组2")
+                touch([210, 185])
+            elif index == 3:
+                print_space("使用编组3出征,点击编组3")
+                touch([320, 185])
+            elif index == 4:
+                print_space("使用编组4出征,点击编组4")
+                touch([430, 185])
+            elif index == 5:
+                print_space("使用编组5出征,点击编组5")
+                touch([540, 185])
+            elif index == 6:
+                print_space("使用编组6出征,点击编组6")
+                touch([650, 185])
+            elif index == 7:
+                print_space("使用编组7出征,点击编组7")
+                touch([760, 185])
+            elif index == 8:
+                print_space("使用编组8出征,点击编组8")
+                touch([870, 185])
+            # 因新增编组选项，弃用巨兽队列及单兵集结
+            '''elif self.checkBox_WM_average.isChecked():  # 巨兽队列选项
+                print_space('点击编组2')
                 touch([210, 185])
             elif self.checkBox_WM_simple.isChecked():  # 单兵集结
                 print_space('点击全部撤回')
@@ -523,7 +602,8 @@ def Brush_WM(self):
                 time.sleep(1)
                 text('1')
                 # print_space('点击确定按钮')
-                time.sleep(1)  # touch(Template(r"icon/sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))#第三方库自带确定功能，取消点击确定按钮
+                time.sleep(1)  
+                # touch(Template(r"icon/sure_button.png", record_pos=(0.404, 0.852), resolution=(1080, 1920)))#第三方库自带确定功能，取消点击确定按钮'''
             print_space('点击出征按钮')
             energy()
         else:  # 判断是否有多余兵力
@@ -1090,14 +1170,14 @@ def intelligence(self):
         # 模拟按下手机的返回键
         keyevent('BACK')
     # if self.checkBox_intelligence_offer_a_reward.isChecked():  # 判断是否开启悬赏情报
-    # 取消悬赏功能
-    '''if self.checkBox_intelligence_offer_a_reward.isChecked() and check_and_touch(Template(r"icon/tpl1745923009141.png", rgb=True, record_pos=(
-            0.117, -0.329), resolution=(1080, 1920)), "找到悬赏图案，点击图案", "未找到悬赏图案"):  # 判断是否开启悬赏情报:  # 金色爪子及紫色爪子
+    # 烈焰獠牙
+    if self.checkBox_intelligence_flame_fang.isChecked() and check_and_touch(Template(r"icon/炽红巨兽.png", rgb=True, record_pos=(
+            0.117, -0.329), resolution=(1080, 1920)), "找到炽红巨兽图案，点击图案", "未找到炽红巨兽图案"):
         time.sleep(1)
         # print_space("找到悬赏图案，点击图案")
         # 判定是否有前往查看按钮
         if exists(Template(r"icon/tpl1745923856051.png", record_pos=(-0.002, 0.324), resolution=(1080, 1920))):
-            print_space('正在执行悬赏情报任务，退出情报')
+            print_space('正在执行炽红巨兽任务中，退出情报')
             keyevent('BACK')  # 模拟按下手机的返回键
             time.sleep(1)
             keyevent('BACK')  # 模拟按下手机的返回键
@@ -1122,9 +1202,8 @@ def intelligence(self):
                 print_space("出征成功")
         else:
             print_space('领取奖励成功')
-            intelligence_number += 1'''
     # print_space('未开启/找到悬赏，进入普通情报')
-    if self.checkBox_intelligence_version.isChecked():  # 判断是否勾选了火晶版本
+    elif self.checkBox_intelligence_version.isChecked():  # 判断是否勾选了火晶版本
         if check_and_touch(Template(r"icon/tpl1736410865667.png", record_pos=(0.115, -0.139), resolution=(
                 1080, 1920)), "找到火晶爪子图案，点击图案", "未找到火晶爪子图案"):  # 金色爪子及紫色爪子
             time.sleep(1)
