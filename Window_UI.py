@@ -551,7 +551,7 @@ class Ui_MainWindow(object):
                                                              "    8.巨熊活动：21点时检测\n"
                                                              "    9.治疗士兵：分钟个位数为5时检测，相当于每过一小时就\n检查\n"
                                                              "    10.探险奖励：分钟数为14时检测，每小时分钟数为14，28,\n42，56检查\n"
-                                                             "    11.联盟捐赠：分钟数为1时检测，相当于每过一小时就检查\n"
+                                                             "    11.联盟捐赠：小时为偶数，分钟数为3时检测，相当于每过2小时就检查\n"
                                                              "    12.英雄招募：凌晨1点时分钟数为5的倍数时会检查是否有免\n费次数\n"
                                                              "    13.攻击检测：开启后轮到就检测，检测城堡和撞矿攻击\n"
                                                              "    14.邮件领取：分钟数为30时领取邮件内联盟，系统，报告的\n奖励（5次领取）\n"
@@ -713,7 +713,7 @@ class Ui_MainWindow(object):
                                                         "    出征时选择预设好的编组出征\n"
                                                         "等级设置：\n"
                                                         "    设置出征野怪的等级，启动后第一次执行或\n"
-                                                        "设置有改动时，会执行重新输入等级操作"
+                                                        "设置有改动时，会执行重新输入等级操作\n"
                                                         "平均兵力(废弃)：\n"
                                                         "    出征时，在出征界面，自动点击平均兵力\n", self.frame_task)
         # 开关选项
@@ -762,7 +762,7 @@ class Ui_MainWindow(object):
                                                         "    出征时选择预设好的编组出征\n"
                                                         "巨兽等级：\n"
                                                         "    设置集结巨兽的等级，启动后第一次执行或\n"
-                                                        "设置有改动时，会执行重新输入等级操作"
+                                                        "设置有改动时，会执行重新输入等级操作\n"
                                                         "单兵集结（废弃）：\n"
                                                         "    出征时只上一个兵（英雄正常上）\n"
                                                         "巨兽队列（废弃）：\n"
@@ -927,14 +927,14 @@ class Ui_MainWindow(object):
                                                            "巨熊时间：\n"
                                                            "    设置执行巨熊任务的时间,单位为小时\n"
                                                            "例：\n"
-                                                           "    巨熊活动开始时间为21:30，巨熊时间填21"
+                                                           "    巨熊活动开始时间为21:30，巨熊时间填21\n"
                                                            "队列开关（废弃）：\n"
                                                            "    执行巨熊活动时，选择预设好的第一序列的队伍\n", self.frame_task)
         # 开关选项
         self.checkBox_bear = QCheckBox(self.frame_task)  # 巨熊活动
         self.checkBox_bear.setGeometry(QRect(90, 230, 71, 21))
         self.checkBox_bear.setObjectName("checkBox_bear")
-        # 世界野怪编组文本
+        # 巨熊编组文本
         self.label_bear_grouping = QLabel(self.frame_task)
         self.label_bear_grouping.setGeometry(QRect(170, 230, 54, 21))
         self.label_bear_grouping.setObjectName("label_WM_grouping")

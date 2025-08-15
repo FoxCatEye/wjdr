@@ -282,7 +282,7 @@ def subject(self):
                         break
                 except:
                     print('程序执行异常，结束该任务，执行其他任务')
-            if self.checkBox_donate.isChecked() and now.hour % 2 and now.minute == 1 and now.hour != 23:
+            if self.checkBox_donate.isChecked() and now.hour % 2 and now.minute == 3 and now.hour != 23:
                 try:
                     print('%d.开始执行捐赠任务' % run_number)
                     Homepage()  # 主页检查

@@ -237,7 +237,7 @@ class Ui_helpWindow(object):
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑧.巨熊活动：21点时检测</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑨.治疗士兵：分钟个位数为5时检测，相当于每过一小时就检查</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩.探险奖励：分钟数为14时检测，每小时分钟数为14，28,42，56检查</p>\n"
-                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩①.联盟捐赠：分钟数为1时检测，相当于每过一小时就检查</p>\n"
+                                                       "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩①.联盟捐赠：小时为偶数，分钟数为3时检测，相当于每过2小时就检查</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩②.英雄招募：凌晨1点时分钟数为5的倍数时会检查是否有免费次数</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩③.攻击检测：开启后轮到就检测，检测城堡和撞矿攻击</p>\n"
                                                        "<p style=\" margin-top:0px; margin-bottom:0px;\">        ⑩④.邮件领取：分钟数为30时领取邮件内联盟，系统，报告的奖励（5次领取）</p>\n"
